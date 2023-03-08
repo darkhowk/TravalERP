@@ -1,0 +1,18 @@
+{% extends "base/base.html" %}
+{% block content %}
+<div class="container-fluid">
+    <h1 class="mt-4">menu</h1>
+
+     <div class="row">
+        <div class="col-xl-8">
+            <div class="card mb-4">
+            {% for list in object_list %}  
+                <div class="card-header">                   
+                    <p><a href="#">{{list.menu_name}}</a></p>
+                </div>
+            {% endfor %}              
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

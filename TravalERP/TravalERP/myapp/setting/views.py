@@ -1,5 +1,7 @@
 from django.shortcuts import render
 from django.views import generic
+from .model import Menu
+
 # Create your views here.
 
 class firstIndex(generic.ListView):
@@ -16,3 +18,6 @@ class firstIndex(generic.ListView):
                         "dataList":""}
 
         return render(request, self.template_name, self.content)
+    
+class settingList(generic.ListView):
+    model = Menu
