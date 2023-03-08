@@ -4,5 +4,5 @@ from . import views
 app_name = "setting"
 
 urlpatterns = [    
-    path("setting.do", views.index.as_view(), name="setting"),
+    path("", views.firstIndex.as_view(), name="first_index"), 
 ]
