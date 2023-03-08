@@ -30,9 +30,9 @@ print('TEMPLATES_DIR : ',TEMPLATES_DIR)
 SECRET_KEY = 'django-insecure-00*t_sfcmcz(9h-^)&o+uv$c!d*n+7l+!c()&9%b#k-wjxlk7h'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+#DEBUG = True
 
-ALLOWED_HOSTS = []
+#ALLOWED_HOSTS = []
 
 
 # Application definition
