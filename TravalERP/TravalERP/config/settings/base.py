@@ -49,6 +49,13 @@ DJANGO_BASE_APP = [
 MY_APP = [
     'myapp.setting',
     'myapp.dashborad',
+    'myapp.booking',
+    'myapp.rooming',
+    'myapp.itinerary',
+    'myapp.invoice',
+    'myapp.statement',
+    'myapp.tourconductor',
+    
 ]
 INSTALLED_APPS = DJANGO_BASE_APP + MY_APP
 
