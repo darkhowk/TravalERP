@@ -2,7 +2,7 @@
     <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
         <div class="sb-sidenav-menu">
             <div class="nav">
-                {% for list in object_list %} 
+                {% for list in leftMenu %} 
                     {% if list.menu_type == 'LEFT'%}
                         {% if list.upper_menu == 'M0000'%}
                         <hr class="sidebar-divider">

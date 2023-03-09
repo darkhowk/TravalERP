@@ -6,5 +6,5 @@ from . import views
 app_name = "itinerary"
 
 urlpatterns = [    
-    path("itinerary/", views.itineraryIndex.as_view(), name="itinerary_index"), 
+    path("itinerary/", views.itineraryIndex.as_view(), name="확정서"), 
 ]

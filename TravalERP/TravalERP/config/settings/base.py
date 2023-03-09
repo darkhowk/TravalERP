@@ -48,7 +48,7 @@ DJANGO_BASE_APP = [
 
 MY_APP = [
     'myapp.setting',
-    'myapp.dashborad',
+    'myapp.dashboard',
     'myapp.booking',
     'myapp.rooming',
     'myapp.itinerary',

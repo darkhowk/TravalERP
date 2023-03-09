@@ -6,5 +6,5 @@ from . import views
 app_name = "invoice"
 
 urlpatterns = [    
-    path("invoice/", views.invoiceIndex.as_view(), name="invoice_index"), 
+    path("invoice/", views.invoiceIndex.as_view(), name="인보이스"), 
 ]

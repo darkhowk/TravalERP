@@ -1,11 +1,11 @@
 <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
     <!-- Navbar Brand-->
-    <a class="navbar-brand ps-3" href="/">TON TOUR</a>
+    <a class="navbar-brand ps-3" href="/dashborad">TON TOUR</a>
     </div>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
-        {% for list in object_list %} 
+        {% for list in topMenu %} 
           {% if list.menu_type == 'TOP'%}
             <li class="nav-item">
               <a class="nav-link" href="javascript:movePage('{{list.link}}');">{{list.menu_name}}</a>

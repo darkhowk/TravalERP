@@ -4,5 +4,5 @@ from . import views
 app_name = "setting"
 
 urlpatterns = [    
-    path("setting/", views.settingList.as_view(), name="setting_list"), 
+    path("setting/", views.settingIndex.as_view(), name="설정"), 
 ]
