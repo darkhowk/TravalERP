@@ -47,7 +47,8 @@ DJANGO_BASE_APP = [
 ]
 
 MY_APP = [
-    'myapp.setting'
+    'myapp.setting',
+    'myapp.dashborad',
 ]
 INSTALLED_APPS = DJANGO_BASE_APP + MY_APP
 

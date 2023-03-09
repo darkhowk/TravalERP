@@ -20,6 +20,7 @@ from django.conf import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("", include("myapp.setting.urls")),
+    path("", include("myapp.dashborad.urls")),
 ]
 
 if settings.DEBUG:
