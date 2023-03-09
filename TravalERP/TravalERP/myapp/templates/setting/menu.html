@@ -1,0 +1,182 @@
+{% extends "base/setting_base.html" %}
+{% block content %}
+<div class="container-fluid">
+    <div class="card mb-4">
+        <div class="card-header">
+           메뉴 내역
+        </div>
+        <div class="card-body">
+            <div class="datatable-wrapper datatable-loading no-footer sortable searchable fixed-columns">
+                <div class="datatable-top">
+                    <!--
+                    <div class="datatable-dropdown">
+                        <label>
+                            <select class="datatable-selector">
+                                <option value="5">5</option>
+                                <option value="10" selected="">10</option>
+                                <option value="15">15</option>
+                                <option value="20">20</option>
+                                <option value="25">25</option>
+                            </select>
+                            페이지당 목록표시
+                        </label>
+                    </div>
+          
+                    <div class="datatable-search">
+                        <input
+                            class="datatable-input"
+                            placeholder="Search..."
+                            type="search"
+                            title="Search within table"
+                            aria-controls="datatablesSimple"
+                        />
+                    </div>
+                              -->
+                </div>
+                <div class="datatable-container">
+                    <table id="datatablesSimple" class="datatable-table">
+                        <thead>
+                            <tr>
+                                <th data-sortable="true" style="width: 5%" aria-sort="ascending" class="datatable-ascending">
+                                    <a href="#" class="datatable-sorter">메뉴</a>
+                                </th>
+                                <th data-sortable="true" style="width: 10%" aria-sort="ascending" class="datatable-ascending">
+                                    <a href="#" class="datatable-sorter">메뉴명</a>
+                                </th>
+                                <th data-sortable="true" style="width: 7%" aria-sort="ascending" class="datatable-ascending">
+                                    <a href="#" class="datatable-sorter">상위메뉴</a>
+                                    
+                                </th>
+                                <th data-sortable="true" style="width: 7%" aria-sort="ascending" class="datatable-ascending">
+                                    <a href="#" class="datatable-sorter">사용여부</a>
+                                    
+                                </th>
+                                <th data-sortable="true" style="width: 5%" aria-sort="ascending" class="datatable-ascending">
+                                    <a href="#" class="datatable-sorter">등록자</a>
+                                    
+                                </th>
+                                <th data-sortable="true" style="width: 12%" aria-sort="ascending" class="datatable-ascending">
+                                    <a href="#" class="datatable-sorter">등록일</a>
+                                    
+                                </th>
+                                <th data-sortable="true" style="width: 5%" aria-sort="ascending" class="datatable-ascending">
+                                    <a href="#" class="datatable-sorter">수정자</a>
+                                    
+                                </th>
+                                <th data-sortable="true" style="width: 12%" aria-sort="ascending" class="datatable-ascending">
+                                    <a href="#" class="datatable-sorter">수정일</a>
+                                    
+                                </th>
+                                <th data-sortable="true" style="width: 10%" aria-sort="ascending" class="datatable-ascending">
+                                    <a href="#" class="datatable-sorter">아이콘</a>
+                                    
+                                </th>
+                                <th data-sortable="true" style="width: 7%" aria-sort="ascending" class="datatable-ascending">
+                                    <a href="#" class="datatable-sorter">메뉴타입</a>
+                                    
+                                </th>
+                                <th data-sortable="true" style="width: 10%" aria-sort="ascending" class="datatable-ascending">
+                                    <a href="#" class="datatable-sorter">링크</a>
+                                    
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for list in Menu %}
+                                <tr data-index="{{ forloop.counter0 }}">
+                                    <td>{{list.menu}}</td>
+                                    <td>{{list.menu_name}}</td>
+                                    <td>{{list.upper_menu}}</td>
+                                    <td>{{list.use_yn}}</td>
+                                    <td>{{list.entry_id}}</td>
+                                    <td>{{list.entry_date}}</td>
+                                    <td>{{list.updat_id}}</td>
+                                    <td>{{list.updat_date}}</td>
+                                    <td>{{list.icon}}</td>
+                                    <td>{{list.menu_type}}</td>
+                                    <td>{{list.link}}</td>
+
+                                </tr>
+                            {% endfor %}
+                      
+                        </tbody>
+                    </table>
+                </div>
+                <!--
+        
+                <div class="datatable-bottom">
+                    <div class="datatable-info">57개 항목 중 1~10개 항목 표시</div>
+                    <nav class="datatable-pagination">
+                        <ul class="datatable-pagination-list">
+                            <li
+                                class="datatable-pagination-list-item datatable-hidden datatable-disabled"
+                            >
+                                <a
+                                    data-page="1"
+                                    class="datatable-pagination-list-item-link"
+                                    >‹</a
+                                >
+                            </li>
+                            <li
+                                class="datatable-pagination-list-item datatable-active"
+                            >
+                                <a
+                                    data-page="1"
+                                    class="datatable-pagination-list-item-link"
+                                    >1</a
+                                >
+                            </li>
+                            <li class="datatable-pagination-list-item">
+                                <a
+                                    data-page="2"
+                                    class="datatable-pagination-list-item-link"
+                                    >2</a
+                                >
+                            </li>
+                            <li class="datatable-pagination-list-item">
+                                <a
+                                    data-page="3"
+                                    class="datatable-pagination-list-item-link"
+                                    >3</a
+                                >
+                            </li>
+                            <li class="datatable-pagination-list-item">
+                                <a
+                                    data-page="4"
+                                    class="datatable-pagination-list-item-link"
+                                    >4</a
+                                >
+                            </li>
+                            <li class="datatable-pagination-list-item">
+                                <a
+                                    data-page="5"
+                                    class="datatable-pagination-list-item-link"
+                                    >5</a
+                                >
+                            </li>
+                            <li class="datatable-pagination-list-item">
+                                <a
+                                    data-page="6"
+                                    class="datatable-pagination-list-item-link"
+                                    >6</a
+                                >
+                            </li>
+                            <li class="datatable-pagination-list-item">
+                                <a
+                                    data-page="2"
+                                    class="datatable-pagination-list-item-link"
+                                    ></a
+                                >
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+                -->
+            </div>
+        </div>
+    </div>
+</div>    
+{% endblock %}
+{% block js %}
+    {{block.super}}      
+{% endblock js %}
