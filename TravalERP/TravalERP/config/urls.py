@@ -22,6 +22,12 @@ urlpatterns = [
     path("", include("myapp.setting.urls")),
     path("", include("myapp.dashborad.urls")),
     path("", include("myapp.booking.urls")),
+    path("", include("myapp.rooming.urls")),
+    path("", include("myapp.itinerary.urls")),
+    path("", include("myapp.invoice.urls")),
+    path("", include("myapp.statement.urls")),
+    path("", include("myapp.tourconductor.urls")),
+
 ]
 
 if settings.DEBUG:
