@@ -143,7 +143,7 @@ class Menu(models.Model):
     updat_date = models.DateTimeField(db_column='UPDAT_DATE', blank=True, null=True)  # Field name made lowercase.
     icon = models.CharField(db_column='ICON', max_length=100, blank=True, null=True)  # Field name made lowercase.
     menu_type = models.CharField(db_column='MENU_TYPE', max_length=10)  # Field name made lowercase.
-
+    link = models.CharField(db_column='LINK', max_length=1000)
     class Meta:
         managed = False
         db_table = 'menu'
