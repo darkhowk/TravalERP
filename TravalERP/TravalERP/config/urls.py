@@ -21,6 +21,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path("", include("myapp.setting.urls")),
     path("", include("myapp.dashborad.urls")),
+    path("", include("myapp.booking.urls")),
 ]
 
 if settings.DEBUG:
