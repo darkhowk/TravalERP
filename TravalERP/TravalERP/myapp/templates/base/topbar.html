@@ -5,33 +5,16 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <a class="nav-link" href="javascript:movePage('dashborad');" >대시보드</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="booking">수배내역</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="rooming">루밍</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="itinerary">확정서</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="invoice">인보이스</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="statement">정산</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="tourconductor">T/C</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="javascript:movePage('setting');">설정</a>
-        </li>
+        {% for list in object_list %} 
+          {% if list.menu_type == 'TOP'%}
+            <li class="nav-item">
+              <a class="nav-link" href="javascript:movePage('{{list.link}}');">{{list.menu_name}}</a>
+            </li>
+          {% endif %}
+        {% endfor %}
       </ul>
     </div>
-    <!-- Navbar-->
+    <!-- Navbar
     <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
@@ -42,7 +25,7 @@
                 <li><a class="dropdown-item" href="#!">Logout</a></li>
             </ul>
         </li>
-    </ul>
+    </ul>-->
 </nav>
 <script>
   function movePage(url){

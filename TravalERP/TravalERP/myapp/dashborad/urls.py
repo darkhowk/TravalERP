@@ -5,7 +5,6 @@ from . import views
 
 app_name = "dashborad"
 
-urlpatterns = [    
-    path("", views.firstIndex.as_view(), name="first_index"), 
+urlpatterns = [     
     path("dashborad/", views.dashboradIndex.as_view(), name="dashborad_index"), 
 ]
