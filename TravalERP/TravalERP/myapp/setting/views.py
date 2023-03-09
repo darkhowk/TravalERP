@@ -4,7 +4,7 @@ from django.views import generic
 
 class firstIndex(generic.ListView):
     def __init__(self):
-        self.title_nm       = "설정에 오신것을 환영합니다. "
+        self.title_nm       = "TON TOUR"
         self.ogImgUrl       = ""
         self.descript       = ""
         self.template_name  = "index.html"
