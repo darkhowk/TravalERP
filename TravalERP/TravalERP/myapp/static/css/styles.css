@@ -3208,7 +3208,7 @@ textarea.is-invalid.dataTable-input {
   display: inline-block;
   font-weight: 400;
   line-height: 1.5;
-  color: #212529;
+  color: #292122;
   text-align: center;
   text-decoration: none;
   vertical-align: middle;
@@ -12225,4 +12225,8 @@ body {
   width: 20px !important;
   font-size: 0.75rem;
   border-radius: 0.25rem !important;
+}
+
+.title {
+  border-bottom: solid 2px #6f6f6f;
 }
