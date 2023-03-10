@@ -1,198 +1,206 @@
-{% extends "base/base.html" %}
-{% block content %}
+{% extends "base/base.html" %} {% block content %}
 <div class="container-fluid">
-    <h1 class="mt-4">수배내역</h1>
-
-    <div class="container-fluid px-4">
-        <div class="card mb-4">
-            <div class="card-body">
-                <p class="mb-0">
-                    수배내역</br>
-                    
-                </p>
-            </div>
-        </div>
-    </div>
-
-
+  <h1 class="mt-5 title">수배내역</h1>
 </div>
 
-
-<div class="card mb-4">
-    <div class="card-header">
-        <svg
-            class="svg-inline--fa fa-table me-1"
-            aria-hidden="true"
-            focusable="false"
-            data-prefix="fas"
-            data-icon="table"
-            role="img"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 512 512"
-            data-fa-i2svg=""
-        >
-            <path
-                fill="currentColor"
-                d="M448 32C483.3 32 512 60.65 512 96V416C512 451.3 483.3 480 448 480H64C28.65 480 0 451.3 0 416V96C0 60.65 28.65 32 64 32H448zM224 256V160H64V256H224zM64 320V416H224V320H64zM288 416H448V320H288V416zM448 256V160H288V256H448z"
-            ></path></svg>
-        <!-- <i class="fas fa-table me-1"></i> Font Awesome fontawesome.com -->
-        수배내역
-    </div>
-    <div class="card-body">
-        <div
-            class="datatable-wrapper datatable-loading no-footer sortable searchable fixed-columns"
-        >
-            <div class="datatable-top">
-                <div class="datatable-dropdown">
-                    <label>
-                        <select class="datatable-selector">
-                            <option value="5">5</option>
-                            <option value="10" selected="">10</option>
-                            <option value="15">15</option>
-                            <option value="20">20</option>
-                            <option value="25">25</option>
-                        </select>
-                        페이지당 목록표시
-                    </label>
-                </div>
-                <div class="datatable-search">
-                    <input class="datatable-input" placeholder="Search..." type="search" title="Search within table" aria-controls="datatablesSimple"/>
-                </div>
-            </div>
-            <div class="datatable-container">
-                <table id="datatablesSimple" class="datatable-table">
-                    <thead>
-                        <tr>
-                            <th data-sortable="true" style="width: 5%" aria-sort="ascending" class="datatable-ascending">
-                                <a href="#" class="datatable-sorter">수배상태</a>
-                            </th>
-                            <th data-sortable="true" style="width: 10%" aria-sort="ascending" class="datatable-ascending">
-                                <a href="#" class="datatable-sorter">ref</a>
-                            </th>
-                            <th data-sortable="true" style="width: 7%" aria-sort="ascending" class="datatable-ascending">
-                                <a href="#" class="datatable-sorter">여행사</a>
-                                
-                            </th>
-                            <th data-sortable="true" style="width: 20%" aria-sort="ascending" class="datatable-ascending">
-                                <a href="#" class="datatable-sorter">상품명</a>
-                                
-                            </th>
-                            <th data-sortable="true" style="width: 8%" aria-sort="ascending" class="datatable-ascending">
-                                <a href="#" class="datatable-sorter">행사일</a>
-                                
-                            </th>
-                            <th data-sortable="true" style="width: 8%" aria-sort="ascending" class="datatable-ascending">
-                                <a href="#" class="datatable-sorter">등록일</a>
-                                
-                            </th>
-                            <th data-sortable="true" style="width: 5%" aria-sort="ascending" class="datatable-ascending">
-                                <a href="#" class="datatable-sorter">여행사담당자</a>
-                                
-                            </th>
-                            <th data-sortable="true" style="width: 5%" aria-sort="ascending" class="datatable-ascending">
-                                <a href="#" class="datatable-sorter">담당자</a>
-                                
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr data-index="0">
-                            <td>수배완료</td>
-                            <td>TON0310187</td>
-                            <td>모두투어</td>
-                            <td>스포 9일 KE (BCN-MAD)</td>
-                            <td>2023/03/10</td>
-                            <td>2023/03/02</td>
-                            <td>여운규</td>
-                            <td>여운규</td>
-                        </tr>
-                        <tr data-index="1">
-                            <td>수배완료</td>
-                            <td>TON032015</td>
-                            <td>교원투어</td>
-                            <td>이집트 10일 OZ (CAI-CAI)</td>
-                            <td>2023/03/20</td>
-                            <td>2023/03/02</td>
-                            <td>여운규</td>
-                            <td>여운규</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="datatable-bottom">
-                <div class="datatable-info">57개 항목 중 1~10개 항목 표시</div>
-                <nav class="datatable-pagination">
-                    <ul class="datatable-pagination-list">
-                        <li
-                            class="datatable-pagination-list-item datatable-hidden datatable-disabled"
-                        >
-                            <a
-                                data-page="1"
-                                class="datatable-pagination-list-item-link"
-                                >‹</a
-                            >
-                        </li>
-                        <li
-                            class="datatable-pagination-list-item datatable-active"
-                        >
-                            <a
-                                data-page="1"
-                                class="datatable-pagination-list-item-link"
-                                >1</a
-                            >
-                        </li>
-                        <li class="datatable-pagination-list-item">
-                            <a
-                                data-page="2"
-                                class="datatable-pagination-list-item-link"
-                                >2</a
-                            >
-                        </li>
-                        <li class="datatable-pagination-list-item">
-                            <a
-                                data-page="3"
-                                class="datatable-pagination-list-item-link"
-                                >3</a
-                            >
-                        </li>
-                        <li class="datatable-pagination-list-item">
-                            <a
-                                data-page="4"
-                                class="datatable-pagination-list-item-link"
-                                >4</a
-                            >
-                        </li>
-                        <li class="datatable-pagination-list-item">
-                            <a
-                                data-page="5"
-                                class="datatable-pagination-list-item-link"
-                                >5</a
-                            >
-                        </li>
-                        <li class="datatable-pagination-list-item">
-                            <a
-                                data-page="6"
-                                class="datatable-pagination-list-item-link"
-                                >6</a
-                            >
-                        </li>
-                        <li class="datatable-pagination-list-item">
-                            <a
-                                data-page="2"
-                                class="datatable-pagination-list-item-link"
-                                ></a
-                            >
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-        </div>
-    </div>
+<div class="container-fluid">
+  <h5 class="mt-5">수배내역</h5>
 </div>
 
+<form class="d-none d-sm-inline-block navbar-search">
+  <div class="input-group">
+    <input
+      type="text"
+      class="form-control bg-light border"
+      aria-label="Search"
+      aria-describedby="basic-addon2"
+    />
+    <div class="input-group-append">
+      <button class="btn btn-primary" type="button">
+        <i class="fas fa-search fa-sm"></i>
+      </button>
+    </div>
+  </div>
+</form>
 
+<div class="card mt-5">
+  <div class="card-header">
+    <svg
+      class="svg-inline--fa fa-table me-1"
+      aria-hidden="true"
+      focusable="false"
+      data-prefix="fas"
+      data-icon="table"
+      role="img"
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 512 512"
+      data-fa-i2svg=""
+    >
+      <path
+        fill="currentColor"
+        d="M448 32C483.3 32 512 60.65 512 96V416C512 451.3 483.3 480 448 480H64C28.65 480 0 451.3 0 416V96C0 60.65 28.65 32 64 32H448zM224 256V160H64V256H224zM64 320V416H224V320H64zM288 416H448V320H288V416zM448 256V160H288V256H448z"
+      ></path>
+    </svg>
+    <!-- <i class="fas fa-table me-1"></i> Font Awesome fontawesome.com -->
+    수배내역
+  </div>
+  <div class="card-body">
+    <div
+      class="datatable-wrapper datatable-loading no-footer sortable searchable fixed-columns"
+    >
+      <div class="datatable-top">
+        <div class="datatable-dropdown">
+          <label>
+            <select class="datatable-selector">
+              <option value="5">5</option>
+              <option value="10" selected="">10</option>
+              <option value="15">15</option>
+              <option value="20">20</option>
+              <option value="25">25</option>
+            </select>
+            페이지당 목록표시
+          </label>
+        </div>
+        <div class="datatable-search">
+          <input
+            class="datatable-input"
+            placeholder="Search..."
+            type="search"
+            title="Search within table"
+            aria-controls="datatablesSimple"
+          />
+        </div>
+      </div>
 
-{% endblock %}
-{% block js %}
-    {{block.super}}      
-{% endblock js %}
+      <div class="datatable-container">
+        <table id="datatablesSimple" class="datatable-table">
+          <thead>
+            <tr>
+              <th
+                data-sortable="true"
+                style="width: 5%"
+                aria-sort="ascending"
+                class="datatable-ascending"
+              >
+                <a href="#" class="datatable-sorter">수배상태</a>
+              </th>
+              <th
+                data-sortable="true"
+                style="width: 10%"
+                aria-sort="ascending"
+                class="datatable-ascending"
+              >
+                <a href="#" class="datatable-sorter">ref</a>
+              </th>
+              <th
+                data-sortable="true"
+                style="width: 7%"
+                aria-sort="ascending"
+                class="datatable-ascending"
+              >
+                <a href="#" class="datatable-sorter">여행사</a>
+              </th>
+              <th
+                data-sortable="true"
+                style="width: 20%"
+                aria-sort="ascending"
+                class="datatable-ascending"
+              >
+                <a href="#" class="datatable-sorter">상품명</a>
+              </th>
+              <th
+                data-sortable="true"
+                style="width: 8%"
+                aria-sort="ascending"
+                class="datatable-ascending"
+              >
+                <a href="#" class="datatable-sorter">행사일</a>
+              </th>
+              <th
+                data-sortable="true"
+                style="width: 8%"
+                aria-sort="ascending"
+                class="datatable-ascending"
+              >
+                <a href="#" class="datatable-sorter">등록일</a>
+              </th>
+              <th
+                data-sortable="true"
+                style="width: 5%"
+                aria-sort="ascending"
+                class="datatable-ascending"
+              >
+                <a href="#" class="datatable-sorter">여행사담당자</a>
+              </th>
+              <th
+                data-sortable="true"
+                style="width: 5%"
+                aria-sort="ascending"
+                class="datatable-ascending"
+              >
+                <a href="#" class="datatable-sorter">담당자</a>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr data-index="0">
+              <td>수배완료</td>
+              <td>TON0310187</td>
+              <td>모두투어</td>
+              <td>스포 9일 KE (BCN-MAD)</td>
+              <td>2023/03/10</td>
+              <td>2023/03/02</td>
+              <td>여운규</td>
+              <td>여운규</td>
+            </tr>
+            <tr data-index="1">
+              <td>수배완료</td>
+              <td>TON032015</td>
+              <td>교원투어</td>
+              <td>이집트 10일 OZ (CAI-CAI)</td>
+              <td>2023/03/20</td>
+              <td>2023/03/02</td>
+              <td>여운규</td>
+              <td>여운규</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="datatable-bottom">
+        <div class="datatable-info">57개 항목 중 1~10개 항목 표시</div>
+        <nav class="datatable-pagination">
+          <ul class="datatable-pagination-list">
+            <li
+              class="datatable-pagination-list-item datatable-hidden datatable-disabled"
+            >
+              <a data-page="1" class="datatable-pagination-list-item-link">‹</a>
+            </li>
+            <li class="datatable-pagination-list-item datatable-active">
+              <a data-page="1" class="datatable-pagination-list-item-link">1</a>
+            </li>
+            <li class="datatable-pagination-list-item">
+              <a data-page="2" class="datatable-pagination-list-item-link">2</a>
+            </li>
+            <li class="datatable-pagination-list-item">
+              <a data-page="3" class="datatable-pagination-list-item-link">3</a>
+            </li>
+            <li class="datatable-pagination-list-item">
+              <a data-page="4" class="datatable-pagination-list-item-link">4</a>
+            </li>
+            <li class="datatable-pagination-list-item">
+              <a data-page="5" class="datatable-pagination-list-item-link">5</a>
+            </li>
+            <li class="datatable-pagination-list-item">
+              <a data-page="6" class="datatable-pagination-list-item-link">6</a>
+            </li>
+            <li class="datatable-pagination-list-item">
+              <a data-page="2" class="datatable-pagination-list-item-link"></a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %} {% block js %} {{block.super}} {% endblock js %}
