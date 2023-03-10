@@ -1,6 +1,9 @@
+import math
 from django.shortcuts import render
 from django.views import generic
 from django.http import JsonResponse
+from django.core.paginator import Paginator
+
 import datetime
 
 from ..common.common_models import Menu
@@ -49,22 +52,42 @@ class settingIndex(generic.ListView):
 
 class settingMenu(generic.ListView):
    def __init__(self):
-        self.title_nm = "설정>메뉴관리"
-        self.ogImgUrl = ""
-        self.descript = "메뉴관리 페이지입니다"
-        self.template_name = "setting/menu.html"
-        self.topMenu = Menu.objects.filter(menu_type="TOP")
-        self.leftMenu = Menu.objects.filter(menu_type="LEFT")
-        self.Menu = Menu.objects.all()
-      
+      self.title_nm = "설정>메뉴관리"
+      self.ogImgUrl = ""
+      self.descript = "메뉴관리 페이지입니다"
+      self.template_name = "setting/menu.html"
+      self.topMenu = Menu.objects.filter(menu_type="TOP")
+      self.leftMenu = Menu.objects.filter(menu_type="LEFT")
+      self.Menu = Menu.objects.all()
+
    def get(self, request, *args, **kwargs):
+      # 페이지당 보여줄 개수
+      self.per_page = int(request.GET.get('per_page', 10))
+
+      # 현재 페이지
+      self.current_page = int(request.GET.get('paging', 1))
+
+      # 현재 페이지의 메뉴 목록
+      self.menus = Menu.objects.all()[self.per_page * (self.current_page - 1):self.per_page * self.current_page]
+
+      # 페이지 수
+      num_pages = math.ceil(Menu.objects.count() / self.per_page)
+
+      # 페이지 번호 목록
+      self.pages = range(1, num_pages + 1)
+   
+
+
       self.content = {
                         "descript" : self.descript,
                         "title_nm" : self.title_nm,
                         "ogImgUrl" : self.ogImgUrl,
                         "topMenu"  : self.topMenu,
                         "leftMenu"  : self.leftMenu,
-                        "Menu" : self.Menu
+                        "menus" : self.menus,
+                        'pages': self.pages,
+                        'current_page': int(self.current_page), 
+                        'per_page': int(self.per_page),
                      }
 
       return render(request, self.template_name, self.content)
