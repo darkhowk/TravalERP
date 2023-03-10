@@ -7783,6 +7783,11 @@ fieldset:disabled .btn {
   margin-left: 3rem !important;
 }
 
+.mx-10 {
+  margin-right: 20rem !important;
+  margin-left: 20rem !important;
+}
+
 .mx-auto {
   margin-right: auto !important;
   margin-left: auto !important;

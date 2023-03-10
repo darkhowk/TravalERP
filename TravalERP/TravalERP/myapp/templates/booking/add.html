@@ -1,10 +1,34 @@
 {% extends "base/base.html" %} {% block content %}
 <div class="container-fluid">
-  <h1 class="mt-5 title">수배내역</h1>
+  <h1 class="mt-5 title">수배등록</h1>
 </div>
 
-<div class="container-fluid">
-  <h5 class="mt-5">수배내역</h5>
+<div class="form-floating">
+  <textarea class="form-control" placeholder="ref." id="reference"></textarea>
+  <label for="reference">ref.</label>
+</div>
+
+<div class="container">
+  <div class="col-sm-12 pt-3">
+    <div class="card">
+      <div class="card-header card-header-primary">
+        <h4 class="card-title">테스트테스트</h4>
+        <p class="card-catagory"></p>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table">
+            <tbody>
+              <tr style="line-height: 32px">
+                <td>ref.</td>
+                <td><input type="text" id="reference" name="reference" /></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 {% endblock %} {% block js %} {{block.super}} {% endblock js %}
