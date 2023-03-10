@@ -58,16 +58,16 @@ class settingMenu(generic.ListView):
       self.template_name = "setting/menu.html"
       self.topMenu = Menu.objects.filter(menu_type="TOP")
       self.leftMenu = Menu.objects.filter(menu_type="LEFT")
-      self.Menu = Menu.objects.all()
 
    def get(self, request, *args, **kwargs):
+      ## 페이지에 뿌려질 데이터 
       # 페이지당 보여줄 개수
-      self.per_page = int(request.GET.get('per_page', 10))
+      self.per_page = int(request.GET.get('per_page', 5))
 
       # 현재 페이지
       self.current_page = int(request.GET.get('paging', 1))
 
-      # 현재 페이지의 메뉴 목록
+      # 그려질 페이지 목록
       self.menus = Menu.objects.all()[self.per_page * (self.current_page - 1):self.per_page * self.current_page]
 
       # 페이지 수
@@ -75,9 +75,8 @@ class settingMenu(generic.ListView):
 
       # 페이지 번호 목록
       self.pages = range(1, num_pages + 1)
-   
 
-
+      ## 데이터들을 담는다
       self.content = {
                         "descript" : self.descript,
                         "title_nm" : self.title_nm,
