@@ -103,13 +103,25 @@
                     </table>
                 </div>
                 <div>
-                    {% for page in pages %}
-                      {% if page == current_page %}
-                        <strong>{{ page }}</strong>
-                      {% else %}
-                        <a href="?paging={{ page }}&per_page={{ per_page }}">{{ page }}</a>
-                      {% endif %}
-                    {% endfor %}
+
+                    <div class="datatable-bottom">
+                       <!-- <div class="datatable-info">57개 항목 중 1~10개 항목 표시</div>-->
+                        <nav class="datatable-pagination">
+                          <ul class="datatable-pagination-list">
+                            {% for page in pages %}
+                                {% if page == current_page %}
+                                    <li class="datatable-pagination-list-item datatable-active">
+                                        <a data-page="{{ page }}" class="datatable-pagination-list-item-link">{{ page }}</a>
+                                    </li>
+                                {% else %}
+                                    <li class="datatable-pagination-list-item-link">
+                                        <a data-page="{{ page }}" class="datatable-pagination-list-item-link" href="?paging={{ page }}&per_page={{ per_page }}">{{ page }}</a>
+                                    </li>
+                                {% endif %}
+                            {% endfor %}
+                          </ul>
+                        </nav>
+                      </div>
                   </div>
             </div>
         </div>
