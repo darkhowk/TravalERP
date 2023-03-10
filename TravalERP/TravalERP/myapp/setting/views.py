@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views import generic
 
-from .models import Menu, Users
+from ..common.common_models import Menu
 # Create your views here.
 
 class index(generic.ListView):

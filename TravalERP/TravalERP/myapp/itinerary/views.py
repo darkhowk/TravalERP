@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views import generic
-from .models import Menu
+from ..common.common_models import Menu
 # Create your views here.
 
 class itineraryIndex(generic.ListView):
