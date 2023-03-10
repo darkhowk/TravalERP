@@ -1,0 +1,70 @@
+{% extends "base/setting_base.html" %}
+{% block content %}
+<div class="container-fluid">
+    <div class="card mb-4">
+        <div class="card-header">
+           메뉴 등록
+        </div>
+
+        <!-- menu, menu_name, upper_menu, use_yn, icon, menu_type, link -->
+
+        <form id="menuFrm">
+            {% csrf_token %}
+            <table>
+                <tr>
+                    <td>메뉴</td>
+                    <td><input type="text" id="menu" name="menu"></td>
+                    <td>메뉴명</td>
+                    <td><input type="text" id="menu_name" name="menu_name"></td>
+                    <td>상위메뉴</td>
+                    <td><input type="text" id="upper_menu" name="upper_menu"></td>
+                    <td>사용여부</td>
+                    <td><input type="text" id="use_yn" name="use_yn"></td>
+                </tr>
+                <tr>
+
+                    <td>아이콘(class명)</td>
+                    <td><input type="text" id="icon" name="icon"></td>
+                    <td>메뉴타입</td>
+                    <td><input type="text" id="menu_type" name="menu_type"></td>
+                    <td>바로가기</td>
+                    <td><input type="text" id="link" name="link"></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </table>
+            <input type="button" value="저장" onclick="saveData()">
+            <input type="button" value="목록" onclick="goMenuList()">
+        </form>
+
+    </div>
+</div>
+</div>
+</div>    
+<script>
+    function saveData(){
+        var jsonData = $('#menuFrm').serializeArray()
+            $.ajax({
+                url: 'addData', // 앞에 자동으로 setting/menu 붙음
+                method: 'POST',
+                data: jsonData,
+                dataType: 'json',
+                success: function(data) {
+                   alert('입력성공 메뉴등록 화면으로 이동합니다.')
+                   goMenuList();
+                },
+                error: function(xhr, status, error) {
+                   alert('메뉴 등록 실패')
+                }
+            });
+    }
+
+    function goMenuList(){
+        movePage('setting/menu')
+    }
+
+</script>
+{% endblock %}
+{% block js %}
+{{block.super}}      
+{% endblock js %}
