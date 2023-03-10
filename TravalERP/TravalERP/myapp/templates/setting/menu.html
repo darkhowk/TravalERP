@@ -5,6 +5,7 @@
         <div class="card-header">
            메뉴 내역
         </div>
+        <input type="button" value="메뉴 추가" onclick="addMenu()"> 
         <div class="card-body">
             <div class="datatable-wrapper datatable-loading no-footer sortable searchable fixed-columns">
                 <div class="datatable-top">
@@ -176,6 +177,12 @@
         </div>
     </div>
 </div>    
+<script>
+    function addMenu(){
+        movePage('setting/menu/addMenu')
+    }
+
+</script>
 {% endblock %}
 {% block js %}
     {{block.super}}      
