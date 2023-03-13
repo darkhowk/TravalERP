@@ -76,6 +76,9 @@ class settingMenu(generic.ListView):
       # 페이지 번호 목록
       self.pages = range(1, num_pages + 1)
 
+      # 총 갯수
+      # 현재 페이지에 그려지는 항목 범위
+
       ## 데이터들을 담는다
       self.content = {
                         "descript" : self.descript,
