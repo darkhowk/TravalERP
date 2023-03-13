@@ -3,32 +3,120 @@
   <h1 class="mt-5 title">수배등록</h1>
 </div>
 
-<div class="form-floating">
-  <textarea class="form-control" placeholder="ref." id="reference"></textarea>
-  <label for="reference">ref.</label>
+<div class="container">
+    <form name="bookinglist">
+        <div class="col-sm-12 pt-3">
+            <div class="card">
+                <div class="card-header card-header-primary">
+                    <h4 class="card-title">테스트입니다</h4>
+                </div>
+                <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table">
+                        <tbody>
+                            <tr style="line-height:32px;">
+                            <td>ref</td>
+                            <td>
+                                <input type="text" name="reference" class="form-control" id="reference">
+                            </td>
+                            <td>상품명</td>
+                            <td>
+                                <input type="text" name="product_name" class="form-control" id="product_name">
+                            </td>                        
+                            </tr>
+                            <tr>
+                            <td>URL</td>
+                            <td colspan="3">
+                                <input type="text" name="product_url" class="form-control" id="product_url">                                 
+                            </td>
+                            </tr>
+                            <tr style="line-height:32px;">
+                            <td>여행사</td>
+                            <td>
+                                <select class="form-select" aria-label="Default select example">
+                                    <option selected>여행사명</option>
+                                    <option value="1">모두투어</option>
+                                    <option value="2">교원투어</option>
+                                    <option value="3">인터파크</option>
+                                    <option value="4">티오엔투어</option>
+                                    <option value="5">인센티브</option>
+                                </select>
+                            </td>
+                            <td>상품담당자</td>
+                            <td>
+                                <select class="form-select" aria-label="Default select example">
+                                        <option selected>담당자명</option>
+                                        <option value="1">000</option>
+                                        <option value="2">000</option>
+                                        <option value="3">000</option>
+                                    </select>
+                                </td>
+                                <tr style="line-height:32px;">
+                                    <td>LOCAL</td>
+                                    <td>
+                                        <select class="form-select" aria-label="Default select example">
+                                            <option selected>현지사무실명</option>
+                                            <option value="1">00000</option>
+                                            <option value="2">11111</option>
+                                            <option value="3">22222</option>
+                                            <option value="4">33333</option>
+                                        </select>
+                                    </td>
+                                    <td>현지담당자</td>
+                                    <td>
+                                        <select class="form-select" aria-label="Default select example">
+                                            <option selected>담당자명</option>
+                                            <option value="1">000</option>
+                                            <option value="2">000</option>
+                                            <option value="2">000</option>
+                                        </select>
+                                    </td>                   
+                                </tr>
+                                <tr style="line-height:32px;">
+                                    <td>항공</td>
+                                    <td>
+                                        <p class="datetime">한국출발
+                                        <input type="text" name="reservation_open_0" class="vDateField" size="10" required="" id="id_reservation_open_0">
+                                        <span class="datetimeshortcuts">&nbsp;
+                                            <a href="#">오늘</a>&nbsp;|&nbsp;
+                                            <a href="#" id="calendarlink0">
+                                                <span class="date-icon" title="시간 선택">
+                                                </span></a></span>
+                                        <p class="datetime">현지출발
+                                        <input type="text" name="reservation_open_0" class="vDateField" size="10" required="" id="id_reservation_open_0">
+                                        <span class="datetimeshortcuts">&nbsp;
+                                            <a href="#" id="calendarlink0">
+                                                <span class="date-icon" title="시간 선택">
+                                                </span></a></span>
+                                        </p>
+                                    </td>
+
+
+                                    <td>상품명</td>
+                                    <td>
+                                        <input type="text" name="product_name" class="form-control" id="product_name">
+                                    </td>                        
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <div class="text-end mt-3">
+        <button type="submit" class="btn btn-primary">저장</button>
+        <button type="reset" class="btn btn-secondary">초기화</button>
+        <button type="button" class="btn btn-secondary">취소</button>
+    </div>
 </div>
 
-<div class="container">
-  <div class="col-sm-12 pt-3">
-    <div class="card">
-      <div class="card-header card-header-primary">
-        <h4 class="card-title">테스트테스트</h4>
-        <p class="card-catagory"></p>
-      </div>
-      <div class="card-body">
-        <div class="table-responsive">
-          <table class="table">
-            <tbody>
-              <tr style="line-height: 32px">
-                <td>ref.</td>
-                <td><input type="text" id="reference" name="reference" /></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+
+
+
+
+
+
+
 
 {% endblock %} {% block js %} {{block.super}} {% endblock js %}

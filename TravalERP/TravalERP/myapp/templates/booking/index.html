@@ -1,75 +1,49 @@
 {% extends "base/base.html" %} {% block content %}
 <div class="container-fluid">
-  <h1 class="mt-5 title">수배내역</h1>
+  <h1 class="mx-5 mt-5 title">수배내역</h1>
 </div>
-<div class="my-5"></div>
-<form class="d-none d-sm-inline-block navbar-search">
-  <div class="input-group">
-    <input
-      type="text"
-      class="form-control bg-light border"
-      aria-label="Search"
-      aria-describedby="basic-addon2"
-    />
-    <div class="input-group-append">
-      <button class="btn btn-primary" type="button">
-        <i class="fas fa-search fa-sm"></i>
-      </button>
-      <a href="add" class="btn btn-primary">등록</a>
-    </div>
-  </div>
-</form>
 
-<div class="card mt-5">
+
+<div class="card mt-3 mx-5">
   <div class="card-header">
-    <svg
-      class="svg-inline--fa fa-table me-1"
-      aria-hidden="true"
-      focusable="false"
-      data-prefix="fas"
-      data-icon="table"
-      role="img"
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 512 512"
-      data-fa-i2svg=""
-    >
-      <path
-        fill="currentColor"
-        d="M448 32C483.3 32 512 60.65 512 96V416C512 451.3 483.3 480 448 480H64C28.65 480 0 451.3 0 416V96C0 60.65 28.65 32 64 32H448zM224 256V160H64V256H224zM64 320V416H224V320H64zM288 416H448V320H288V416zM448 256V160H288V256H448z"
-      ></path>
-    </svg>
     <!-- <i class="fas fa-table me-1"></i> Font Awesome fontawesome.com -->
-    수배내역
+    수배리스트
   </div>
   <div class="card-body">
-    <div
-      class="datatable-wrapper datatable-loading no-footer sortable searchable fixed-columns"
-    >
+    <div class="datatable-wrapper datatable-loading no-footer sortable searchable fixed-columns">
       <div class="datatable-top">
         <div class="datatable-dropdown">
           <label>
-            <select class="datatable-selector">
-              <option value="5">5</option>
-              <option value="10" selected="">10</option>
-              <option value="15">15</option>
-              <option value="20">20</option>
-              <option value="25">25</option>
-            </select>
-            페이지당 목록표시
+              <select class="datatable-selector" id="per_page">
+                  <option value="10" {% if per_page == 10%} selected {% endif %}>10</option>
+                  <option value="20" {% if per_page == 20%} selected {% endif %}>20</option>
+                  <option value="30" {% if per_page == 30%} selected {% endif %}>30</option>
+                  <option value="40" {% if per_page == 40%} selected {% endif %}>40</option>
+                  <option value="50" {% if per_page == 50%} selected {% endif %}>50</option>
+              </select>
+              페이지당 목록표시
           </label>
         </div>
-        <div class="datatable-search">
-          <input
-            class="datatable-input"
-            placeholder="Search..."
-            type="search"
-            title="Search within table"
-            aria-controls="datatablesSimple"
-          />
-        </div>
-      </div>
+        <div class="text-end">
+          <form class="d-none d-sm-inline-block navbar-search" >
+            <div class="input-group">
+              <input
+                type="text"
+                class="form-control bg-light border"
+                aria-label="Search"
+                aria-describedby="basic-addon2"
+              />
+              <div class="input-group-append">
+                <button class="btn btn-primary" type="button">
+                  <i class="fas fa-search fa-sm"></i>
+                </button>
+                <a href="add" class="btn btn-primary">등록</a>
+              </div>
 
-      <div class="datatable-container">
+          </div>
+          </form>
+        </div>
+      <div class="datatable-container text-center mt-4">
         <table id="datatablesSimple" class="datatable-table">
           <thead>
             <tr>
@@ -79,7 +53,7 @@
                 aria-sort="ascending"
                 class="datatable-ascending"
               >
-                <a href="#" class="datatable-sorter">수배상태</a>
+                <a href="#" class="datatable-sorter text-center">수배상태</a>
               </th>
               <th
                 data-sortable="true"
@@ -87,7 +61,7 @@
                 aria-sort="ascending"
                 class="datatable-ascending"
               >
-                <a href="#" class="datatable-sorter">ref</a>
+                <a href="#" class="datatable-sorter text-center">ref</a>
               </th>
               <th
                 data-sortable="true"
@@ -95,7 +69,7 @@
                 aria-sort="ascending"
                 class="datatable-ascending"
               >
-                <a href="#" class="datatable-sorter">여행사</a>
+                <a href="#" class="datatable-sorter text-center">여행사</a>
               </th>
               <th
                 data-sortable="true"
@@ -103,7 +77,7 @@
                 aria-sort="ascending"
                 class="datatable-ascending"
               >
-                <a href="#" class="datatable-sorter">상품명</a>
+                <a href="#" class="datatable-sorter text-center">상품명</a>
               </th>
               <th
                 data-sortable="true"
@@ -111,7 +85,7 @@
                 aria-sort="ascending"
                 class="datatable-ascending"
               >
-                <a href="#" class="datatable-sorter">행사일</a>
+                <a href="#" class="datatable-sorter text-center">행사일</a>
               </th>
               <th
                 data-sortable="true"
@@ -119,7 +93,15 @@
                 aria-sort="ascending"
                 class="datatable-ascending"
               >
-                <a href="#" class="datatable-sorter">등록일</a>
+                <a href="#" class="datatable-sorter text-center">등록일</a>
+              </th>
+              <th
+                data-sortable="true"
+                style="width: 8%"
+                aria-sort="ascending"
+                class="datatable-ascending"
+              >
+                <a href="#" class="datatable-sorter text-center">여행사담당자</a>
               </th>
               <th
                 data-sortable="true"
@@ -127,15 +109,7 @@
                 aria-sort="ascending"
                 class="datatable-ascending"
               >
-                <a href="#" class="datatable-sorter">여행사담당자</a>
-              </th>
-              <th
-                data-sortable="true"
-                style="width: 5%"
-                aria-sort="ascending"
-                class="datatable-ascending"
-              >
-                <a href="#" class="datatable-sorter">담당자</a>
+                <a href="#" class="datatable-sorter text-center">담당자</a>
               </th>
             </tr>
           </thead>

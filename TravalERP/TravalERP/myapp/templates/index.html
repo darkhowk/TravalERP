@@ -1,20 +1,12 @@
-{% extends "base/base.html" %}
-{% block content %}
+{% extends "base/base.html" %} {% block content %}
 <div class="container-fluid">
-    <h1 class="mt-4">{{title_nm}}</h1>
-    <div class="container-fluid px-4">
-        <div class="card mb-4">
-            <div class="card-body">
-                <p class="mb-0">
-                    {{descript}}
-                </p>
-            </div>
-        </div>
+  <h1 class="mt-4">{{title_nm}}</h1>
+  <div class="container-fluid px-4">
+    <div class="card mb-4">
+      <div class="card-body">
+        <p class="mb-0">{{descript}}</p>
+      </div>
     </div>
-
-
+  </div>
 </div>
-{% endblock %}
-{% block js %}
-    {{block.super}}      
-{% endblock js %}
+{% endblock %} {% block js %} {{block.super}} {% endblock js %}
