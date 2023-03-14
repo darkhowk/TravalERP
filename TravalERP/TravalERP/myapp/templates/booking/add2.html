@@ -1,31 +1,180 @@
 {% extends "base/base.html" %} {% block content %}
 
-<div class="container-fluid">
+<div class="container">
   <h1 class="mt-5 title">수배등록</h1>
 </div>
 
-<div class="container">
-    <form class="row g-5">
-        <div class="col-5">
-          <label for="reference">ref</label>
-          <input
-            type="text"
-            class="form-control-plaintext"
-            id="reference"
-            name="reference"
-          />
-        </div>
-        <div class="col-5">
-          <label for="product_name">상품명</label>
-          <input
-            type="text"
-            class="form-control"
-            id="product_name"
-            name="product_name"
-          />
-        </div>
+<div class="container mt-5">
+  <form>
+    <div class="row">
+      <label for="ref" class="col-sm-1 col-form-label">REf</label>
+      <div class="col-sm-4">
+        <input id="ref" type="text" class="form-control" />
       </div>
-    </form>
-  </div>
+      <div class="col-sm-1"></div>
+      <label for="prodName" class="col-sm-1 col-form-label">상품명</label>
+      <div class="col-sm-4">
+        <input id="prodName" type="text" class="form-control" />
+      </div>
+    </div>
+    <div class="row mt-2">
+      <label for="url" class="col-sm-1 col-form-label">URL</label>
+      <div class="col-sm-4">
+        <input id="url" type="url" class="form-control" />
+      </div>
+    </div>
+    <div class="devider"></div>
+    <div class="row mt-2">
+      <label for="agent" class="col-sm-1 col-form-label">여행사</label>
+      <div class="col-sm-4">
+        <select class="form-select" aria-label="agent_name">
+          <option selected>여행사명</option>
+          <option value="1">모두투어</option>
+          <option value="2">교원투어</option>
+          <option value="3">인터파크</option>
+          <option value="4">티오엔투어</option>
+          <option value="5">인센티브</option>
+        </select>
+      </div>
+      <div class="col-sm-1"></div>
+      <label for="agent_person" class="col-sm-1 col-form-label">담당자</label>
+      <div class="col-sm-4">
+        <select class="form-select" aria-label="agent_person">
+          <option selected>담당자명</option>
+          <option value="1">000</option>
+          <option value="2">000</option>
+          <option value="3">000</option>
+        </select>
+      </div>
+    </div>
+    <div class="devider"></div>
+    <div class="row mt-2">
+      <label for="local" class="col-sm-1 col-form-label">현지사무실</label>
+      <div class="col-sm-4">
+        <select class="form-select" aria-label="local_name">
+          <option selected>현지사무실명</option>
+          <option value="1">1</option>
+          <option value="2">22</option>
+          <option value="3">333</option>
+          <option value="4">4444</option>
+          <option value="5">55555</option>
+        </select>
+      </div>
+      <div class="col-sm-1"></div>
+      <label for="local_person" class="col-sm-1 col-form-label">담당자</label>
+      <div class="col-sm-4">
+        <select class="form-select" aria-label="local_person">
+          <option selected>담당자명</option>
+          <option value="1">000</option>
+          <option value="2">000</option>
+          <option value="3">000</option>
+        </select>
+      </div>
+    </div>
+    <div class="devider"></div>
+    <div class="row">
+      <p>AIR</p>
+      <label for="kor_air_def" class="col-sm-1 col-form-label">한국출발</label>
+      <div class="col-sm-2">
+        <input id="kor_air_def" type="date" class="form-control" />
+      </div>
+      <label for="kor_air" class="col-sm-1 col-form-label">항공편</label>
+      <div class="col-sm-2">
+        <input id="kor_air" type="text" class="form-control" />
+      </div>
+      <label for="kor_in_air" class="col-sm-1 col-form-label">IN</label>
+      <div class="col-sm-2">
+        <input id="kor_in_air" type="text" class="form-control" readonly />
+      </div>
+      <label for="kor_out_air" class="col-sm-1 col-form-label">OUT</label>
+      <div class="col-sm-2">
+        <input id="kor_out_air" type="text" class="form-control" readonly />
+      </div>
+    </div>
+    <div class="row mt-2">
+      <label for="loc_air_def" class="col-sm-1 col-form-label">현지출발</label>
+      <div class="col-sm-2">
+        <input id="loc_air_def" type="date" class="form-control" />
+      </div>
+      <label for="loc_air" class="col-sm-1 col-form-label">항공편</label>
+      <div class="col-sm-2">
+        <input id="loc_air" type="text" class="form-control" />
+      </div>
+      <label for="loc_in_air" class="col-sm-1 col-form-label">IN</label>
+      <div class="col-sm-2">
+        <input id="loc_in_air" type="text" class="form-control" readonly />
+      </div>
+      <label for="loc_out_air" class="col-sm-1 col-form-label">OUT</label>
+      <div class="col-sm-2">
+        <input id="loc_out_air" type="text" class="form-control" readonly />
+      </div>
+    </div>
+    <div class="devider"></div>
+    <div class="row">
+      <label for="bus" class="col-sm-1 col-form-label">BUS</label>
+      <div class="col-sm-11">
+        <input id="bus" type="text" class="form-control" readonly />
+      </div>
+    </div>
+    <div class="devider"></div>
+    <div class="row">
+      <label for="ent" class="col-sm-1 col-form-label">ENTRANCE</label>
+      <div class="col-sm-11">
+        <input
+          id="ent"
+          type="text"
+          class="form-control"
+          style="height: 80px"
+          readonly
+        />
+      </div>
+    </div>
+    <div class="devider"></div>
+    <div class="row">
+      <p>MEAL</p>
+      <label for="brk" class="col-sm-1 col-form-label">조식</label>
+      <div class="col-sm-2">
+        <input id="brk" type="text" class="form-control" readonly />
+      </div>
+      <label for="lunch" class="col-sm-1 col-form-label">중식</label>
+      <div class="col-sm-2">
+        <input id="lunch" type="text" class="form-control" readonly />
+      </div>
+      <label for="dinner" class="col-sm-1 col-form-label">석식</label>
+      <div class="col-sm-2">
+        <input id="dinner" type="text" class="form-control" readonly />
+      </div>
+        <button type="search" class="btn btn-primary col-sm-2">검색하기</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<style>
+  .devider {
+    width: 100%;
+    height: 5px;
+    border-top: rgba(155, 151, 151, 0.979) 2px solid;
+    margin: 20px 10px 20px 0px;
+  }
+  .title {
+    font-size: 30px;
+    font-weight: bolder;
+    margin-bottom: 20px;
+  }
+
+  .tr_row {
+    margin-bottom: 10px;
+  }
+
+  .tr_row label {
+    width: 5rem;
+    text-align: justify;
+  }
+  .tr_row input {
+    width: 10rem;
+    margin-right: 10px;
+  }
+</style>
 
 {% endblock %} {% block js %} {{block.super}} {% endblock js %}
