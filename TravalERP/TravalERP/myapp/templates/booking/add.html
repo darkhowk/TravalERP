@@ -26,12 +26,12 @@
                             </tr>
                             <tr>
                             <td>URL</td>
-                            <td colspan="3">
-                                <input type="text" name="product_url" class="form-control" id="product_url">                                 
+                            <td colspan="5">
+                                <input type="url" name="product_url" class="form-control" id="product_url">                                 
                             </td>
                             </tr>
                             <tr style="line-height:32px;">
-                            <td>여행사</td>
+                            <td>여행사</td> <!--설정-여행사관리-여행사에 등록된 정보를 불러옴-->
                             <td>
                                 <select class="form-select" aria-label="Default select example">
                                     <option selected>여행사명</option>
@@ -42,7 +42,7 @@
                                     <option value="5">인센티브</option>
                                 </select>
                             </td>
-                            <td>상품담당자</td>
+                            <td>상품담당자</td> <!--설정-여행사관리-담당자에 등록된 정보를 불러옴-->
                             <td>
                                 <select class="form-select" aria-label="Default select example">
                                         <option selected>담당자명</option>
@@ -50,52 +50,80 @@
                                         <option value="2">000</option>
                                         <option value="3">000</option>
                                     </select>
+                            </td>
+                            <tr style="line-height:32px;">
+                                <td>LOCAL</td> <!--설정-로컬관리-로컬에 등록된 정보를 불러옴-->
+                                <td>
+                                    <select class="form-select" aria-label="Default select example">
+                                        <option selected>현지사무실명</option>
+                                        <option value="1">00000</option>
+                                        <option value="2">11111</option>
+                                        <option value="3">22222</option>
+                                        <option value="4">33333</option>
+                                    </select>
                                 </td>
-                                <tr style="line-height:32px;">
-                                    <td>LOCAL</td>
-                                    <td>
-                                        <select class="form-select" aria-label="Default select example">
-                                            <option selected>현지사무실명</option>
-                                            <option value="1">00000</option>
-                                            <option value="2">11111</option>
-                                            <option value="3">22222</option>
-                                            <option value="4">33333</option>
-                                        </select>
-                                    </td>
-                                    <td>현지담당자</td>
-                                    <td>
-                                        <select class="form-select" aria-label="Default select example">
-                                            <option selected>담당자명</option>
-                                            <option value="1">000</option>
-                                            <option value="2">000</option>
-                                            <option value="2">000</option>
-                                        </select>
-                                    </td>                   
-                                </tr>
-                                <tr style="line-height:32px;">
-                                    <td>항공</td>
-                                    <td>
-                                        <p class="datetime">한국출발
-                                        <input type="text" name="reservation_open_0" class="vDateField" size="10" required="" id="id_reservation_open_0">
-                                        <span class="datetimeshortcuts">&nbsp;
-                                            <a href="#">오늘</a>&nbsp;|&nbsp;
-                                            <a href="#" id="calendarlink0">
-                                                <span class="date-icon" title="시간 선택">
-                                                </span></a></span>
-                                        <p class="datetime">현지출발
-                                        <input type="text" name="reservation_open_0" class="vDateField" size="10" required="" id="id_reservation_open_0">
-                                        <span class="datetimeshortcuts">&nbsp;
-                                            <a href="#" id="calendarlink0">
-                                                <span class="date-icon" title="시간 선택">
-                                                </span></a></span>
-                                        </p>
-                                    </td>
+                                <td>현지담당자</td> <!--설정-로컬관리-담당자에 등록된 정보를 불러옴-->
+                                <td>
+                                    <select class="form-select" aria-label="Default select example">
+                                        <option selected>담당자명</option>
+                                        <option value="1">000</option>
+                                        <option value="2">000</option>
+                                        <option value="2">000</option>
+                                    </select>
+                                </td>                   
+                            </tr>
+                            <tr style="line-height:32px;">
+                                <td>항공</td>
+                                <td>
+                                    <label>한국출발</label>
+                                    <input type="date" name="kor_air_def" class="form-control" size="10" required="" id="kor_air_def">
+                                    <label>현지출발</label>
+                                    <input type="date" name="loc_air_def" class="form-control" size="10" required="" id="loc_air_def">
+                                </td>
+                                <td>편명</td>
+                                <td>
+                                    <label>한국출발</label>
+                                    <input type="text" name="kor_air" class="form-control" id="kor_air">
+                                    <label>현지출발</label>
+                                    <input type="text" name="local_air" class="form-control" id="local_air">
+                                </td>
+                                <td>
+                                    <label>IN</label>
+                                    <input type="text" class="form-control" value="" readonly>
+                                    <label>IN</label>
+                                    <input type="text" class="form-control" value="" readonly>
+                                </td>
+                                <td>
+                                    <label>OUT</label>
+                                        <input type="text" class="form-control" value="" readonly>
+                                    <label>OUT</label>
+                                        <input type="text" class="form-control" value="" readonly>
+                                </td>
+                            </tr>
+                            <tr style="line-height:32px;">
+                                <td>BUS</td>
+                                <td>
+                                    <input type="text" name="bus" class="form-control" id="bus" readonly>
+                                </td>                   
+                            </tr>
+                            <tr style="line-height:50px;">
+                                
+                                <td>ENTRANCE</td>
+                                <td colspan="5">
+                                    <input type="text" name="bus" class="form-control" id="bus" readonly>
+                                </td>                   
+                            </tr>
 
 
-                                    <td>상품명</td>
-                                    <td>
-                                        <input type="text" name="product_name" class="form-control" id="product_name">
-                                    </td>                        
+                            </tr>
+
+
+
+
+
+
+
+
                             </tr>
                         </tbody>
                     </table>
