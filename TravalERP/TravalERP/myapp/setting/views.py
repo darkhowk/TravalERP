@@ -105,15 +105,39 @@ class settingAddMenu(generic.ListView):
         self.leftMenu = Menu.objects.filter(menu_type="LEFT")
       
    def get(self, request, *args, **kwargs):
-      self.content = {
-                        "descript" : self.descript,
-                        "title_nm" : self.title_nm,
-                        "ogImgUrl" : self.ogImgUrl,
-                        "topMenu"  : self.topMenu,
-                        "leftMenu"  : self.leftMenu,
-                     }
 
-      return render(request, self.template_name, self.content)
+      if 'pageType' in request.GET:
+         pageType = request.GET.get('pageType', None)
+         if pageType == 'I':
+            self.content = {
+                           "descript" : self.descript,
+                           "title_nm" : self.title_nm,
+                           "ogImgUrl" : self.ogImgUrl,
+                           "topMenu"  : self.topMenu,
+                           "leftMenu" : self.leftMenu,
+                           "pageType" : pageType
+                        }
+         elif pageType == 'U':
+            id = request.GET.get('id', None)
+            self.contentMenu = Menu.objects.filter(menu=id)
+            self.content = {
+                           "descript"    : self.descript,
+                           "title_nm"    : self.title_nm,
+                           "ogImgUrl"    : self.ogImgUrl,
+                           "topMenu"     : self.topMenu,
+                           "leftMenu"    : self.leftMenu,
+                           "contentMenu" : self.contentMenu,
+                           "pageType"    : pageType
+                        }
+         
+
+         return render(request, self.template_name, self.content)
+      else :
+         return render('', '/error', '')
+
+
+
+      
 
 def settingMenuInsert(request):
    now = datetime.datetime.now()
@@ -136,4 +160,31 @@ def settingMenuInsert(request):
       , entry_date = now.strftime('%Y-%m-%d %H:%M:%S')
    )
    menu.save()
+   return JsonResponse({'result': 'success'})
+
+def settingMenuModify(request):
+   now = datetime.datetime.now()
+
+   menu = request.POST.get('menu')
+   menuObject = Menu.objects.get(menu=menu)
+   menuObject.menu = request.POST.get('menu')
+   menuObject.menu_name = request.POST.get('menu_name')
+   menuObject.upper_menu = request.POST.get('upper_menu')
+   menuObject.use_yn = request.POST.get('use_yn')
+   menuObject.icon = request.POST.get('icon')
+   menuObject.menu_type = request.POST.get('menu_type')
+   menuObject.link = request.POST.get('link')
+   menuObject.updat_date = now.strftime('%Y-%m-%d %H:%M:%S')
+   menuObject.save()
+   return JsonResponse({'result': 'success'})
+
+def settingMenuDelete(request):
+   now = datetime.datetime.now()
+
+   menu = request.POST.get('menu')
+   menuObject = Menu.objects.get(menu=menu)
+   menuObject.use_yn = 'D'
+   menuObject.updat_date = now.strftime('%Y-%m-%d %H:%M:%S')
+   menuObject.save()
+
    return JsonResponse({'result': 'success'})

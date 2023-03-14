@@ -83,7 +83,7 @@
                         </thead>
                         <tbody>
                             {% for list in menus %}
-                                <tr data-index="{{ forloop.counter0 }}">
+                                <tr id="{{list.menu}}" data-index="{{ forloop.counter0 }}">
                                     <td>{{list.menu}}</td>
                                     <td>{{list.menu_name}}</td>
                                     <td>{{list.upper_menu}}</td>
@@ -129,12 +129,19 @@
 </div>    
 <script>
     function addMenu(){
-        movePage('setting/menu/addMenu')
+        movePage('setting/menu/addMenu?pageType=I')
     }
     $(document).on('change', '#per_page', function() {
         var perPage = $(this).val();
         location.href = location.origin + location.pathname + '?per_page='+ perPage
     });
+
+    $(document).on('dblclick','tr', function(e){
+        var id = e.currentTarget.id;
+        if (id != ''){
+            movePage('setting/menu/addMenu?pageType=U&id='+id)
+        }
+    })
 </script>
 {% endblock %}
 {% block js %}

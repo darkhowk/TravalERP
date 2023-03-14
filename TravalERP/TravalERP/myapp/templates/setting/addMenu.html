@@ -5,35 +5,54 @@
         <div class="card-header">
            메뉴 등록
         </div>
-
         <!-- menu, menu_name, upper_menu, use_yn, icon, menu_type, link -->
-
+        
         <form id="menuFrm">
             {% csrf_token %}
+           
             <table>
                 <tr>
                     <td>메뉴</td>
-                    <td><input type="text" id="menu" name="menu"></td>
+                    {% if pageType == 'U' %}
+                    <td><input type="text" id="menu" name="menu" value="{{contentMenu.0.menu}}" readonly></td>
+                    {% else %}
+                    <td><input type="text" id="menu" name="menu" value=""></td>
+                    {% endif %}
                     <td>메뉴명</td>
-                    <td><input type="text" id="menu_name" name="menu_name"></td>
+                    <td><input type="text" id="menu_name" name="menu_name"  value="{{contentMenu.0.menu_name}}"></td>
                     <td>상위메뉴</td>
-                    <td><input type="text" id="upper_menu" name="upper_menu"></td>
+                    <td><input type="text" id="upper_menu" name="upper_menu" value="{{contentMenu.0.upper_menu}}"></td>
                     <td>사용여부</td>
-                    <td><input type="text" id="use_yn" name="use_yn"></td>
+                    <td>
+                        <select  id="use_yn" name="use_yn"  value="{{contentMenu.0.use_yn}}">
+                            <option value="Y">사용</option>
+                            <option value="N">미사용</option>
+                            <option value="D">삭제</option>
+                        </select>
+                    </td>
                 </tr>
                 <tr>
 
                     <td>아이콘(class명)</td>
-                    <td><input type="text" id="icon" name="icon"></td>
+                    <td><input type="text" id="icon" name="icon" value="{{contentMenu.0.icon}}"></td>
                     <td>메뉴타입</td>
-                    <td><input type="text" id="menu_type" name="menu_type"></td>
+                    <td>
+                        <select  id="menu_type" name="menu_type"  value="{{contentMenu.0.menu_type}}">
+                            <option value="LEFT">왼쪽</option>
+                            <option value="TOP">위쪽</option>
+                        </select>
                     <td>바로가기</td>
-                    <td><input type="text" id="link" name="link"></td>
+                    <td><input type="text" id="link" name="link" value="{{contentMenu.0.link}}"></td>
                     <td></td>
                     <td></td>
                 </tr>
             </table>
+            {% if pageType == 'I' %}
             <input type="button" value="저장" onclick="saveData()">
+            {% elif pageType == 'U' %}
+                <input type="button" value="수정" onclick="updateData()">
+                <input type="button" value="삭제" onclick="deleteData()">
+            {% endif %}
             <input type="button" value="목록" onclick="goMenuList()">
         </form>
 
@@ -55,6 +74,40 @@
                 },
                 error: function(xhr, status, error) {
                    alert('메뉴 등록 실패')
+                }
+            });
+    }
+
+    function updateData(){
+        var jsonData = $('#menuFrm').serializeArray()
+            $.ajax({
+                url: 'updateData', // 앞에 자동으로 setting/menu 붙음
+                method: 'POST',
+                data: jsonData,
+                dataType: 'json',
+                success: function(data) {
+                   alert('수정성공 메뉴등록 화면으로 이동합니다.')
+                   goMenuList();
+                },
+                error: function(xhr, status, error) {
+                   alert('메뉴 수정 실패')
+                }
+            });
+    }
+
+    function deleteData(){
+        var jsonData = $('#menuFrm').serializeArray()
+            $.ajax({
+                url: 'deleteData', // 앞에 자동으로 setting/menu 붙음
+                method: 'POST',
+                data: jsonData,
+                dataType: 'json',
+                success: function(data) {
+                   alert('삭제성공 메뉴등록 화면으로 이동합니다.')
+                   goMenuList();
+                },
+                error: function(xhr, status, error) {
+                   alert('메뉴 삭제 실패')
                 }
             });
     }
