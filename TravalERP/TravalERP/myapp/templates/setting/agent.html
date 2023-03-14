@@ -1,20 +1,20 @@
 {% extends "base/setting_base.html" %}
 {% block content %}
-<div class="container-fluid">
+<div class="bd">
     <h1 class="mt-4">{{title_nm}}</h1>
-
-    <div class="container-fluid px-4">
-        <div class="card mb-4">
-            <div class="card-body">
-                <p class="mb-0">
-                    {{descript}}
-                </p>
-            </div>
+    <form>
+      <div class="row">
+        <label for="agent_name" class="col-sm-1 col-form-label">여행사</label>
+        <div class="col-sm-5">
+          <input type="text" class="form-control" id="agent_name">
         </div>
+        <label for="agent_tel" class="col-sm-1 col-form-label">대표번호</label>
+        <div class="col-sm-5">
+          <input type="password" class="form-control" id="agent_tel">
+        </div>
+      </div>
+    </form>
     </div>
-
-
-</div>
 {% endblock %}
 {% block js %}
     {{block.super}}      
