@@ -192,3 +192,24 @@ def settingMenuDelete(request):
    menuObject.save()
 
    return JsonResponse({'result': 'success'})
+
+class agentIndex(generic.ListView):
+   def __init__(self):
+        self.title_nm = "여행사"
+        self.ogImgUrl = ""
+        self.descript = "여행사 등록 페이지입니다"
+        self.template_name = "setting/agent.html"
+        self.topMenu = Menu.objects.filter(menu_type="TOP")
+        self.leftMenu = Menu.objects.filter(menu_type="LEFT")
+      
+   def get(self, request, *args, **kwargs):
+      self.content = {
+                        "descript" : self.descript,
+                        "title_nm" : self.title_nm,
+                        "ogImgUrl" : self.ogImgUrl,
+                        "topMenu"  : self.topMenu,
+                        "leftMenu"  : self.leftMenu
+                     }
+
+      return render(request, self.template_name, self.content)
+

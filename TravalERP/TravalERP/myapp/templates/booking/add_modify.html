@@ -1,0 +1,80 @@
+{% extends "base/base.html" %} 
+{% block content %}
+<div class="contents">
+    <div class="title">수배등록</div>
+
+    <div class="tr_row">
+        <label for="ref">REF</label>
+        <input id="ref"></input>
+        <label for="prodName">상품명</label>
+        <input id="prodName"></input>
+        <label for="input1">노출용</label>
+        <input id="input1"></input>
+    </div>
+    <div class="tr_row">
+        <label for="url">URL</label>
+        <input id="url"></input>
+    </div>
+    <div class="devider"></div>
+    <div class="tr_row">
+        <label for="agent">여행사</label>
+        <input id="agent"></input>
+        <label for="prodmanger">상품담당자</label>
+        <input id="prodmanger"></input>
+    </div>
+
+    <div class="text-end mt-3">
+        <button type="submit" class="btn btn-primary">저장</button>
+        <button type="reset" class="btn btn-secondary">초기화</button>
+        <button type="button" class="btn btn-secondary">취소</button>
+    </div>
+</div>
+
+<style>
+    main{
+        width:100%;
+        height: 100%;
+    }
+    .contents{
+        width: 100%;
+        height: 100%;
+        border: 1px solid black;
+        padding: 10px;
+    }
+    .devider{
+        width: 100%;
+        height: 5px;
+        border-top: black 1px solid;
+        margin: 10px 10px 10px 0px;
+    }
+    .title{
+        font-size: 30px;
+        font-weight: bolder;
+        margin-bottom: 20px;
+    }
+
+    .tr_row{
+        margin-bottom: 10px;
+    }
+
+    .tr_row label{
+        width: 5rem;
+        text-align: justify;
+    }
+    .tr_row input{
+        width: 10rem;
+        margin-right: 10px;
+    }
+
+</style>
+
+
+
+
+
+
+
+{% endblock %} 
+{% block js %} 
+{{block.super}} 
+{% endblock js %}

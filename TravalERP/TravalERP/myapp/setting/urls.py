@@ -11,4 +11,5 @@ urlpatterns = [
     path("setting/menu/addData", views.settingMenuInsert, name="메뉴추가 ajax"), 
     path("setting/menu/updateData", views.settingMenuModify, name="메뉴수정 ajax"), 
     path("setting/menu/deleteData", views.settingMenuDelete, name="메뉴삭제 ajax"), 
+    path("setting/agent", views.agentIndex.as_view(), name="여행사"), 
 ]
