@@ -1,0 +1,31 @@
+{% extends "base/base.html" %} {% block content %}
+
+<div class="container-fluid">
+  <h1 class="mt-5 title">수배등록</h1>
+</div>
+
+<div class="container">
+    <form class="row g-5">
+        <div class="col-5">
+          <label for="reference">ref</label>
+          <input
+            type="text"
+            class="form-control-plaintext"
+            id="reference"
+            name="reference"
+          />
+        </div>
+        <div class="col-5">
+          <label for="product_name">상품명</label>
+          <input
+            type="text"
+            class="form-control"
+            id="product_name"
+            name="product_name"
+          />
+        </div>
+      </div>
+    </form>
+  </div>
+
+{% endblock %} {% block js %} {{block.super}} {% endblock js %}
