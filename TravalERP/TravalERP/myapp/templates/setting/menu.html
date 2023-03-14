@@ -11,7 +11,7 @@
                 <div class="datatable-top">
                     <div class="datatable-dropdown">
                         <label>
-                            <select class="datatable-selector" id="per_page">
+                            <select class="datatable-selector" id="perPage">
                                 <option value="5" {% if per_page == 5%} selected {% endif %}>5</option>
                                 <option value="10" {% if per_page == 10%} selected {% endif %}>10</option>
                                 <option value="15" {% if per_page == 15%} selected {% endif %}>15</option>
@@ -115,10 +115,11 @@
                                     </li>
                                 {% else %}
                                     <li class="datatable-pagination-list-item-link">
-                                        <a data-page="{{ page }}" class="datatable-pagination-list-item-link" href="?paging={{ page }}&per_page={{ per_page }}">{{ page }}</a>
+                                        <a data-page="{{ page }}" class="datatable-pagination-list-item-link" onclick="goPage({{page}})">{{ page }}</a>
                                     </li>
                                 {% endif %}
                             {% endfor %}
+                            <input id="paging" type="hidden" value={{current_page}}>
                           </ul>
                         </nav>
                       </div>
@@ -131,17 +132,25 @@
     function addMenu(){
         movePage('setting/menu/addMenu?pageType=I')
     }
-    $(document).on('change', '#per_page', function() {
+    $(document).on('change', '#perPage', function() {
         var perPage = $(this).val();
-        location.href = location.origin + location.pathname + '?per_page='+ perPage
+        location.href = location.origin + location.pathname + '?perPage='+ perPage
     });
 
     $(document).on('dblclick','tr', function(e){
         var id = e.currentTarget.id;
+        var perPage =  $('#perPage').val();
+        var paging =$('#paging').val();
+
         if (id != ''){
-            movePage('setting/menu/addMenu?pageType=U&id='+id)
+            movePage('setting/menu/addMenu?pageType=U&id='+id+'&perPage='+perPage+'&paging='+paging)
         }
     })
+
+    function goPage(page){
+        var perPage =  $('#perPage').val();
+           movePage('setting/menu?perPage='+perPage+'&paging='+page)
+    }
 </script>
 {% endblock %}
 {% block js %}

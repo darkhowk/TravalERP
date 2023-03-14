@@ -62,7 +62,7 @@ class settingMenu(generic.ListView):
    def get(self, request, *args, **kwargs):
       ## 페이지에 뿌려질 데이터 
       # 페이지당 보여줄 개수
-      self.per_page = int(request.GET.get('per_page', 5))
+      self.per_page = int(request.GET.get('perPage', 5))
 
       # 현재 페이지
       self.current_page = int(request.GET.get('paging', 1))
@@ -120,6 +120,8 @@ class settingAddMenu(generic.ListView):
          elif pageType == 'U':
             id = request.GET.get('id', None)
             self.contentMenu = Menu.objects.filter(menu=id)
+            self.perPage = request.GET.get('perPage', None)
+            self.paging = request.GET.get('paging', None)
             self.content = {
                            "descript"    : self.descript,
                            "title_nm"    : self.title_nm,
@@ -127,7 +129,9 @@ class settingAddMenu(generic.ListView):
                            "topMenu"     : self.topMenu,
                            "leftMenu"    : self.leftMenu,
                            "contentMenu" : self.contentMenu,
-                           "pageType"    : pageType
+                           "pageType"    : pageType,
+                           "perPage"     : self.perPage,
+                           "paging"      : self.paging
                         }
          
 
