@@ -55,7 +55,8 @@
             {% endif %}
             <input type="button" value="목록" onclick="goMenuList()">
         </form>
-
+        <input type="hidden" id="perPage" value="{{perPage}}">
+        <input type="hidden" id="paging" value="{{paging}}">
     </div>
 </div>
 </div>
@@ -113,7 +114,9 @@
     }
 
     function goMenuList(){
-        movePage('setting/menu')
+        var perPage = $("#perPage").val();
+        var page = $("#paging").val();
+        movePage('setting/menu?paging='+page+"&perPage="+perPage)
     }
 
 </script>
