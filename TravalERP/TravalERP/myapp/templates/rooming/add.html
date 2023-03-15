@@ -4,4 +4,161 @@
   <h1 class="mt-5 title">루밍등록</h1>
 </div>
 
+<div class="container mt-5">
+  <form>
+    <div class="d-inline mb-3">
+      <label class="form-label" for="roomingfile"><h4>파일업로드</h4></label>
+      <input type="file" class="form-control" id="roomingfile" />
+    </div>
+    <div class="devider"></div>
+    <div class="row mt-2">
+      <label for="roomingstate" class="col-sm-1 col-form-label">루밍상태</label>
+      <div class="col-sm-5 mt-2">
+        <div class="form-check form-check-inline">
+          <input
+            id="semirooming"
+            type="radio"
+            class="form-check-input"
+            value="semi"
+          />
+          <label class="form-check-label" for="semiroom">세미루밍</label>
+        </div>
+      </div>
+      <div class="col-sm-6 mt-2">
+        <div class="form-check form-check-inline">
+          <input
+            id="finalrooming"
+            type="radio"
+            class="form-check-input"
+            value="final"
+          />
+          <label class="form-check-label" for="finalroom">파이널루밍</label>
+        </div>
+      </div>
+    </div>
+    <div class="devider"></div>
+    <div class="row mt-2">
+      <div class="text-start">
+        <label for="ref" class="col-sm-1 col-form-label">단체매칭</label>
+        <label class="d-none d-sm-inline-block navbar-search col-form-label">
+          <div class="input-group">
+            <input
+              type="text"
+              class="form-control bg-light border"
+              aria-label="Search"
+              aria-describedby="basic-addon2"
+            />
+            <div class="input-group-append">
+              <button class="btn btn-primary" type="button">
+                <i class="fas fa-search fa-sm"></i>
+              </button>
+          </div>
+        </label>
+      </div>
+    </div>
+    <div class="devider"></div>
+    <div class="row">
+      <p>루밍상태</p>
+      <label for="totalpax" class="col-sm-1 col-form-label">TOTAL PAX</label>
+      <div class="col-sm-2">
+        <div class="input-group">
+          <input id="totalpax" type="text" class="form-control" />
+          <div class="input-group-text">pax</div>
+        </div>
+      </div>
+      <label for="roomtype" class="col-sm-2 col-form-label">ROOM TYPE</label>
+      <div class="col-sm-2">
+        <div class="input-group">
+          <input id="twinroom" type="text" class="form-control" readonly />
+          <div class="input-group-text">TWIN</div>
+        </div>
+      </div>
+      <div class="col-sm-2">
+        <div class="input-group">
+          <input id="tripleroom" type="text" class="form-control" readonly />
+          <div class="input-group-text">TRIPLE</div>
+        </div>
+      </div>
+      <div class="col-sm-2">
+        <div class="input-group">
+          <input id="singleroom" type="text" class="form-control" readonly />
+          <div class="input-group-text">SINGLE</div>
+        </div>
+      </div>
+      <div class="row mt-3">
+        <div class="col-sm-2">
+          <label for="tc" class="col-form-label visually-hidden">TOUR LEADER</label>
+         <input type="text" readonly class="form-control-plaintext" id="tc" value="TOUR LEADER">
+        </div>
+        <div class="col-sm-2">
+          <label for="tc_name" class="visually-hidden">이름</label>
+          <input type="text" class="form-control" id="tc_name" placeholder="이름">
+        </div>
+        <div class="col-sm-3">
+          <label for="tc_tel" class="visually-hidden">연락처</label>
+          <input type="text" class="form-control" id="tc_tel" placeholder="연락처">
+        </div>
+      </div>
+    </div>
+    <div class="row mt-3">
+      <label for="remark" class="col-sm-1 col-form-label">REMARK</label>
+      <div class="col-sm-11">
+        <input id="remark" type="text" class="form-control" style="height: 100px;"/>
+      </div>
+    </div>
+    <div class="devider"></div>
+      <table class="table mx-3">
+        <thead class="table-light">
+          <tr>
+            <th scope="col">NO.</th>
+            <th scope="col">ROOM TYPE</th>
+            <th scope="col">NAME(K)</th>
+            <th scope="col">NAME(E)</th>
+            <th scope="col">SEX</th>
+            <th scope="col">구분</th>
+            <th scope="col">DATE OF BIRTH</th>
+            <th scope="col">PASSPORT</th>
+            <th scope="col">DATE OF EXPIRY</th>
+            <th scope="col">MOBILE</th>
+            <th scope="col">REMARK</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">1</th>
+            <td>TWIN1</td>
+            <td>여운규</td>
+            <td>YEO UN KYU</td>
+            <td>M</td>
+            <td>ADU</td>
+            <td>19870310</td>
+            <td>M12345678</td>
+            <td>20280310</td>
+            <td>010-5482-3600</td>
+            <td>혼자감</td>
+          </tr>
+        </tbody>
+      </table>    
+  </form>
+</div>
+
+
+
+
+
+
+<style>
+  .devider {
+    width: 100%;
+    height: 5px;
+    border-top: rgba(155, 151, 151, 0.979) 2px solid;
+    margin: 20px 10px 20px 0px;
+  }
+
+  .form-check-inline {
+    display: inline-block;
+    margin-right: 1rem;
+  }
+</style>
+
 {% endblock %} {% block js %} {{block.super}} {% endblock js %}

@@ -19,7 +19,7 @@
     </div>
     <div class="row mt-2">
       <label for="url" class="col-sm-1 col-form-label">URL</label>
-      <div class="col-sm-4">
+      <div class="col-sm-11">
         <input id="url" type="url" class="form-control" />
       </div>
     </div>
@@ -163,7 +163,41 @@
     <div class="devider"></div>
     <div class="row">
       <p>SCHDULE</p>
-      
+      <table class="table mx-3">
+        <thead class="table-light">
+          <tr>
+            <th scope="col">일차</th>
+            <th scope="col">날짜</th>
+            <th scope="col">일정</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">1일차</th>
+            <td>2023-03-10</td>
+            <td>인천국제공항 출발</td>
+          </tr>
+          <tr>
+            <th scope="row">2일차</th>
+            <td>2023-03-11</td>
+            <td>두바이공항 도착 후 환승-마드리드 도착 후 가이드 미팅-호텔이동</td>
+          </tr>
+        </tbody>
+      </table>    
+    </div>
+    <div class="devider"></div>
+    <div class="row">
+      <label for="hotel" class="col-sm-1 col-form-label">HOTEL</label>
+      <div class="col-sm-11">
+        <input id="hotle" type="text" class="form-control" readonly />
+      </div>
+    </div>
+    <div class="devider"></div>
+    <div class="row">
+      <label for="remark" class="col-sm-1 col-form-label">REMARK</label>
+      <div class="col-sm-11">
+        <input id="remark" type="text" class="form-control" style="height: 100px;"/>
+      </div>
 
 
   </form>
