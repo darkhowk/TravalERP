@@ -9,7 +9,6 @@ from django.db import models
 from django.contrib import admin
 
 class Agent(models.Model):
-    id = models.IntegerField(db_column='ID', primary_key=True,)  # Field name made lowercase.
     agent_name= models.CharField(db_column='AGENT_NAME', max_length=100)  # Field name made lowercase.
     agent_tel= models.CharField(db_column='AGENT_TEL', max_length=100)  # Field name made lowercase.
     agent_type = models.CharField(db_column='AGENT_TYPE', max_length=100)  # Field name made lowercase.
@@ -22,3 +21,22 @@ class Agent(models.Model):
     class Meta:
         managed = False
         db_table = 'agent'
+
+class Manager(models.Model):
+    agent_name= models.CharField(db_column='AGENT_NAME', max_length=100)  # Field name made lowercase.
+    manager_name= models.CharField(db_column='MANAGER_NAME', max_length=100)  # Field name made lowercase.
+    manager_tel= models.CharField(db_column='MANAGER_TEL', max_length=20)  # Field name made lowercase.
+    type = models.CharField(db_column='TYPE', max_length=100)  # Field name made lowercase.
+    manager_hp = models.CharField(db_column='MANAGER_HP', max_length=100)  # Field name made lowercase.
+    manager_messenger = models.CharField(db_column='MANAGER_MESSENGER', max_length=100)  # Field name made lowercase.
+    manager_email = models.CharField(db_column='MANAGER_EMAIL', max_length=100)  # Field name made lowercase.
+    manager_remark = models.TextField(db_column='MANAGER_REMARK', max_length=1000)  # Field name made lowercase.
+    use_yn = models.CharField(db_column='USE_YN', max_length=100)  # Field name made lowercase.
+    entry_id = models.CharField(db_column='ENTRY_ID', max_length=20)  # Field name made lowercase.
+    entry_date = models.DateTimeField(db_column='ENTRY_DATE')  # Field name made lowercase.
+    updat_id = models.CharField(db_column='UPDAT_ID', max_length=20, blank=True, null=True)  # Field name made lowercase.
+    updat_date = models.DateTimeField(db_column='UPDAT_DATE', blank=True, null=True)  # Field name made lowercase.
+
+    class Meta:
+        managed = False
+        db_table = 'manager'

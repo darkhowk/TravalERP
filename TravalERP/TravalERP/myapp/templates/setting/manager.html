@@ -1,0 +1,150 @@
+{% extends "base/setting_base.html" %}
+{% block content %}
+<div class="container-fluid">
+    <div class="card mb-4">
+        <div class="card-header">
+            {% if type == 'M' %}
+                담당자 내역
+            {% else %}
+                로컬 담당자 내역
+            {% endif %}
+        </div>
+        <input type="button" value="메뉴 추가" onclick="addMenu()"> 
+        <div class="card-body">
+            <div class="datatable-wrapper datatable-loading no-footer sortable searchable fixed-columns">
+                <div class="datatable-top">
+                    <div class="datatable-dropdown">
+                        <label>
+                            <select class="datatable-selector" id="perPage">
+                                <option value="5" {% if per_page == 5%} selected {% endif %}>5</option>
+                                <option value="10" {% if per_page == 10%} selected {% endif %}>10</option>
+                                <option value="15" {% if per_page == 15%} selected {% endif %}>15</option>
+                                <option value="20" {% if per_page == 20%} selected {% endif %}>20</option>
+                                <option value="25" {% if per_page == 25%} selected {% endif %}>25</option>
+                            </select>
+                            페이지당 목록표시
+                        </label>
+                    </div>
+                    <div class="datatable-search">
+                        <input class="datatable-input" placeholder="Search..." type="search" title="Search within table" aria-controls="datatablesSimple" />
+                    </div>   
+                </div>
+                <div class="datatable-container">
+                    <table id="datatablesSimple" class="datatable-table">
+                        <thead>
+                            <tr>
+                                <th data-sortable="true" style="width: 5%" aria-sort="ascending" class="datatable-ascending">
+                                    <a href="#" class="datatable-sorter">여행사</a>
+                                </th>
+                                <th data-sortable="true" style="width: 5%" aria-sort="ascending" class="datatable-ascending">
+                                    <a href="#" class="datatable-sorter">담당자명</a>
+                                </th>
+                                <th data-sortable="true" style="width: 10%" aria-sort="ascending" class="datatable-ascending">
+                                    <a href="#" class="datatable-sorter">직통번호</a>
+                                </th>
+                                <th data-sortable="true" style="width: 10%" aria-sort="ascending" class="datatable-ascending">
+                                    <a href="#" class="datatable-sorter">핸드폰</a>
+                                </th>
+                                <th data-sortable="true" style="width: 10%" aria-sort="ascending" class="datatable-ascending">
+                                    <a href="#" class="datatable-sorter">메신저</a>
+                                </th>
+                                <th data-sortable="true" style="width: 10%" aria-sort="ascending" class="datatable-ascending">
+                                    <a href="#" class="datatable-sorter">e-mail</a>
+                                </th>
+                                <th data-sortable="true" style="width: 10%" aria-sort="ascending" class="datatable-ascending">
+                                    <a href="#" class="datatable-sorter">remark</a>
+                                </th>
+                                <th data-sortable="true" style="width: 7%" aria-sort="ascending" class="datatable-ascending">
+                                    <a href="#" class="datatable-sorter">사용여부</a>
+                                </th>
+                                <th data-sortable="true" style="width: 5%" aria-sort="ascending" class="datatable-ascending">
+                                    <a href="#" class="datatable-sorter">등록자</a>
+                                </th>
+                                <th data-sortable="true" style="width: 12%" aria-sort="ascending" class="datatable-ascending">
+                                    <a href="#" class="datatable-sorter">등록일</a>
+                                </th>
+                                <th data-sortable="true" style="width: 5%" aria-sort="ascending" class="datatable-ascending">
+                                    <a href="#" class="datatable-sorter">수정자</a>
+                                </th>
+                                <th data-sortable="true" style="width: 12%" aria-sort="ascending" class="datatable-ascending">
+                                    <a href="#" class="datatable-sorter">수정일</a>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for list in manager %}
+                                <tr id="{{list.id}}" data-index="{{ forloop.counter0 }}">
+                                    <td>{{list.agent_name}}</td>
+                                    <td>{{list.manager_name}}</td>
+                                    <td>{{list.manager_tel}}</td>
+                                    <td>{{list.manager_hp}}</td>
+                                    <td>{{list.manager_messenger}}</td>
+                                    <td>{{list.manager_email}}</td>
+                                    <td>{{list.manager_remark}}</td>
+                                    <td>{{list.use_yn}}</td>
+                                    <td>{{list.entry_id}}</td>
+                                    <td>{{list.entry_date}}</td>
+                                    <td>{{list.updat_id}}</td>
+                                    <td>{{list.updat_date}}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div>
+                    <div class="datatable-bottom">
+                       <!-- <div class="datatable-info">57개 항목 중 1~10개 항목 표시</div>-->
+                        <nav class="datatable-pagination">
+                          <ul class="datatable-pagination-list">
+                            {% for page in pages %}
+                                {% if page == current_page %}
+                                    <li class="datatable-pagination-list-item datatable-active">
+                                        <a data-page="{{ page }}" class="datatable-pagination-list-item-link">{{ page }}</a>
+                                    </li>
+                                {% else %}
+                                    <li class="datatable-pagination-list-item-link">
+                                        <a data-page="{{ page }}" class="datatable-pagination-list-item-link" onclick="goPage('{{page}}')">{{ page }}</a>
+                                    </li>
+                                {% endif %}
+                            {% endfor %}
+                            <input id="paging" type="hidden" value={{current_page}}>
+                            <input id="type" type="hidden" value={{type}}>
+                          </ul>
+                        </nav>
+                      </div>
+                  </div>
+            </div>
+        </div>
+    </div>
+</div>    
+<script>
+    function addMenu(){
+        var type = $("#type").val();
+        movePage('setting/manager/addManager?pageType=I&type='+type)
+    }
+    $(document).on('change', '#perPage', function() {
+        var perPage = $(this).val();
+        var type = $("#type").val();
+        location.href = location.origin + location.pathname + '?perPage='+ perPage + '&type='+type
+    });
+
+    $(document).on('dblclick','tr', function(e){
+        var id = e.currentTarget.id;
+        var perPage =  $('#perPage').val();
+        var paging =$('#paging').val();
+        var type = $("#type").val();
+        if (id != ''){
+            movePage('setting/manager/addManager?pageType=U&id='+id+'&perPage='+perPage+'&paging='+paging + '&type='+type)
+        }
+    })
+
+    function goPage(page){
+        var perPage =  $('#perPage').val();
+        var type = $("#type").val();
+           movePage('setting/manager?perPage='+perPage+'&paging='+page + '&type='+type)
+    }
+</script>
+{% endblock %}
+{% block js %}
+    {{block.super}}      
+{% endblock js %}

@@ -16,5 +16,9 @@ urlpatterns = [
     path("setting/agent/addData", views.agentInsert, name="여생사/로컬 등록 ajax"), 
     path("setting/agent/updateData", views.agentModify, name="여행사/로컬 수정 ajax"), 
     path("setting/agent/deleteData", views.agentDelete, name="여행사/로컬 삭제 ajax"), 
-   
+    path("setting/manager", views.managerIndex.as_view(), name="담당자/로컬 담당자"), 
+    path("setting/manager/addManager", views.managerAdd.as_view(), name="담당자/로컬 담당자 등록/수정"), 
+    path("setting/manager/addData", views.managerInsert, name="담당자/로컬 담당자 등록 ajax"), 
+    path("setting/manager/updateData", views.managerModify, name="담당자/로컬 담당자 수정 ajax"), 
+    path("setting/manager/deleteData", views.managerDelete, name="담당자/로컬 담당자 삭제 ajax"), 
 ]
