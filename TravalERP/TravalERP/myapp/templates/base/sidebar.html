@@ -8,7 +8,7 @@
                         <hr class="sidebar-divider">
                             <div class="sb-sidenav-menu-heading">{{list.menu_name}}</div>
                         {% else %}
-                            <a class="nav-link" href="{{list.link}}">
+                            <a class="nav-link" href="javascript:movePage('{{list.link}}');">
                                 <div class="sb-nav-link-icon"><i class="fas {{list.icon}}" ></i></div>
                                 {{list.menu_name}}
                             </a>
