@@ -16,17 +16,4 @@ class Menu(models.Model):
         managed = False
         db_table = 'menu'
 
-class Agent(models.Model):
-    agent_code= models.CharField(db_column='AGENT_CODE', max_length=100)  # Field name made lowercase.
-    agent_name= models.CharField(db_column='AGENT_NAME', max_length=100)  # Field name made lowercase.
-    agent_tel= models.CharField(db_column='AGENT_TEL', max_length=100)  # Field name made lowercase.
-    use_yn = models.CharField(db_column='USE_YN', max_length=100)  # Field name made lowercase.
-    entry_id = models.CharField(db_column='ENTRY_ID', max_length=20)  # Field name made lowercase.
-    entry_date = models.DateTimeField(db_column='ENTRY_DATE')  # Field name made lowercase.
-    updat_id = models.CharField(db_column='UPDAT_ID', max_length=20, blank=True, null=True)  # Field name made lowercase.
-    updat_date = models.DateTimeField(db_column='UPDAT_DATE', blank=True, null=True)  # Field name made lowercase.
-
-    class Meta:
-        managed = False
-        db_table = 'agent'
 

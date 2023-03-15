@@ -1,0 +1,97 @@
+{% extends "base/setting_base.html" %}
+{% block content %}
+<div class="bd">
+  <h1 class="mt-4">{{title_nm}}</h1>
+  <form id="agentFrm">
+    {% csrf_token %}
+    <div class="row">
+      <label for="agent_name" class="col-sm-1 col-form-label">여행사</label>
+      <div class="col-sm-3">
+        <input type="text" class="form-control" id="agent_name" name="agent_name" value="{{agent.0.agent_name}}">
+        <input type="hidden" class="form-control" id="agent_name" name="id" value="{{agent.0.id}}">
+      </div>
+      <label for="agent_tel" class="col-sm-1 col-form-label">대표번호</label>
+      <div class="col-sm-3">
+        <input type="tel" class="form-control" id="agent_tel" name="agent_tel" value="{{agent.0.agent_tel}}">
+      </div>
+      <label for="use_yn" class="col-sm-1 col-form-label">사용여부</label>
+      <div class="col-sm-3">
+        <input type="text" class="form-control" id="use_yn" name="use_yn" value="{{agent.0.use_yn}}">
+      </div>
+    </div>
+    {% if pageType == 'I' %}
+    <input type="button" value="저장" onclick="saveData()">
+    {% elif pageType == 'U' %}
+      <input type="button" value="수정" onclick="updateData()">
+      <input type="button" value="삭제" onclick="deleteData()">
+    {% endif %}
+    <input type="button" value="목록" onclick="goMenuList()">
+    <input id="agent_type" name="agent_type" type="hidden" value={{agent_type}}>
+  </form>
+  <input type="hidden" id="perPage" value="{{perPage}}">
+  <input type="hidden" id="paging" value="{{paging}}">
+</div>
+<script>
+  function saveData(){
+      var jsonData = $('#agentFrm').serializeArray()
+          $.ajax({
+              url: 'addData', // 앞에 자동으로 setting/agent 붙음
+              method: 'POST',
+              data: jsonData,
+              dataType: 'json',
+              success: function(data) {
+                 alert('입력성공 여행사등록 화면으로 이동합니다.')
+                 goMenuList();
+              },
+              error: function(xhr, status, error) {
+                 alert('여행사 등록 실패')
+              }
+          });
+  }
+
+  function updateData(){
+      var jsonData = $('#agentFrm').serializeArray()
+          $.ajax({
+              url: 'updateData', // 앞에 자동으로 setting/agent 붙음
+              method: 'POST',
+              data: jsonData,
+              dataType: 'json',
+              success: function(data) {
+                 alert('수정성공 메뉴등록 화면으로 이동합니다.')
+                 goMenuList();
+              },
+              error: function(xhr, status, error) {
+                 alert('여행사 수정 실패')
+              }
+          });
+  }
+
+  function deleteData(){
+      var jsonData = $('#agentFrm').serializeArray()
+          $.ajax({
+              url: 'deleteData', // 앞에 자동으로 setting/agent 붙음
+              method: 'POST',
+              data: jsonData,
+              dataType: 'json',
+              success: function(data) {
+                 alert('삭제성공 메뉴등록 화면으로 이동합니다.')
+                 goMenuList();
+              },
+              error: function(xhr, status, error) {
+                 alert('메뉴 삭제 실패')
+              }
+          });
+  }
+
+  function goMenuList(){
+      var perPage = $("#perPage").val();
+      var page = $("#paging").val();
+      var agent_type = $("#agent_type").val();
+      movePage('setting/agent?paging='+page+"&perPage="+perPage+"&agent_type="+agent_type)
+  }
+
+</script>
+{% endblock %}
+{% block js %}
+    {{block.super}}      
+{% endblock js %}
