@@ -64,7 +64,7 @@ class settingIndex(generic.ListView):
 #################################################
 class settingMenu(generic.ListView):
    def __init__(self):
-      self.title_nm = "설정>메뉴관리"
+      self.title_nm = "메뉴관리"
       self.ogImgUrl = ""
       self.descript = "메뉴관리 페이지입니다"
       self.template_name = "setting/menu.html"
@@ -109,7 +109,7 @@ class settingMenu(generic.ListView):
 
 class menuAdd(generic.ListView):
    def __init__(self):
-        self.title_nm = "설정>메뉴관리>메뉴추가"
+        self.title_nm = "메뉴추가"
         self.ogImgUrl = ""
         self.descript = "메뉴추가 페이지입니다"
         self.template_name = "setting/menuAdd.html"
@@ -240,7 +240,7 @@ class agentIndex(generic.ListView):
       self.pages = range(1, num_pages + 1)
 
       if self.agent_type == 'A':
-         self.title_nm = "설정>여행사"
+         self.title_nm = "여행사"
          self.descript = "여행사 페이지입니다"
       else :
          self.title_nm = "설정>로컬"
@@ -263,7 +263,7 @@ class agentIndex(generic.ListView):
 
 class agentAdd(generic.ListView):
    def __init__(self):
-        self.title_nm = "설정>메뉴관리>여행사 추가"
+        self.title_nm = "여행사 추가"
         self.ogImgUrl = ""
         self.descript = "여행사추가 페이지입니다"
         self.template_name = "setting/agentAdd.html"
@@ -277,10 +277,10 @@ class agentAdd(generic.ListView):
          if pageType == 'I':
             agent_type = request.GET.get('agent_type', None)
             if agent_type == 'A':
-               self.title_nm = "설정>여행사 추가"
+               self.title_nm = "여행사 추가"
                self.descript = "여행사추가 페이지입니다"
             else :
-               self.title_nm = "설정>로컬 추가"
+               self.title_nm = "로컬 추가"
                self.descript = "로컬추가 페이지입니다"
 
             self.content = {
@@ -295,10 +295,10 @@ class agentAdd(generic.ListView):
          elif pageType == 'U':
             agent_type = request.GET.get('agent_type', None)
             if agent_type == 'A':
-               self.title_nm = "설정>메뉴관리>여행사 수정"
+               self.title_nm = "여행사 수정"
                self.descript = "여행사 수정 페이지입니다"
             else :
-               self.title_nm = "설정>메뉴관리>로컬 수정"
+               self.title_nm = "로컬 수정"
                self.descript = "로컬 수정 페이지입니다"
 
             id =  request.GET.get('id', None)
@@ -403,10 +403,10 @@ class managerIndex(generic.ListView):
       self.pages = range(1, num_pages + 1)
 
       if self.type == 'M':
-         self.title_nm = "설정>담당자"
+         self.title_nm = "담당자"
          self.descript = "담당자 페이지입니다"
       else :
-         self.title_nm = "설정>로컬 담당자"
+         self.title_nm = "로컬 담당자"
          self.descript = "로컬 담당자 페이지입니다"
       self.content = {
                         "descript"      : self.descript,
@@ -426,7 +426,7 @@ class managerIndex(generic.ListView):
 
 class managerAdd(generic.ListView):
    def __init__(self):
-        self.title_nm = "설정>메뉴관리>담당자 추가"
+        self.title_nm = "담당자 추가"
         self.ogImgUrl = ""
         self.descript = "담당자추가 페이지입니다"
         self.template_name = "setting/managerAdd.html"
@@ -441,11 +441,11 @@ class managerAdd(generic.ListView):
          if pageType == 'I':
             type = request.GET.get('type', None)
             if type == 'M':
-               self.title_nm = "설정>담당자 추가"
+               self.title_nm = "담당자 추가"
                self.descript = "담당자추가 페이지입니다"
                agent = Agent.objects.filter(agent_type="A", use_yn='Y', )
             else :
-               self.title_nm = "설정>로컬 담당자 추가"
+               self.title_nm = "로컬 담당자 추가"
                self.descript = "로컬 담당자 추가 페이지입니다"
                agent = Agent.objects.filter(agent_type="L", use_yn='Y', )
 
@@ -462,11 +462,11 @@ class managerAdd(generic.ListView):
          elif pageType == 'U':
             type = request.GET.get('type', None)
             if type == 'M':
-               self.title_nm = "설정>메뉴관리>담당자 수정"
+               self.title_nm = "담당자 수정"
                self.descript = "담당자 수정 페이지입니다"
                agent = Agent.objects.filter(agent_type="A", use_yn='Y', )
             else :
-               self.title_nm = "설정>메뉴관리>로컬 담당자 수정"
+               self.title_nm = "로컬 담당자 수정"
                self.descript = "로컬 담당자 수정 페이지입니다"
                agent = Agent.objects.filter(agent_type="L", use_yn='Y', )
 
