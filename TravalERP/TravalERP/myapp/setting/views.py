@@ -195,7 +195,7 @@ def menuDelete(request):
 
    menu = request.POST.get('menu')
    menuObject = Menu.objects.get(menu=menu)
-   menuObject.use_yn = 'D'
+   menuObject.use_yn = 'N'
    menuObject.updat_date = now.strftime('%Y-%m-%d %H:%M:%S')
    menuObject.save()
 
@@ -358,7 +358,7 @@ def agentDelete(request):
    id = request.POST.get('id')
    agent_type = request.POST.get('agent_type')
    agentObject = Agent.objects.get(id=id, agent_type=agent_type)
-   agentObject.use_yn = 'D'
+   agentObject.use_yn = 'N'
    agentObject.updat_date = now.strftime('%Y-%m-%d %H:%M:%S')
    agentObject.save()
 
@@ -542,7 +542,7 @@ def managerDelete(request):
    id = request.POST.get('id')
    type = request.POST.get('type')
    managerObject = Manager.objects.get(id=id, type=type)
-   managerObject.use_yn = 'D'
+   managerObject.use_yn = 'N'
    managerObject.updat_date = now.strftime('%Y-%m-%d %H:%M:%S')
    managerObject.save()
 

@@ -16,7 +16,10 @@
       </div>
       <label for="use_yn" class="col-sm-1 col-form-label">사용여부</label>
       <div class="col-sm-3">
-        <input type="text" class="form-control" id="use_yn" name="use_yn" value="{{agent.0.use_yn}}">
+        <select class="form-select" id="use_yn" name="use_yn" value="{{agent.0.use_yn}}">
+            <option value="Y">사용</option>
+            <option value="N">미사용</option>
+        </select>
       </div>
     </div>
     {% if pageType == 'I' %}
