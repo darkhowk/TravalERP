@@ -1,180 +1,174 @@
 {% extends "base/base.html" %} {% block content %}
-
-<div class="container">
+<div class="container-fluid">
   <h1 class="mt-5 title">수배등록</h1>
 </div>
 
-<div class="container mt-5">
-  <form>
-    <div class="row">
-      <label for="ref" class="col-sm-1 col-form-label">REf</label>
-      <div class="col-sm-4">
-        <input id="ref" type="text" class="form-control" />
-      </div>
-      <div class="col-sm-1"></div>
-      <label for="prodName" class="col-sm-1 col-form-label">상품명</label>
-      <div class="col-sm-4">
-        <input id="prodName" type="text" class="form-control" />
-      </div>
+<div class="container">
+    <form name="bookinglist">
+        <div class="col-sm-12 pt-3">
+            <div class="card">
+                <div class="card-header card-header-primary">
+                    <h4 class="card-title">테스트입니다</h4>
+                </div>
+                <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table">
+                        <tbody>
+                            <tr style="line-height:32px;">
+                            <td>ref</td>
+                            <td>
+                                <input type="text" name="reference" class="form-control" id="reference">
+                            </td>
+                            <td>상품명</td>
+                            <td>
+                                <input type="text" name="product_name" class="form-control" id="product_name">
+                            </td>                        
+                            </tr>
+                            <tr>
+                            <td>URL</td>
+                            <td colspan="5">
+                                <input type="url" name="product_url" class="form-control" id="product_url">                                 
+                            </td>
+                            </tr>
+                            <tr style="line-height:32px;">
+                            <td>여행사</td> <!--설정-여행사관리-여행사에 등록된 정보를 불러옴-->
+                            <td>
+                                <select class="form-select" aria-label="Default select example">
+                                    <option selected>여행사명</option>
+                                    <option value="1">모두투어</option>
+                                    <option value="2">교원투어</option>
+                                    <option value="3">인터파크</option>
+                                    <option value="4">티오엔투어</option>
+                                    <option value="5">인센티브</option>
+                                </select>
+                            </td>
+                            <td>상품담당자</td> <!--설정-여행사관리-담당자에 등록된 정보를 불러옴-->
+                            <td>
+                                <select class="form-select" aria-label="Default select example">
+                                        <option selected>담당자명</option>
+                                        <option value="1">000</option>
+                                        <option value="2">000</option>
+                                        <option value="3">000</option>
+                                    </select>
+                            </td>
+                            <tr style="line-height:32px;">
+                                <td>LOCAL</td> <!--설정-로컬관리-로컬에 등록된 정보를 불러옴-->
+                                <td>
+                                    <select class="form-select" aria-label="Default select example">
+                                        <option selected>현지사무실명</option>
+                                        <option value="1">00000</option>
+                                        <option value="2">11111</option>
+                                        <option value="3">22222</option>
+                                        <option value="4">33333</option>
+                                    </select>
+                                </td>
+                                <td>현지담당자</td> <!--설정-로컬관리-담당자에 등록된 정보를 불러옴-->
+                                <td>
+                                    <select class="form-select" aria-label="Default select example">
+                                        <option selected>담당자명</option>
+                                        <option value="1">000</option>
+                                        <option value="2">000</option>
+                                        <option value="2">000</option>
+                                    </select>
+                                </td>                   
+                            </tr>
+                            <tr style="line-height:32px;">
+                                <td>항공</td>
+                                <td>
+                                    <label>한국출발</label>
+                                    <input type="date" name="kor_air_def" class="form-control" size="10" required="" id="kor_air_def">
+                                    <label>현지출발</label>
+                                    <input type="date" name="loc_air_def" class="form-control" size="10" required="" id="loc_air_def">
+                                </td>
+                                <td>편명</td>
+                                <td>
+                                    <label>한국출발</label>
+                                    <input type="text" name="kor_air" class="form-control" id="kor_air">
+                                    <label>현지출발</label>
+                                    <input type="text" name="local_air" class="form-control" id="local_air">
+                                </td>
+                                <td>
+                                    <label>IN</label>
+                                    <input type="text" class="form-control" value="" readonly>
+                                    <label>IN</label>
+                                    <input type="text" class="form-control" value="" readonly>
+                                </td>
+                                <td>
+                                    <label>OUT</label>
+                                        <input type="text" class="form-control" value="" readonly>
+                                    <label>OUT</label>
+                                        <input type="text" class="form-control" value="" readonly>
+                                </td>
+                            </tr>
+                            <tr style="line-height:32px;">
+                                <td>BUS</td>
+                                <td>
+                                    <input type="text" name="bus" class="form-control" id="bus" readonly>
+                                </td>                   
+                            </tr>
+                            <tr style="line-height:50px;">
+                                
+                                <td>ENTRANCE</td>
+                                <td colspan="5">
+                                    <input type="text" name="bus" class="form-control" id="bus" readonly>
+                                </td>                   
+                            </tr>
+
+
+                            </tr>
+
+
+
+
+
+
+
+
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <div class="text-end mt-3">
+        <button type="submit" class="btn btn-primary">저장</button>
+        <button type="reset" class="btn btn-secondary">초기화</button>
+        <button type="button" class="btn btn-secondary">취소</button>
     </div>
-    <div class="row mt-2">
-      <label for="url" class="col-sm-1 col-form-label">URL</label>
-      <div class="col-sm-4">
-        <input id="url" type="url" class="form-control" />
-      </div>
-    </div>
-    <div class="devider"></div>
-    <div class="row mt-2">
-      <label for="agent" class="col-sm-1 col-form-label">여행사</label>
-      <div class="col-sm-4">
-        <select class="form-select" aria-label="agent_name">
-          <option selected>여행사명</option>
-          <option value="1">모두투어</option>
-          <option value="2">교원투어</option>
-          <option value="3">인터파크</option>
-          <option value="4">티오엔투어</option>
-          <option value="5">인센티브</option>
-        </select>
-      </div>
-      <div class="col-sm-1"></div>
-      <label for="agent_person" class="col-sm-1 col-form-label">담당자</label>
-      <div class="col-sm-4">
-        <select class="form-select" aria-label="agent_person">
-          <option selected>담당자명</option>
-          <option value="1">000</option>
-          <option value="2">000</option>
-          <option value="3">000</option>
-        </select>
-      </div>
-    </div>
-    <div class="devider"></div>
-    <div class="row mt-2">
-      <label for="local" class="col-sm-1 col-form-label">현지사무실</label>
-      <div class="col-sm-4">
-        <select class="form-select" aria-label="local_name">
-          <option selected>현지사무실명</option>
-          <option value="1">1</option>
-          <option value="2">22</option>
-          <option value="3">333</option>
-          <option value="4">4444</option>
-          <option value="5">55555</option>
-        </select>
-      </div>
-      <div class="col-sm-1"></div>
-      <label for="local_person" class="col-sm-1 col-form-label">담당자</label>
-      <div class="col-sm-4">
-        <select class="form-select" aria-label="local_person">
-          <option selected>담당자명</option>
-          <option value="1">000</option>
-          <option value="2">000</option>
-          <option value="3">000</option>
-        </select>
-      </div>
-    </div>
-    <div class="devider"></div>
-    <div class="row">
-      <p>AIR</p>
-      <label for="kor_air_def" class="col-sm-1 col-form-label">한국출발</label>
-      <div class="col-sm-2">
-        <input id="kor_air_def" type="date" class="form-control" />
-      </div>
-      <label for="kor_air" class="col-sm-1 col-form-label">항공편</label>
-      <div class="col-sm-2">
-        <input id="kor_air" type="text" class="form-control" />
-      </div>
-      <label for="kor_in_air" class="col-sm-1 col-form-label">IN</label>
-      <div class="col-sm-2">
-        <input id="kor_in_air" type="text" class="form-control" readonly />
-      </div>
-      <label for="kor_out_air" class="col-sm-1 col-form-label">OUT</label>
-      <div class="col-sm-2">
-        <input id="kor_out_air" type="text" class="form-control" readonly />
-      </div>
-    </div>
-    <div class="row mt-2">
-      <label for="loc_air_def" class="col-sm-1 col-form-label">현지출발</label>
-      <div class="col-sm-2">
-        <input id="loc_air_def" type="date" class="form-control" />
-      </div>
-      <label for="loc_air" class="col-sm-1 col-form-label">항공편</label>
-      <div class="col-sm-2">
-        <input id="loc_air" type="text" class="form-control" />
-      </div>
-      <label for="loc_in_air" class="col-sm-1 col-form-label">IN</label>
-      <div class="col-sm-2">
-        <input id="loc_in_air" type="text" class="form-control" readonly />
-      </div>
-      <label for="loc_out_air" class="col-sm-1 col-form-label">OUT</label>
-      <div class="col-sm-2">
-        <input id="loc_out_air" type="text" class="form-control" readonly />
-      </div>
-    </div>
-    <div class="devider"></div>
-    <div class="row">
-      <label for="bus" class="col-sm-1 col-form-label">BUS</label>
-      <div class="col-sm-11">
-        <input id="bus" type="text" class="form-control" readonly />
-      </div>
-    </div>
-    <div class="devider"></div>
-    <div class="row">
-      <label for="ent" class="col-sm-1 col-form-label">ENTRANCE</label>
-      <div class="col-sm-11">
-        <input
-          id="ent"
-          type="text"
-          class="form-control"
-          style="height: 80px"
-          readonly
-        />
-      </div>
-    </div>
-    <div class="devider"></div>
-    <div class="row">
-      <p>MEAL</p>
-      <label for="brk" class="col-sm-1 col-form-label">조식</label>
-      <div class="col-sm-2">
-        <input id="brk" type="text" class="form-control" readonly />
-      </div>
-      <label for="lunch" class="col-sm-1 col-form-label">중식</label>
-      <div class="col-sm-2">
-        <input id="lunch" type="text" class="form-control" readonly />
-      </div>
-      <label for="dinner" class="col-sm-1 col-form-label">석식</label>
-      <div class="col-sm-2">
-        <input id="dinner" type="text" class="form-control" readonly />
-      </div>
-        <button type="search" class="btn btn-primary col-sm-2">검색하기</button>
-      </div>
-    </div>
-  </form>
 </div>
 
-<style>
-  .devider {
-    width: 100%;
-    height: 5px;
-    border-top: rgba(155, 151, 151, 0.979) 2px solid;
-    margin: 20px 10px 20px 0px;
-  }
-  .title {
-    font-size: 30px;
-    font-weight: bolder;
-    margin-bottom: 20px;
-  }
 
-  .tr_row {
-    margin-bottom: 10px;
-  }
 
-  .tr_row label {
-    width: 5rem;
-    text-align: justify;
-  }
-  .tr_row input {
-    width: 10rem;
-    margin-right: 10px;
-  }
-</style>
+<div class="dropdown">
+    <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">
+      여행사명
+    </button>
+    <ul class="dropdown-menu">
+      <li><a class="dropdown-item" href="#">모두투어</a></li>
+      <li><a class="dropdown-item" href="#">교원투어</a></li>
+      <li><a class="dropdown-item" href="#">인터파크</a></li>
+      <li><a class="dropdown-item" href="#">티오엔투어</a></li>
+      <li><a class="dropdown-item" href="#">인센티브</a></li>
+    </ul>
+  </div>
+
+  <div style="margin:20px;">
+    <div class="dropdown">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+        Independence
+        <!-- 아래 화살표 -->
+        <span class="caret"></span>
+      </a>
+      <ul class="dropdown-menu">
+        <li><a href="#">Test1</a></li>
+        <li><a href="#">Test2</a></li>
+      </ul>
+    </div>
+  </div>
+
+
+
 
 {% endblock %} {% block js %} {{block.super}} {% endblock js %}
