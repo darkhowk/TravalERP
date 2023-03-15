@@ -120,6 +120,8 @@ class menuAdd(generic.ListView):
 
       if 'pageType' in request.GET:
          pageType = request.GET.get('pageType', None)
+         self.perPage = request.GET.get('perPage', None)
+         self.paging = request.GET.get('paging', None)
          if pageType == 'I':
             self.content = {
                            "descript" : self.descript,
@@ -127,13 +129,13 @@ class menuAdd(generic.ListView):
                            "ogImgUrl" : self.ogImgUrl,
                            "topMenu"  : self.topMenu,
                            "leftMenu" : self.leftMenu,
-                           "pageType" : pageType
+                           "pageType" : pageType,
+                           "perPage"  : self.perPage,
+                           "paging"   : self.paging
                         }
          elif pageType == 'U':
             id = request.GET.get('id', None)
             self.contentMenu = Menu.objects.filter(menu=id)
-            self.perPage = request.GET.get('perPage', None)
-            self.paging = request.GET.get('paging', None)
             self.content = {
                            "descript"    : self.descript,
                            "title_nm"    : self.title_nm,
