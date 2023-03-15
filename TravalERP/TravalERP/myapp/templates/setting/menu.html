@@ -116,7 +116,9 @@
 </div>  
 <script>
     function addMenu(){
-        movePage('setting/menu/addMenu?pageType=I')
+        var perPage =  $('#perPage').val();
+        var paging =$('#paging').val();
+        movePage('setting/menu/addMenu?pageType=I'+'&perPage='+perPage+'&paging='+paging)
     }
     $(document).on('change', '#perPage', function() {
         var perPage = $(this).val();
