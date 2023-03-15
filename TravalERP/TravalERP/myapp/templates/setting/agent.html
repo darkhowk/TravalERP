@@ -3,7 +3,11 @@
 <div class="container-fluid">
     <div class="card mb-4">
         <div class="card-header">
-           여행사 내역
+            {% if agent_type == 'A' %}
+                여행사 내역
+            {% else %}
+                로컬 내역
+            {% endif %}
         </div>
         <input type="button" value="메뉴 추가" onclick="addMenu()"> 
         <div class="card-body">

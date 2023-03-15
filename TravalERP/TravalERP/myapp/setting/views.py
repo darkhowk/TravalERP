@@ -228,11 +228,9 @@ class agentIndex(generic.ListView):
       if self.agent_type == 'A':
          self.title_nm = "설정>여행사"
          self.descript = "여행사 페이지입니다"
-         self.template_name = "setting/agent.html"
       else :
          self.title_nm = "설정>로컬"
          self.descript = "로컬 페이지입니다"
-         self.template_name = "setting/local.html"
       self.content = {
                         "descript"      : self.descript,
                         "title_nm"      : self.title_nm,
@@ -267,11 +265,9 @@ class agentAdd(generic.ListView):
             if agent_type == 'A':
                self.title_nm = "설정>여행사 추가"
                self.descript = "여행사추가 페이지입니다"
-               self.template_name = "setting/agentAdd.html"
             else :
                self.title_nm = "설정>로컬 추가"
                self.descript = "로컬추가 페이지입니다"
-               self.template_name = "setting/localAdd.html"
 
             self.content = {
                            "descript" : self.descript,
@@ -287,11 +283,9 @@ class agentAdd(generic.ListView):
             if agent_type == 'A':
                self.title_nm = "설정>메뉴관리>여행사 추가"
                self.descript = "여행사추가 페이지입니다"
-               self.template_name = "setting/agentAdd.html"
             else :
                self.title_nm = "설정>메뉴관리>로컬 추가"
                self.descript = "로컬추가 페이지입니다"
-               self.template_name = "setting/localAdd.html"
 
             id =  request.GET.get('id', None)
             self.agent = Agent.objects.filter(id=id, agent_type = agent_type)
