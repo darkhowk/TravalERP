@@ -1,0 +1,290 @@
+{% extends "base/base.html" %} {% block content %}
+
+<div class="container">
+  <h1 class="mt-5 title">정산등록</h1>
+</div>
+
+<div class="container mt-5">
+  <form>
+    <div class="d-inline mb-3">
+      <label class="form-label" for="roomingfile"><h4>파일업로드</h4></label>
+      <input type="file" class="form-control" id="roomingfile" />
+    </div>
+    <div class="devider"></div>
+    <div class="row mt-2">
+      <label for="statement" class="col-sm-2 col-form-label">정산상태</label>
+      <div class="col-sm-5 mt-2">
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="radio"
+            name="flexRadioDefault"
+            id="local_stat"
+          />
+          <label class="form-check-label" for="local_stat"> 현지 </label>
+        </div>
+      </div>
+      <div class="col-sm-5 mt-2">
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="radio"
+            name="flexRadioDefault"
+            id="agent_stat"
+          />
+          <label class="form-check-label" for="agent_stat"> 여행사 </label>
+        </div>
+      </div>
+    </div>
+    <div class="devider"></div>
+    <div class="row mt-2">
+      <div class="text-start">
+        <label for="matching" class="col-sm-2 col-form-label">단체매칭</label>
+        <label class="d-none d-sm-inline-block navbar-search col-form-label">
+          <div class="input-group">
+            <input
+              type="text"
+              class="form-control bg-light border"
+              aria-label="Search"
+              aria-describedby="basic-addon2"
+            />
+            <div class="input-group-append">
+              <button class="btn btn-primary" type="button">
+                <i class="fas fa-search fa-sm"></i>
+              </button>
+          </div>
+        </label>
+      </div>
+    </div>
+    <div class="devider"></div>
+    <div class="row">
+      <p>단체상세</p>
+      <label for="totalpax" class="col-sm-2 col-form-label">TOTAL PAX</label>
+      <div class="col-sm-2">
+        <div class="input-group">
+          <input id="totalpax" type="text" class="form-control" />
+          <div class="input-group-text">pax</div>
+        </div>
+      </div>
+      <div class="col-sm-1"></div>
+      <label for="totalpax" class="col-sm-1 col-form-label">T/C</label>
+      <div class="col-sm-2">
+        <select class="form-select col-sm-2" aria-label="currency">
+         <option selected>T/C여부</option>
+         <option value="1">+ 1</option>
+         <option value="2">+ 2</option>
+         <option value="3">NO T/C</option>
+        </select>
+      </div>
+      <div class="col-sm-2">
+    </div>
+    <div class="row mt-2">
+      <label for="roomtype" class="col-sm-2 col-form-label">ROOM TYPE</label>
+      <div class="col-sm-3">
+        <div class="input-group">
+          <input id="twinroom" type="text" class="form-control" readonly />
+          <div class="input-group-text">TWIN</div>
+        </div>
+      </div>
+      <div class="col-sm-3">
+        <div class="input-group">
+          <input id="tripleroom" type="text" class="form-control" readonly />
+          <div class="input-group-text">TRIPLE</div>
+        </div>
+      </div>
+      <div class="col-sm-3">
+        <div class="input-group">
+          <input id="singleroom" type="text" class="form-control" readonly />
+          <div class="input-group-text">SINGLE</div>
+        </div>
+      </div>
+    </div>
+    <div class="devider"></div>
+    <div class="row">
+        <label for="ref" class="col-sm-1 col-form-label">기준환율</label>
+        <label class="col-sm-1 col-form-label text-end">1</label>
+        <div class="col-sm-1">
+            <select class="form-select" aria-label="currency">
+             <option selected>단위</option>
+             <option value="1">€</option>
+             <option value="2">＄</option>
+             <option value="3">￡</option>
+            </select>
+        </div>
+        <div class="col-sm-2">
+            <input id="rate_won" type="text" class="form-control" />
+        </div>
+        <div class="col-sm-1">
+            <input id="rate_won" type="text" class="form-control text-center" value="원" readonly/>
+        </div>
+    </div>
+    <div class="devider"></div>
+    <div class="row">
+        <label for="ref" class="col-sm-1 col-form-label">인보이스</label>
+        <label class="col-sm-1 col-form-label text-end">현지</label>
+        <div class="col-sm-3">
+            <input id="rate_won" type="text" class="form-control" readonly/>
+        </div>
+        <div class="col-sm-1">
+            <input id="rate_won" type="text" class="form-control" value="유로" readonly/>
+        </div>
+        <div class="col-sm-3">
+            <input id="rate_won" type="text" class="form-control" readonly/>
+        </div>
+        <div class="col-sm-1">
+            <input id="rate_won" type="text" class="form-control" value="원" readonly/>
+        </div>
+    </div>
+    <div class="row mt-2">
+        <label class="col-sm-1 col-form-label"></label>
+        <label class="col-sm-1 col-form-label text-end">여행사</label>
+        <div class="col-sm-3">
+            <input id="rate_won" type="text" class="form-control" readonly/>
+        </div>
+        <div class="col-sm-1">
+            <input id="rate_won" type="text" class="form-control" value="유로" readonly/>
+        </div>
+        <div class="col-sm-3">
+            <input id="rate_won" type="text" class="form-control" readonly/>
+        </div>
+        <div class="col-sm-1">
+            <input id="rate_won" type="text" class="form-control" value="원" readonly/>
+        </div>
+    </div>
+    <div class="devider"></div>
+    <div class="row">
+        <p>부가수익</p>
+        <table class="table table-striped table-bordered text-center">
+          <thead class="table-light">
+            <tr>
+              <th scope="col">삭제</th>
+              <th scope="col">항목명</th>
+              <th scope="col" colspan="2">금액</th>
+              <th scope="col">인원(수량)</th>
+              <th scope="col" colspan="2">합계</th>
+              <th scope="col">비고</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="row1" text>
+              <td class="action-checkbox col-sm-1">
+                <input type="checkbox" name="delete_select" value="" class="action-select" >
+              </td>
+              <td class="col-sm-3">쇼핑컴</td>
+              <td class="col-sm-1">100</td>
+              <td class="col-sm-1"><select class="form-select " aria-label="local_person">
+                <option selected>단위</option>
+                <option value="1">€</option>
+                <option value="2">＄</option>
+                <option value="3">￡</option>
+              </select></td>
+              <td clas="col-sm-">1</td>
+              <td class="col-sm-20">100</td> <!--여기에는 위에 항목명(500) 인원(24)와 박수(1)이 곱해진 값이 들어가야함-->
+              <td value="">€</td> <!--위에 단위에서 지정한 화폐단위가 자동입력-->
+              <td class="col-sm-3">비고없음</td>
+            </tr>
+            <tr class="row2" text>
+                <td class="action-checkbox col-sm-1">
+                  <input type="checkbox" name="delete_select" value="" class="action-select" >
+                </td>
+                <td class="col-sm-3">길지나가다가 주움</td>
+                <td class="col-sm-1">10</td>
+                <td class="col-sm-1"><select class="form-select " aria-label="local_person">
+                  <option selected>단위</option>
+                  <option value="1">€</option>
+                  <option value="2">＄</option>
+                  <option value="3">￡</option>
+                </select></td>
+                <td clas="col-sm-">1</td>
+                <td class="col-sm-20">10</td> <!--여기에는 위에 항목명(500) 인원(24)와 박수(1)이 곱해진 값이 들어가야함-->
+                <td value="">€</td> <!--위에 단위에서 지정한 화폐단위가 자동입력-->
+                <td class="col-sm-3">야호</td>
+              </tr>
+          </tbody>
+        </table>
+    </div>
+    <div class="devider"></div>
+    <div class="p-2 bg-warning text-dark">
+        <div class="row">
+          <label for="total_rate" class="col-sm-2 col-form-label">서울수익</label>
+         <div class="col-sm-3">
+          <input id="tota_rate" type="text" class="form-control" readonly />
+         </div>
+         <div class="col-sm-1">
+           <input id="tota_rate_currency" type="text" class="form-control text-center" value="유로" readonly />
+         </div>
+         <div class="col-sm-1"></div>
+           <label for="prodName" class="col-sm-1 col-form-label"></label>
+         <div class="col-sm-3">
+          <input id="tota_rate" type="text" class="form-control" readonly />
+          </div>
+        <div class="col-sm-1">
+         <input id="tota_rate_currency" type="text" class="form-control text-center" value="원" readonly />
+         </div>
+      </div>
+    </div>
+    <div class="devider"></div>
+    <div class="row">
+        <label for="ref" class="col-sm-2 col-form-label">발란스</label>
+        <div class="col-sm-2">
+            <select class="form-select" aria-label="currency">
+                <option selected>여행사</option>
+           </select>
+        </div>
+        <div class="col-sm-20">
+            <select class="form-select" aria-label="currency">
+                <option selected>담당자</option>
+            </select>   
+        </div>
+        <div class="col-sm-20">
+            <select class="form-select" aria-label="currency">
+                <option selected>미과수</option>
+                <option value="1">과수</option>
+                <option value="2">미수</option>
+            </select>   
+        </div>
+        <div class="col-sm-1">
+        <select class="form-select" aria-label="currency">
+            <option selected>단위</option>
+            <option value="1">€</option>
+            <option value="2">＄</option>
+            <option value="3">￡</option>
+           </select>
+        </div>
+        <div class="col-sm-4">
+            <input id="ref" type="text" class="form-control" placeholder="비고사항" />
+        </div>
+    </div>
+    <div class="devider"></div>
+    <div class="row">
+        <label for="remark" class="col-sm-1 col-form-label">REMARK</label>
+        <div class="col-sm-11">
+            <textarea id="remark" class="form-control" style="height: 100px"></textarea>
+        </div>
+    </div>
+    <div class="text-end mt-5">
+      <button type="submit" class="btn btn-primary">저장</button>
+      <button type="reset" class="btn btn-secondary">초기화</button>
+      <button type="button" class="btn btn-secondary">취소</button>
+    </div>
+  </form>
+</div>
+
+
+
+<style>
+    .devider {
+        width: 100%;
+        height: 5px;
+        border-top: rgba(155, 151, 151, 0.979) 2px solid;
+        margin: 20px 10px 20px 0px;
+    }
+
+    .col-sm-20 {
+        flex: 0 0 auto;
+        width: 11%;
+    }
+
+</style>
+
+      {% endblock %} {% block js %} {{block.super}} {% endblock js %}
