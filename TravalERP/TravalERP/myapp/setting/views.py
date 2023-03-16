@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.views import generic
 from django.http import JsonResponse
 from django.core.paginator import Paginator
-
+from ..common.CommonView import CommonView
 import datetime
 
 from ..common.common_models import Menu, Agent, Manager, Airport
@@ -61,51 +61,15 @@ class settingIndex(generic.ListView):
 #################################################
 # MENU
 #################################################
-class settingMenu(generic.ListView):
-   def __init__(self):
-      self.title_nm = "메뉴관리"
-      self.ogImgUrl = ""
-      self.descript = "메뉴관리 페이지입니다"
-      self.template_name = "setting/menu.html"
-      self.topMenu = Menu.objects.filter(menu_type="TOP")
-      self.leftMenu = Menu.objects.filter(menu_type="LEFT")
+class settingMenu(CommonView):
+   title_nm = "메뉴관리"
+   descript = "메뉴관리 페이지입니다"
+   template_name = "setting/menu.html"
+   menu_type = "LEFT"
 
-   def get(self, request, *args, **kwargs):
-      ## 페이지에 뿌려질 데이터 
-      # 페이지당 보여줄 개수
-      self.per_page = int(request.GET.get('perPage', 5))
-
-      # 현재 페이지
-      self.current_page = int(request.GET.get('paging', 1))
-
-      # 그려질 페이지 목록
-      self.menus = Menu.objects.all()[self.per_page * (self.current_page - 1):self.per_page * self.current_page]
-
-      # 페이지 수
-      num_pages = math.ceil(Menu.objects.count() / self.per_page)
-
-      # 페이지 번호 목록
-      self.pages = range(1, num_pages + 1)
-
-      # 총 갯수
-      # 현재 페이지에 그려지는 항목 범위
-
-      ## 데이터들을 담는다
-      self.content = {
-                        "descript" : self.descript,
-                        "title_nm" : self.title_nm,
-                        "ogImgUrl" : self.ogImgUrl,
-                        "topMenu"  : self.topMenu,
-                        "leftMenu"  : self.leftMenu,
-                        "menus" : self.menus,
-                        'pages': self.pages,
-                        'current_page': int(self.current_page), 
-                        'per_page': int(self.per_page),
-                     }
-
-      return render(request, self.template_name, self.content)
-      
-
+   def get_queryset(self):
+      return Menu.objects.all()
+   
 class menuAdd(generic.ListView):
    def __init__(self):
         self.title_nm = "메뉴추가"
@@ -244,7 +208,7 @@ class agentIndex(generic.ListView):
          self.title_nm = "여행사"
          self.descript = "여행사 페이지입니다"
       else :
-         self.title_nm = "설정>로컬"
+         self.title_nm = "로컬"
          self.descript = "로컬 페이지입니다"
       self.content = {
                         "descript"      : self.descript,

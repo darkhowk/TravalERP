@@ -18,6 +18,14 @@ class Menu(commonModel):
     menu_type = models.CharField(db_column='MENU_TYPE', max_length=10, verbose_name='메뉴타입')  # Field name made lowercase.
     link = models.CharField(db_column='LINK', max_length=1000, verbose_name='링크')
     
+    def __iter__(self):
+        yield self.menu
+        yield self.menu_name
+        yield self.upper_menu
+        yield self.icon
+        yield self.menu_type
+        yield self.link
+    
     class Meta:
         managed = False
         db_table = 'menu'
