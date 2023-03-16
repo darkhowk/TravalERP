@@ -6,8 +6,7 @@ from django.core.paginator import Paginator
 
 import datetime
 
-from ..common.common_models import Menu
-from .models import Agent, Manager
+from ..common.common_models import Menu, Agent, Manager, Airport
 
 # Create your views here.
 
@@ -327,12 +326,12 @@ class agentAdd(generic.ListView):
 def agentInsert(request):
    now = datetime.datetime.now()
 
-   agent_name = request.POST.get('agent_name')
+   agent = request.POST.get('agent')
    agent_tel = request.POST.get('agent_tel')
    agent_type = request.POST.get('agent_type')
    use_yn = request.POST.get('use_yn')
    agent = Agent(
-        agent_name=agent_name
+        agent=agent
       , agent_tel=agent_tel
       , agent_type=agent_type
       , use_yn=use_yn
@@ -347,7 +346,7 @@ def agentModify(request):
    id = request.POST.get('id')
    agent_type = request.POST.get('agent_type')
    agentObject = Agent.objects.get(id=id, agent_type=agent_type)
-   agentObject.agent_name = request.POST.get('agent_name')
+   agentObject.agent = request.POST.get('agent')
    agentObject.agent_tel = request.POST.get('agent_tel')
    agentObject.use_yn = request.POST.get('use_yn')
    agentObject.updat_date = now.strftime('%Y-%m-%d %H:%M:%S')
@@ -547,5 +546,172 @@ def managerDelete(request):
    managerObject.use_yn = 'N'
    managerObject.updat_date = now.strftime('%Y-%m-%d %H:%M:%S')
    managerObject.save()
+
+   return JsonResponse({'result': 'success'})
+
+#################################################
+# AIRPORT
+#################################################
+class airportIndex(generic.ListView):
+   def __init__(self):
+      self.title_nm = "항공"
+      self.ogImgUrl = ""
+      self.descript = "항공 등록 페이지입니다"
+      self.template_name = "setting/airport.html"
+      self.topMenu = Menu.objects.filter(menu_type="TOP")
+      self.leftMenu = Menu.objects.filter(menu_type="LEFT")
+
+   def get(self, request, *args, **kwargs):
+      self.aitport = Airport.objects.all()
+
+      #페이지당 숫자
+      perPage = request.GET.get('perPage')
+      if perPage and perPage.isdigit():
+         self.per_page = int(perPage)
+      else:
+         self.per_page = 5
+
+      # 현재 페이지
+      paging = request.GET.get('paging')
+      if paging and paging.isdigit():
+         self.current_page = int(paging)
+      else:
+         self.current_page = 1
+
+      # 그려질 페이지 목록
+      self.aitports = self.aitport[self.per_page * (self.current_page - 1):self.per_page * self.current_page]
+
+      # 페이지 수
+      num_pages = math.ceil(self.aitport.count() / self.per_page)
+
+      # 페이지 번호 목록
+      self.pages = range(1, num_pages + 1)
+
+      self.content = {
+                        "descript"      : self.descript,
+                        "title_nm"      : self.title_nm,
+                        "ogImgUrl"      : self.ogImgUrl,
+                        "topMenu"       : self.topMenu,
+                        "leftMenu"      : self.leftMenu,
+                        "airport"        : self.aitports,
+                        'current_page': int(self.current_page), 
+                        'per_page': int(self.per_page),
+                        'pages': self.pages,
+                     }
+
+      return render(request, self.template_name, self.content)
+
+class airportAdd(generic.ListView):
+   def __init__(self):
+        self.title_nm = "항공 추가"
+        self.ogImgUrl = ""
+        self.descript = "항공추가 페이지입니다"
+        self.template_name = "setting/airportAdd.html"
+        self.topMenu = Menu.objects.filter(menu_type="TOP")
+        self.leftMenu = Menu.objects.filter(menu_type="LEFT")
+      
+   def get(self, request, *args, **kwargs):
+
+      manager = Manager.objects.filter(use_yn='Y', type='M')
+
+      if 'pageType' in request.GET:
+         pageType = request.GET.get('pageType', None)
+         if pageType == 'I':
+            self.title_nm = "항공 추가"
+            self.descript = "항공 추가 페이지입니다"
+            self.content = {
+                           "descript" : self.descript,
+                           "title_nm" : self.title_nm,
+                           "ogImgUrl" : self.ogImgUrl,
+                           "topMenu"  : self.topMenu,
+                           "leftMenu" : self.leftMenu,
+                           "pageType" : pageType,
+                           "manager"  : manager,
+                        }
+         elif pageType == 'U':
+            self.title_nm = "항공 수정"
+            self.descript = "항공 수정 페이지입니다"
+
+            id =  request.GET.get('id', None)
+            self.airport = Airport.objects.filter(id=id)
+            self.perPage = request.GET.get('perPage', None)
+            self.paging = request.GET.get('paging', None)
+            self.content = {
+                           "descript"    : self.descript,
+                           "title_nm"    : self.title_nm,
+                           "ogImgUrl"    : self.ogImgUrl,
+                           "topMenu"     : self.topMenu,
+                           "leftMenu"    : self.leftMenu,
+                           "pageType"    : pageType,
+                           "perPage"     : self.perPage,
+                           "paging"      : self.paging,
+                           "airport"     : self.airport,
+                           "manager"     : manager,
+                           "id"          : id,
+                        }
+         return render(request, self.template_name, self.content)
+      else :
+         return render('', '/error', '')
+
+def airportInsert(request):
+   now = datetime.datetime.now()
+
+   airport_name = request.POST.get('airport_name')
+   departure_airport = request.POST.get('departure_airport')
+   departure_city = request.POST.get('departure_city')
+   departure_time = request.POST.get('departure_time')
+   arrival_airport = request.POST.get('arrival_airport')
+   arrival_city = request.POST.get('arrival_city')
+   arrival_time = request.POST.get('arrival_time')
+   time_taken = request.POST.get('time_taken')
+   manager = Manager.objects.get(id=request.POST.get('manager'))
+   airport_remark = request.POST.get('airport_remark')
+   use_yn = request.POST.get('use_yn')
+   airport = Airport(
+        airport_name=airport_name
+      , departure_airport=departure_airport
+      , departure_city=departure_city
+      , departure_time=departure_time
+      , arrival_airport=arrival_airport
+      , arrival_city=arrival_city
+      , arrival_time=arrival_time
+      , time_taken=time_taken
+      , manager=manager
+      , airport_remark=airport_remark
+      , use_yn=use_yn
+      , entry_date = now.strftime('%Y-%m-%d %H:%M:%S')
+   )
+   airport.save()
+   return JsonResponse({'result': 'success'})
+
+def airportModify(request):
+   now = datetime.datetime.now()
+
+   id = request.POST.get('id')
+
+   airportObject = Airport.objects.get(id=id)
+   airportObject.airport_name = request.POST.get('airport_name')
+   airportObject.departure_airport = request.POST.get('departure_airport')
+   airportObject.departure_city = request.POST.get('departure_city')
+   airportObject.departure_time = request.POST.get('departure_time')
+   airportObject.arrival_airport = request.POST.get('arrival_airport')
+   airportObject.arrival_city = request.POST.get('arrival_city')
+   airportObject.arrival_time = request.POST.get('arrival_time')
+   airportObject.time_taken = request.POST.get('time_taken')
+   airportObject.manager = Manager.objects.get(id=request.POST.get('manager'))
+   airportObject.airport_remark = request.POST.get('airport_remark')
+   airportObject.use_yn = request.POST.get('use_yn')
+   airportObject.updat_date = now.strftime('%Y-%m-%d %H:%M:%S')
+   airportObject.save()
+   return JsonResponse({'result': 'success'})
+
+def airportDelete(request):
+   now = datetime.datetime.now()
+
+   id = request.POST.get('id')
+   agentObject = Agent.objects.get(id=id)
+   agentObject.use_yn = 'N'
+   agentObject.updat_date = now.strftime('%Y-%m-%d %H:%M:%S')
+   agentObject.save()
 
    return JsonResponse({'result': 'success'})

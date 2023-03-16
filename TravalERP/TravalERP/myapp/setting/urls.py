@@ -21,4 +21,9 @@ urlpatterns = [
     path("setting/manager/addData", views.managerInsert, name="담당자/로컬 담당자 등록 ajax"), 
     path("setting/manager/updateData", views.managerModify, name="담당자/로컬 담당자 수정 ajax"), 
     path("setting/manager/deleteData", views.managerDelete, name="담당자/로컬 담당자 삭제 ajax"), 
+    path("setting/airport", views.airportIndex.as_view(), name="항공"), 
+    path("setting/airport/addAirport", views.airportAdd.as_view(), name="항공 등록/수정"), 
+    path("setting/airport/addData", views.airportInsert, name="항공 등록 ajax"), 
+    path("setting/airport/updateData", views.airportModify, name="항공 수정 ajax"), 
+    path("setting/airport/deleteData", views.airportDelete, name="항공 삭제 ajax"), 
 ]

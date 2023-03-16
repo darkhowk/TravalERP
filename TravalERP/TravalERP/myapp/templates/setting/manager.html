@@ -3,11 +3,7 @@
 <div class="container-fluid">
     <div class="card mb-4">
         <div class="card-header">
-            {% if type == 'M' %}
-                담당자 내역
-            {% else %}
-                로컬 담당자 내역
-            {% endif %}
+            {{title_nm}}
         </div>
         <input type="button" value="메뉴 추가" onclick="addMenu()"> 
         <div class="card-body">
@@ -74,7 +70,7 @@
                         <tbody>
                             {% for list in manager %}
                                 <tr id="{{list.id}}" data-index="{{ forloop.counter0 }}">
-                                    <td>{{list.agent_name}}</td>
+                                    <td>{{list.agent.agent_name}}</td>
                                     <td>{{list.manager_name}}</td>
                                     <td>{{list.manager_tel}}</td>
                                     <td>{{list.manager_hp}}</td>

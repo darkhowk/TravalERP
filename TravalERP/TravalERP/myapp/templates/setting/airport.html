@@ -30,40 +30,50 @@
                         <thead>
                             <tr>
                                 <th data-sortable="true" style="width: 5%" aria-sort="ascending" class="datatable-ascending">
-                                    <a href="#" class="datatable-sorter">여행사</a>
+                                    <a href="#" class="datatable-sorter">편명</a>
                                 </th>
                                 <th data-sortable="true" style="width: 10%" aria-sort="ascending" class="datatable-ascending">
-                                    <a href="#" class="datatable-sorter">여행사연락처</a>
+                                    <a href="#" class="datatable-sorter">출발공항</a>
+                                </th>
+                                <th data-sortable="true" style="width: 10%" aria-sort="ascending" class="datatable-ascending">
+                                    <a href="#" class="datatable-sorter">출발도시</a>
+                                </th>
+                                <th data-sortable="true" style="width: 10%" aria-sort="ascending" class="datatable-ascending">
+                                    <a href="#" class="datatable-sorter">출발시간</a>
+                                </th>
+                                <th data-sortable="true" style="width: 10%" aria-sort="ascending" class="datatable-ascending">
+                                    <a href="#" class="datatable-sorter">도착공항</a>
+                                </th>
+                                <th data-sortable="true" style="width: 10%" aria-sort="ascending" class="datatable-ascending">
+                                    <a href="#" class="datatable-sorter">도착도시</a>
+                                </th>
+                                <th data-sortable="true" style="width: 10%" aria-sort="ascending" class="datatable-ascending">
+                                    <a href="#" class="datatable-sorter">도착시간</a>
+                                </th>
+                                <th data-sortable="true" style="width: 10%" aria-sort="ascending" class="datatable-ascending">
+                                    <a href="#" class="datatable-sorter">걸린시간</a>
+                                </th>
+                                <th data-sortable="true" style="width: 10%" aria-sort="ascending" class="datatable-ascending">
+                                    <a href="#" class="datatable-sorter">담당자</a>
                                 </th>
                                 <th data-sortable="true" style="width: 7%" aria-sort="ascending" class="datatable-ascending">
                                     <a href="#" class="datatable-sorter">사용여부</a>
                                 </th>
-                               <!-- <th data-sortable="true" style="width: 5%" aria-sort="ascending" class="datatable-ascending">
-                                    <a href="#" class="datatable-sorter">등록자</a>
-                                </th>
-                                <th data-sortable="true" style="width: 12%" aria-sort="ascending" class="datatable-ascending">
-                                    <a href="#" class="datatable-sorter">등록일</a>
-                                </th>
-                                <th data-sortable="true" style="width: 5%" aria-sort="ascending" class="datatable-ascending">
-                                    <a href="#" class="datatable-sorter">수정자</a>
-                                </th>
-                                <th data-sortable="true" style="width: 12%" aria-sort="ascending" class="datatable-ascending">
-                                    <a href="#" class="datatable-sorter">수정일</a>
-                                </th>
-                            -->
                             </tr>
                         </thead>
                         <tbody>
-                            {% for list in agent %}
+                            {% for list in airport %}
                                 <tr id="{{list.id}}" data-index="{{ forloop.counter0 }}">
-                                    <td>{{list.agent_name}}</td>
-                                    <td>{{list.agent_tel}}</td>
+                                    <td>{{list.airport_name}}</td>
+                                    <td>{{list.departure_airport}}</td>
+                                    <td>{{list.departure_city}}</td>
+                                    <td>{{list.departure_time}}</td>
+                                    <td>{{list.arrival_airport}}</td>
+                                    <td>{{list.arrival_city}}</td>
+                                    <td>{{list.arrival_time}}</td>
+                                    <td>{{list.time_taken}}</td>
+                                    <td>{{list.manager.manager_name}}</td>
                                     <td>{{list.use_yn}}</td>
-                                  <!--  <td>{{list.entry_id}}</td>
-                                    <td>{{list.entry_date}}</td>
-                                    <td>{{list.updat_id}}</td>
-                                    <td>{{list.updat_date}}</td>
-                                  -->
                                 </tr>
                             {% endfor %}
                         </tbody>
@@ -97,29 +107,25 @@
 </div>    
 <script>
     function addMenu(){
-        var agent_type = $("#agent_type").val();
-        movePage('setting/agent/addAgent?pageType=I&agent_type='+agent_type)
+        movePage('setting/airport/addAirport?pageType=I')
     }
     $(document).on('change', '#perPage', function() {
         var perPage = $(this).val();
-        var agent_type = $("#agent_type").val();
-        location.href = location.origin + location.pathname + '?perPage='+ perPage + '&agent_type='+agent_type
+        location.href = location.origin + location.pathname + '?perPage='+ perPage
     });
 
     $(document).on('dblclick','tr', function(e){
         var id = e.currentTarget.id;
         var perPage =  $('#perPage').val();
         var paging =$('#paging').val();
-        var agent_type = $("#agent_type").val();
         if (id != ''){
-            movePage('setting/agent/addAgent?pageType=U&id='+id+'&perPage='+perPage+'&paging='+paging + '&agent_type='+agent_type)
+            movePage('setting/airport/addAirport?pageType=U&id='+id+'&perPage='+perPage+'&paging='+paging)
         }
     })
 
     function goPage(page){
         var perPage =  $('#perPage').val();
-        var agent_type = $("#agent_type").val();
-           movePage('setting/agent?perPage='+perPage+'&paging='+page + '&agent_type='+agent_type)
+           movePage('setting/airport?perPage='+perPage+'&paging='+page)
     }
 </script>
 {% endblock %}
