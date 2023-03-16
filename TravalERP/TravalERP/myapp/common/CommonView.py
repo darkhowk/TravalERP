@@ -26,7 +26,7 @@ class CommonView(generic.ListView):
             for common in commonModel._meta.fields:
                 if field.verbose_name == common.verbose_name:
                     tmp = False
-                elif  field.verbose_name == 'ID':
+                elif  field.verbose_name in ['ID', 'TYPE']:
                     tmp = False
             
             if tmp == True:

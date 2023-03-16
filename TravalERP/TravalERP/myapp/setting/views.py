@@ -176,10 +176,10 @@ class agentIndex(CommonView):
    type
 
    def get_queryset(self):
-      return Agent.objects.filter(agent_type = self.type)
+      return Agent.objects.filter(type = self.type)
    
    def get(self, request, *args, **kwargs):
-      self.type = request.GET.get('agent_type')
+      self.type = request.GET.get('type')
       return super().get(request, *args, **kwargs)
 
 """
@@ -254,8 +254,8 @@ class agentAdd(generic.ListView):
       if 'pageType' in request.GET:
          pageType = request.GET.get('pageType', None)
          if pageType == 'I':
-            agent_type = request.GET.get('type', None)
-            if agent_type == 'A':
+            type = request.GET.get('type', None)
+            if type == 'A':
                self.title_nm = "여행사 추가"
                self.descript = "여행사추가 페이지입니다"
             else :
@@ -268,11 +268,11 @@ class agentAdd(generic.ListView):
                            "topMenu"  : self.topMenu,
                            "leftMenu" : self.leftMenu,
                            "pageType" : pageType,
-                           "type" : agent_type,
+                           "type" : type,
                         }
          elif pageType == 'U':
-            agent_type = request.GET.get('agent_type', None)
-            if agent_type == 'A':
+            type = request.GET.get('type', None)
+            if type == 'A':
                self.title_nm = "여행사 수정"
                self.descript = "여행사 수정 페이지입니다"
             else :
@@ -280,7 +280,7 @@ class agentAdd(generic.ListView):
                self.descript = "로컬 수정 페이지입니다"
 
             id =  request.GET.get('id', None)
-            self.agent = Agent.objects.filter(id=id, agent_type = agent_type)
+            self.agent = Agent.objects.filter(id=id, type = type)
             self.perPage = request.GET.get('perPage', None)
             self.paging = request.GET.get('paging', None)
             self.content = {
@@ -291,7 +291,7 @@ class agentAdd(generic.ListView):
                            "pageType"    : pageType,
                            "perPage"     : self.perPage,
                            "paging"      : self.paging,
-                           "type"  : agent_type,
+                           "type"  : type,
                            "agent"       : self.agent,
 
                         }
@@ -304,12 +304,12 @@ def agentInsert(request):
 
    agent = request.POST.get('agent')
    agent_tel = request.POST.get('agent_tel')
-   agent_type = request.POST.get('agent_type')
+   type = request.POST.get('type')
    use_yn = request.POST.get('use_yn')
    agent = Agent(
         agent=agent
       , agent_tel=agent_tel
-      , agent_type=agent_type
+      , type=type
       , use_yn=use_yn
       , entry_date = now.strftime('%Y-%m-%d %H:%M:%S')
    )
@@ -320,8 +320,8 @@ def agentModify(request):
    now = datetime.datetime.now()
 
    id = request.POST.get('id')
-   agent_type = request.POST.get('agent_type')
-   agentObject = Agent.objects.get(id=id, agent_type=agent_type)
+   type = request.POST.get('type')
+   agentObject = Agent.objects.get(id=id, type=type)
    agentObject.agent = request.POST.get('agent')
    agentObject.agent_tel = request.POST.get('agent_tel')
    agentObject.use_yn = request.POST.get('use_yn')
@@ -333,8 +333,8 @@ def agentDelete(request):
    now = datetime.datetime.now()
 
    id = request.POST.get('id')
-   agent_type = request.POST.get('agent_type')
-   agentObject = Agent.objects.get(id=id, agent_type=agent_type)
+   type = request.POST.get('type')
+   agentObject = Agent.objects.get(id=id, type=type)
    agentObject.use_yn = 'N'
    agentObject.updat_date = now.strftime('%Y-%m-%d %H:%M:%S')
    agentObject.save()

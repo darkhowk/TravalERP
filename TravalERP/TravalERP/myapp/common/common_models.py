@@ -35,12 +35,11 @@ class Menu(commonModel):
 class Agent(commonModel):
     agent_name= models.CharField(db_column='AGENT_NAME', max_length=100, verbose_name='여행사')  # Field name made lowercase.
     agent_tel= models.CharField(db_column='AGENT_TEL', max_length=100, verbose_name='대표전화')  # Field name made lowercase.
-    agent_type = models.CharField(db_column='AGENT_TYPE', max_length=100, verbose_name='여행사 종류')  # Field name made lowercase.
+    type = models.CharField(db_column='TYPE', max_length=100, verbose_name='TYPE')  # Field name made lowercase.
 
     def __iter__(self):
         yield self.agent_name
         yield self.agent_tel
-        yield self.agent_type
 
     class Meta:
         managed = False
@@ -52,7 +51,7 @@ class Manager(commonModel):
     agent= models.ForeignKey(Agent, db_column='agent', on_delete=models.SET_NULL, blank=True, null=True, verbose_name='여행사')
     manager_name= models.CharField(db_column='MANAGER_NAME', max_length=100, verbose_name='담당자명')  # Field name made lowercase.
     manager_tel= models.CharField(db_column='MANAGER_TEL', max_length=20, verbose_name='담당자 연락처')  # Field name made lowercase.
-    type = models.CharField(db_column='TYPE', max_length=100, verbose_name='담당자 종류')  # Field name made lowercase.
+    type = models.CharField(db_column='TYPE', max_length=100, verbose_name='TYPE')  # Field name made lowercase.
     manager_hp = models.CharField(db_column='MANAGER_HP', max_length=100, verbose_name='담당자 휴대폰')  # Field name made lowercase.
     manager_messenger = models.CharField(db_column='MANAGER_MESSENGER', max_length=100, verbose_name='담당자 메신저')  # Field name made lowercase.
     manager_email = models.CharField(db_column='MANAGER_EMAIL', max_length=100, verbose_name='담당자 이메일')  # Field name made lowercase.
