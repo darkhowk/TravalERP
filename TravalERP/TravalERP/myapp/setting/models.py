@@ -30,7 +30,7 @@ class Manager(models.Model):
     manager_hp = models.CharField(db_column='MANAGER_HP', max_length=100)  # Field name made lowercase.
     manager_messenger = models.CharField(db_column='MANAGER_MESSENGER', max_length=100)  # Field name made lowercase.
     manager_email = models.CharField(db_column='MANAGER_EMAIL', max_length=100)  # Field name made lowercase.
-    manager_remark = models.TextField(db_column='MANAGER_REMARK', max_length=1000)  # Field name made lowercase.
+    manager_remark = models.TextField(db_column='MANAGER_REMARK', max_length=1000, blank=True, null=True)  # Field name made lowercase.
     use_yn = models.CharField(db_column='USE_YN', max_length=100)  # Field name made lowercase.
     entry_id = models.CharField(db_column='ENTRY_ID', max_length=20)  # Field name made lowercase.
     entry_date = models.DateTimeField(db_column='ENTRY_DATE')  # Field name made lowercase.
@@ -40,3 +40,26 @@ class Manager(models.Model):
     class Meta:
         managed = False
         db_table = 'manager'
+
+class Airport(models.Model):
+    airport_name= models.CharField(db_column='AIRPORT_NAME', max_length=100)  # Field name made lowercase.
+    departure_airport= models.CharField(db_column='DEPARTURE_AIRPORT', max_length=100)  # Field name made lowercase.
+    departure_city = models.CharField(db_column='DEPARTURE_CITY', max_length=100)  # Field name made lowercase.
+    departure_time = models.CharField(db_column='DEPARTURE_TIME', max_length=100)  # Field name made lowercase.
+    arrival_airport= models.CharField(db_column='ARRIVAL_AIRPORT', max_length=100)  # Field name made lowercase.
+    arrival_city = models.CharField(db_column='ARRIVAL_CITY', max_length=100)  # Field name made lowercase.
+    arrival_time = models.CharField(db_column='ARRIVAL_TIEM', max_length=100)  # Field name made lowercase.
+    time_taken = models.TextField(db_column='TIME_TAKEN', max_length=1000)  # Field name made lowercase.
+    manager = models.ForeignKey(Manager, db_column='MANAGER', on_delete=models.SET_NULL, blank=True, null=True)
+    airport_remark = models.TextField(db_column='AIRPORT_REMARK', max_length=1000, blank=True, null=True)  # Field name made lowercase.
+    use_yn = models.CharField(db_column='USE_YN', max_length=100)  # Field name made lowercase.
+    entry_id = models.CharField(db_column='ENTRY_ID', max_length=20)  # Field name made lowercase.
+    entry_date = models.DateTimeField(db_column='ENTRY_DATE')  # Field name made lowercase.
+    updat_id = models.CharField(db_column='UPDAT_ID', max_length=20, blank=True, null=True)  # Field name made lowercase.
+    updat_date = models.DateTimeField(db_column='UPDAT_DATE', blank=True, null=True)  # Field name made lowercase.
+
+    def __str__(self):
+        return f"{self.manager} - {self.manager.manager_name}"
+    class Meta:
+        managed = True
+        db_table = 'airport'
