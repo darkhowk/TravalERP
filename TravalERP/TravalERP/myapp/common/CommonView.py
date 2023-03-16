@@ -9,7 +9,7 @@ class CommonView(generic.ListView):
     template_name = ""
     menu_type = ""
     target = ""
-
+    type = ""
     def __init__(self):
         self.topMenu = Menu.objects.filter(menu_type="TOP")
         self.leftMenu = Menu.objects.filter(menu_type="LEFT")
@@ -26,10 +26,12 @@ class CommonView(generic.ListView):
             for common in commonModel._meta.fields:
                 if field.verbose_name == common.verbose_name:
                     tmp = False
+                elif  field.verbose_name == 'ID':
+                    tmp = False
             
             if tmp == True:
                 self.tr_list.append(field.verbose_name)
-                
+
         # 그려질 페이지 목록
         self.content_list = queryset[self.per_page * (self.current_page - 1):self.per_page * self.current_page]
 
@@ -58,6 +60,8 @@ class CommonView(generic.ListView):
             'total_count': total_count,
             'start_index': start_index,
             'end_index': end_index,
+            'target': self.target,
+            'type': self.type,
         }
         return render(request, self.template_name, self.content)
 

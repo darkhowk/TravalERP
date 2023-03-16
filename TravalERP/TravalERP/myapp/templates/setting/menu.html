@@ -44,7 +44,7 @@
                 </thead>
                 <tbody>
                     {% for list in content_list %}
-                        <tr id="{{list.menu}}" data-index="{{ forloop.counter0 }}">
+                        <tr id="{{list.id}}{{list.menu}}" data-index="{{ forloop.counter0 }}">
                             {% for field in list %}
                                 <td>{{ field }}</td>
                             {% endfor %}
@@ -70,38 +70,15 @@
                             {% endif %}
                         {% endfor %}
                         <input id="paging" type="hidden" value={{current_page}}>
+                        <input id="target" type="hidden" value="{{target}}">
+                        <input id="type" type="hidden" value="{{type}}">
                     </ul>
                 </nav>
             </div>
         </div>
     </div>
 </div>  
-<script>
-    function addMenu(){
-        var perPage =  $('#perPage').val();
-        var paging =$('#paging').val();
-        movePage('setting/menu/addMenu?pageType=I'+'&perPage='+perPage+'&paging='+paging)
-    }
-    $(document).on('change', '#perPage', function() {
-        var perPage = $(this).val();
-        location.href = location.origin + location.pathname + '?perPage='+ perPage
-    });
 
-    $(document).on('dblclick','tr', function(e){
-        var id = e.currentTarget.id;
-        var perPage =  $('#perPage').val();
-        var paging =$('#paging').val();
-
-        if (id != ''){
-            movePage('setting/menu/addMenu?pageType=U&id='+id+'&perPage='+perPage+'&paging='+paging)
-        }
-    })
-
-    function goPage(page){
-        var perPage =  $('#perPage').val();
-           movePage('setting/menu?perPage='+perPage+'&paging='+page)
-    }
-</script>
 {% endblock %}
 {% block js %}
     {{block.super}}      

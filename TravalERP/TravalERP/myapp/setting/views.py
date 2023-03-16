@@ -65,8 +65,7 @@ class settingMenu(CommonView):
    title_nm = "메뉴관리"
    descript = "메뉴관리 페이지입니다"
    template_name = "setting/menu.html"
-   menu_type = "LEFT"
-
+   target='menu'
    def get_queryset(self):
       return Menu.objects.all()
    
@@ -169,6 +168,22 @@ def menuDelete(request):
 #################################################
 # AGENT
 #################################################
+class agentIndex(CommonView):
+   title_nm = "여행사"
+   descript = "메뉴관리 페이지입니다"
+   template_name = "setting/menu.html"
+   target='agent'
+   type
+
+   def get_queryset(self):
+      return Agent.objects.filter(agent_type = self.type)
+   
+   def get(self, request, *args, **kwargs):
+      self.type = request.GET.get('agent_type')
+      return super().get(request, *args, **kwargs)
+
+"""
+
 class agentIndex(generic.ListView):
    def __init__(self):
         self.title_nm = "여행사"
@@ -224,12 +239,11 @@ class agentIndex(generic.ListView):
                      }
 
       return render(request, self.template_name, self.content)
-
+"""
 
 class agentAdd(generic.ListView):
    def __init__(self):
         self.title_nm = "여행사 추가"
-        self.ogImgUrl = ""
         self.descript = "여행사추가 페이지입니다"
         self.template_name = "setting/agentAdd.html"
         self.topMenu = Menu.objects.filter(menu_type="TOP")
@@ -240,7 +254,7 @@ class agentAdd(generic.ListView):
       if 'pageType' in request.GET:
          pageType = request.GET.get('pageType', None)
          if pageType == 'I':
-            agent_type = request.GET.get('agent_type', None)
+            agent_type = request.GET.get('type', None)
             if agent_type == 'A':
                self.title_nm = "여행사 추가"
                self.descript = "여행사추가 페이지입니다"
@@ -251,11 +265,10 @@ class agentAdd(generic.ListView):
             self.content = {
                            "descript" : self.descript,
                            "title_nm" : self.title_nm,
-                           "ogImgUrl" : self.ogImgUrl,
                            "topMenu"  : self.topMenu,
                            "leftMenu" : self.leftMenu,
                            "pageType" : pageType,
-                           "agent_type" : agent_type,
+                           "type" : agent_type,
                         }
          elif pageType == 'U':
             agent_type = request.GET.get('agent_type', None)
@@ -273,13 +286,12 @@ class agentAdd(generic.ListView):
             self.content = {
                            "descript"    : self.descript,
                            "title_nm"    : self.title_nm,
-                           "ogImgUrl"    : self.ogImgUrl,
                            "topMenu"     : self.topMenu,
                            "leftMenu"    : self.leftMenu,
                            "pageType"    : pageType,
                            "perPage"     : self.perPage,
                            "paging"      : self.paging,
-                           "agent_type"  : agent_type,
+                           "type"  : agent_type,
                            "agent"       : self.agent,
 
                         }

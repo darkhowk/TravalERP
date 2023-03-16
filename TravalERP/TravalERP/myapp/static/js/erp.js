@@ -18,3 +18,31 @@ function addData(name, value){
 
     return elem;
 }
+function addMenu(){
+    var perPage =  $('#perPage').val();
+    var paging =$('#paging').val();
+    var target =$('#target').val();
+    var type =$('#type').val();
+    movePage('setting/'+target+'/add?pageType=I'+'&perPage='+perPage+'&paging='+paging+'&type='+type)
+}
+$(document).on('change', '#perPage', function() {
+    var perPage = $(this).val();
+    location.href = location.origin + location.pathname + '?perPage='+ perPage
+});
+
+$(document).on('dblclick','tr', function(e){
+    var id = e.currentTarget.id;
+    var perPage =  $('#perPage').val();
+    var paging =$('#paging').val();
+    var target =$('#target').val();
+    var type =$('#type').val();
+    if (id != ''){
+        movePage('setting/'+target+'/add?pageType=U&id='+id+'&perPage='+perPage+'&paging='+paging+'&type='+type)
+    }
+})
+
+function goPage(page){
+    var perPage =  $('#perPage').val();
+    var target =$('#target').val();
+       movePage('setting/'+target+'?perPage='+perPage+'&paging='+page)
+}

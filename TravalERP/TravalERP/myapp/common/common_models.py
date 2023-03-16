@@ -37,6 +37,11 @@ class Agent(commonModel):
     agent_tel= models.CharField(db_column='AGENT_TEL', max_length=100, verbose_name='대표전화')  # Field name made lowercase.
     agent_type = models.CharField(db_column='AGENT_TYPE', max_length=100, verbose_name='여행사 종류')  # Field name made lowercase.
 
+    def __iter__(self):
+        yield self.agent_name
+        yield self.agent_tel
+        yield self.agent_type
+
     class Meta:
         managed = False
         db_table = 'agent'
