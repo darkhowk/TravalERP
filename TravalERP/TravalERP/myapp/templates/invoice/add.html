@@ -12,30 +12,23 @@
         </div>
         <div class="devider"></div>
         <div class="row mt-2">
-            <label for="invoicestate" class="col-sm-2 col-form-label">인보이스 형태</label>
-            <div class="col-sm-5 mt-2">
-              <div class="form-check form-check-inline">
-                <input
-                  id="local_inv"
-                  type="radio"
-                  class="form-check-input"
-                  value="semi"
-                />
-                <label class="form-check-label" for="local_inv">현지</label>
-              </div>
-            </div>
-            <div class="col-sm-5 mt-2">
-              <div class="form-check form-check-inline">
-                <input
-                  id="agent_inv"
-                  type="radio"
-                  class="form-check-input"
-                  value="invoice"
-                />
-                <label class="form-check-label" for="agent_inv">여행사</label>
-              </div>
-            </div>
+          <label for="bank_account" class="col-sm-2 col-form-label">인보이스 형태</label>
+          <div class="col-sm-5 mt-2">
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="flexRadioDefault" id="local_inv">
+            <label class="form-check-label " for="local_inv">
+            현지
+            </label>
           </div>
+        </div>
+        <div class="col-sm-5 mt-2">
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="flexRadioDefault" id="agent_inv" checked>
+            <label class="form-check-label" for="agent_inv">
+            여행사
+            </label>
+          </div>
+        </div>
           <div class="devider"></div>
           <div class="row mt-2">
             <div class="text-start">
@@ -90,41 +83,169 @@
         </div>
         <div class="devider"></div>
         <div class="row">
-            <label for="rate" class="col-sm-1 col-form-label">환율</label>
-            <div class="col-sm-11">
-                <div class="input-group mb-3">
-                    <div class="col-sm-1">
-                        <span class="input-group-text" style="justify-content: center;">1</span>
-                    </div>
-                    <div class="col-sm-3">
-                        <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
-                    </div>
-                    <div class="col-sm-1">
-                        <span class="input-group-text" style="justify-content: center;">당</span>
-                    </div>
-                    <div class="col-sm-3">
-                        <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
-                    </div>
-                    <div class="col-sm-1">
-                        <span class="input-group-text" style="justify-content: center;">원</span>
-                    </div>
-                </div>
+            <label for="rate" class="col-sm-2 col-form-label">환율</label>
+            <div class="col-sm-2">
+              <input id="rate" type="text" class="form-control text-center" value="1" readonly />
             </div>
+          <div class="col-sm-1">
+            <select class="form-select col-sm-3" aria-label="currency">
+              <option selected>단위</option>
+              <option value="1">€</option>
+              <option value="2">＄</option>
+              <option value="3">￡</option>
+            </select>
+          </div>
+          <div class="col-sm-1"></div>
+            <label for="rate_won" class="col-sm-1 col-form-label">원화</label>
+            <div class="col-sm-3">
+              <input id="rate_won" type="text" class="form-control" />
+            </div>
+           </div>
+        <div class="devider"></div>
+        <div class="row mt-3">
+          <label for="remark" class="col-sm-2 col-form-label">REMARK</label>
+          <div class="col-sm-10">
+            <input id="remark" type="text" class="form-control" style="height: 100px;"/>
+          </div>
         </div>
         <div class="devider"></div>
-
+        <div class="row">
+        <p><h5>상세내역<button type="button" class="btn btn-sm btn-primary">내역추가</button></h5></p>
+          <table class="table text-center">
+            <thead class="table-light">
+              <tr>
+                <th scope="col">삭제</th>
+                <th scope="col">항목명</th>
+                <th scope="col" colspan="2">금액</th>
+                <th scope="col">인원(수량)</th>
+                <th scope="col">박수(night)</th>
+                <th scope="col" colspan="2">합계</th>
+                <th scope="col">비고</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="row1" text>
+                <td class="action-checkbox">
+                  <input type="checkbox" name="delete_select" value="" class="action-select">
+                </td>
+                <td>스페인 지상비</td>
+                <td>500</td>
+                <td class="col-sm-1"><select class="form-select " aria-label="local_person" >
+                  <option selected>단위</option>
+                  <option value="1">€</option>
+                  <option value="2">＄</option>
+                  <option value="3">￡</option>
+                </select></td>
+                <td>24</td>
+                <td>1</td>
+                <td>12000</td> <!--여기에는 위에 항목명(500) 인원(24)와 박수(1)이 곱해진 값이 들어가야함-->
+                <td value="">€</td> <!--위에 단위에서 지정한 화폐단위가 자동입력-->
+                <td>비고없음</td>
+              </tr>
+            </tbody>
+          </table>
+          </div>
+          <div class="devider"></div>
+            <div class="p-2 bg-warning text-dark">
+              <div class="row">
+                <label for="total_rate" class="col-sm-2 col-form-label">합계</label>
+               <div class="col-sm-3">
+                <input id="tota_rate" type="text" class="form-control" readonly />
+               </div>
+               <div class="col-sm-1">
+                 <input id="tota_rate_currency" type="text" class="form-control text-center" value="유로" readonly />
+               </div>
+               <div class="col-sm-1"></div>
+                 <label for="prodName" class="col-sm-1 col-form-label"></label>
+               <div class="col-sm-3">
+                <input id="tota_rate" type="text" class="form-control" readonly />
+                </div>
+              <div class="col-sm-1">
+               <input id="tota_rate_currency" type="text" class="form-control text-center" value="원" readonly />
+               </div>
+            </div>
+          </div>
+          <div class="devider"></div>
+          <div class="row">
+            <label for="bank_account" class="col-sm-2 col-form-label">BANK ACCOUNT</label>
+            <div class="col-sm-4 mt-2">
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="flexRadioDefault" id="overseas_bank">
+                <label class="form-check-label" for="overseas_bank">
+                  해외
+                </label>
+              </div>
+            </div>
+            <div class="col-sm-4 mt-2">
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="flexRadioDefault" id="domestic_bank" checked>
+                <label class="form-check-label" for="domestic_bank">
+                  국내
+                </label>
+              </div>
+            </div>
+            <div class="col-sm-2 text-end">
+              <button type="search" class="btn btn-primary">검색하기</button>
+            </div>
+            <div class="row mt-5">
+              <label for="url" class="col-sm-20 col-form-label">BANK</label>
+              <div class="col-sm-4">
+                <input id="url" type="url" class="form-control" readonly />
+              </div>
+              <div class="col-sm-1"></div>
+              <label for="url" class="col-sm-20 col-form-label">BRANCH</label>
+              <div class="col-sm-4">
+                <input id="url" type="url" class="form-control" readonly />
+              </div>
+            </div>
+            <div class="row mt-2">
+              <label for="url" class="col-sm-20 col-form-label">BANK NAME</label>
+              <div class="col-sm-4">
+                <input id="url" type="url" class="form-control" readonly />
+              </div>
+              <div class="col-sm-1"></div>
+              <label for="url" class="col-sm-20 col-form-label">ACCOUNT NO.</label>
+              <div class="col-sm-4">
+                <input id="url" type="url" class="form-control" readonly />
+              </div>
+            </div>
+            <div class="row mt-2">
+              <label for="url" class="col-sm-20 col-form-label">SWIFT</label>
+              <div class="col-sm-4">
+                <input id="url" type="url" class="form-control" readonly />
+              </div>
+              <div class="col-sm-1"></div>
+              <label for="url" class="col-sm-20 col-form-label">IBAN CODE</label>
+              <div class="col-sm-4">
+                <input id="url" type="url" class="form-control" readonly />
+              </div>
+            </div>
+          <div class="text-end mt-5">
+            <button type="submit" class="btn btn-primary">저장</button>
+            <button type="reset" class="btn btn-secondary">초기화</button>
+            <button type="button" class="btn btn-secondary">취소</button>
+          </div>
+          <div class="mt-5"></div>
+        </div>
     </form>
 </div>
 
 
 
-    <style>
-      .devider {
-        width: 100%;
-        height: 5px;
-        border-top: rgba(155, 151, 151, 0.979) 2px solid;
-        margin: 20px 10px 20px 0px;
-      }
-    </style>
+<style>
+  .devider {
+    width: 100%;
+    height: 5px;
+    border-top: rgba(155, 151, 151, 0.979) 2px solid;
+    margin: 20px 10px 20px 0px;
+  }
+
+
+  .col-sm-20 {
+    flex: 0 0 auto;
+    width: 11%;
+  }
+
+</style>
 
     {% endblock %} {% block js %} {{block.super}} {% endblock js %}
