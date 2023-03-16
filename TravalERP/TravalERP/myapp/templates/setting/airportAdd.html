@@ -11,7 +11,7 @@
                 {% csrf_token %}
                 <input type="hidden" id="id" name="id" value="{{id}}">
                 <div class="input-group mb-3">
-                    <span class="input-group-text col-sm-1 text-end" >공항명</span>
+                    <span class="input-group-text col-sm-1 text-end" >편명</span>
                     <input type="text" id="airport_name" name="airport_name" class="form-control col-sm-3" value="{{airport.0.airport_name}}" >
                     <span class="input-group-text col-sm-1" >소요시간</span>
                     <input type="text" id="time_taken" name="time_taken" class="form-control col-sm-3" value="{{airport.0.time_taken}}" >
