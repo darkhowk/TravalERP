@@ -37,55 +37,17 @@
             <table id="datatablesSimple" class="datatable-table table table-light table-responsive table-border table-striped table-hover">
                 <thead>
                     <tr>
-                        <th data-sortable="true" style="width: 5%" aria-sort="ascending" class="datatable-ascending" scope="col">
-                            <a href="#" class="datatable-sorter">메뉴</a>
-                        </th>
-                        <th data-sortable="true" style="width: 10%" aria-sort="ascending" class="datatable-ascending">
-                            <a href="#" class="datatable-sorter">메뉴명</a>
-                        </th>
-                        <th data-sortable="true" style="width: 7%" aria-sort="ascending" class="datatable-ascending">
-                            <a href="#" class="datatable-sorter">상위메뉴</a>
-                        </th>
-                        <th data-sortable="true" style="width: 7%" aria-sort="ascending" class="datatable-ascending">
-                            <a href="#" class="datatable-sorter">사용여부</a>
-                        </th>
-                        <!--<th data-sortable="true" style="width: 5%" aria-sort="ascending" class="datatable-ascending">
-                            <a href="#" class="datatable-sorter">등록자</a>
-                        </th>
-                        <th data-sortable="true" style="width: 12%" aria-sort="ascending" class="datatable-ascending">
-                            <a href="#" class="datatable-sorter">등록일</a>
-                        </th>
-                        <th data-sortable="true" style="width: 5%" aria-sort="ascending" class="datatable-ascending">
-                            <a href="#" class="datatable-sorter">수정자</a>
-                        </th>
-                        <th data-sortable="true" style="width: 12%" aria-sort="ascending" class="datatable-ascending">
-                            <a href="#" class="datatable-sorter">수정일</a>
-                        </th>-->
-                        <th data-sortable="true" style="width: 10%" aria-sort="ascending" class="datatable-ascending">
-                            <a href="#" class="datatable-sorter">아이콘</a>
-                        </th>
-                        <th data-sortable="true" style="width: 7%" aria-sort="ascending" class="datatable-ascending">
-                            <a href="#" class="datatable-sorter">메뉴타입</a>
-                        </th>
-                        <th data-sortable="true" style="width: 10%" aria-sort="ascending" class="datatable-ascending">
-                            <a href="#" class="datatable-sorter">링크</a>
-                        </th>
+                        {% for th in tr_list %}
+                            <th scope="col">{{ th }}</th>
+                        {% endfor %}
                     </tr>
                 </thead>
                 <tbody>
-                    {% for list in menus %}
+                    {% for list in content_list %}
                         <tr id="{{list.menu}}" data-index="{{ forloop.counter0 }}">
-                            <th scope="row">{{list.menu}}</th>
-                            <td>{{list.menu_name}}</td>
-                            <td>{{list.upper_menu}}</td>
-                            <td>{{list.use_yn}}</td>
-                            <!--   <td>{{list.entry_id}}</td>
-                            <td>{{list.entry_date}}</td>
-                            <td>{{list.updat_id}}</td>
-                            <td>{{list.updat_date}}</td>-->
-                            <td>{{list.icon}}</td>
-                            <td>{{list.menu_type}}</td>
-                            <td>{{list.link}}</td>
+                            {% for field in list %}
+                                <td>{{ field }}</td>
+                            {% endfor %}
                         </tr>
                     {% endfor %}
                 </tbody>
@@ -93,7 +55,7 @@
         </div>
         <div>
             <div class="datatable-bottom">
-                <!-- <div class="datatable-info">57개 항목 중 1~10개 항목 표시</div>-->
+                <div class="datatable-info">{{total_count}}개 항목 중 {{start_index}}~{{end_index}}개 항목 표시</div>
                 <nav aria-label="Page navigation" >
                     <ul class="pagination pagination-sm">
                         {% for page in pages %}
