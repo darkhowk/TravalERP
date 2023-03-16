@@ -70,7 +70,7 @@
                         <tbody>
                             {% for list in manager %}
                                 <tr id="{{list.id}}" data-index="{{ forloop.counter0 }}">
-                                    <td>{{list.agent_name}}</td>
+                                    <td>{{list.agent.agent_name}}</td>
                                     <td>{{list.manager_name}}</td>
                                     <td>{{list.manager_tel}}</td>
                                     <td>{{list.manager_hp}}</td>

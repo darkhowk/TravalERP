@@ -6,8 +6,7 @@ from django.core.paginator import Paginator
 
 import datetime
 
-from ..common.common_models import Menu
-from .models import Agent, Manager, Airport
+from ..common.common_models import Menu, Agent, Manager, Airport
 
 # Create your views here.
 
@@ -327,12 +326,12 @@ class agentAdd(generic.ListView):
 def agentInsert(request):
    now = datetime.datetime.now()
 
-   agent_name = request.POST.get('agent_name')
+   agent = request.POST.get('agent')
    agent_tel = request.POST.get('agent_tel')
    agent_type = request.POST.get('agent_type')
    use_yn = request.POST.get('use_yn')
    agent = Agent(
-        agent_name=agent_name
+        agent=agent
       , agent_tel=agent_tel
       , agent_type=agent_type
       , use_yn=use_yn
@@ -347,7 +346,7 @@ def agentModify(request):
    id = request.POST.get('id')
    agent_type = request.POST.get('agent_type')
    agentObject = Agent.objects.get(id=id, agent_type=agent_type)
-   agentObject.agent_name = request.POST.get('agent_name')
+   agentObject.agent = request.POST.get('agent')
    agentObject.agent_tel = request.POST.get('agent_tel')
    agentObject.use_yn = request.POST.get('use_yn')
    agentObject.updat_date = now.strftime('%Y-%m-%d %H:%M:%S')
