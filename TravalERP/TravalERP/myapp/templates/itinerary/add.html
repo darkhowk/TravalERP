@@ -1,0 +1,211 @@
+{% extends "base/base.html" %} {% block content %}
+
+<div class="container">
+  <h1 class="mt-5 title">확정서 등록</h1>
+</div>
+
+<div class="container mt-5">
+  <form>
+    <div class="row">
+      <div class="text-start">
+        <label for="matching" class="col-sm-2 col-form-label">단체매칭</label>
+        <label class="d-none d-sm-inline-block navbar-search col-form-label">
+          <div class="input-group">
+            <input
+              type="text"
+              class="form-control bg-light border"
+              aria-label="Search"
+              aria-describedby="basic-addon2"
+            />
+            <div class="input-group-append">
+              <button class="btn btn-primary" type="button">
+                <i class="fas fa-search fa-sm"></i>
+              </button>
+            </div>
+          </div>
+        </label>
+      </div>
+    </div>
+    <div class="devider"></div>
+    <div class="row">
+      <label for="totalpax" class="col-sm-2 col-form-label">TOTAL PAX</label>
+      <div class="col-sm-2">
+        <div class="input-group">
+          <input id="totalpax" type="text" class="form-control" />
+          <div class="input-group-text">pax</div>
+        </div>
+      </div>
+      <div class="col-sm-1"></div>
+      <label for="roomtype" class="col-sm-20 col-form-label">ROOM TYPE</label>
+      <div class="col-sm-20">
+        <div class="input-group">
+          <input id="twinroom" type="text" class="form-control" readonly />
+          <div class="input-group-text">TWIN</div>
+        </div>
+      </div>
+      <div class="col-sm-20">
+        <div class="input-group">
+          <input id="tripleroom" type="text" class="form-control" readonly />
+          <div class="input-group-text">TRIPLE</div>
+        </div>
+      </div>
+      <div class="col-sm-20">
+        <div class="input-group">
+          <input id="singleroom" type="text" class="form-control" readonly />
+          <div class="input-group-text">SINGLE</div>
+        </div>
+      </div>
+    </div>
+    <div class="devider"></div>
+    <div class="row">
+      <label for="tour_con" class="col-sm-2 col-form-label">T/C</label>
+      <div class="col-sm-2">
+        <input
+          id="tour_con"
+          type="text"
+          class="form-control"
+          placeholder="이름"
+        />
+      </div>
+      <div class="col-sm-3">
+        <input
+          id="tour_con_num"
+          type="text"
+          class="form-control"
+          placeholder="연락처"
+        />
+      </div>
+    </div>
+    <div class="devider"></div>
+    <div class="row">
+      <label for="guide" class="col-sm-2 col-form-label">가이드</label>
+      <div class="col-sm-2">
+        <input
+          id="guide_area"
+          type="text"
+          class="form-control"
+          placeholder="지역명"
+        />
+      </div>
+      <div class="col-sm-2">
+        <input
+          id="guide_name"
+          type="text"
+          class="form-control"
+          placeholder="이름"
+        />
+      </div>
+      <div class="col-sm-3">
+        <input
+          id="guide_number"
+          type="text"
+          class="form-control"
+          placeholder="연락처"
+        />
+      </div>
+    </div>
+    <div class="devider"></div>
+    <div class="row">
+      <label for="bus" class="col-sm-2 col-form-label">버스</label>
+      <div class="col-sm-10">
+        <input id="bus" type="text" class="form-control" />
+      </div>
+    </div>
+    <div class="devider"></div>
+    <div class="row">
+      <label for="pro_com" class="col-sm-1 col-form-label">상품구성</label>
+      <label for="ent" class="col-sm-1 col-form-label">입장지</label>
+      <div class="col-sm-10">
+        <textarea
+          id="ent"
+          class="form-control"
+          style="height: 50px"
+          readonly
+        ></textarea>
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-sm-1"></div>
+      <label for="special_meal" class="col-sm-1 col-form-label">특식</label>
+      <div class="col-sm-10">
+        <textarea
+          id="special_meal"
+          class="form-control"
+          style="height: 50px"
+          readonly
+        ></textarea>
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-sm-1"></div>
+      <label for="remark" class="col-sm-1 col-form-label">비고</label>
+      <label for="inclusion" class="col-sm-1 col-form-label">포함</label>
+      <div class="col-sm-9">
+        <textarea
+          id="inclusion"
+          class="form-control"
+          style="height: 80px"
+          readonly
+        ></textarea>
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-sm-2"></div>
+      <label for="n_inclusion" class="col-sm-1 col-form-label">불포함</label>
+      <div class="col-sm-9">
+        <textarea
+          id="n_inclusion"
+          class="form-control"
+          style="height: 80px"
+          readonly
+        ></textarea>
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-sm-2"></div>
+      <label for="opt_tour" class="col-sm-1 col-form-label">옵션투어</label>
+      <div class="col-sm-9">
+        <textarea
+          id="opt_tour"
+          class="form-control"
+          style="height: 80px"
+          readonly
+        ></textarea>
+      </div>
+    </div>
+    <div class="devider"></div>
+    <div class="row">
+      <label for="network" class="col-sm-2 col-form-label">NETWORK</label>
+      <div class="col-sm-20">
+        <input id="local_name" type="text" class="form-control" placeholder="지역" readonly />
+      </div>
+      <div class="col-sm-2">
+        <input id="local_name" type="text" class="form-control" readonly />
+      </div>
+      <div class="col-sm-2">
+        <input id="local_person" type="text" class="form-control" readonly />
+      </div>
+      <div class="col-sm-3">
+        <input id="local_number" type="text" class="form-control" readonly />
+      </div>
+    </div>
+    <div class="devider"></div>
+    <div class="row">
+  </form>
+</div>
+
+<style>
+  .devider {
+    width: 100%;
+    height: 5px;
+    border-top: rgba(155, 151, 151, 0.979) 2px solid;
+    margin: 20px 10px 20px 0px;
+  }
+
+  .col-sm-20 {
+    flex: 0 0 auto;
+    width: 11%;
+  }
+</style>
+
+{% endblock %} {% block js %} {{block.super}} {% endblock js %}
