@@ -11,7 +11,7 @@ class commonModel(models.Model):
         abstract = True
 
 class Menu(commonModel):
-    menu = models.CharField(db_column='MENU', primary_key=True, max_length=10, verbose_name='메뉴')  # Field name made lowercase.
+    menu = models.CharField(db_column='MENU', max_length=10, verbose_name='메뉴')  # Field name made lowercase.
     menu_name = models.CharField(db_column='MENU_NAME', max_length=100, verbose_name='메뉴명')  # Field name made lowercase.
     upper_menu = models.CharField(db_column='UPPER_MENU', max_length=10, blank=True, null=True, verbose_name='상위메뉴')  # Field name made lowercase.
     icon = models.CharField(db_column='ICON', max_length=100, blank=True, null=True, verbose_name='아이콘')  # Field name made lowercase.
@@ -59,6 +59,16 @@ class Manager(commonModel):
 
     def __str__(self):
         return f"{self.agent} - {self.agent.agent_name}"
+    
+    def __iter__(self):
+        yield self.agent.agent_name
+        yield self.manager_name
+        yield self.manager_tel
+        yield self.manager_hp
+        yield self.manager_messenger
+        yield self.manager_email
+        yield self.manager_remark
+        
     class Meta:
         managed = False
         db_table = 'manager'
@@ -79,6 +89,19 @@ class Airport(commonModel):
 
     def __str__(self):
         return f"{self.manager} - {self.manager.manager_name}"
+    
+    def __iter__(self):
+        yield self.airport_name
+        yield self.departure_airport
+        yield self.departure_city
+        yield self.departure_time
+        yield self.arrival_airport
+        yield self.arrival_city
+        yield self.arrival_time
+        yield self.time_taken
+        yield self.manager.manager_name if self.manager else "N/A"
+        yield self.airport_remark
+
     class Meta:
         managed = False
         db_table = 'airport'

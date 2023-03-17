@@ -10,11 +10,11 @@
             <div class="datatable-dropdown">
                 <label>
                     <select class="datatable-selector" id="perPage">
-                        <option value="5" {% if per_page == 5%} selected {% endif %}>5</option>
-                        <option value="10" {% if per_page == 10%} selected {% endif %}>10</option>
-                        <option value="15" {% if per_page == 15%} selected {% endif %}>15</option>
-                        <option value="20" {% if per_page == 20%} selected {% endif %}>20</option>
-                        <option value="25" {% if per_page == 25%} selected {% endif %}>25</option>
+                        <option value="5" {% if perPage == 5%} selected {% endif %}>5</option>
+                        <option value="10" {% if perPage == 10%} selected {% endif %}>10</option>
+                        <option value="15" {% if perPage == 15%} selected {% endif %}>15</option>
+                        <option value="20" {% if perPage == 20%} selected {% endif %}>20</option>
+                        <option value="25" {% if perPage == 25%} selected {% endif %}>25</option>
                     </select>
                     페이지당 목록표시
                 </label>
@@ -44,7 +44,7 @@
                 </thead>
                 <tbody>
                     {% for list in content_list %}
-                        <tr id="{{list.id}}{{list.menu}}" data-index="{{ forloop.counter0 }}">
+                        <tr id="{{list.id}}" data-index="{{ forloop.counter0 }}">
                             {% for field in list %}
                                 <td>{{ field }}</td>
                             {% endfor %}
@@ -59,7 +59,7 @@
                 <nav aria-label="Page navigation" >
                     <ul class="pagination pagination-sm">
                         {% for page in pages %}
-                            {% if page == current_page %}
+                            {% if page == paging %}
                                 <li class="page-item active" aria-current="page">
                                     <a data-page="{{ page }}" class="page-link">{{ page }}</a>
                                 </li>
@@ -69,16 +69,13 @@
                                 </li>
                             {% endif %}
                         {% endfor %}
-                        <input id="paging" type="hidden" value={{current_page}}>
-                        <input id="target" type="hidden" value="{{target}}">
-                        <input id="type" type="hidden" value="{{type}}">
                     </ul>
                 </nav>
             </div>
         </div>
     </div>
 </div>  
-
+{% include 'base/commonValue.html'%} <!-- 공통변수 -->
 {% endblock %}
 {% block js %}
     {{block.super}}      

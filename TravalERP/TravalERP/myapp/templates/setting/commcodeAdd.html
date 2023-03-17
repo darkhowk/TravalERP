@@ -5,120 +5,59 @@
         {{title_nm}}
     </div>
     <div class="card-body">
-      <div class="datatable-wrapper datatable-loading no-footer sortable searchable fixed-columns">
-        <div class="datatable-top">
-            <form id="menuFrm">
-                {% csrf_token %}
-                
-                <div class="input-group mb-3">
-                    <span class="input-group-text col-sm-2 text-end" >메뉴</span>
-                    {% if pageType == 'U' %}    
-                        <input type="text" id="menu" name="menu" class="form-control col-sm-4" value="{{contentMenu.0.menu}}" readonly>
-                    {% else %}
-                        <input type="text" id="menu" name="menu" class="form-control col-sm-4" value="{{contentMenu.0.menu}}" >
-                    {% endif %}
-                    <span class="input-group-text col-sm-2 text-center" >메뉴명</span>
-                    <input type="text" id="menu_name" name="menu_name" class="form-control col-sm-4" value="{{contentMenu.0.menu_name}}" >
-                </div>
-                <div class="input-group mb-3">
-                    <span class="input-group-text col-sm-2" >상위메뉴</span>
-                    <input type="text" id="upper_menu" name="upper_menu" class="form-control col-sm-4" value="{{contentMenu.0.upper_menu}}" >
-                    <span class="input-group-text col-sm-2" >아이콘(class명)</span>
-                    <input type="text" id="icon" name="icon" class="form-control col-sm-4" value="{{contentMenu.0.icon}}" >
-                </div>
-                <div class="input-group mb-3">
-                    <label class="input-group-text col-sm-2" for="use_yn" value="{{contentMenu.0.use_yn}}" >사용여부</label>
-                    <select class="form-select col-sm-4" id="use_yn" name="use_yn">
-                        <option value="Y">사용</option>
-                        <option value="N">미사용</option>
-                    </select>
-                    <label class="input-group-text  col-sm-2" for="menu_type" value="{{contentMenu.0.menu_type}}" >메뉴타입</label>
-                    <select class="form-select  col-sm-4" id="menu_type" name="menu_type">
-                    <option value="LEFT">왼쪽</option>
-                    <option value="TOP">위쪽</option>
-                    </select>
-                </div>
-                <div class="input-group mb-3">
-                    <span class="input-group-text  col-sm-2" >바로가기</span>
-                    <input type="text" id="link" name="link" class="form-control col-sm-4" value="{{contentMenu.0.link}}" >
-                    <span class="col-sm-6" ></span>
-                </div>
-
-                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                    {% if pageType == 'I' %}
-                        <button class="btn btn-primary me-md-2" type="button" onclick="saveData()">저장</button>
-                    {% elif pageType == 'U' %}
-                        <button class="btn btn-primary me-md-2" type="button" onclick="updateData()">수정</button>
-                        <button class="btn btn-primary me-md-2" type="button" onclick="deleteData()">삭제</button>
-                    {% endif %}
-                    <button class="btn btn-primary me-md-2" type="button" onclick="goMenuList()">목록</button>
-                </div>
-                <input type="hidden" id="perPage" value="{{perPage}}">
-                <input type="hidden" id="paging" value="{{paging}}">
-            </form>
+        <div class="datatable-wrapper datatable-loading no-footer sortable searchable fixed-columns">
+            <div class="datatable-top">
+                <form id="menuFrm">
+                    {% csrf_token %}
+                    <div class="input-group mb-3">
+                        <span class="input-group-text col-sm-2 text-end" >메뉴</span>
+                        {% if pageType == 'U' %}    
+                            <input type="text" id="menu" name="menu" class="form-control col-sm-4" value="{{contentMenu.0.menu}}" readonly>
+                        {% else %}
+                            <input type="text" id="menu" name="menu" class="form-control col-sm-4" value="{{contentMenu.0.menu}}" >
+                        {% endif %}
+                        <span class="input-group-text col-sm-2 text-center" >메뉴명</span>
+                        <input type="text" id="menu_name" name="menu_name" class="form-control col-sm-4" value="{{contentMenu.0.menu_name}}" >
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text col-sm-2" >상위메뉴</span>
+                        <input type="text" id="upper_menu" name="upper_menu" class="form-control col-sm-4" value="{{contentMenu.0.upper_menu}}" >
+                        <span class="input-group-text col-sm-2" >아이콘(class명)</span>
+                        <input type="text" id="icon" name="icon" class="form-control col-sm-4" value="{{contentMenu.0.icon}}" >
+                    </div>
+                    <div class="input-group mb-3">
+                        <label class="input-group-text col-sm-2" for="use_yn" value="{{contentMenu.0.use_yn}}" >사용여부</label>
+                        <select class="form-select col-sm-4" id="use_yn" name="use_yn">
+                            <option value="Y">사용</option>
+                            <option value="N">미사용</option>
+                        </select>
+                        <label class="input-group-text  col-sm-2" for="menu_type" value="{{contentMenu.0.menu_type}}" >메뉴타입</label>
+                        <select class="form-select  col-sm-4" id="menu_type" name="menu_type">
+                        <option value="LEFT">왼쪽</option>
+                        <option value="TOP">위쪽</option>
+                        </select>
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text  col-sm-2" >바로가기</span>
+                        <input type="text" id="link" name="link" class="form-control col-sm-4" value="{{contentMenu.0.link}}" >
+                        <span class="col-sm-6" ></span>
+                    </div>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        {% if pageType == 'I' %}
+                            <input type="button" value="저장" onclick="saveData('menuFrm')">
+                        {% elif pageType == 'U' %}
+                            <input type="button" value="수정" onclick="updateData('menuFrm')">
+                            <input type="button" value="삭제" onclick="deleteData('menuFrm')">
+                        {% endif %}
+                            <input type="button" value="목록" onclick="goMenuList()">
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </div>
 
-<script>
-    function saveData(){
-        var jsonData = $('#menuFrm').serializeArray()
-            $.ajax({
-                url: 'addData', // 앞에 자동으로 setting/menu 붙음
-                method: 'POST',
-                data: jsonData,
-                dataType: 'json',
-                success: function(data) {
-                   alert('입력성공 메뉴등록 화면으로 이동합니다.')
-                   goMenuList();
-                },
-                error: function(xhr, status, error) {
-                   alert('메뉴 등록 실패')
-                }
-            });
-    }
-
-    function updateData(){
-        var jsonData = $('#menuFrm').serializeArray()
-            $.ajax({
-                url: 'updateData', // 앞에 자동으로 setting/menu 붙음
-                method: 'POST',
-                data: jsonData,
-                dataType: 'json',
-                success: function(data) {
-                   alert('수정성공 메뉴등록 화면으로 이동합니다.')
-                   goMenuList();
-                },
-                error: function(xhr, status, error) {
-                   alert('메뉴 수정 실패')
-                }
-            });
-    }
-
-    function deleteData(){
-        var jsonData = $('#menuFrm').serializeArray()
-            $.ajax({
-                url: 'deleteData', // 앞에 자동으로 setting/menu 붙음
-                method: 'POST',
-                data: jsonData,
-                dataType: 'json',
-                success: function(data) {
-                   alert('삭제성공 메뉴등록 화면으로 이동합니다.')
-                   goMenuList();
-                },
-                error: function(xhr, status, error) {
-                   alert('메뉴 삭제 실패')
-                }
-            });
-    }
-
-    function goMenuList(){
-        var perPage = $("#perPage").val();
-        var page = $("#paging").val();
-        movePage('setting/menu?paging='+page+"&perPage="+perPage)
-    }
-
-</script>
+{% include 'base/commonValue.html'%} <!-- 공통변수 -->
 {% endblock %}
 {% block js %}
 {{block.super}}      
