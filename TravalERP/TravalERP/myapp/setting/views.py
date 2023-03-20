@@ -6,7 +6,7 @@ from django.core.paginator import Paginator
 from ..common.CommonView import CommonView, addView
 import datetime
 
-from ..common.common_models import Menu, Agent, Manager, Airport
+from ..common.common_models import *
 
 # Create your views here.
 
@@ -269,6 +269,118 @@ class airportAdd(addView):
       return response
    
 #################################################
+# BANK
+#################################################
+class bankAdd(addView):
+   def seletData(self):
+      return Bank.objects.filter(id=self.id)
+   
+   def selectOption(self, request):
+      return {}
+   
+   def get(self, request, *args, **kwargs):
+      self.template_name = "setting/bankAdd.html"
+      self.pageType = request.GET.get('pageType', None)
+      self.id = request.GET.get('id', None)
+      if self.pageType == 'I':
+            self.title_nm = "은행 추가"
+            self.descript = "은행 추가 페이지입니다"
+      elif self.pageType == 'U':
+            self.title_nm = "은행 수정"
+            self.descript = "은행 수정 페이지입니다"
+      
+      response = super().get(request, *args, **kwargs)
+      
+      if response is None:
+         response = HttpResponse()
+         
+      return response
+   
+#################################################
+# COMMCODE
+#################################################
+class commcodeAdd(addView):
+   def seletData(self):
+      return CommCode.objects.filter(id=self.id)
+   
+   def selectOption(self, request):
+      return {}
+   
+   def get(self, request, *args, **kwargs):
+      self.template_name = "setting/commcodeAdd.html"
+      self.pageType = request.GET.get('pageType', None)
+      self.id = request.GET.get('id', None)
+      if self.pageType == 'I':
+            self.title_nm = "공통코드 추가"
+            self.descript = "공통코드 추가 페이지입니다"
+      elif self.pageType == 'U':
+            self.title_nm = "공통코드 수정"
+            self.descript = "공통코드 수정 페이지입니다"
+      
+      response = super().get(request, *args, **kwargs)
+      
+      if response is None:
+         response = HttpResponse()
+         
+      return response
+   
+#################################################
+# HOTEL
+#################################################
+class hotelAdd(addView):
+   def seletData(self):
+      return Hotel.objects.filter(id=self.id)
+   
+   def selectOption(self, request):
+      return {}
+   
+   def get(self, request, *args, **kwargs):
+      self.template_name = "setting/hotelAdd.html"
+      self.pageType = request.GET.get('pageType', None)
+      self.id = request.GET.get('id', None)
+      if self.pageType == 'I':
+            self.title_nm = "호텔 추가"
+            self.descript = "호텔 추가 페이지입니다"
+      elif self.pageType == 'U':
+            self.title_nm = "호텔 수정"
+            self.descript = "호텔 수정 페이지입니다"
+      
+      response = super().get(request, *args, **kwargs)
+      
+      if response is None:
+         response = HttpResponse()
+         
+      return response
+   
+#################################################
+# SCHEDULE
+#################################################
+class scheduleAdd(addView):
+   def seletData(self):
+      return {ScheduleMaster.objects.filter(id=self.id), ScheduleDetail.objects.filter(master_id=self.id)}
+   
+   def selectOption(self, request):
+      return {'manager':Manager.objects.filter(use_yn='Y')}
+   
+   def get(self, request, *args, **kwargs):
+      self.template_name = "setting/scheduleAdd.html"
+      self.pageType = request.GET.get('pageType', None)
+      self.id = request.GET.get('id', None)
+      if self.pageType == 'I':
+            self.title_nm = "스케줄 추가"
+            self.descript = "스케쥴 추가 페이지입니다"
+      elif self.pageType == 'U':
+            self.title_nm = "스케줄 수정"
+            self.descript = "스케줄 수정 페이지입니다"
+      
+      response = super().get(request, *args, **kwargs)
+      
+      if response is None:
+         response = HttpResponse()
+         
+      return response
+
+#################################################
 # Common Setting View ( 공통 List 화면 View)
 #################################################
 class commonSettingView(CommonView):
@@ -301,11 +413,26 @@ class commonSettingView(CommonView):
          self.descript = "메뉴관리 페이지입니다"
          return Menu, None, None
       
-      if self.target == 'schdule':
+      if self.target == 'commcode':
+         self.title_nm = "공통코드"
+         self.descript = "공통코드 페이지입니다"
+         return CommCode, None, None
+      
+      if self.target == 'schedule':
          self.title_nm = "스케쥴관리"
          self.descript = "스케쥴관리 페이지입니다"
-         return Menu, None, None
+         return ScheduleMaster, None, None
+      
+      if self.target == 'hotel':
+         self.title_nm = "호텔"
+         self.descript = "호텔 페이지입니다"
+         return Hotel, None, None
 
+      if self.target == 'bank':
+         self.title_nm = "은행"
+         self.descript = "은행 페이지입니다"
+         return Bank, None, None
+      
    def get(self, request, *args, **kwargs):
       self.type = request.GET.get('type')
       self.target = request.GET.get('target')
@@ -322,16 +449,25 @@ def commonInsert(request, path):
    fields = []
    Models = None
 
-   print(path)
-   if path == 'manager':
-      Models = Manager
    if path == 'agent':
       Models = Agent
-   if path == 'menu':
-      Models = Menu
    if path == 'airport':
       Models = Airport
-   
+   if path == 'bank':
+      Models = Bank
+   if path == 'commcode':
+      Models = CommCode
+   if path == 'hotel':
+      Models = Hotel
+   if path == 'manager':
+      Models = Manager
+   if path == 'menu':
+      Models = Menu
+   if path == 'scheduleMaster':
+      Models = ScheduleMaster
+   if path == 'scheduleDetail':
+      Models = ScheduleDetail
+
    fields = [f.name for f in Models._meta.fields if f.name not in ['entry_date', 'entry_id', 'updat_date', 'updat_id', 'id']]
 
    return insert(request, Models, fields)
@@ -351,14 +487,24 @@ def insert(request, model, fields):
 def commonModify(request, path):
    Models = None
 
-   if path == 'manager':
-      Models = Manager
    if path == 'agent':
       Models = Agent
-   if path == 'menu':
-      Models = Menu
    if path == 'airport':
       Models = Airport
+   if path == 'bank':
+      Models = Bank
+   if path == 'commcode':
+      Models = CommCode
+   if path == 'hotel':
+      Models = Hotel
+   if path == 'manager':
+      Models = Manager
+   if path == 'menu':
+      Models = Menu
+   if path == 'scheduleMaster':
+      Models = ScheduleMaster
+   if path == 'scheduleDetail':
+      Models = ScheduleDetail
 
    type = request.POST.get('type', None)
 
@@ -371,15 +517,24 @@ def commonModify(request, path):
 def commonDelete(request, path):
    Models = None
 
-   print(path)
-   if path == 'manager':
-      Models = Manager
    if path == 'agent':
       Models = Agent
-   if path == 'menu':
-      Models = Menu
    if path == 'airport':
       Models = Airport
+   if path == 'bank':
+      Models = Bank
+   if path == 'commcode':
+      Models = CommCode
+   if path == 'hotel':
+      Models = Hotel
+   if path == 'manager':
+      Models = Manager
+   if path == 'menu':
+      Models = Menu
+   if path == 'scheduleMaster':
+      Models = ScheduleMaster
+   if path == 'scheduleDetail':
+      Models = ScheduleDetail
 
    type = request.POST.get('type', None)
    if type is None:

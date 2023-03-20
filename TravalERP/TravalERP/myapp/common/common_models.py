@@ -99,7 +99,7 @@ class Airport(commonModel):
         yield self.arrival_city
         yield self.arrival_time
         yield self.time_taken
-        yield self.manager.manager_name if self.manager else "N/A"
+        yield self.manager.manager_name
         yield self.airport_remark
 
     class Meta:
@@ -107,3 +107,163 @@ class Airport(commonModel):
         db_table = 'airport'
         verbose_name = '항공'
         verbose_name_plural = '항공 목록'
+
+class CommCode(commonModel):
+    code = models.CharField(db_column='CODE', max_length=100, verbose_name='코드')
+    code_name = models.CharField(db_column='CODE_NAME', max_length=100, verbose_name='코드명')
+    code_etc1 = models.CharField(db_column='CODE_ETC1', max_length=100, verbose_name='기타1')
+    code_etc2 = models.CharField(db_column='CODE_ETC2', max_length=100, verbose_name='기타2')
+    code_etc3 = models.CharField(db_column='CODE_ETC3', max_length=100, verbose_name='기타3')
+    code_etc4 = models.CharField(db_column='CODE_ETC4', max_length=100, verbose_name='기타4')
+    code_etc5 = models.CharField(db_column='CODE_ETC5', max_length=100, verbose_name='기타5')
+    
+    def __iter__(self):
+        yield self.code
+        yield self.code_name
+        yield self.code_etc1
+        yield self.code_etc2
+        yield self.code_etc3
+        yield self.code_etc4
+        yield self.code_etc5
+
+    class Meta:
+        managed = False
+        db_table = 'commcode'
+        verbose_name = '공통코드'
+        verbose_name_plural = '공통코드 목록'
+
+class Bank(commonModel):
+    bank_name = models.CharField(db_column='BANK_NAME', max_length=100, verbose_name='은행명')
+    account_name = models.CharField(db_column='ACCOUNT_NAME', max_length=100, verbose_name='예금주')
+    account_no = models.CharField(db_column='ACCOUNT_NO', max_length=100, verbose_name='계좌번호')
+    swift = models.CharField(db_column='SWIFT', max_length=100, verbose_name='SWIFT')
+    iban_code = models.CharField(db_column='IBAN_CODE', max_length=100, verbose_name='IBAN_CODE')
+    branch = models.CharField(db_column='BRANCH', max_length=100, verbose_name='BRANCH')
+    bank_remark = models.TextField(db_column='BANK_REMARK', max_length=1000, verbose_name='REMARK')
+    
+    def __iter__(self):
+        yield self.bank_name
+        yield self.account_name
+        yield self.account_no
+        yield self.swift
+        yield self.iban_code
+        yield self.branch
+        yield self.bank_remark
+
+    class Meta:
+        managed = False
+        db_table = 'bank'
+        verbose_name = '은행'
+        verbose_name_plural = '은행 목록'
+
+class Hotel(commonModel):
+    hotel_name = models.CharField(db_column='HOTEL_NAME', max_length=100, verbose_name='호텔명')
+    hotel_en_name = models.CharField(db_column='HOTEL_EN_NAME', max_length=100, verbose_name='호텔명(영어)')
+    rank = models.CharField(db_column='RANK', max_length=100, verbose_name='등급')
+    country = models.CharField(db_column='COUNTRY', max_length=100, verbose_name='국가')
+    city = models.CharField(db_column='CITY', max_length=100, verbose_name='도시')
+    address = models.CharField(db_column='ADDRESS', max_length=1000, verbose_name='주소')
+    hotel_tel = models.CharField(db_column='HOTEL_TEL', max_length=100, verbose_name='전화번호')
+    hotel_remark = models.TextField(db_column='HOTEL_REMARK', max_length=1000, verbose_name='REMARK')
+    
+    def __iter__(self):
+        yield self.hotel_name
+        yield self.hotel_en_name
+        yield self.rank
+        yield self.country
+        yield self.city
+        yield self.address
+        yield self.hotel_tel
+        yield self.hotel_remark
+
+    class Meta:
+        managed = False
+        db_table = 'hotel'
+        verbose_name = '호텔'
+        verbose_name_plural = '호텔 목록'
+
+class Traval(commonModel):
+    traval_name = models.CharField(db_column='HOTEL_NAME', max_length=100, verbose_name='호텔명')
+    traval_en_name = models.CharField(db_column='HOTEL_EN_NAME', max_length=100, verbose_name='호텔명(영어)')
+    rank = models.CharField(db_column='RANK', max_length=100, verbose_name='등급')
+    country = models.CharField(db_column='COUNTRY', max_length=100, verbose_name='국가')
+    city = models.CharField(db_column='CITY', max_length=100, verbose_name='도시')
+    address = models.CharField(db_column='ADDRESS', max_length=1000, verbose_name='주소')
+    hotel_tel = models.CharField(db_column='HOTEL_TEL', max_length=100, verbose_name='전화번호')
+    hotel_remark = models.TextField(db_column='HOTEL_REMARK', max_length=1000, verbose_name='REMARK')
+    
+    def __iter__(self):
+        yield self.hotel_name
+        yield self.hotel_en_name
+        yield self.rank
+        yield self.country
+        yield self.city
+        yield self.address
+        yield self.hotel_tel
+        yield self.hotel_remark
+
+    class Meta:
+        managed = False
+        db_table = 'traval'
+        verbose_name = '호텔'
+        verbose_name_plural = '호텔 목록'
+
+class ScheduleMaster(commonModel):
+    product_name = models.CharField(db_column='PRODUCT_NAME', max_length=100, verbose_name='상품명')
+    agent= models.ForeignKey(Agent, db_column='AGENT', on_delete=models.SET_NULL, blank=True, null=True, verbose_name='여행사')
+    manager = models.ForeignKey(Manager, db_column='MANAGER', on_delete=models.SET_NULL, blank=True, null=True, verbose_name='담당자')
+    location = models.CharField(db_column='LOCATION', max_length=100, verbose_name='지역')
+    start = models.CharField(db_column='START', max_length=100, verbose_name='출발지')
+    night = models.CharField(db_column='NIGHT', max_length=1000, verbose_name='박')
+    day = models.CharField(db_column='DAY', max_length=100, verbose_name='일')
+    bus = models.CharField(db_column='BUS', max_length=100, verbose_name='버스')
+    entrance = models.CharField(db_column='ENTRANCE', max_length=100, verbose_name='입장지')
+    breakfast = models.CharField(db_column='BREAKFAST', max_length=100, verbose_name='조식')
+    lunch = models.CharField(db_column='LUNCH', max_length=100, verbose_name='중식')
+    dinner = models.CharField(db_column='DINNER', max_length=100, verbose_name='석식')
+    special = models.CharField(db_column='SPECIAL', max_length=100, verbose_name='특식')
+    option = models.CharField(db_column='OPTION', max_length=100, verbose_name='옵션')
+    shopping = models.CharField(db_column='SHOPPING', max_length=100, verbose_name='쇼핑')
+    schedule_remark = models.TextField(db_column='SCHEDULE_REMARK', max_length=1000, verbose_name='REMARK')
+    
+    def __iter__(self):
+        yield self.product_name
+        yield self.agent
+        yield self.manager
+        yield self.location
+        yield self.start
+        yield self.night
+        yield self.day
+        yield self.bus
+        yield self.entrance
+        yield self.breakfast
+        yield self.lunch
+        yield self.dinner
+        yield self.special
+        yield self.option
+        yield self.shopping
+        yield self.schedule_remark
+
+    class Meta:
+        managed = False
+        db_table = 'schedule_master'
+        verbose_name = '스케줄 마스터'
+        verbose_name_plural = '스케줄 마스터 목록'       
+
+class ScheduleDetail(commonModel):
+    master_id = models.ForeignKey(ScheduleMaster, db_column='MASTER_ID', on_delete=models.SET_NULL, blank=True, null=True, verbose_name='마스터 ID')
+    day = models.CharField(db_column='DAY', max_length=100, verbose_name='일차')
+    schedule = models.CharField(db_column='SCHEDULE', max_length=100, verbose_name='일정')
+    hotel = models.CharField(db_column='HOTEL', max_length=100, verbose_name='호텔')
+    
+    def __iter__(self):
+        yield self.master_id
+        yield self.day
+        yield self.schedule
+        yield self.hotel
+
+    class Meta:
+        managed = False
+        db_table = 'schedule_detail'
+        verbose_name = '스케줄 디테일'
+        verbose_name_plural = '스케줄 디테일 목록'       
