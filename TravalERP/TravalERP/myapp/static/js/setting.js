@@ -46,11 +46,11 @@ function saveData(fName){
         data: jsonData,
         dataType: 'json',
         success: function(data) {
-            alert('입력성공 여행사등록 화면으로 이동합니다.')
+            alert('입력 완료 목록 화면으로 이동합니다.')
             goMenuList();
         },
         error: function(xhr, status, error) {
-            alert('여행사 등록 실패')
+            alert('등록 실패')
         }
     });
 }

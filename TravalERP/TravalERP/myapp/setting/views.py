@@ -301,7 +301,7 @@ class bankAdd(addView):
 #################################################
 class commcodeAdd(addView):
    def seletData(self):
-      return CommCode.objects.filter(id=self.id)
+      return {"commcode":CommCode.objects.filter(id=self.id)}
    
    def selectOption(self, request):
       return {}
