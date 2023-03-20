@@ -245,7 +245,7 @@ class managerAdd(generic.ListView):
 #################################################
 class airportAdd(addView):
    def seletData(self):
-      return Airport.objects.filter(id=self.id)
+      return {'airport':Airport.objects.filter(id=self.id)}
    
    def selectOption(self, request):
       return {'manager':Manager.objects.filter(use_yn='Y')}
@@ -273,7 +273,7 @@ class airportAdd(addView):
 #################################################
 class bankAdd(addView):
    def seletData(self):
-      return Bank.objects.filter(id=self.id)
+      return {"bank":Bank.objects.filter(id=self.id)}
    
    def selectOption(self, request):
       return {}
@@ -329,7 +329,7 @@ class commcodeAdd(addView):
 #################################################
 class hotelAdd(addView):
    def seletData(self):
-      return Hotel.objects.filter(id=self.id)
+      return {"hotel":Hotel.objects.filter(id=self.id)}
    
    def selectOption(self, request):
       return {}

@@ -7,47 +7,44 @@
     <div class="card-body">
         <div class="datatable-wrapper datatable-loading no-footer sortable searchable fixed-columns">
             <div class="datatable-top">
-                <form id="menuFrm">
+                <form id="bankFrm">
                     {% csrf_token %}
+                    <input type="hidden" id="id" name="id" value="{{selectData.bank.0.id}}">
                     <div class="input-group mb-3">
-                        <span class="input-group-text col-sm-2 text-end" >메뉴</span>
-                        {% if pageType == 'U' %}    
-                            <input type="text" id="menu" name="menu" class="form-control col-sm-4" value="{{contentMenu.0.menu}}" readonly>
-                        {% else %}
-                            <input type="text" id="menu" name="menu" class="form-control col-sm-4" value="{{contentMenu.0.menu}}" >
-                        {% endif %}
-                        <span class="input-group-text col-sm-2 text-center" >메뉴명</span>
-                        <input type="text" id="menu_name" name="menu_name" class="form-control col-sm-4" value="{{contentMenu.0.menu_name}}" >
+                        <span class="input-group-text col-sm-1 text-end" >은행명</span>
+                        <input type="text" id="bank_name" name="bank_name" class="form-control col-sm-3" value="{{selectData.bank.0.bank_name}}" >
+                        <span class="input-group-text col-sm-1 text-center" >예금주</span>
+                        <input type="text" id="account_name" name="account_name" class="form-control col-sm-3" value="{{selectData.bank.0.account_name}}" >
+                        <span class="input-group-text col-sm-1 text-center" >계좌번호</span>
+                        <input type="text" id="account_no" name="account_no" class="form-control col-sm-3" value="{{selectData.bank.0.account_no}}" >
                     </div>
                     <div class="input-group mb-3">
-                        <span class="input-group-text col-sm-2" >상위메뉴</span>
-                        <input type="text" id="upper_menu" name="upper_menu" class="form-control col-sm-4" value="{{contentMenu.0.upper_menu}}" >
-                        <span class="input-group-text col-sm-2" >아이콘(class명)</span>
-                        <input type="text" id="icon" name="icon" class="form-control col-sm-4" value="{{contentMenu.0.icon}}" >
+                        <span class="input-group-text col-sm-1 text-end" >SWIFT</span>
+                        <input type="text" id="swift" name="swift" class="form-control col-sm-3" value="{{selectData.bank.0.swift}}" >
+                        <span class="input-group-text col-sm-1 text-center" >IBAN_CODE</span>
+                        <input type="text" id="iban_code" name="iban_code" class="form-control col-sm-3" value="{{selectData.bank.0.iban_code}}" >
+                        <span class="input-group-text col-sm-1 text-center" >BRANCH</span>
+                        <input type="text" id="branch" name="branch" class="form-control col-sm-3" value="{{selectData.bank.0.branch}}" >
                     </div>
                     <div class="input-group mb-3">
-                        <label class="input-group-text col-sm-2" for="use_yn" value="{{contentMenu.0.use_yn}}" >사용여부</label>
-                        <select class="form-select col-sm-4" id="use_yn" name="use_yn">
-                            <option value="Y">사용</option>
-                            <option value="N">미사용</option>
+                        <label class="input-group-text col-sm-1" for="use_yn" >사용여부</label>
+                        <select class="form-select col-sm-3" id="use_yn" name="use_yn" >
+                            <option value="Y" {% if selectData.bank.0.use_yn == 'Y' %} selected {% endif %}>사용</option>
+                            <option value="N" {% if selectData.bank.0.use_yn == 'N' %} selected {% endif %}>미사용</option>
                         </select>
-                        <label class="input-group-text  col-sm-2" for="menu_type" value="{{contentMenu.0.menu_type}}" >메뉴타입</label>
-                        <select class="form-select  col-sm-4" id="menu_type" name="menu_type">
-                        <option value="LEFT">왼쪽</option>
-                        <option value="TOP">위쪽</option>
-                        </select>
+                        <div class="col-sm-8"></div>
                     </div>
                     <div class="input-group mb-3">
-                        <span class="input-group-text  col-sm-2" >바로가기</span>
-                        <input type="text" id="link" name="link" class="form-control col-sm-4" value="{{contentMenu.0.link}}" >
-                        <span class="col-sm-6" ></span>
+                        <label class="input-group-text col-sm-1 col-form-label" for="bank_reamark" >REMARK</label>
+                        <textarea id="bank_reamark" class="form-control col-sm-11" name="bank_remark">{{ selectData.bank.0.bank_remark }}</textarea>
                     </div>
+ 
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                         {% if pageType == 'I' %}
-                            <input type="button" value="저장" onclick="saveData('menuFrm')">
+                            <input type="button" value="저장" onclick="saveData('bankFrm')">
                         {% elif pageType == 'U' %}
-                            <input type="button" value="수정" onclick="updateData('menuFrm')">
-                            <input type="button" value="삭제" onclick="deleteData('menuFrm')">
+                            <input type="button" value="수정" onclick="updateData('bankFrm')">
+                            <input type="button" value="삭제" onclick="deleteData('bankFrm')">
                         {% endif %}
                             <input type="button" value="목록" onclick="goMenuList()">
                     </div>
