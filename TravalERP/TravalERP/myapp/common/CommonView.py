@@ -13,8 +13,8 @@ class CommonView(generic.ListView):
     type = ""
 
     def __init__(self):
-        self.topMenu = Menu.objects.filter(menu_type="TOP")
-        self.leftMenu = Menu.objects.filter(menu_type="LEFT")
+        self.topMenu = Menu.objects.filter(menu_type="TOP", use_yn='Y')
+        self.leftMenu = Menu.objects.filter(menu_type="LEFT", use_yn='Y')
         self.tr_list = []
 
     def get(self, request, *args, **kwargs):
@@ -102,8 +102,8 @@ class addView(generic.CreateView):
     pageType = ""
 
     def __init__(self):
-        self.topMenu = Menu.objects.filter(menu_type="TOP")
-        self.leftMenu = Menu.objects.filter(menu_type="LEFT")
+        self.topMenu = Menu.objects.filter(menu_type="TOP", use_yn='Y')
+        self.leftMenu = Menu.objects.filter(menu_type="LEFT", use_yn='Y')
 
     def get(self, request, *args, **kwargs):
         #선택 데이터
