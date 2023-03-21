@@ -175,22 +175,232 @@
     </div>
     <div class="devider"></div>
     <div class="row">
-      <label for="network" class="col-sm-2 col-form-label">NETWORK</label>
-      <div class="col-sm-20">
-        <input id="local_name" type="text" class="form-control" placeholder="지역" readonly />
+      <label for="network" class="col-sm-1 col-form-label">NETWORK</label>
+      <div class="col-sm-1">
+        <input
+          id="local_area"
+          type="text"
+          class="form-control"
+          placeholder="지역"
+          readonly
+        />
       </div>
       <div class="col-sm-2">
         <input id="local_name" type="text" class="form-control" readonly />
+      </div>
+      <div class="col-sm-3">
+        <input id="local_tel" type="text" class="form-control" readonly />
       </div>
       <div class="col-sm-2">
         <input id="local_person" type="text" class="form-control" readonly />
       </div>
       <div class="col-sm-3">
-        <input id="local_number" type="text" class="form-control" readonly />
+        <input
+          id="local_perseon_tel"
+          type="text"
+          class="form-control"
+          readonly
+        />
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-sm-1 text-center">
+        <button type="search" class="btn btn-secondary">추가</button>
+      </div>
+      <div class="col-sm-1">
+        <input
+          id="local_area"
+          type="text"
+          class="form-control"
+          placeholder="지역"
+          readonly
+        />
+      </div>
+      <div class="col-sm-2">
+        <input id="local_name" type="text" class="form-control" readonly />
+      </div>
+      <div class="col-sm-3">
+        <input id="local_tel" type="text" class="form-control" readonly />
+      </div>
+      <div class="col-sm-2">
+        <input id="local_person" type="text" class="form-control" readonly />
+      </div>
+      <div class="col-sm-3">
+        <input
+          id="local_perseon_tel"
+          type="text"
+          class="form-control"
+          readonly
+        />
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-sm-1 text-center">
+        <button type="search" class="btn btn-secondary">추가</button>
+      </div>
+      <div class="col-sm-1">
+        <input
+          id="local_area"
+          type="text"
+          class="form-control"
+          placeholder="지역"
+          readonly
+        />
+      </div>
+      <div class="col-sm-2">
+        <input id="local_name" type="text" class="form-control" readonly />
+      </div>
+      <div class="col-sm-3">
+        <input id="local_tel" type="text" class="form-control" readonly />
+      </div>
+      <div class="col-sm-2">
+        <input id="local_person" type="text" class="form-control" readonly />
+      </div>
+      <div class="col-sm-3">
+        <input
+          id="local_perseon_tel"
+          type="text"
+          class="form-control"
+          readonly
+        />
       </div>
     </div>
     <div class="devider"></div>
     <div class="row">
+      <label for="remark" class="col-sm-1 col-form-label">REMARK</label>
+      <div class="col-sm-11">
+        <textarea
+          id="remark"
+          class="form-control"
+          style="height: 100px"
+        ></textarea>
+      </div>
+    </div>
+    <div class="devider"></div>
+    <div class="row">
+      <label for="hotel" class="col-form-label">HOTEL</label>
+      <div class="p-3">
+        <table class="table table-centered table-nowrap mb-2 text-center">
+          <thead class="table-light">
+            <tr>
+              <th style="width: 20px">
+                <div class="form-check">
+                  <input
+                    type="checkbox"
+                    class="form-check-input"
+                    id="customCheck1"
+                  />
+                  <label class="form-check-label" for="customCheck1"
+                    >&nbsp;</label
+                  >
+                </div>
+              </th>
+              <th class="col-sm-1">지역</th>
+              <th class="col-sm-2">숙박일</th>
+              <th class="col-sm-1">숙박일수</th>
+              <th class="col-sm-1">성급</th>
+              <th class="col-sm-4">호텔명</th>
+              <th class="col-sm-2">비고</th>
+              <th class="col-sm-1">상태</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <div class="form-check">
+                  <input
+                    type="checkbox"
+                    class="form-check-input"
+                    id="customCheck2"
+                  />
+                  <label class="form-check-label" for="customCheck2"
+                    >&nbsp;</label
+                  >
+                </div>
+              </td>
+              <td>BCN</td>
+              <td>3/13~3/14</td>
+              <td>1NT</td>
+              <td>4성</td>
+              <td>HOTEL CATALONIA GRAN HOTEL VERDI</td>
+              <td></td>
+              <td>CNFM</td>
+            </tr>
+            <tr>
+              <td>
+                <div class="form-check">
+                  <input
+                    type="checkbox"
+                    class="form-check-input"
+                    id="customCheck2"
+                  />
+                  <label class="form-check-label" for="customCheck2"
+                    >&nbsp;</label
+                  >
+                </div>
+              </td>
+              <td>VLC</td>
+              <td>3/14~3/15</td>
+              <td>1NT</td>
+              <td>4성</td>
+              <td>HOTEL MAS CAMARENA</td>
+              <td></td>
+              <td>CNFM</td>
+            </tr>
+            <tr>
+              <td>
+                <div class="form-check">
+                  <input
+                    type="checkbox"
+                    class="form-check-input"
+                    id="customCheck2"
+                  />
+                  <label class="form-check-label" for="customCheck2"
+                    >&nbsp;</label
+                  >
+                </div>
+              </td>
+              <td>GRX</td>
+              <td>3/14~3/15</td>
+              <td>1NT</td>
+              <td>4성</td>
+              <td>HOTEL BS CAPITULACIONES</td>
+              <td></td>
+              <td>CNFM</td>
+            </tr>
+            <tr>
+              <td>
+                <div class="form-check">
+                  <input
+                    type="checkbox"
+                    class="form-check-input"
+                    id="customCheck2"
+                  />
+                  <label class="form-check-label" for="customCheck2"
+                    >&nbsp;</label
+                  >
+                </div>
+              </td>
+              <td>SVQ</td>
+              <td>3/14~3/15</td>
+              <td>1NT</td>
+              <td>5성</td>
+              <td>HOTEL EUROSTARS TORRE SEVILLA</td>
+              <td>특전제공</td>
+              <td>CNFM</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="devider"></div>
+    <div class="row"></div>
+    <div class="text-end mt-5">
+      <button type="submit" class="btn btn-primary">저장</button>
+      <button type="reset" class="btn btn-secondary">초기화</button>
+      <button type="button" class="btn btn-secondary">취소</button>
+    </div>
+    <div class="mt-5"></div>
   </form>
 </div>
 
