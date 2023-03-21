@@ -4,14 +4,15 @@
   <form id="managerFrm">
     {% csrf_token %}
     <input type="hidden" class="form-control" id="id" name="id" value="{{selectData.manager.0.id}}"/>
+    <input type="hidden" class="form-control" id="type" name="type" value="{{type}}"/>
     <div class="row">
       <label for="agent_name" class="col-sm-1 col-form-label">
         여행사
       </label>
       <div class="col-sm-3">
-        <select class="col-12 selectpicker" d="agent_name" name="agent_name" data-live-search="true" style="display: none;">
-          {% for agent in optionData.agent.all %}
-          <option value="{{agent.agent_name}}" {% if agent.agent_name == selectData.manager.0.agent_name %}selected{% endif %}>
+        <select class="col-12 selectpicker" id="agent" name="agent" data-live-search="true" style="display: none;">
+          {% for agent in optionData.agent %}
+          <option value="{{agent.id}}" {% if agent.agent_name == selectData.manager.0.agent_name %}selected{% endif %}>
             {{agent.agent_name}}
           </option>
           {% endfor %}

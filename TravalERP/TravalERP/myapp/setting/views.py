@@ -398,22 +398,7 @@ class commonSettingView(CommonView):
 def commonInsert(request, path):
    # model별로 insert할 fields 작성
    fields = []
-   Models = None
-
-   if path == 'agent':
-      Models = Agent
-   if path == 'airport':
-      Models = Airport
-   if path == 'bank':
-      Models = Bank
-   if path == 'commcode':
-      Models = CommCode
-   if path == 'hotel':
-      Models = Hotel
-   if path == 'manager':
-      Models = Manager
-   if path == 'menu':
-      Models = Menu
+   Models = pathtoMode(path)
    if path == 'schedule':
       print("-------------------------------")
       print(request.POST.get('master'))
@@ -463,7 +448,13 @@ def insert(request, model, fields):
 
     data = {}
     for field in fields:
-        data[field] = request.POST.get(field)
+      field_instance = model._meta.get_field(field)
+      if isinstance(field_instance, models.ForeignKey):
+         # ForeignKey field 처리
+         data[field] = pathtoMode(field).objects.get(id=request.POST.get(field))
+      else:
+         # 일반 field 처리
+         data[field] = request.POST.get(field)
 
     obj = model(**data, entry_date=now.strftime('%Y-%m-%d %H:%M:%S'))
     obj.save()
@@ -471,26 +462,7 @@ def insert(request, model, fields):
     return JsonResponse({'result': 'success', 'id': obj.id})
 
 def commonModify(request, path):
-   Models = None
-
-   if path == 'agent':
-      Models = Agent
-   if path == 'airport':
-      Models = Airport
-   if path == 'bank':
-      Models = Bank
-   if path == 'commcode':
-      Models = CommCode
-   if path == 'hotel':
-      Models = Hotel
-   if path == 'manager':
-      Models = Manager
-   if path == 'menu':
-      Models = Menu
-   if path == 'scheduleMaster':
-      Models = ScheduleMaster
-   if path == 'scheduleDetail':
-      Models = ScheduleDetail
+   Models = pathtoMode(path)
 
    type = request.POST.get('type', None)
 
@@ -501,26 +473,7 @@ def commonModify(request, path):
       return modify(request, Models, pk_name='id', type=type)
 
 def commonDelete(request, path):
-   Models = None
-
-   if path == 'agent':
-      Models = Agent
-   if path == 'airport':
-      Models = Airport
-   if path == 'bank':
-      Models = Bank
-   if path == 'commcode':
-      Models = CommCode
-   if path == 'hotel':
-      Models = Hotel
-   if path == 'manager':
-      Models = Manager
-   if path == 'menu':
-      Models = Menu
-   if path == 'scheduleMaster':
-      Models = ScheduleMaster
-   if path == 'scheduleDetail':
-      Models = ScheduleDetail
+   Models = pathtoMode(path)
 
    type = request.POST.get('type', None)
    if type is None:
@@ -534,7 +487,14 @@ def modify(request, model, pk_name='id', **kwargs):
     obj = model.objects.get(**{pk_name: pk_value}, **kwargs)
     for field in obj._meta.fields:
         if field.name in request.POST:
-            setattr(obj, field.name, request.POST.get(field.name))
+            # Check if field is a foreign key
+            if isinstance(field, models.ForeignKey):
+               fk_id = request.POST.get(field.name)
+               # Get the related model instance using the foreign key id
+               related_model = field.related_model.objects.get(id=fk_id)
+               setattr(obj, field.name, related_model)
+            else:
+               setattr(obj, field.name, request.POST.get(field.name))
     obj.updat_date = now.strftime('%Y-%m-%d %H:%M:%S')
     obj.save()
 
@@ -550,3 +510,25 @@ def delete(request, model, pk_name='id', **kwargs):
     obj.save()
 
     return JsonResponse({'result': 'success', 'id': obj.id})
+
+
+def pathtoMode(path):
+   if path == 'agent':
+      Models = Agent
+   if path == 'airport':
+      Models = Airport
+   if path == 'bank':
+      Models = Bank
+   if path == 'commcode':
+      Models = CommCode
+   if path == 'hotel':
+      Models = Hotel
+   if path == 'manager':
+      Models = Manager
+   if path == 'menu':
+      Models = Menu
+   if path == 'scheduleMaster':
+      Models = ScheduleMaster
+   if path == 'scheduleDetail':
+      Models = ScheduleDetail
+   return Models
