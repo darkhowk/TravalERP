@@ -463,14 +463,49 @@ def commonInsert(request, path):
       Models = Manager
    if path == 'menu':
       Models = Menu
+   if path == 'schedule':
+      print("-------------------------------")
+      print(request.POST.get('master'))
+      print(request.POST.get('deatil'))
+      Models =ScheduleMaster
+      fields = [f.name for f in Models._meta.fields if f.name not in ['entry_date', 'entry_id', 'updat_date', 'updat_id', 'id']]
+      result = insertMaster(request, Models, fields)
+      master_id = result.id
+      Models =ScheduleDetail
+      fields = [f.name for f in Models._meta.fields if f.name not in ['entry_date', 'entry_id', 'updat_date', 'updat_id', 'id']]
+      return insertDetail(request, Models, fields, {"master_id": master_id})
    if path == 'scheduleMaster':
       Models = ScheduleMaster
-   if path == 'scheduleDetail':
-      Models = ScheduleDetail
-
    fields = [f.name for f in Models._meta.fields if f.name not in ['entry_date', 'entry_id', 'updat_date', 'updat_id', 'id']]
 
    return insert(request, Models, fields)
+
+
+def insertMaster(request, model, fields):
+    now = datetime.datetime.now()
+
+    data = {}
+    for field in fields:
+        data[field] = request.POST.get(field)
+
+    obj = model(**data, entry_date=now.strftime('%Y-%m-%d %H:%M:%S'))
+    obj.save()
+
+    return JsonResponse({'result': 'success', 'id': obj.id})
+
+
+def insertDetail(request, model, fields, replaceData):
+   now = datetime.datetime.now()
+
+   data = {}
+   for field in fields:
+      data[field] = request.POST.get(field)
+
+   obj = model(**data, entry_date=now.strftime('%Y-%m-%d %H:%M:%S'))
+   obj.save()
+
+   return JsonResponse({'result': 'success', 'id': obj.id})
+
 
 def insert(request, model, fields):
     now = datetime.datetime.now()
@@ -479,10 +514,10 @@ def insert(request, model, fields):
     for field in fields:
         data[field] = request.POST.get(field)
 
-    model_instance = model(**data, entry_date=now.strftime('%Y-%m-%d %H:%M:%S'))
-    model_instance.save()
+    obj = model(**data, entry_date=now.strftime('%Y-%m-%d %H:%M:%S'))
+    obj.save()
 
-    return JsonResponse({'result': 'success'})
+    return JsonResponse({'result': 'success', 'id': obj.id})
 
 def commonModify(request, path):
    Models = None
@@ -552,7 +587,7 @@ def modify(request, model, pk_name='id', **kwargs):
     obj.updat_date = now.strftime('%Y-%m-%d %H:%M:%S')
     obj.save()
 
-    return JsonResponse({'result': 'success'})
+    return JsonResponse({'result': 'success', 'id': obj.id})
 
 def delete(request, model, pk_name='id', **kwargs):
     now = datetime.datetime.now()
@@ -563,4 +598,4 @@ def delete(request, model, pk_name='id', **kwargs):
     obj.updat_date = now.strftime('%Y-%m-%d %H:%M:%S')
     obj.save()
 
-    return JsonResponse({'result': 'success'})
+    return JsonResponse({'result': 'success', 'id': obj.id})
