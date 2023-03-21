@@ -7,47 +7,89 @@
     <div class="card-body">
         <div class="datatable-wrapper datatable-loading no-footer sortable searchable fixed-columns">
             <div class="datatable-top">
-                <form id="menuFrm">
+                <form id="scheduleFrm">
                     {% csrf_token %}
+                    <input type="hidden" id="id" name="id" value="{{selectData.schedule_master.0.id}}">
                     <div class="input-group mb-3">
-                        <span class="input-group-text col-sm-2 text-end" >메뉴</span>
-                        {% if pageType == 'U' %}    
-                            <input type="text" id="menu" name="menu" class="form-control col-sm-4" value="{{contentMenu.0.menu}}" readonly>
-                        {% else %}
-                            <input type="text" id="menu" name="menu" class="form-control col-sm-4" value="{{contentMenu.0.menu}}" >
-                        {% endif %}
-                        <span class="input-group-text col-sm-2 text-center" >메뉴명</span>
-                        <input type="text" id="menu_name" name="menu_name" class="form-control col-sm-4" value="{{contentMenu.0.menu_name}}" >
+                        <span class="input-group-text col-sm-1 text-end" >상품명</span>
+                        <input type="text" id="product_name" name="product_name" class="form-control col-sm-11" value="{{selectData.schedule_master.0.product_name}}" >
                     </div>
                     <div class="input-group mb-3">
-                        <span class="input-group-text col-sm-2" >상위메뉴</span>
-                        <input type="text" id="upper_menu" name="upper_menu" class="form-control col-sm-4" value="{{contentMenu.0.upper_menu}}" >
-                        <span class="input-group-text col-sm-2" >아이콘(class명)</span>
-                        <input type="text" id="icon" name="icon" class="form-control col-sm-4" value="{{contentMenu.0.icon}}" >
+                        <span class="input-group-text col-sm-1 text-center" >여행사</span>
+                        <input type="text" id="agent" name="account_name" class="form-control col-sm-5" value="{{selectData.schedule_master.0.agent}}" >
+                        <span class="input-group-text col-sm-1 text-center" >담당자</span>
+                        <input type="text" id="manager" name="account_no" class="form-control col-sm-5" value="{{selectData.schedule_master.0.manager}}" >
+                    </div>
+                   
+                    상세정보
+                    <div class="input-group mb-3">
+                        <span class="input-group-text col-sm-1 text-end" >지역</span>
+                        <input type="text" id="location" name="location" class="form-control col-sm-5" value="{{selectData.schedule_master.0.location}}" >
+                        <span class="input-group-text col-sm-1 text-center" >출발지</span>
+                        <input type="text" id="start" name="start" class="form-control col-sm-5" value="{{selectData.schedule_master.0.start}}" >
                     </div>
                     <div class="input-group mb-3">
-                        <label class="input-group-text col-sm-2" for="use_yn" value="{{contentMenu.0.use_yn}}" >사용여부</label>
-                        <select class="form-select col-sm-4" id="use_yn" name="use_yn">
-                            <option value="Y">사용</option>
-                            <option value="N">미사용</option>
-                        </select>
-                        <label class="input-group-text  col-sm-2" for="menu_type" value="{{contentMenu.0.menu_type}}" >메뉴타입</label>
-                        <select class="form-select  col-sm-4" id="menu_type" name="menu_type">
-                        <option value="LEFT">왼쪽</option>
-                        <option value="TOP">위쪽</option>
-                        </select>
+                        <span class="input-group-text col-sm-1 text-end" >일정</span>
+                        <input type="text" id="night" name="night" class="form-control col-sm-5" value="{{selectData.schedule_master.0.night}}" >
+                        <span class="input-group-text col-sm-1 text-center" >박</span>
+                        <input type="text" id="day" name="day" class="form-control col-sm-5" value="{{selectData.schedule_master.0.day}}" >
+                        <span class="input-group-text col-sm-1 text-center" >일</span>
+                        <input type="button" onclick="makeSchedule()" value="생성">
+                    </div>
+                    <div class="input-group" id="detail">
+
                     </div>
                     <div class="input-group mb-3">
-                        <span class="input-group-text  col-sm-2" >바로가기</span>
-                        <input type="text" id="link" name="link" class="form-control col-sm-4" value="{{contentMenu.0.link}}" >
-                        <span class="col-sm-6" ></span>
+                        <label class="input-group-text col-sm-1 col-form-label" for="bus" >버스</label>
+                        <textarea id="bus" name="bus" class="form-control col-sm-11" >{{ selectData.schedule_master.0.bus }}</textarea>
+                        <button>검색</button>
                     </div>
+                    <div class="input-group mb-3">
+                        <label class="input-group-text col-sm-1 col-form-label" for="entrance" >입장지</label>
+                        <textarea id="entrance" class="form-control col-sm-11" name="entrance">{{ selectData.schedule_master.0.entrance }}</textarea>
+                        <button>검색</button>
+                    </div>
+                    <div class="input-group mb-3">
+                        식사
+                    </div>
+                    <div class="input-group mb-3">
+                        <label class="input-group-text col-sm-1 col-form-label" for="brakfast" >조식</label>
+                        <input type="text" id="brakfast" name="brakfast" class="form-control col-sm-1" value="{{selectData.schedule_master.0.iban_code}}" >
+                        <span class="input-group-text col-sm-1 me-2" >회</span>
+                        <label class="input-group-text col-sm-1 col-form-label" for="lunch" >중식</label>
+                        <input type="text" id="lunch" name="lunch" class="form-control col-sm-1" value="{{selectData.schedule_master.0.iban_code}}" >
+                        <span class="input-group-text col-sm-1 me-2" >회</span>
+                        <label class="input-group-text col-sm-1 col-form-label" for="dinner" >석식</label>
+                        <input type="text" id="dinner" name="dinner" class="form-control col-sm-1" value="{{selectData.schedule_master.0.iban_code}}" >
+                        <span class="input-group-text col-sm-1 me-2" >회</span>
+                        <button class="form-control col-sm-1">검색</button>
+                    </div>
+                    <div class="input-group mb-3">
+                        <label class="input-group-text col-sm-1 col-form-label" for="special" >특식</label>
+                        <textarea id="special" name="special" class="form-control col-sm-11">{{ selectData.schedule_master.0.special }}</textarea>
+                    </div>
+ 
+                    <div class="input-group mb-3">
+                        <label class="input-group-text col-sm-1 col-form-label" for="option" >옵션</label>
+                        <textarea id="option" class="form-control col-sm-11" name="option">{{ selectData.schedule_master.0.option }}</textarea>
+                        <button>검색</button>
+                    </div>
+                    <div class="input-group mb-3">
+                        <label class="input-group-text col-sm-1 col-form-label" for="shopping" >쇼핑</label>
+                        <textarea id="shopping" class="form-control col-sm-11" name="shopping">{{ selectData.schedule_master.0.shopping }}</textarea>
+                        <button>검색</button>
+                    </div>
+                    <div class="input-group mb-3">
+                        <label class="input-group-text col-sm-1 col-form-label" for="schedule_remark" >REMARK</label>
+                        <textarea id="schedule_remark" class="form-control col-sm-11" name="schedule_remark">{{ selectData.schedule_master.0.schedule_remark }}</textarea>
+                    </div>
+ 
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                         {% if pageType == 'I' %}
-                            <input type="button" value="저장" onclick="saveData('menuFrm')">
+                            <input type="button" value="저장" onclick="saveData('scheduleFrm')">
                         {% elif pageType == 'U' %}
-                            <input type="button" value="수정" onclick="updateData('menuFrm')">
-                            <input type="button" value="삭제" onclick="deleteData('menuFrm')">
+                            <input type="button" value="수정" onclick="updateData('scheduleFrm')">
+                            <input type="button" value="삭제" onclick="deleteData('scheduleFrm')">
                         {% endif %}
                             <input type="button" value="목록" onclick="goMenuList()">
                     </div>
@@ -56,7 +98,36 @@
         </div>
     </div>
 </div>
+<script>
+    function makeSchedule(){
+        var div = $("#detail");
+        var day = $("#day").val()
+        // 자식노드 모두 삭제
+        div.empty();
 
+        // 기본 틀 생성
+        var basic = '<div class="input-group mb-3 ms-0 row">';
+            basic += '<span class="col-1 input-group-text" >일차</span>';
+            basic += '<span class="col-8 input-group-text" >일정</span>';
+            basic += '<span class="col-2 input-group-text" >호텔</span>';
+            basic += '<span class="col-1 input-group-text" ></span>';
+            basic += '<input type="hidden" id="master_id" name="master_id" value="{{selectData.schedule_master.0.id}}" >';
+            basic += '</div>';
+        div.append(basic);
+        
+        var sche = '';
+        for (var i =1 ; i <= day ; i ++ ){
+            sche += '<div class="input-group mb-3 row" >';
+            sche += '<input type="text" id="day" name="day" class="col-1 input-group-text" disabled value="'+i+'일차" >';
+            sche += '<div class="col-8 form-floating"><input type="text" id="schedule" name="schedule" class="input-group form-control  col-sm-8" ><label for="schedule">스케쥴</label></div>';
+            sche += '<div class="col-2 form-floating"><input type="text" id="hotel" name="hotel" class="input-group form-control  col-sm-2" ><label for="hotel">호텔</label></div>';
+            sche += '<input type="button" class="input-group form-control  col-sm-1" value="검색">';
+            sche += '</div>'
+        }
+        div.append(sche);
+    }
+
+</script>
 {% include 'base/commonValue.html'%} <!-- 공통변수 -->
 {% endblock %}
 {% block js %}

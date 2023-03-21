@@ -357,7 +357,7 @@ class hotelAdd(addView):
 #################################################
 class scheduleAdd(addView):
    def seletData(self):
-      return {ScheduleMaster.objects.filter(id=self.id), ScheduleDetail.objects.filter(master_id=self.id)}
+      return {"schedule_mager":ScheduleMaster.objects.filter(id=self.id),"schedule_detail": ScheduleDetail.objects.filter(master_id=self.id)}
    
    def selectOption(self, request):
       return {'manager':Manager.objects.filter(use_yn='Y')}

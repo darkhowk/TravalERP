@@ -2,7 +2,7 @@ from django.views import generic
 from .common_models import Menu, commonModel, Agent
 import math
 from django.shortcuts import render
-
+import json
 
 class CommonView(generic.ListView):
     title_nm = ""
@@ -108,7 +108,7 @@ class addView(generic.CreateView):
     def get(self, request, *args, **kwargs):
         #선택 데이터
         selectData = self.seletData()
-
+        
         #옵션에 그려질 데이터
         optionData = self.selectOption(request) or {}
 
