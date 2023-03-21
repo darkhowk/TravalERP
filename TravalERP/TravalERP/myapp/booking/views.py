@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.views import generic
-from ..common.common_models import Menu
+# from ..common.common_models import Menu # 기존 Menu만 불러오던걸 주석
+from ..common.common_models import * # 모든 모델 가져올수있게 변경
 # Create your views here.
 
 class bookingIndex(generic.ListView):
@@ -30,11 +31,15 @@ class bookingAdd(generic.ListView):
       self.topMenu = Menu.objects.filter(menu_type="TOP")
 
    def get(self, request, *args, **kwargs):
+      # 추가할 데이터
+      agent = Agent.objects.filter(use_yn ='Y', type='A') # 사용여부 Y, 타입 A(여행사) 인것 선택
+      optionData = {'agent': agent} # 추후 추가할 데이터를 위해
       self.content = {
                         "descript" : self.descript,
                         "title_nm" : self.title_nm,
                         "ogImgUrl" : self.ogImgUrl,
-                        "topMenu"  : self.topMenu
+                        "topMenu"  : self.topMenu,
+                        "optionData" : optionData,
                      }
 
       return render(request, self.template_name, self.content)
