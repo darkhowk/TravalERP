@@ -6,15 +6,17 @@
     <input type="hidden" class="form-control" id="id" name="id" value="{{manager.0.id}}"/>
     <div class="row">
       <label for="agent_name" class="col-sm-1 col-form-label">
-        <h4>여행사</h4></label>
+        여행사
+      </label>
       <div class="col-sm-3">
-        <select class="form-select" id="agent_name" name="agent_name" value="{{manager.0.agent_name}}" >
+        <select class="selectpicker" d="agent_name" name="agent_name" data-live-search="true" style="display: none;">
           {% for agentList in agent %}
-          <option value="{{agentList.agent_name}}">
+          <option value="{{agentList.agent_name}}" {% if agentList.agent_name == manager.0.agent_name %}selected{% endif %}>
             {{agentList.agent_name}}
           </option>
           {% endfor %}
         </select>
+
       </div>
       <label for="agent_tel" class="col-sm-1 col-form-label">담당자명</label>
       <div class="col-sm-3">
