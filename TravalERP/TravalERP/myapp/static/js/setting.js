@@ -27,7 +27,8 @@ $(document).on('dblclick','tr', function(e){
 function goPage(page){
     var perPage =  $('#perPage').val();
     var target =$('#target').val();
-    movePage('setting/commonSettingView?perPage='+perPage+'&paging='+page+"&target="+target)
+    var type =$('#type').val();
+    movePage('setting/commonSettingView?perPage='+perPage+'&paging='+page+"&target="+target +'&type='+type)
 }
 
 // 입력, 수정 화면에서 목록으로 나오는 함수
@@ -35,7 +36,8 @@ function goMenuList(){
     var perPage = $("#perPage").val();
     var page = $("#paging").val();
     var target =$('#target').val();
-    movePage('setting/commonSettingView?paging='+page+"&perPage="+perPage+"&target="+target)
+    var type =$('#type').val();
+    movePage('setting/commonSettingView?paging='+page+"&perPage="+perPage+"&target="+target +'&type='+type)
 }
 
 function saveData(fName){

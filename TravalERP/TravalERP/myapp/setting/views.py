@@ -112,143 +112,94 @@ class menuAdd(generic.ListView):
 #################################################
 # AGENT
 #################################################
-class agentAdd(generic.ListView):
-   def __init__(self):
-        self.title_nm = "여행사 추가"
-        self.descript = "여행사추가 페이지입니다"
-        self.template_name = "setting/agentAdd.html"
-        self.topMenu = Menu.objects.filter(menu_type="TOP")
-        self.leftMenu = Menu.objects.filter(menu_type="LEFT")
-      
+class agentAdd(addView):
+   def seletData(self):
+      return {"agent": Agent.objects.filter(id=self.id, type = self.type)}
+   
+   def selectOption(self, request):
+      return {}
+   
    def get(self, request, *args, **kwargs):
-      pageType = request.GET.get('pageType', None)
-      type = request.GET.get('type', None)
-      target = request.GET.get('target', None)
-      if pageType == 'I':
-         if type == 'A':
+      self.template_name = "setting/agentAdd.html"
+      self.pageType = request.GET.get('pageType', None)
+      self.id = request.GET.get('id', None)
+      self.type = request.GET.get('type', None)
+      if self.pageType == 'I':
+         if self.type == 'A':
             self.title_nm = "여행사 추가"
             self.descript = "여행사추가 페이지입니다"
          else :
             self.title_nm = "로컬 추가"
             self.descript = "로컬추가 페이지입니다"
-
-         self.content = {
-                        "descript" : self.descript,
-                        "title_nm" : self.title_nm,
-                        "topMenu"  : self.topMenu,
-                        "leftMenu" : self.leftMenu,
-                        "pageType" : pageType,
-                        "type" : type,
-                        "target" : target,
-                     }
-      elif pageType == 'U':
-         type = request.GET.get('type', None)
-         if type == 'A':
+      elif self.pageType == 'U':
+         if self.type == 'A':
             self.title_nm = "여행사 수정"
             self.descript = "여행사 수정 페이지입니다"
          else :
             self.title_nm = "로컬 수정"
             self.descript = "로컬 수정 페이지입니다"
-
-         id =  request.GET.get('id', None)
-         self.agent = Agent.objects.filter(id=id, type = type)
-         self.perPage = request.GET.get('perPage', None)
-         self.paging = request.GET.get('paging', None)
-         self.content = {
-                        "descript"    : self.descript,
-                        "title_nm"    : self.title_nm,
-                        "topMenu"     : self.topMenu,
-                        "leftMenu"    : self.leftMenu,
-                        "pageType"    : pageType,
-                        "perPage"     : self.perPage,
-                        "paging"      : self.paging,
-                        "type"         : type,
-                        "agent"       : self.agent,
-                        "target"       : target,
-                     }
-      return render(request, self.template_name, self.content)
+   
+      response = super().get(request, *args, **kwargs)
+      
+      if response is None:
+         response = HttpResponse()
+         
+      return response
 
 #################################################
 # MANAGER
 #################################################
-class managerAdd(generic.ListView):
-   def __init__(self):
-        self.title_nm = "담당자 추가"
-        self.ogImgUrl = ""
-        self.descript = "담당자추가 페이지입니다"
-        self.template_name = "setting/managerAdd.html"
-        self.topMenu = Menu.objects.filter(menu_type="TOP")
-        self.leftMenu = Menu.objects.filter(menu_type="LEFT")
+class managerAdd(addView):
+   def seletData(self):
+      return {'manager':Manager.objects.filter(id=self.id)}
+   
+   def selectOption(self, request):
+      self.type = request.GET.get('type', None)
+      if self.type == 'M':
+         return {"agent":Agent.objects.filter(type="A", use_yn='Y')}
+      else :
+         return {"agent":Agent.objects.filter(type="L", use_yn='Y')}
       
    def get(self, request, *args, **kwargs):
-      perPage = request.GET.get('perPage', None)
-      paging = request.GET.get('paging', None)
-      target = request.GET.get('target', None)
-      pageType = request.GET.get('pageType', None)
-      type = request.GET.get('type', None)
+      self.template_name = "setting/managerAdd.html"
+      self.pageType = request.GET.get('pageType', None)
+      self.id = request.GET.get('id', None)
+      self.type = request.GET.get('type', None)
 
-      if pageType == 'I':
-         if type == 'M':
+      if self.pageType == 'I':
+         if self.type == 'M':
             self.title_nm = "담당자 추가"
             self.descript = "담당자추가 페이지입니다"
-            agent = Agent.objects.filter(type="A", use_yn='Y', )
          else :
             self.title_nm = "로컬 담당자 추가"
             self.descript = "로컬 담당자 추가 페이지입니다"
             agent = Agent.objects.filter(type="L", use_yn='Y', )
-
-         self.content = {
-                        "descript" : self.descript,
-                        "title_nm" : self.title_nm,
-                        "ogImgUrl" : self.ogImgUrl,
-                        "topMenu"  : self.topMenu,
-                        "leftMenu" : self.leftMenu,
-                        "pageType" : pageType,
-                        "type" : type,
-                        "agent": agent,
-                        "perPage": perPage,
-                        "paging": paging,
-                        "target": target,
-                     }
-      elif pageType == 'U':
-         type = request.GET.get('type', None)
-         if type == 'M':
+      elif self.pageType == 'U':
+         if self.type == 'M':
             self.title_nm = "담당자 수정"
             self.descript = "담당자 수정 페이지입니다"
-            agent = Agent.objects.filter(agent_type="A", use_yn='Y', )
          else :
             self.title_nm = "로컬 담당자 수정"
             self.descript = "로컬 담당자 수정 페이지입니다"
-            agent = Agent.objects.filter(agent_type="L", use_yn='Y', )
 
-         id =  request.GET.get('id', None)
-         self.manager = Manager.objects.filter(id=id, type = type)
-         self.perPage = request.GET.get('perPage', None)
-         self.paging = request.GET.get('paging', None)
-         self.content = {
-                        "descript"    : self.descript,
-                        "title_nm"    : self.title_nm,
-                        "ogImgUrl"    : self.ogImgUrl,
-                        "topMenu"     : self.topMenu,
-                        "leftMenu"    : self.leftMenu,
-                        "pageType"    : pageType,
-                        "perPage"     : self.perPage,
-                        "paging"      : self.paging,
-                        "type"        : type,
-                        "manager"     : self.manager,
-                        "agent": agent,
-                     }
-      return render(request, self.template_name, self.content)
+      
+      response = super().get(request, *args, **kwargs)
+      
+      if response is None:
+         response = HttpResponse()
+         
+      return response
+   
 
 #################################################
 # AIRPORT
 #################################################
 class airportAdd(addView):
    def seletData(self):
-      return {'airport':Airport.objects.filter(id=self.id)}
+      return {"airport":Airport.objects.filter(id=self.id)}
    
    def selectOption(self, request):
-      return {'manager':Manager.objects.filter(use_yn='Y')}
+      return {"manager":Manager.objects.filter(use_yn='Y')}
    
    def get(self, request, *args, **kwargs):
       self.template_name = "setting/airportAdd.html"

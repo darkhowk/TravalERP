@@ -6,21 +6,22 @@
   </h1>
   <form id="agentFrm">
     {% csrf_token %}
+    <input type="hidden" id="type" name="type" value="{{type}}">
     <div class="row">
       <label for="agent_name" class="col-sm-1 col-form-label">여행사</label>
       <div class="col-sm-3">
-        <input type="text" class="form-control" id="agent_name" name="agent_name" value="{{agent.0.agent_name}}">
-        <input type="hidden" class="form-control" id="agent_name" name="id" value="{{agent.0.id}}">
+        <input type="text" class="form-control" id="agent_name" name="agent_name" value="{{selectData.agent.0.agent_name}}">
+        <input type="hidden" class="form-control" id="agent_name" name="id" value="{{selectData.agent.0.id}}">
       </div>
       <label for="agent_tel" class="col-sm-1 col-form-label">대표번호</label>
       <div class="col-sm-3">
-        <input type="tel" class="form-control" id="agent_tel" name="agent_tel" value="{{agent.0.agent_tel}}">
+        <input type="tel" class="form-control" id="agent_tel" name="agent_tel" value="{{selectData.agent.0.agent_tel}}">
       </div>
       <label for="use_yn" class="col-sm-1 col-form-label">사용여부</label>
       <div class="col-sm-3">
         <select class="form-select" id="use_yn" name="use_yn">
-          <option value="Y" {% if agent.0.use_yn == 'Y' %}selected{% endif %}>사용</option>
-          <option value="N" {% if agent.0.use_yn == 'N' %}selected{% endif %}>미사용</option>
+          <option value="Y" {% if selectData.agent.0.use_yn == 'Y' %}selected{% endif %}>사용</option>
+          <option value="N" {% if selectData.agent.0.use_yn == 'N' %}selected{% endif %}>미사용</option>
         </select>
       </div>
     </div>

@@ -3,16 +3,16 @@
   <h1 class="mt-4">{{title_nm}}</h1>
   <form id="managerFrm">
     {% csrf_token %}
-    <input type="hidden" class="form-control" id="id" name="id" value="{{manager.0.id}}"/>
+    <input type="hidden" class="form-control" id="id" name="id" value="{{selectData.manager.0.id}}"/>
     <div class="row">
       <label for="agent_name" class="col-sm-1 col-form-label">
         여행사
       </label>
       <div class="col-sm-3">
-        <select class="selectpicker" d="agent_name" name="agent_name" data-live-search="true" style="display: none;">
-          {% for agentList in agent %}
-          <option value="{{agentList.agent_name}}" {% if agentList.agent_name == manager.0.agent_name %}selected{% endif %}>
-            {{agentList.agent_name}}
+        <select class="col-12 selectpicker" d="agent_name" name="agent_name" data-live-search="true" style="display: none;">
+          {% for agent in optionData.agent.all %}
+          <option value="{{agent.agent_name}}" {% if agent.agent_name == selectData.manager.0.agent_name %}selected{% endif %}>
+            {{agent.agent_name}}
           </option>
           {% endfor %}
         </select>
@@ -20,43 +20,43 @@
       </div>
       <label for="agent_tel" class="col-sm-1 col-form-label">담당자명</label>
       <div class="col-sm-3">
-        <input type="tel" class="form-control" id="manager_name" name="manager_name" value="{{manager.0.manager_name}}" />
+        <input type="tel" class="form-control" id="manager_name" name="manager_name" value="{{selectData.manager.0.manager_name}}" />
       </div>
       <label for="agent_tel" class="col-sm-1 col-form-label">직통번호</label>
       <div class="col-sm-3">
-        <input type="tel" class="form-control" id="manager_tel" name="manager_tel" value="{{manager.0.manager_tel}}" />
+        <input type="tel" class="form-control" id="manager_tel" name="manager_tel" value="{{selectData.manager.0.manager_tel}}" />
       </div>
     </div>
     <div class="row">
       <label for="agent_name" class="col-sm-1 col-form-label">핸드폰</label>
       <div class="col-sm-3">
-        <input type="text" class="form-control" id="manager_hp" name="manager_hp" value="{{manager.0.manager_hp}}" />
+        <input type="text" class="form-control" id="manager_hp" name="manager_hp" value="{{selectData.manager.0.manager_hp}}" />
       </div>
       <label for="agent_tel" class="col-sm-1 col-form-label">메신저</label>
       <div class="col-sm-3">
-        <input type="tel" class="form-control" id="manager_messenger" name="manager_messenger" value="{{manager.0.manager_messenger}}" />
+        <input type="tel" class="form-control" id="manager_messenger" name="manager_messenger" value="{{selectData.manager.0.manager_messenger}}" />
       </div>
       <label for="use_yn" class="col-sm-1 col-form-label">사용여부</label>
       <div class="col-sm-3">
-        <input type="text" class="form-control" id="use_yn" name="use_yn" value="{{manager.0.use_yn}}" />
+        <input type="text" class="form-control" id="use_yn" name="use_yn" value="{{selectData.manager.0.use_yn}}" />
       </div>
     </div>
     <div class="row">
       <label for="use_yn" class="col-sm-1 col-form-label">이메일</label>
       <div class="col-sm-3">
-        <input type="text" class="form-control" id="manager_email" name="manager_email" value="{{manager.0.manager_email}}" />
+        <input type="text" class="form-control" id="manager_email" name="manager_email" value="{{selectData.manager.0.manager_email}}" />
       </div>
       <label for="agent_tel" class="col-sm-1 col-form-label">REMARK</label>
       <div class="col-sm-7">
-        <textarea class="form-control" id="manager_remark" name="manager_remark" > {{manager.0.manager_remark}}</textarea >
+        <textarea class="form-control" id="manager_remark" name="manager_remark" > {{selectData.manager.0.manager_remark}}</textarea >
       </div>
     </div>
     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
       {% if pageType == 'I' %}
-          <input type="button" value="저장" onclick="saveData('menuFrm')">
+          <input type="button" value="저장" onclick="saveData('managerFrm')">
       {% elif pageType == 'U' %}
-          <input type="button" value="수정" onclick="updateData('menuFrm')">
-          <input type="button" value="삭제" onclick="deleteData('menuFrm')">
+          <input type="button" value="수정" onclick="updateData('managerFrm')">
+          <input type="button" value="삭제" onclick="deleteData('managerFrm')">
       {% endif %}
           <input type="button" value="목록" onclick="goMenuList()">
     </div>
