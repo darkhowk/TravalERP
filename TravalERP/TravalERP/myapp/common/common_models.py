@@ -267,3 +267,25 @@ class ScheduleDetail(commonModel):
         db_table = 'schedule_detail'
         verbose_name = '스케줄 디테일'
         verbose_name_plural = '스케줄 디테일 목록'       
+
+class Citycode(commonModel):
+    country_name = models.CharField(db_column='COUNTRY_NAME', max_length=100, verbose_name='국가명')
+    country_en_name = models.CharField(db_column='COUNTRY_EN_NAME', max_length=100, verbose_name='국가명(영문)')
+    city_name = models.CharField(db_column='CITY_NAME', max_length=100, verbose_name='도시명')
+    city_en_name = models.CharField(db_column='CITY_EN_NAME', max_length=100, verbose_name='도시명(영문)')
+    city_code = models.CharField(db_column='CITY_CODE', max_length=100, verbose_name='도시코드')
+    city_remark = models.CharField(db_column='CITY_REMARK', max_length=100, verbose_name='기타')
+    
+    def __iter__(self):
+        yield self.country_name
+        yield self.country_en_name
+        yield self.city_name
+        yield self.city_en_name
+        yield self.city_code
+        yield self.city_remark
+
+    class Meta:
+        managed = False
+        db_table = 'citycode'
+        verbose_name = '국가 및 도시코드'
+        verbose_name_plural = '국가 및 도시코드 목록'       
