@@ -277,7 +277,7 @@ class Citycode(commonModel):
     city_name = models.CharField(db_column='CITY_NAME', max_length=100, verbose_name='도시명')
     city_en_name = models.CharField(db_column='CITY_EN_NAME', max_length=100, verbose_name='도시명(영문)')
     city_code = models.CharField(db_column='CITY_CODE', max_length=100, verbose_name='도시코드')
-    city_remark = models.CharField(db_column='CITY_REMARK', max_length=100, verbose_name='기타')
+    city_remark = models.CharField(db_column='CITY_REMARK', max_length=100, verbose_name='리마크')
     
     def __iter__(self):
         yield self.country_name

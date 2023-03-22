@@ -343,7 +343,7 @@ class citycodeAdd(addView):
       return {}
    
    def get(self, request, *args, **kwargs):
-      self.template_name = "setting/citicodeAdd.html"
+      self.template_name = "setting/citycodeAdd.html"
       self.pageType = request.GET.get('pageType', None)
       self.id = request.GET.get('id', None)
       if self.pageType == 'I':

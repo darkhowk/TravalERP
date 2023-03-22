@@ -12,9 +12,9 @@
                     <input type="hidden" id="id" name="id" value="{{selectData.citycode.0.id}}">
                     <div class="input-group mb-3">
                         <span class="input-group-text col-sm-1 text-end" >국가명</span>
-                        <input type="text" id="contry_name" name="contry_name" class="form-control col-sm-3" value="{{selectData.citycode.0.city_name}}" >
+                        <input type="text" id="country_name" name="country_name" class="form-control col-sm-3" value="{{selectData.citycode.0.country_name}}" >
                         <span class="input-group-text col-sm-1 text-center" >영문국가명</span>
-                        <input type="text" id="contry_en_name" name="contry_en_name" class="form-control col-sm-3" value="{{selectData.citycode.0.city_en_name}}" >
+                        <input type="text" id="country_en_name" name="country_en_name" class="form-control col-sm-3" value="{{selectData.citycode.0.country_en_name}}" >
                     </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text col-sm-1 text-end" >도시명</span>
@@ -34,7 +34,7 @@
                     </div>
                     <div class="input-group mb-3">
                         <label class="input-group-text col-sm-1 col-form-label" for="citycode_reamark" >REMARK</label>
-                        <textarea id="citycode_reamark" class="form-control col-sm-11" name="citycode_remark">{{ selectData.citycode.0.citycode_remark }}</textarea>
+                        <textarea id="citycode_reamark" class="form-control col-sm-11" name="citycode_remark">{{selectData.citycode.0.citycode_remark}}</textarea>
                     </div>
  
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">

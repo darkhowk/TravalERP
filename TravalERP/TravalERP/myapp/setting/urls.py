@@ -19,7 +19,7 @@ urlpatterns = [
     path("setting/commcode/add", views.commcodeAdd.as_view(), name="공통코드 등록/수정"), 
     path("setting/hotel/add", views.hotelAdd.as_view(), name="호텔 등록/수정"), 
     path("setting/schedule/add", views.scheduleAdd.as_view(), name="스케줄 등록/수정"), 
-    path("setting/commcode/add", views.citycodeAdd.as_view(), name="도시코드 등록/수정"), 
+    path("setting/citycode/add", views.citycodeAdd.as_view(), name="도시코드 등록/수정"), 
 
     
     
