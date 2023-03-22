@@ -226,10 +226,13 @@ class ScheduleMaster(commonModel):
     shopping = models.CharField(db_column='SHOPPING', max_length=100, verbose_name='쇼핑')
     schedule_remark = models.TextField(db_column='SCHEDULE_REMARK', max_length=1000, verbose_name='REMARK')
     
+    def __str__(self):
+        return {f"{self.agent} - {self.agent.agent_name}", f"{self.manager} - {self.manager.manager_name}"}
+    
     def __iter__(self):
         yield self.product_name
-        yield self.agent
-        yield self.manager
+        yield self.agent.agent_name
+        yield self.manager.manager_name
         yield self.location
         yield self.start
         yield self.night
