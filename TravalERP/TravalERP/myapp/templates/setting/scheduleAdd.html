@@ -12,14 +12,22 @@
                     <input type="hidden" id="id" name="id" value="{{selectData.schedule_master.0.id}}">
                     <div class="input-group mb-3">
                         <span class="input-group-text col-sm-1 text-end" >상품명</span>
-                        <input type="text" id="product_name" name="product_name" class="form-control col-sm-11" value="{{selectData.schedule_master.0.product_name}}" >
-                        <input type="text" id="use_yn" name="use_yn">
+                        <input type="text" id="product_name" name="product_name" class="form-control col-sm-5" value="{{selectData.schedule_master.0.product_name}}" >
+                        <span class="input-group-text col-sm-1 text-end" >사용여부</span>
+                        <input type="text" id="use_yn" name="use_yn" class="form-control col-sm-5" value="{{selectData.schedule_master.0.use_yn}}" >
                     </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text col-sm-1 text-center" >여행사</span>
-                        <input type="text" id="agent" name="account_name" class="form-control col-sm-5" value="{{selectData.schedule_master.0.agent}}" >
-                        <span class="input-group-text col-sm-1 text-center" >담당자</span>
-                        <input type="text" id="manager" name="account_no" class="form-control col-sm-5" value="{{selectData.schedule_master.0.manager}}" >
+                        <select class="form-control col-5 selectpicker" id="agent" name="agent" data-live-search="true" style="display: none;" onchange="changeAgent()">
+                            {% for agent in optionData.agent %}
+                            <option value="{{agent.id}}" {% if agent.agent_name == selectData.schedule_master.0.agent %}selected{% endif %}>
+                              {{agent.agent_name}}
+                            </option>
+                            {% endfor %}
+                        </select>
+                        <span class="input-group-text col-sm-1 text-center" >담당자</span> 
+                        <select class="form-control col-5 selectpicker" id="manager" name="manager" data-live-search="true" style="display: none;">
+                        </select>
                     </div>
                    
                     상세정보
@@ -79,18 +87,18 @@
                         <input type="button" onclick="makeSchedule()" value="생성">
                     </div>
                     <input type="hidden" id="schedule_remark" name="schedule_remark" value="REMARK"> 
-                </form>
-                <div class="table-hover table-condensed table-responsive">
-                    <table class="table " id="scheduleDetailFrm">
-                    
-                    </table>
-                </div>
                     <!--
                     <div class="input-group mb-3">
                         <label class="input-group-text col-sm-1 col-form-label" for="schedule_remark" >REMARK</label>
                         <textarea id="schedule_remark" class="form-control col-sm-11" name="schedule_remark">{{ selectData.schedule_master.0.schedule_remark }}</textarea>
                     </div>
                     -->
+                </form>
+                <div class="table-hover table-condensed table-responsive">
+                    <table class="table " id="scheduleDetailFrm">
+                    
+                    </table>
+                </div>
                 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                     {% if pageType == 'I' %}
                         <input type="button" value="저장" onclick="saveData('scheduleFrm', 'scheduleDetailFrm')">
@@ -106,21 +114,65 @@
     </div>
 </div>
 <script>
+function changeAgent(){
+    $("#tmpChangeAgentFrm").remove();
+    var frm = makeForm('', 'tmpChangeAgentFrm');
+    frm.appendChild(addData('agent', $("#agent").val()));
+    document.body.appendChild(frm);
+    getAjax('tmpChangeAgentFrm', 'manager', 'changeAgentSucc');
+}
 
+function changeAgentSucc(data){
+    var select = $("#manager");
+    select.selectpicker('destroy');
+    select.empty();
+    for (var i = 0; i < data.length; i++) {
+        console.log(i);
+        var option = $('<option>', {
+            value: data[i].id,
+            text: data[i].manager_name
+        });
+        select.append(option);
+    }
+
+    select.selectpicker();
+
+}
     
 function saveData(fName, tName){
     var jsonData = $("#"+fName).serializeArray()
+    $.ajax({
+        url: 'addDataMaster', // 앞에 자동으로 setting/agent 붙음
+        method: 'POST',
+        data: jsonData,
+        dataType: 'json',
+        success: function(data) {
+            console.log(data);
+            id = data.id
+            saveDetail(tName, id);
+        },
+        error: function(xhr, status, error) {
+            alert('등록 실패')
+        }
+    });
+}
+
+function saveDetail(tName, id){
     var tableJson = tableToJson(document.getElementById(tName))
+
+    const inputs = document.querySelectorAll('input[name="master_id"]');
+    inputs.forEach(input => {
+        input.value = id;
+    });
 
     // CSRF 토큰을 추가
     var csrf_token_input = document.getElementsByName('csrfmiddlewaretoken')[0];
     var csrf_token_name = csrf_token_input.getAttribute('name');
     var csrf_token_value = csrf_token_input.getAttribute('value');
-    var allData = ({[csrf_token_name]:csrf_token_value,'master':jsonData, 'detail':tableJson})
-    
+    var allData = ({[csrf_token_name]:csrf_token_value, 'detail':tableJson})
 
     $.ajax({
-        url: 'addData', // 앞에 자동으로 setting/agent 붙음
+        url: 'addDataDetail', // 앞에 자동으로 setting/agent 붙음
         method: 'POST',
         data: allData,
         dataType: 'json',

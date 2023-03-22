@@ -28,4 +28,14 @@ urlpatterns = [
     path("setting/<str:path>/updateData", views.commonModify, name="공통수정 ajax"),
     path("setting/<str:path>/deleteData", views.commonDelete, name="공통삭제 ajax"),
 
+    ##### 스케쥴ajax
+    path("setting/<str:path>/addDataMaster", views.commonInsertMaster, name="공통 master등록 ajax"),
+    path("setting/<str:path>/addDataDetail", views.commonInsertDetail, name="공통 detail등록 ajax"),
+    path("setting/<str:path>/updateDataMaster", views.commonModifyMaster, name="공통 master등록수정 ajax"),
+    path("setting/<str:path>/updateDataDetail", views.commonModifyDetail, name="공통 detail등록수정 ajax"),
+    path("setting/<str:path>/deleteDataMaster", views.commonDeleteMaster, name="공통 master등록삭제 ajax"),
+    path("setting/<str:path>/deleteDataDetail", views.commonDeleteDetail, name="공통 detail등록삭제 ajax"),
+
+    ###### ajax get Data 
+    path("setting/<str:path>/getAjax/<str:item>", views.commonGetAjaxData, name='공통 ajax 데이터' )
 ]

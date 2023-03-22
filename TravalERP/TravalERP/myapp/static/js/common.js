@@ -6,7 +6,6 @@ function makeForm(actionUrl, fName){
     f.method = "post";
     f.target = '';
 
-    f.appendChild(addData('csrfmiddlewaretoken', '{{ csrf_token }}'));
     return f;
 }
 
@@ -17,4 +16,16 @@ function addData(name, value){
     elem.setAttribute("value", value);
 
     return elem;
+}
+
+function existFunction(func){
+    var f = '';
+    if(func.indexOf("(") > -1){
+        f = func.substring(0, func.indexOf("("));
+    }
+    else{
+        f = func;
+    }
+
+    return typeof window[f] === 'function';
 }

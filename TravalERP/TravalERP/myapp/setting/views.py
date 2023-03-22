@@ -4,7 +4,7 @@ from django.views import generic
 from django.http import JsonResponse, HttpResponse
 from django.core.paginator import Paginator
 from ..common.CommonView import CommonView, addView
-import datetime
+import datetime, json
 
 from ..common.common_models import *
 
@@ -311,7 +311,7 @@ class scheduleAdd(addView):
       return {"schedule_mager":ScheduleMaster.objects.filter(id=self.id),"schedule_detail": ScheduleDetail.objects.filter(master_id=self.id)}
    
    def selectOption(self, request):
-      return {'manager':Manager.objects.filter(use_yn='Y')}
+      return {'agent':Agent.objects.filter(use_yn='Y',type='A')}
    
    def get(self, request, *args, **kwargs):
       self.template_name = "setting/scheduleAdd.html"
@@ -395,71 +395,74 @@ class commonSettingView(CommonView):
       return response
    
 
-def commonInsert(request, path):
+def commonInsertMaster(request, path):
    # model별로 insert할 fields 작성
    fields = []
-   Models = pathtoMode(path)
-   if path == 'schedule':
-      print("-------------------------------")
-      print(request.POST.get('master'))
-      print(request.POST.get('deatil'))
-      Models =ScheduleMaster
-      fields = [f.name for f in Models._meta.fields if f.name not in ['entry_date', 'entry_id', 'updat_date', 'updat_id', 'id']]
-      result = insertMaster(request, Models, fields)
-      master_id = result.id
-      Models =ScheduleDetail
-      fields = [f.name for f in Models._meta.fields if f.name not in ['entry_date', 'entry_id', 'updat_date', 'updat_id', 'id']]
-      return insertDetail(request, Models, fields, {"master_id": master_id})
-   if path == 'scheduleMaster':
-      Models = ScheduleMaster
+   Models = pathtoMode(path+'Master')
    fields = [f.name for f in Models._meta.fields if f.name not in ['entry_date', 'entry_id', 'updat_date', 'updat_id', 'id']]
 
    return insert(request, Models, fields)
 
 
-def insertMaster(request, model, fields):
-    now = datetime.datetime.now()
+def commonModifyMaster(request, path):
+   Models = pathtoMode(path+'Master')
 
-    data = {}
-    for field in fields:
-        data[field] = request.POST.get(field)
+   type = request.POST.get('type', None)
 
-    obj = model(**data, entry_date=now.strftime('%Y-%m-%d %H:%M:%S'))
-    obj.save()
+   if type is None:
+      return modify(request, Models)
+   else: 
+      return modify(request, Models, pk_name='id', type=type)
 
-    return JsonResponse({'result': 'success', 'id': obj.id})
+def commonDeleteMaster(request, path):
+   Models = pathtoMode(path+'Master')
 
-
-def insertDetail(request, model, fields, replaceData):
-   now = datetime.datetime.now()
-
-   data = {}
-   for field in fields:
-      data[field] = request.POST.get(field)
-
-   obj = model(**data, entry_date=now.strftime('%Y-%m-%d %H:%M:%S'))
-   obj.save()
-
-   return JsonResponse({'result': 'success', 'id': obj.id})
+   type = request.POST.get('type', None)
+   if type is None:
+      return delete(request, Models)
+   else: 
+      return delete(request, Models, pk_name='id', type=type)
+   
 
 
-def insert(request, model, fields):
-    now = datetime.datetime.now()
+def commonInsertDetail(request, path):
+   # model별로 insert할 fields 작성
+   print('detail : ' + path)
+   fields = []
+   Models = pathtoMode(path+'Detail')
+   fields = [f.name for f in Models._meta.fields if f.name not in ['entry_date', 'entry_id', 'updat_date', 'updat_id', 'id']]
 
-    data = {}
-    for field in fields:
-      field_instance = model._meta.get_field(field)
-      if isinstance(field_instance, models.ForeignKey):
-         # ForeignKey field 처리
-         data[field] = pathtoMode(field).objects.get(id=request.POST.get(field))
-      else:
-         # 일반 field 처리
-         data[field] = request.POST.get(field)
+   return insert(request, Models, fields)
 
-    obj = model(**data, entry_date=now.strftime('%Y-%m-%d %H:%M:%S'))
-    obj.save()
 
-    return JsonResponse({'result': 'success', 'id': obj.id})
+def commonModifyDetail(request, path):
+   Models = pathtoMode(path+'Detail')
+
+   type = request.POST.get('type', None)
+
+   if type is None:
+      print('modift none')
+      return modify(request, Models)
+   else: 
+      return modify(request, Models, pk_name='id', type=type)
+
+def commonDeleteDetail(request, path):
+   Models = pathtoMode(path+'Detail')
+   type = request.POST.get('type', None)
+   if type is None:
+      return delete(request, Models)
+   else: 
+      return delete(request, Models, pk_name='id', type=type)
+
+
+def commonInsert(request, path):
+   # model별로 insert할 fields 작성
+   fields = []
+   Models = pathtoMode(path)
+   fields = [f.name for f in Models._meta.fields if f.name not in ['entry_date', 'entry_id', 'updat_date', 'updat_id', 'id']]
+
+   return insert(request, Models, fields)
+
 
 def commonModify(request, path):
    Models = pathtoMode(path)
@@ -480,6 +483,24 @@ def commonDelete(request, path):
       return delete(request, Models)
    else: 
       return delete(request, Models, pk_name='id', type=type)
+   
+def insert(request, model, fields):
+    now = datetime.datetime.now()
+
+    data = {}
+    for field in fields:
+      field_instance = model._meta.get_field(field)
+      if isinstance(field_instance, models.ForeignKey):
+         # ForeignKey field 처리
+         data[field] = pathtoMode(field).objects.get(id=request.POST.get(field))
+      else:
+         # 일반 field 처리
+         data[field] = request.POST.get(field)
+
+    obj = model(**data, entry_date=now.strftime('%Y-%m-%d %H:%M:%S'))
+    obj.save()
+
+    return JsonResponse({'result': 'success', 'id': obj.id})
 
 def modify(request, model, pk_name='id', **kwargs):
     now = datetime.datetime.now()
@@ -513,6 +534,7 @@ def delete(request, model, pk_name='id', **kwargs):
 
 
 def pathtoMode(path):
+   print("pathMode : " + path)
    if path == 'agent':
       Models = Agent
    if path == 'airport':
@@ -532,3 +554,24 @@ def pathtoMode(path):
    if path == 'scheduleDetail':
       Models = ScheduleDetail
    return Models
+
+
+def commonGetAjaxData(request, path, item):
+   Models = pathtoMode(item)
+
+   data = request.body.decode('utf-8')
+
+   try:
+      # JSON 형식으로 변환
+      params = json.loads(data)
+      print(Models)
+      print(params)
+      data = list(Models.objects.filter(**params).values())
+      print(data)
+      return JsonResponse(data, safe=False)
+      # JSON 형식이 맞는 경우 처리할 코드
+   except json.decoder.JSONDecodeError:
+        # JSON 형식이 아닌 경우 처리할 코드
+      return JsonResponse(data, safe=False)
+  
+   
