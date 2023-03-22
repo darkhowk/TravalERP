@@ -330,6 +330,36 @@ class scheduleAdd(addView):
          response = HttpResponse()
          
       return response
+   
+
+#################################################
+# CITYCODE
+#################################################
+class citycodeAdd(addView):
+   def seletData(self):
+      return {"citycode":Citycode.objects.filter(id=self.id)}
+   
+   def selectOption(self, request):
+      return {}
+   
+   def get(self, request, *args, **kwargs):
+      self.template_name = "setting/citicodeAdd.html"
+      self.pageType = request.GET.get('pageType', None)
+      self.id = request.GET.get('id', None)
+      if self.pageType == 'I':
+            self.title_nm = "도시코드 추가"
+            self.descript = "도시코드 추가 페이지입니다"
+      elif self.pageType == 'U':
+            self.title_nm = "도시코드 수정"
+            self.descript = "도시코드 수정 페이지입니다"
+      
+      response = super().get(request, *args, **kwargs)
+      
+      if response is None:
+         response = HttpResponse()
+         
+      return response
+   
 
 #################################################
 # Common Setting View ( 공통 List 화면 View)
@@ -384,6 +414,11 @@ class commonSettingView(CommonView):
          self.descript = "은행 페이지입니다"
          return Bank, None, None
       
+      if self.target == 'citycode':
+         self.title_nm = "도시코드"
+         self.descript = "도시코드 페이지입니다"
+         return Citycode, None, None
+
    def get(self, request, *args, **kwargs):
       self.type = request.GET.get('type')
       self.target = request.GET.get('target')
@@ -553,6 +588,8 @@ def pathtoMode(path):
       Models = ScheduleMaster
    if path == 'scheduleDetail':
       Models = ScheduleDetail
+   if path == 'citycode':
+      Models = Citycode
    return Models
 
 

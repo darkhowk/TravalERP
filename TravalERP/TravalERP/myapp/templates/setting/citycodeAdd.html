@@ -1,0 +1,59 @@
+{% extends "base/setting_base.html" %}
+{% block content %}
+<div class="card mt-3 mx-5">
+    <div class="card-header">
+        {{title_nm}}
+    </div>
+    <div class="card-body">
+        <div class="datatable-wrapper datatable-loading no-footer sortable searchable fixed-columns">
+            <div class="datatable-top">
+                <form id="citycodeFrm">
+                    {% csrf_token %}
+                    <input type="hidden" id="id" name="id" value="{{selectData.citycode.0.id}}">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text col-sm-1 text-end" >국가명</span>
+                        <input type="text" id="contry_name" name="contry_name" class="form-control col-sm-3" value="{{selectData.citycode.0.city_name}}" >
+                        <span class="input-group-text col-sm-1 text-center" >영문국가명</span>
+                        <input type="text" id="contry_en_name" name="contry_en_name" class="form-control col-sm-3" value="{{selectData.citycode.0.city_en_name}}" >
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text col-sm-1 text-end" >도시명</span>
+                        <input type="text" id="city_name" name="city_name" class="form-control col-sm-3" value="{{selectData.citycode.0.city_name}}" >
+                        <span class="input-group-text col-sm-1 text-center" >영문도시명</span>
+                        <input type="text" id="city_en_name" name="city_en_name" class="form-control col-sm-3" value="{{selectData.citycode.0.city_en_name}}" >
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text col-sm-1 text-end" >도시코드</span>
+                        <input type="text" id="city_code" name="city_code" class="form-control col-sm-3" value="{{selectData.citycode.0.city_code}}" >
+                        <label class="input-group-text col-sm-1" for="use_yn" >사용여부</label>
+                        <select class="form-select col-sm-3" id="use_yn" name="use_yn" >
+                            <option value="Y" {% if selectData.citycode.0.use_yn == 'Y' %} selected {% endif %}>사용</option>
+                            <option value="N" {% if selectData.citycode.0.use_yn == 'N' %} selected {% endif %}>미사용</option>
+                        </select>
+                        <div class="col-sm-8"></div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <label class="input-group-text col-sm-1 col-form-label" for="citycode_reamark" >REMARK</label>
+                        <textarea id="citycode_reamark" class="form-control col-sm-11" name="citycode_remark">{{ selectData.citycode.0.citycode_remark }}</textarea>
+                    </div>
+ 
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        {% if pageType == 'I' %}
+                            <input type="button" value="저장" onclick="saveData('citycodeFrm')">
+                        {% elif pageType == 'U' %}
+                            <input type="button" value="수정" onclick="updateData('citycodeFrm')">
+                            <input type="button" value="삭제" onclick="deleteData('citycodeFrm')">
+                        {% endif %}
+                            <input type="button" value="목록" onclick="goMenuList()">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% include 'base/commonValue.html'%} <!-- 공통변수 -->
+{% endblock %}
+{% block js %}
+{{block.super}}      
+{% endblock js %}
