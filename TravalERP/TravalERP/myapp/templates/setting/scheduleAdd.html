@@ -116,7 +116,49 @@
 <script>
 $( document ).ready(function() {
     changeAgent();
+    getSchedule();
 });
+
+function getSchedule(){
+    $("#tmpdetailFrm").remove();
+    var frm = makeForm('', 'tmpdetailFrm');
+    frm.appendChild(addData('master_id', $("#id").val()));
+    document.body.appendChild(frm);
+    getAjax('tmpdetailFrm', 'scheduleDetail', 'getScheduleSucc');
+}
+
+function getScheduleSucc(data){
+    console.log(data)
+
+    var table = $("#scheduleDetailFrm");
+    // 자식노드 모두 삭제
+    table.empty();
+    var basic="";
+    // 기본 틀 생성
+        basic += '<thead>';
+        basic += '<tr>';
+        basic += '<td name="day">일차</td>';
+        basic += '<td name="schedule">일정</td>';
+        basic += '<td name="hotel">호텔</td>';
+        basic += '<td></td>';
+        basic += '</tr>';
+        basic += '</thead>';
+        table.append(basic);
+    console.log(data.length)
+    console.log(data[0].schedule)
+    var sche = '<tbody>';
+    for (var i =1 ; i <= data.length ; i ++ ){
+        sche += '<tr>';
+        sche += '<td><input type="text" id="day" name="day" class="input-group-text" readonly value="'+i+'일차" ></td>';
+        sche += '<td><input type="text" id="schedule" name="schedule" value="'+data[i-1].schedule+'"></td>';
+        sche += '<td><input type="text" id="hotel" name="hotel" value="'+data[i-1].hotel+'" ></td>';
+        sche += '<td><input type="button" class="input-group" value="삭제"><input type="hidden" id="master_id" name="master_id" value="{{selectData.schedule_master.0.id}}" ><input type="hidden" id="use_yn" name="use_yn" value="Y" ></td>';
+        sche += '</tr>'
+    }
+    sche +='</tbody>'
+    table.append(sche);
+}
+
 
 function changeAgent(){
     $("#tmpChangeAgentFrm").remove();
