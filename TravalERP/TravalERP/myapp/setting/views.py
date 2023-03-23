@@ -462,12 +462,19 @@ def commonDeleteMaster(request, path):
 
 def commonInsertDetail(request, path):
    # model별로 insert할 fields 작성
-   print('detail : ' + path)
+
+   data = request.body
+   data_list = json.loads(data.decode('utf-8'))
+
    fields = []
    Models = pathtoMode(path+'Detail')
+   print('models : ' + Models.__name__)
    fields = [f.name for f in Models._meta.fields if f.name not in ['entry_date', 'entry_id', 'updat_date', 'updat_id', 'id']]
+   
+   for item in data_list:
+      insertDetail(item, Models, fields)
 
-   return insert(request, Models, fields)
+   return JsonResponse({'result': 'success'})
 
 
 def commonModifyDetail(request, path):
@@ -483,6 +490,7 @@ def commonModifyDetail(request, path):
 
 def commonDeleteDetail(request, path):
    Models = pathtoMode(path+'Detail')
+
    type = request.POST.get('type', None)
    if type is None:
       return delete(request, Models)
@@ -501,7 +509,7 @@ def commonInsert(request, path):
 
 def commonModify(request, path):
    Models = pathtoMode(path)
-
+ 
    type = request.POST.get('type', None)
 
    if type is None:
@@ -521,7 +529,6 @@ def commonDelete(request, path):
    
 def insert(request, model, fields):
     now = datetime.datetime.now()
-
     data = {}
     for field in fields:
       field_instance = model._meta.get_field(field)
@@ -531,6 +538,26 @@ def insert(request, model, fields):
       else:
          # 일반 field 처리
          data[field] = request.POST.get(field)
+
+    obj = model(**data, entry_date=now.strftime('%Y-%m-%d %H:%M:%S'))
+    obj.save()
+
+    return JsonResponse({'result': 'success', 'id': obj.id})
+
+def insertDetail(jsonData, model, fields):
+    now = datetime.datetime.now()
+    data = {}
+    for field in fields:
+      field_instance = model._meta.get_field(field)
+      if isinstance(field_instance, models.ForeignKey):
+         # ForeignKey field 처리
+         if field == 'master_id':
+            data[field] = ScheduleMaster.objects.get(id=jsonData[field])
+         else:
+            data[field] = pathtoMode(field).objects.get(id=jsonData[field])
+      else:
+         # 일반 field 처리
+         data[field] = jsonData[field]
 
     obj = model(**data, entry_date=now.strftime('%Y-%m-%d %H:%M:%S'))
     obj.save()
