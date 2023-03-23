@@ -28,35 +28,33 @@
       <label for="agent" class="col-sm-1 col-form-label">여행사</label>
       <div class="col-sm-4">
         <select class="form-select" aria-label="agent_name">
-          {% for agent in optionData.agent %} <!-- optionData 로 온 Object에서 agent만 선택하여 for문 돌린다-->
-          <option value="{{agent.id}}"> 
-            {{agent.agent_name}}
-          </option>
+          {% for agent in optionData.agent %}
+          <!-- optionData 로 온 Object에서 agent만 선택하여 for문 돌린다-->
+          <option value="{{agent.id}}">{{agent.agent_name}}</option>
           {% endfor %}
         </select>
       </div>
       <div class="col-sm-1"></div>
-      <label for="agent_person" class="col-sm-1 col-form-label">담당자</label>
+      <label for="manager" class="col-sm-1 col-form-label">담당자</label>
       <div class="col-sm-4">
-        <select class="form-select" aria-label="agent_person">
+        <select class="form-select" aria-label="manager">
           <option selected>담당자명</option>
-          <option value="1">000</option>
-          <option value="2">000</option>
-          <option value="3">000</option>
+          {% for agent in optionData.manager %}
+          <!-- optionData 로 온 Object에서 agent만 선택하여 for문 돌린다-->
+          <option value="{{manager.id}}">{{manager.manager_name}}</option>
+          {% endfor %}
         </select>
       </div>
     </div>
     <div class="devider"></div>
     <div class="row mt-2">
-      <label for="local" class="col-sm-1 col-form-label">현지사무실</label>
+      <label for="localagent" class="col-sm-1 col-form-label">현지사무실</label>
       <div class="col-sm-4">
-        <select class="form-select" aria-label="local_name">
-          <option selected>현지사무실명</option>
-          <option value="1">1</option>
-          <option value="2">22</option>
-          <option value="3">333</option>
-          <option value="4">4444</option>
-          <option value="5">55555</option>
+        <select class="form-select" aria-label="localagent_name">
+          {% for agent in optionData.localAgent %}
+          <!-- optionData 로 온 Object에서 agent만 선택하여 for문 돌린다-->
+          <option value="{{agent.id}}">{{agent.agent_name}}</option>
+          {% endfor %}
         </select>
       </div>
       <div class="col-sm-1"></div>

@@ -1,72 +1,191 @@
-{% extends "base/setting_base.html" %}
-{% block content %}
-<div class="card mt-3 mx-5">
-    <div class="card-header">
-        {{title_nm}}
-    </div>
-    <div class="card-body">
-        <div class="datatable-wrapper datatable-loading no-footer sortable searchable fixed-columns">
-            <div class="datatable-top">
-                <form id="airportFrm">
-                    {% csrf_token %}
-                    <input type="hidden" id="id" name="id" value="{{airport.0.id}}">
-                    <div class="input-group mb-3">
-                        <span class="input-group-text col-sm-1 text-end" >편명</span>
-                        <input type="text" id="airport_name" name="airport_name" class="form-control col-sm-3" value="{{airport.0.airport_name}}" >
-                        <span class="input-group-text col-sm-1" >소요시간</span>
-                        <input type="text" id="time_taken" name="time_taken" class="form-control col-sm-3" value="{{airport.0.time_taken}}" >
-                        <span class="col-sm-4"></span>
-                    </div>
-                    <div class="input-group mb-3">
-                        <span class="input-group-text col-sm-1 text-center" >출발공항</span>
-                        <input type="text" id="departure_airport" name="departure_airport" class="form-control col-sm-3" value="{{airport.0.departure_airport}}" >
-                        <span class="input-group-text col-sm-1 text-center" >출발도시</span>
-                        <input type="text" id="departure_city" name="departure_city" class="form-control col-sm-3" value="{{airport.0.departure_city}}" >
-                        <span class="input-group-text col-sm-1 text-center" >출발시간</span>
-                        <input type="text" id="departure_time" name="departure_time" class="form-control col-sm-3" value="{{airport.0.departure_time}}" >
-                    </div>
-                    <div class="input-group mb-3">
-                        <span class="input-group-text col-sm-1 text-center" >도착공항</span>
-                        <input type="text" id="arrival_airport" name="arrival_airport" class="form-control col-sm-3" value="{{airport.0.arrival_airport}}" >
-                        <span class="input-group-text col-sm-1 text-center" >도착도시</span>
-                        <input type="text" id="arrival_city" name="arrival_city" class="form-control col-sm-3" value="{{airport.0.arrival_city}}" >
-                        <span class="input-group-text col-sm-1 text-center" >도착시간</span>
-                        <input type="text" id="arrival_time" name="arrival_time" class="form-control col-sm-3" value="{{airport.0.arrival_time}}" >
-                    </div>
-                    <div class="input-group mb-3">
-                        <span class="input-group-text col-sm-1" >담당자</span>
-                        <select class="form-select col-sm-3" id="manager" name="manager" value="{{airport.0.manager}}">
-                        {% for managerList in optionData.manager %}
-                            <option value="{{managerList.id}}">{{managerList.manager_name}}</option>
-                        {% endfor %}
-                        </select>
-                        <label class="input-group-text col-sm-1" for="use_yn" value="{{airport.0.use_yn}}" >사용여부</label>
-                        <select class="form-select col-sm-3" id="use_yn" name="use_yn">
-                            <option value="Y">사용</option>
-                            <option value="N">미사용</option>
-                        </select>
-                        <span class="col-sm-4"></span>
-                    </div>
-                    <div class="input-group mb-3">
-                        <label class="input-group-text  col-sm-1" for="airport_remark" >REMARK</label>
-                        <textarea id="airport_remark" name="airport_remark" class="form-control  col-sm-11">{{airport.0.airport_remark}}</textarea>
-                    </div>
-                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                    {% if pageType == 'I' %}
-                        <input type="button" value="저장" onclick="saveData('airportFrm')">
-                    {% elif pageType == 'U' %}
-                        <input type="button" value="수정" onclick="updateData('airportFrm')">
-                        <input type="button" value="삭제" onclick="deleteData('airportFrm')">
-                    {% endif %}
-                        <input type="button" value="목록" onclick="goMenuList()">
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
+{% extends "base/setting_base.html" %} {% block content %}
+
+<div class="container">
+  <h1 class="mt-5 title">{{title_nm}}</h1>
 </div>
-{% include 'base/commonValue.html'%} <!-- 공통변수 -->
-{% endblock %}
-{% block js %}
-{{block.super}}      
-{% endblock js %}
+
+<div class="container mt-5">
+  <form id="airportFrm">
+    {% csrf_token %}
+    <input
+      type="hidden"
+      id="id"
+      name="id"
+      value="{{selectData.airport.0.id}}"
+    />
+    <div class="row">
+      <label for="airport_name" class="col-sm-1 col-form-label">항공편명</label>
+      <div class="col-sm-3">
+        <input
+          type="text"
+          id="airport_name"
+          name="airport_name"
+          class="form-control"
+          value="{{selectData.airport.0.airport_name}}"
+        />
+      </div>
+      <label for="time_taken" class="col-sm-1 col-form-label">소요시간</label>
+      <div class="col-sm-3">
+        <input
+          type="text"
+          id="time_taken"
+          name="time_taken"
+          class="form-control"
+          value="{{selectData.airport.0.time_taken}}"
+        />
+      </div>
+    </div>
+    <div class="devider"></div>
+    <div class="row mt-2">
+      <label for="departure_airport" class="col-sm-1 col-form-label"
+        >출발공항</label
+      >
+      <div class="col-sm-3">
+        <input
+          type="text"
+          id="departure_airport"
+          name="departure_airport"
+          class="form-control"
+          value="{{selectData.airport.0.departure_airport}}"
+        />
+      </div>
+      <label for="departure_city" class="col-sm-1 col-form-label"
+        >출발도시</label
+      >
+      <div class="col-sm-3">
+        <input
+          type="text"
+          id="departure_city"
+          name="departure_city"
+          class="form-control"
+          value="{{selectData.airport.0.departure_city}}"
+        />
+      </div>
+      <label for="departure_time" class="col-sm-1 col-form-label"
+        >출발시간</label
+      >
+      <div class="col-sm-3">
+        <input
+          type="text"
+          id="departure_time"
+          name="departure_time"
+          class="form-control"
+          value="{{selectData.airport.0.departure_time}}"
+        />
+      </div>
+    </div>
+    <div class="devider"></div>
+    <div class="row mt-2">
+      <label for="arrival_airport" class="col-sm-1 col-form-label"
+        >도착공항</label
+      >
+      <div class="col-sm-3">
+        <input
+          type="text"
+          id="arrival_airport"
+          name="arrival_airport"
+          class="form-control"
+          value="{{selectData.airport.0.arrival_airport}}"
+        />
+      </div>
+      <label for="arrival_city" class="col-sm-1 col-form-label">도착도시</label>
+      <div class="col-sm-3">
+        <input
+          type="text"
+          id="arrival_city"
+          name="arrival_city"
+          class="form-control"
+          value="{{selectData.airport.0.arrival_city}}"
+        />
+      </div>
+      <label for="arrival_time" class="col-sm-1 col-form-label">도착시간</label>
+      <div class="col-sm-3">
+        <input
+          type="text"
+          id="arrival_time"
+          name="arrival_time"
+          class="form-control"
+          value="{{selectData.airport.0.arrival_time}}"
+        />
+      </div>
+    </div>
+    <div class="devider"></div>
+    <div class="row mt-2">
+      <label for="manager" cla ss="col-sm-1 col-form-label">담당자</label>
+      <div class="col-sm-3">
+        <select
+          class="form-select col-sm-3"
+          id="manager"
+          name="manager"
+          value="{{airport.0.manager}}"
+        >
+          {% for managerList in optionData.manager %}
+          <option value="{{managerList.id}}">
+            {{managerList.manager_name}}
+          </option>
+          {% endfor %}
+        </select>
+      </div>
+      <label
+        class="col-form-label col-sm-1"
+        for="use_yn"
+        value="{{airport.0.use_yn}}"
+        >사용여부</label
+      >
+      <div class="col-sm-3">
+        <select class="form-select" id="use_yn" name="use_yn">
+          <option value="Y">사용</option>
+          <option value="N">미사용</option>
+        </select>
+      </div>
+    </div>
+    <div class="devider"></div>
+    <div class="row mt-2">
+      <label for="airport_remark" class="col-sm-1 col-form-label">REMARK</label>
+      <div class="col-sm-11">
+        <textarea
+          id="airport_remark"
+          name="airport_remark"
+          class="form-control"
+          style="height: 100px"
+          col-sm-11
+        >
+{{airport.0.airport_remark}}</textarea
+        >
+      </div>
+    </div>
+    <div class="d-grid gap-2 d-md-flex mt-5 justify-content-md-end">
+      {% if pageType == 'I' %}
+      <input
+        class="btn btn-primary"
+        type="button"
+        value="저장"
+        onclick="saveData('airportFrm')"
+      />
+      {% elif pageType == 'U' %}
+      <input
+        class="btn btn-secondary"
+        type="button"
+        value="수정"
+        onclick="updateData('airportFrm')"
+      />
+      <input
+        class="btn btn-danger"
+        type="button"
+        value="삭제"
+        onclick="deleteData('airportFrm')"
+      />
+      {% endif %}
+      <input
+        class="btn btn-outline-primary"
+        type="button"
+        value="목록"
+        onclick="goMenuList()"
+      />
+    </div>
+  </form>
+</div>
+
+{% include 'base/commonValue.html'%}
+<!-- 공통변수 -->
+{% endblock %} {% block js %} {{block.super}} {% endblock js %}
