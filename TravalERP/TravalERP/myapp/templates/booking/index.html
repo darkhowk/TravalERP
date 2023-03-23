@@ -138,35 +138,20 @@
         </table>
       </div>
       <div class="datatable-bottom">
-        <div class="datatable-info">57개 항목 중 1~10개 항목 표시</div>
-        <nav class="datatable-pagination">
-          <ul class="datatable-pagination-list">
-            <li
-              class="datatable-pagination-list-item datatable-hidden datatable-disabled"
-            >
-              <a data-page="1" class="datatable-pagination-list-item-link">‹</a>
-            </li>
-            <li class="datatable-pagination-list-item datatable-active">
-              <a data-page="1" class="datatable-pagination-list-item-link">1</a>
-            </li>
-            <li class="datatable-pagination-list-item">
-              <a data-page="2" class="datatable-pagination-list-item-link">2</a>
-            </li>
-            <li class="datatable-pagination-list-item">
-              <a data-page="3" class="datatable-pagination-list-item-link">3</a>
-            </li>
-            <li class="datatable-pagination-list-item">
-              <a data-page="4" class="datatable-pagination-list-item-link">4</a>
-            </li>
-            <li class="datatable-pagination-list-item">
-              <a data-page="5" class="datatable-pagination-list-item-link">5</a>
-            </li>
-            <li class="datatable-pagination-list-item">
-              <a data-page="6" class="datatable-pagination-list-item-link">6</a>
-            </li>
-            <li class="datatable-pagination-list-item">
-              <a data-page="2" class="datatable-pagination-list-item-link"></a>
-            </li>
+        <div class="datatable-info">{{total_count}}개 항목 중 {{start_index}}~{{end_index}} 항목 표시</div>
+        <nav aria-label="Page navigation" >
+          <ul class="pagination pagination-sm">
+              {% for page in pages %}
+                  {% if page == paging %}
+                      <li class="page-item active" aria-current="page">
+                          <a data-page="{{ page }}" class="page-link">{{ page }}</a>
+                      </li>
+                  {% else %}
+                      <li class="page-item">
+                          <a data-page="{{ page }}" class="page-link" onclick="goPage('{{page}}')">{{ page }}</a>
+                      </li>
+                  {% endif %}
+              {% endfor %}
           </ul>
         </nav>
       </div>

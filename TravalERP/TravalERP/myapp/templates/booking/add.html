@@ -46,7 +46,7 @@
     <div class="row mt-2">
       <label for="localagent" class="col-sm-1 col-form-label">현지사무실</label>
       <div class="col-sm-4">
-        <select class="form-select" aria-label="localagent_name">
+        <select class="form-control selectpicker" aria-label="lagent_name" onchange="changeAgent()" data-live-search="true" style="display: none;" id="agent">
           {% for agent in optionData.localAgent %}
           <!-- optionData 로 온 Object에서 agent만 선택하여 for문 돌린다-->
           <option value="{{agent.id}}">{{agent.agent_name}}</option>
@@ -54,13 +54,9 @@
         </select>
       </div>
       <div class="col-sm-1"></div>
-      <label for="local_person" class="col-sm-1 col-form-label">담당자</label>
+      <label for="localManager" class="col-sm-1 col-form-label">담당자</label>
       <div class="col-sm-4">
-        <select class="form-select" aria-label="local_person">
-          <option selected>담당자명</option>
-          <option value="1">000</option>
-          <option value="2">000</option>
-          <option value="3">000</option>
+        <select class="form-control  selectpicker" aria-label="localManager" data-live-search="true" style="display: none;" id="localManager">
         </select>
       </div>
     </div>
@@ -73,7 +69,12 @@
       </div>
       <label for="kor_air" class="col-sm-1 col-form-label">항공편</label>
       <div class="col-sm-2">
-        <input id="kor_air" type="text" class="form-control" />
+        <select class="form-control selectpicker" id="airport" name="airport" data-live-search="true" style="display: none;">
+          <option selected>항공편명</option>
+          {% for airport in optionData.airport %}
+          <option value="{{airport.id}}">{{airport.airport_name}}</option>
+          {% endfor %}
+        </select>
       </div>
       <label for="kor_in_air" class="col-sm-1 col-form-label">IN</label>
       <div class="col-sm-2">
@@ -91,7 +92,12 @@
       </div>
       <label for="loc_air" class="col-sm-1 col-form-label">항공편</label>
       <div class="col-sm-2">
-        <input id="loc_air" type="text" class="form-control" />
+        <select class="form-control selectpicker" id="airport" name="airport" data-live-search="true" style="display: none;">
+          <option selected>항공편명</option>
+          {% for airport in optionData.airport %}>
+          <option value="{{airport.id}}">{{airport.airport_name}}</option>
+          {% endfor %}
+        </select>
       </div>
       <label for="loc_in_air" class="col-sm-1 col-form-label">IN</label>
       <div class="col-sm-2">
@@ -256,6 +262,8 @@
     select.selectpicker();
 
 }
+
+
 
 
 

@@ -27,7 +27,7 @@ class bookingIndex(generic.ListView):
 class bookingAdd(generic.ListView):
    def __init__(self):
       self.title_nm = "수배추가"
-      self.ogImgUrl = ""
+      self.ogImgUrl = "" 
       self.descript = "수배추가 페이지입니다"
       self.template_name = "booking/add.html"
       self.topMenu = Menu.objects.filter(menu_type="TOP")
@@ -38,7 +38,8 @@ class bookingAdd(generic.ListView):
       localAgent = Agent.objects.filter(use_yn ='Y', type='L')
       manager = Manager.objects.filter(use_yn ='Y', type='M')
       localManager = Manager.objects.filter(use_yn ='Y', type='L')
-      optionData = {'agent': agent, 'localAgent' : localAgent, 'manager' : manager, 'localManager' : localManager} # 추후 추가할 데이터를 위해
+      airport = Airport.objects.filter(use_yn ='Y')
+      optionData = {'agent': agent, 'localAgent' : localAgent, 'manager' : manager, 'localManager' : localManager, 'airport' : airport} # 추후 추가할 데이터를 위해
       self.content = {
                         "descript" : self.descript,
                         "title_nm" : self.title_nm,
