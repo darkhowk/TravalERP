@@ -28,7 +28,7 @@
     <div class="row mt-2">
       <label for="agent" class="col-sm-1 col-form-label">여행사</label>
       <div class="col-sm-4">
-        <select class="form-control selectpicker" aria-label="agent_name" onchange="changeAgent()" id="agent">
+        <select class="form-control selectpicker" aria-label="agent_name" onchange="changeAgent()" data-live-search="true" style="display: none;" id="agent">
           {% for agent in optionData.agent %}
           <!-- optionData 로 온 Object에서 agent만 선택하여 for문 돌린다-->
           <option value="{{agent.id}}">{{agent.agent_name}}</option>
@@ -38,7 +38,7 @@
       <div class="col-sm-1"></div>
       <label for="manager" class="col-sm-1 col-form-label">담당자</label>
       <div class="col-sm-4">
-        <select class="form-control  selectpicker" aria-label="manager" id="manager">
+        <select class="form-control  selectpicker" aria-label="manager" data-live-search="true" style="display: none;" id="manager">
         </select>
       </div>
     </div>
