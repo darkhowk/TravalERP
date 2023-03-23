@@ -27,7 +27,7 @@
     <div class="row mt-2">
       <label for="agent" class="col-sm-1 col-form-label">여행사</label>
       <div class="col-sm-4">
-        <select class="form-select" aria-label="agent_name">
+        <select class="form-select selectpicker" aria-label="agent_name" onchange="agentChange()" id="agent">
           {% for agent in optionData.agent %}
           <!-- optionData 로 온 Object에서 agent만 선택하여 for문 돌린다-->
           <option value="{{agent.id}}">{{agent.agent_name}}</option>
@@ -37,7 +37,7 @@
       <div class="col-sm-1"></div>
       <label for="manager" class="col-sm-1 col-form-label">담당자</label>
       <div class="col-sm-4">
-        <select class="form-select" aria-label="manager">
+        <select class="form-select selectpicker" aria-label="manager">
           <option selected>담당자명</option>
           {% for agent in optionData.manager %}
           <!-- optionData 로 온 Object에서 agent만 선택하여 for문 돌린다-->
@@ -226,6 +226,40 @@
     </div>
   </form>
 </div>
+
+<script>
+  function agentChange() {
+    alert("aaaa");
+  }
+
+  function changeAgent(){
+    $("#tmpChangeAgentFrm").remove();
+    var frm = makeForm('', 'tmpChangeAgentFrm');
+    frm.appendChild(addData('agent', $("#agent").val()));
+    document.body.appendChild(frm);
+    getAjax('tmpChangeAgentFrm', 'manager', 'changeAgentSucc');
+}
+
+  function changeAgentSucc(data){
+    var select = $("#manager");
+    select.selectpicker('destroy');
+    select.empty();
+    for (var i = 0; i < data.length; i++) {
+        console.log(i);
+        var option = $('<option>', {
+            value: data[i].id,
+            text: data[i].manager_name
+        });
+        select.append(option);
+    }
+
+    select.selectpicker();
+
+}
+
+
+
+</script>
 
 <style>
   .devider {
