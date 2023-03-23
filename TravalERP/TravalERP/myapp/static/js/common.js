@@ -29,3 +29,37 @@ function existFunction(func){
 
     return typeof window[f] === 'function';
 }
+
+
+function getAjax(fName, item, suF){
+    var formArray = $("#"+fName).serializeArray();
+    var formData = {};
+    for (var i = 0; i < formArray.length; i++) {
+        formData[formArray[i].name] = formArray[i].value;
+    }
+   
+    var jsonData = JSON.stringify(formData);
+
+    $.ajax({
+        url: 'getAjax/'+item, // 앞에 자동으로 setting/agent 붙음
+        method: 'POST',
+        data: jsonData,
+        headers: { "X-CSRFToken": $('[name="csrfmiddlewaretoken"]').val() }, // CSRF 토큰을 HTTP 헤더에 추가
+        ContentType: 'application/json',
+        dataType: 'json',
+        success: function(data) {
+            if (existFunction(suF)){
+                var p = suF.indexOf("(");
+                if (p > -1 ){
+                    eval(suF);
+                }
+                else{
+                    eval(suF+"(data)");
+                }
+            }
+        },
+        error: function(xhr, status, error) {
+            alert(' 실패')
+        }
+    });
+}
