@@ -114,6 +114,10 @@
     </div>
 </div>
 <script>
+$( document ).ready(function() {
+    changeAgent();
+});
+
 function changeAgent(){
     $("#tmpChangeAgentFrm").remove();
     var frm = makeForm('', 'tmpChangeAgentFrm');
@@ -158,23 +162,16 @@ function saveData(fName, tName){
 }
 
 function saveDetail(tName, id){
+    $('input[name="master_id"]').val(id);
+
     var tableJson = tableToJson(document.getElementById(tName))
 
-    const inputs = document.querySelectorAll('input[name="master_id"]');
-    inputs.forEach(input => {
-        input.value = id;
-    });
-
-    // CSRF 토큰을 추가
-    var csrf_token_input = document.getElementsByName('csrfmiddlewaretoken')[0];
-    var csrf_token_name = csrf_token_input.getAttribute('name');
-    var csrf_token_value = csrf_token_input.getAttribute('value');
-    var allData = ({[csrf_token_name]:csrf_token_value, 'detail':tableJson})
 
     $.ajax({
         url: 'addDataDetail', // 앞에 자동으로 setting/agent 붙음
         method: 'POST',
-        data: allData,
+        data: JSON.stringify(tableJson),
+        headers: { "X-CSRFToken": $('[name="csrfmiddlewaretoken"]').val() }, // CSRF 토큰을 HTTP 헤더에 추가
         dataType: 'json',
         success: function(data) {
             alert('입력 완료 목록 화면으로 이동합니다.')
@@ -220,52 +217,89 @@ function deleteData(fName, tName){
     });
 }
 
-    function makeSchedule(){
-        var table = $("#scheduleDetailFrm");
-        var day = $("#day").val()
-        // 자식노드 모두 삭제
-        table.empty();
-        var basic="";
-        // 기본 틀 생성
-            basic += '<thead>';
-            basic += '<tr>';
-            basic += '<td>일차</td>';
-            basic += '<td >일정</td>';
-            basic += '<td>호텔</td>';
-            basic += '<td></td>';
-            basic += '</tr>';
-            basic += '</thead>';
-            table.append(basic);
-        
-        var sche = '<tbody>';
-        for (var i =1 ; i <= day ; i ++ ){
-            sche += '<tr>';
-            sche += '<td><input type="text" id="day" name="day" class="input-group-text" readonly value="'+i+'일차" ></td>';
-            sche += '<td><input type="text" id="schedule" name="schedule" ></td>';
-            sche += '<td><input type="text" id="hotel" name="hotel" ></td>';
-            sche += '<td><input type="button" class="input-group" value="검색"><input type="hidden" id="master_id" name="master_id" value="{{selectData.schedule_master.0.id}}" ><input type="hidden" id="use_yn" name="use_yn" value="Y" ></td>';
-            sche += '</tr>'
-        }
-        sche +='</tbody>'
-        table.append(sche);
+function makeSchedule(){
+    var table = $("#scheduleDetailFrm");
+    var day = $("#day").val()
+    // 자식노드 모두 삭제
+    table.empty();
+    var basic="";
+    // 기본 틀 생성
+        basic += '<thead>';
+        basic += '<tr>';
+        basic += '<td name="day">일차</td>';
+        basic += '<td name="schedule">일정</td>';
+        basic += '<td name="hotel">호텔</td>';
+        basic += '<td></td>';
+        basic += '</tr>';
+        basic += '</thead>';
+        table.append(basic);
+    
+    var sche = '<tbody>';
+    for (var i =1 ; i <= day ; i ++ ){
+        sche += '<tr>';
+        sche += '<td><input type="text" id="day" name="day" class="input-group-text" readonly value="'+i+'일차" ></td>';
+        sche += '<td><input type="text" id="schedule" name="schedule" ></td>';
+        sche += '<td><input type="text" id="hotel" name="hotel" ></td>';
+        sche += '<td><input type="button" class="input-group" value="검색"><input type="hidden" id="master_id" name="master_id" value="{{selectData.schedule_master.0.id}}" ><input type="hidden" id="use_yn" name="use_yn" value="Y" ></td>';
+        sche += '</tr>'
     }
-    function tableToJson(table) { // 변환 함수
-    var data = [];
-
-    var headers = [];
-    for(var i=0; i<table.rows[0].cells.length; i++) {
-        headers[i] = table.rows[0].cells[i].innerHTML.toLowerCase().replace(/ /gi,'');
-    }
-    for(var i=1; i<table.rows.length; i++) {
-        var tableRow = table.rows[i];
-        var rowData = {};
-        for(var j=0; j<tableRow.cells.length; j++) {
-            rowData[headers[j]] = tableRow.cells[j].innerHTML;
-        }
-        data.push(rowData);
-    }
-    return data;
+    sche +='</tbody>'
+    table.append(sche);
 }
+function tableToJson(table) {
+  var data = [];
+  var headers = [];
+
+  for (var i = 0; i < table.rows[0].cells.length; i++) {
+    var inputElem = table.rows[0].cells[i].querySelector('input[type="text"]');
+    if (inputElem) {
+      var headerText = inputElem.name;
+      headers.push(headerText);
+    } else {
+      var headerText = table.rows[0].cells[i].getAttribute('name');
+      if (headerText) {
+        headers.push(headerText);
+      }
+    }
+  }
+
+  for (var i = 1; i < table.rows.length; i++) {
+    var tableRow = table.rows[i];
+    var rowData = {};
+
+    for (var j = 0; j < tableRow.cells.length; j++) {
+      var cellInput = tableRow.cells[j].querySelector('input[type="text"]');
+      if (cellInput && headers[j]) {
+        if (cellInput =='day' || headers[j] == 'day'){
+            rowData[headers[j]] = cellInput.value.replace("일차", "");
+        }
+        else{
+            rowData[headers[j]] = cellInput.value;
+        }
+      }
+      var cellHiddenInputs = tableRow.cells[j].querySelectorAll('input[type="hidden"]');
+      if (cellHiddenInputs) {
+        for (var k = 0; k < cellHiddenInputs.length; k++) {
+          var hiddenInput = cellHiddenInputs[k];
+          if (hiddenInput.name) {
+            rowData[hiddenInput.name] = hiddenInput.value;
+          }
+        }
+      }
+    }
+
+    if (Object.keys(rowData).length > 0) {
+      data.push(rowData);
+    }
+  }
+
+  return data;
+}
+
+
+
+
+
 </script>
 {% include 'base/commonValue.html'%} <!-- 공통변수 -->
 {% endblock %}

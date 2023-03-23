@@ -258,7 +258,10 @@ class ScheduleDetail(commonModel):
     day = models.CharField(db_column='DAY', max_length=100, verbose_name='일차')
     schedule = models.CharField(db_column='SCHEDULE', max_length=100, verbose_name='일정')
     hotel = models.CharField(db_column='HOTEL', max_length=100, verbose_name='호텔')
-    
+
+    def __str__(self):
+        return f"{self.master_id} - {self.master_id.product_name}"
+
     def __iter__(self):
         yield self.master_id
         yield self.day
