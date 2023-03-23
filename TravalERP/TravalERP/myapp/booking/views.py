@@ -1,7 +1,9 @@
 from django.shortcuts import render
 from django.views import generic
+from django.http import JsonResponse, HttpResponse
 # from ..common.common_models import Menu # 기존 Menu만 불러오던걸 주석
 from ..common.common_models import * # 모든 모델 가져올수있게 변경
+import json
 # Create your views here.
 
 class bookingIndex(generic.ListView):
@@ -47,3 +49,41 @@ class bookingAdd(generic.ListView):
 
       return render(request, self.template_name, self.content)
    
+
+def commonGetAjaxData(request, path, item):
+   Models = pathtoMode(item)
+
+   data = request.body.decode('utf-8')
+
+   try:
+      # JSON 형식으로 변환
+      params = json.loads(data)
+      data = list(Models.objects.filter(**params).values())
+      return JsonResponse(data, safe=False)
+      # JSON 형식이 맞는 경우 처리할 코드
+   except json.decoder.JSONDecodeError:
+        # JSON 형식이 아닌 경우 처리할 코드
+      return JsonResponse(data, safe=False)
+  
+def pathtoMode(path):
+   if path == 'agent':
+      Models = Agent
+   if path == 'airport':
+      Models = Airport
+   if path == 'bank':
+      Models = Bank
+   if path == 'commcode':
+      Models = CommCode
+   if path == 'hotel':
+      Models = Hotel
+   if path == 'manager':
+      Models = Manager
+   if path == 'menu':
+      Models = Menu
+   if path == 'scheduleMaster':
+      Models = ScheduleMaster
+   if path == 'scheduleDetail':
+      Models = ScheduleDetail
+   if path == 'citycode':
+      Models = Citycode
+   return Models

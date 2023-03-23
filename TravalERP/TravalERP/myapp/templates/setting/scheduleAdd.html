@@ -9,18 +9,18 @@
             <div class="datatable-top">
                 <form id="scheduleFrm">
                     {% csrf_token %}
-                    <input type="hidden" id="id" name="id" value="{{selectData.schedule_master.0.id}}">
+                    <input type="hidden" id="id" name="id" value="{{selectData.scheduleMaster.0.id}}">
                     <div class="input-group mb-3">
                         <span class="input-group-text col-sm-1 text-end" >상품명</span>
-                        <input type="text" id="product_name" name="product_name" class="form-control col-sm-5" value="{{selectData.schedule_master.0.product_name}}" >
+                        <input type="text" id="product_name" name="product_name" class="form-control col-sm-5" value="{{selectData.scheduleMaster.0.product_name}}" >
                         <span class="input-group-text col-sm-1 text-end" >사용여부</span>
-                        <input type="text" id="use_yn" name="use_yn" class="form-control col-sm-5" value="{{selectData.schedule_master.0.use_yn}}" >
+                        <input type="text" id="use_yn" name="use_yn" class="form-control col-sm-5" value="{{selectData.scheduleMaster.0.use_yn}}" >
                     </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text col-sm-1 text-center" >여행사</span>
                         <select class="form-control col-5 selectpicker" id="agent" name="agent" data-live-search="true" style="display: none;" onchange="changeAgent()">
                             {% for agent in optionData.agent %}
-                            <option value="{{agent.id}}" {% if agent.agent_name == selectData.schedule_master.0.agent %}selected{% endif %}>
+                            <option value="{{agent.id}}" {% if agent.agent_name == selectData.scheduleMaster.0.agent %}selected{% endif %}>
                               {{agent.agent_name}}
                             </option>
                             {% endfor %}
@@ -33,19 +33,19 @@
                     상세정보
                     <div class="input-group mb-3">
                         <span class="input-group-text col-sm-1 text-end" >지역</span>
-                        <input type="text" id="location" name="location" class="form-control col-sm-5" value="{{selectData.schedule_master.0.location}}" >
+                        <input type="text" id="location" name="location" class="form-control col-sm-5" value="{{selectData.scheduleMaster.0.location}}" >
                         <span class="input-group-text col-sm-1 text-center" >출발지</span>
-                        <input type="text" id="start" name="start" class="form-control col-sm-5" value="{{selectData.schedule_master.0.start}}" >
+                        <input type="text" id="start" name="start" class="form-control col-sm-5" value="{{selectData.scheduleMaster.0.start}}" >
                     </div>
                  
                     <div class="input-group mb-3">
                         <label class="input-group-text col-sm-1 col-form-label" for="bus" >버스</label>
-                        <textarea id="bus" name="bus" class="form-control col-sm-11" >{{ selectData.schedule_master.0.bus }}</textarea>
+                        <textarea id="bus" name="bus" class="form-control col-sm-11" >{{ selectData.scheduleMaster.0.bus }}</textarea>
                         <button>검색</button>
                     </div>
                     <div class="input-group mb-3">
                         <label class="input-group-text col-sm-1 col-form-label" for="entrance" >입장지</label>
-                        <textarea id="entrance" class="form-control col-sm-11" name="entrance">{{ selectData.schedule_master.0.entrance }}</textarea>
+                        <textarea id="entrance" class="form-control col-sm-11" name="entrance">{{ selectData.scheduleMaster.0.entrance }}</textarea>
                         <button>검색</button>
                     </div>
                     <div class="input-group mb-3">
@@ -53,36 +53,36 @@
                     </div>
                     <div class="input-group mb-3">
                         <label class="input-group-text col-sm-1 col-form-label" for="breakfast" >조식</label>
-                        <input type="text" id="breakfast" name="breakfast" class="form-control col-sm-1" value="{{selectData.schedule_master.0.breakfast}}" >
+                        <input type="text" id="breakfast" name="breakfast" class="form-control col-sm-1" value="{{selectData.scheduleMaster.0.breakfast}}" >
                         <span class="input-group-text col-sm-1 me-2" >회</span>
                         <label class="input-group-text col-sm-1 col-form-label" for="lunch" >중식</label>
-                        <input type="text" id="lunch" name="lunch" class="form-control col-sm-1" value="{{selectData.schedule_master.0.lunch}}" >
+                        <input type="text" id="lunch" name="lunch" class="form-control col-sm-1" value="{{selectData.scheduleMaster.0.lunch}}" >
                         <span class="input-group-text col-sm-1 me-2" >회</span>
                         <label class="input-group-text col-sm-1 col-form-label" for="dinner" >석식</label>
-                        <input type="text" id="dinner" name="dinner" class="form-control col-sm-1" value="{{selectData.schedule_master.0.dinner}}" >
+                        <input type="text" id="dinner" name="dinner" class="form-control col-sm-1" value="{{selectData.scheduleMaster.0.dinner}}" >
                         <span class="input-group-text col-sm-1 me-2" >회</span>
                         <button class="form-control col-sm-1">검색</button>
                     </div>
                     <div class="input-group mb-3">
                         <label class="input-group-text col-sm-1 col-form-label" for="special" >특식</label>
-                        <textarea id="special" name="special" class="form-control col-sm-11">{{ selectData.schedule_master.0.special }}</textarea>
+                        <textarea id="special" name="special" class="form-control col-sm-11">{{ selectData.scheduleMaster.0.special }}</textarea>
                     </div>
  
                     <div class="input-group mb-3">
                         <label class="input-group-text col-sm-1 col-form-label" for="option" >옵션</label>
-                        <textarea id="option" class="form-control col-sm-11" name="option">{{ selectData.schedule_master.0.option }}</textarea>
+                        <textarea id="option" class="form-control col-sm-11" name="option">{{ selectData.scheduleMaster.0.option }}</textarea>
                         <button>검색</button>
                     </div>
                     <div class="input-group mb-3">
                         <label class="input-group-text col-sm-1 col-form-label" for="shopping" >쇼핑</label>
-                        <textarea id="shopping" class="form-control col-sm-11" name="shopping">{{ selectData.schedule_master.0.shopping }}</textarea>
+                        <textarea id="shopping" class="form-control col-sm-11" name="shopping">{{ selectData.scheduleMaster.0.shopping }}</textarea>
                         <button>검색</button>
                     </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text col-sm-1 text-end" >일정</span>
-                        <input type="text" id="night" name="night" class="form-control col-sm-5" value="{{selectData.schedule_master.0.night}}" >
+                        <input type="text" id="night" name="night" class="form-control col-sm-5" value="{{selectData.scheduleMaster.0.night}}" >
                         <span class="input-group-text col-sm-1 text-center" >박</span>
-                        <input type="text" id="day" name="day" class="form-control col-sm-5" value="{{selectData.schedule_master.0.day}}" >
+                        <input type="text" id="day" name="day" class="form-control col-sm-5" value="{{selectData.scheduleMaster.0.day}}" >
                         <span class="input-group-text col-sm-1 text-center" >일</span>
                         <input type="button" onclick="makeSchedule()" value="생성">
                     </div>
@@ -90,7 +90,7 @@
                     <!--
                     <div class="input-group mb-3">
                         <label class="input-group-text col-sm-1 col-form-label" for="schedule_remark" >REMARK</label>
-                        <textarea id="schedule_remark" class="form-control col-sm-11" name="schedule_remark">{{ selectData.schedule_master.0.schedule_remark }}</textarea>
+                        <textarea id="schedule_remark" class="form-control col-sm-11" name="schedule_remark">{{ selectData.scheduleMaster.0.schedule_remark }}</textarea>
                     </div>
                     -->
                 </form>
@@ -131,7 +131,6 @@ function changeAgentSucc(data){
     select.selectpicker('destroy');
     select.empty();
     for (var i = 0; i < data.length; i++) {
-        console.log(i);
         var option = $('<option>', {
             value: data[i].id,
             text: data[i].manager_name

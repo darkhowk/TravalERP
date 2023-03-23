@@ -308,7 +308,9 @@ class hotelAdd(addView):
 #################################################
 class scheduleAdd(addView):
    def seletData(self):
-      return {"schedule_mager":ScheduleMaster.objects.filter(id=self.id),"schedule_detail": ScheduleDetail.objects.filter(master_id=self.id)}
+      print(self.id)
+      print("a---------------------------")
+      return {"scheduleMaster":ScheduleMaster.objects.filter(id=self.id),"scheduleDetail": ScheduleDetail.objects.filter(master_id=self.id)}
    
    def selectOption(self, request):
       return {'agent':Agent.objects.filter(use_yn='Y',type='A')}
@@ -462,40 +464,47 @@ def commonDeleteMaster(request, path):
 
 def commonInsertDetail(request, path):
    # model별로 insert할 fields 작성
-
    data = request.body
    data_list = json.loads(data.decode('utf-8'))
-
    fields = []
    Models = pathtoMode(path+'Detail')
-   print('models : ' + Models.__name__)
    fields = [f.name for f in Models._meta.fields if f.name not in ['entry_date', 'entry_id', 'updat_date', 'updat_id', 'id']]
-   
    for item in data_list:
       insertDetail(item, Models, fields)
 
    return JsonResponse({'result': 'success'})
 
-
 def commonModifyDetail(request, path):
+
+   data = request.body
+   data_list = json.loads(data.decode('utf-8'))
+
    Models = pathtoMode(path+'Detail')
 
    type = request.POST.get('type', None)
-
    if type is None:
-      print('modift none')
-      return modify(request, Models)
+      for item in data_list:
+         modifyDetail(item, Models)
    else: 
-      return modify(request, Models, pk_name='id', type=type)
+      for item in data_list:
+         modifyDetail(item, Models, pk_name='id', type=type)
+         
+   return JsonResponse({'result': 'success'})
 
 def commonDeleteDetail(request, path):
+
+   data = request.body
+   data_list = json.loads(data.decode('utf-8'))
+
    Models = pathtoMode(path+'Detail')
 
    type = request.POST.get('type', None)
    if type is None:
-      return delete(request, Models)
+      for item in data_list:
+         return deleteDetail(item, Models)
    else: 
-      return delete(request, Models, pk_name='id', type=type)
+      for item in data_list:
+         return deleteDetail(item, Models, pk_name='id', type=type)
 
 
 def commonInsert(request, path):
@@ -513,7 +522,6 @@ def commonModify(request, path):
    type = request.POST.get('type', None)
 
    if type is None:
-      print('modift none')
       return modify(request, Models)
    else: 
       return modify(request, Models, pk_name='id', type=type)
@@ -583,9 +591,28 @@ def modify(request, model, pk_name='id', **kwargs):
 
     return JsonResponse({'result': 'success', 'id': obj.id})
 
-def delete(request, model, pk_name='id', **kwargs):
+def modifyDetail(jsonData, model, pk_name='id', **kwargs):
     now = datetime.datetime.now()
-    pk_value = request.POST.get(pk_name)
+    pk_value = jsonData[pk_name]
+    obj = model.objects.get(**{pk_name: pk_value}, **kwargs)
+    for field in obj._meta.fields:
+        if field.name in jsonData:
+            # Check if field is a foreign key
+            if isinstance(field, models.ForeignKey):
+               fk_id = jsonData.get(field.name)
+               # Get the related model instance using the foreign key id
+               related_model = field.related_model.objects.get(id=fk_id)
+               setattr(obj, field.name, related_model)
+            else:
+               setattr(obj, field.name, jsonData.get(field.name))
+    obj.updat_date = now.strftime('%Y-%m-%d %H:%M:%S')
+    obj.save()
+
+    return JsonResponse({'result': 'success', 'id': obj.id})
+
+def deleteDetail(jsonData, model, pk_name='id', **kwargs):
+    now = datetime.datetime.now()
+    pk_value = jsonData[pk_name]
 
     obj = model.objects.get(**{pk_name: pk_value}, **kwargs)
     obj.use_yn = 'N'
@@ -594,9 +621,19 @@ def delete(request, model, pk_name='id', **kwargs):
 
     return JsonResponse({'result': 'success', 'id': obj.id})
 
+def delete(request, model, pk_name='id', **kwargs):
+    now = datetime.datetime.now()
+    jsondata = json.loads(request.body)
+    pk_value = jsondata.get(pk_name)
+
+    obj = model.objects.get(**{pk_name: pk_value}, **kwargs)
+    obj.use_yn = 'N'
+    obj.updat_date = now.strftime('%Y-%m-%d %H:%M:%S')
+    obj.save()
+
+    return JsonResponse({'result': 'success', 'id': obj.id})
 
 def pathtoMode(path):
-   print("pathMode : " + path)
    if path == 'agent':
       Models = Agent
    if path == 'airport':
@@ -628,10 +665,7 @@ def commonGetAjaxData(request, path, item):
    try:
       # JSON 형식으로 변환
       params = json.loads(data)
-      print(Models)
-      print(params)
       data = list(Models.objects.filter(**params).values())
-      print(data)
       return JsonResponse(data, safe=False)
       # JSON 형식이 맞는 경우 처리할 코드
    except json.decoder.JSONDecodeError:
