@@ -28,7 +28,7 @@
     <div class="row mt-2">
       <label for="agent" class="col-sm-1 col-form-label">여행사</label>
       <div class="col-sm-4">
-        <select class="form-control selectpicker" aria-label="agent_name" onchange="changeAgent()" data-live-search="true" style="display: none;" id="agent">
+        <select class="form-control selectpicker" aria-label="agent_name" onchange="changeAgent(this)" data-live-search="true" style="display: none;" id="agent">
           {% for agent in optionData.agent %}
           <!-- optionData 로 온 Object에서 agent만 선택하여 for문 돌린다-->
           <option value="{{agent.id}}">{{agent.agent_name}}</option>
@@ -46,7 +46,7 @@
     <div class="row mt-2">
       <label for="localagent" class="col-sm-1 col-form-label">현지사무실</label>
       <div class="col-sm-4">
-        <select class="form-control selectpicker" aria-label="localagent_name" onchange="changeAgent()" data-live-search="true" style="display: none;" id="agent">
+        <select class="form-control selectpicker" aria-label="localagent_name" onchange="changeAgent(this)" data-live-search="true" style="display: none;" id="localAgent">
           {% for agent in optionData.localAgent %}
           <option value="{{agent.id}}">{{agent.agent_name}}</option>
           {% endfor %}
@@ -248,6 +248,7 @@
     // input 태그에 데이터 적용
     air_in.val(data_in);
     air_out.val(data_out);
+
   }
 
 
@@ -259,12 +260,41 @@
     changeAgent();
   });
 
-  function changeAgent(){
+  function changeAgent(element){
     $("#tmpChangeAgentFrm").remove();
     var frm = makeForm('', 'tmpChangeAgentFrm');
-    frm.appendChild(addData('agent', $("#agent").val()));
+    var param;
+    if (element.id == "agent") {
+      param = $("#agent")
+    }
+    else{
+      param = $("#localAgent")
+    }
+
+    frm.appendChild(addData('agent', param.val()));
     document.body.appendChild(frm);
-    getAjax('tmpChangeAgentFrm', 'manager', 'changeAgentSucc');
+    if (element.id == "agent") {
+      getAjax('tmpChangeAgentFrm', 'manager', 'changeAgentSucc');
+    }
+    else{
+      getAjax('tmpChangeAgentFrm', 'manager', 'changeLocalAgentSucc');
+    }
+
+  }
+
+  function changeLocalAgentSucc(data){
+    var select = $("#localmanager");
+    select.selectpicker('destroy');
+    select.empty();
+    for (var i = 0; i < data.length; i++) {
+        var option = $('<option>', {
+            value: data[i].id,
+            text: data[i].manager_name
+        });
+        select.append(option);
+    }
+
+    select.selectpicker();
   }
 
   function changeAgentSucc(data){
