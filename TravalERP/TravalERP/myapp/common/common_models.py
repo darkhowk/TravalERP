@@ -82,7 +82,7 @@ class Airport(commonModel):
     departure_time = models.CharField(db_column='DEPARTURE_TIME', max_length=100, verbose_name='출발시간')
     arrival_airport= models.CharField(db_column='ARRIVAL_AIRPORT', max_length=100, verbose_name='도착공항')
     arrival_city = models.CharField(db_column='ARRIVAL_CITY', max_length=100, verbose_name='도착도시')
-    arrival_time = models.CharField(db_column='ARRIVAL_TIEM', max_length=100, verbose_name='도착시간')
+    arrival_time = models.CharField(db_column='ARRIVAL_TIME', max_length=100, verbose_name='도착시간')
     time_taken = models.TextField(db_column='TIME_TAKEN', max_length=1000, verbose_name='소요시간')
     manager = models.ForeignKey(Manager, db_column='MANAGER', on_delete=models.SET_NULL, blank=True, null=True, verbose_name='담당자')
     airport_remark = models.TextField(db_column='AIRPORT_REMARK', max_length=1000, blank=True, null=True, verbose_name='REMARK')
