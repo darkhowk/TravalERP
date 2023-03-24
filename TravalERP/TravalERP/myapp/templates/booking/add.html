@@ -79,9 +79,9 @@
       <div class="col-sm-2">
         <input type="text" class="form-control" id="kor_air_in" name="kor_air_in" readonly />
       </div>
-      <label for="local_air_out" class="col-sm-1 col-form-label">OUT</label>
+      <label for="kor_air_out" class="col-sm-1 col-form-label">OUT</label>
       <div class="col-sm-2">
-        <input type="text" class="form-control"id="local_air_out" name="kor_air_out"  readonly />
+        <input type="text" class="form-control"id="kor_air_out" name="kor_air_out"  readonly />
       </div>
     </div>
     <div class="row mt-2">
@@ -91,7 +91,7 @@
       </div>
       <label for="loc_air" class="col-sm-1 col-form-label">항공편</label>
       <div class="col-sm-2">
-        <select class="form-control selectpicker" id="local_airport" name="local_airport" data-live-search="true" style="display: none;"  onchange="select_air(this)">
+        <select class="form-control selectpicker" id="local_air" name="local_air" data-live-search="true" style="display: none;"  onchange="select_air(this)">
           <option selected>항공편명</option>
           {% for airport in optionData.airport %}
           <option value="{{airport.id}}" data-out="{{airport.departure_airport}}" data-in="{{airport.arrival_airport}}">{{airport.airport_name}}</option>
@@ -104,7 +104,7 @@
       </div>
       <label for="local_air_out" class="col-sm-1 col-form-label">OUT</label>
       <div class="col-sm-2">
-        <inputtype="text" class="form-control" id="local_air_out" name="local_air_out" readonly />
+        <input type="text" class="form-control" id="local_air_out" name="local_air_out" readonly />
       </div>
     </div>
     <div class="devider"></div>
@@ -236,18 +236,18 @@
     var data_out = $(element).find(':selected').data('out');
 
     // 선택한 select box에 따라서 데이터를 적용할 input 태그 선택
-    var in_air, out_air;
+    var air_in, air_out;
     if (element.id === "kor_air") {
-      in_air = $("#kor_in_air");
-      out_air = $("#kor_out_air");
-    } else if (element.id === "local_airport") {
-      in_air = $("#local_in_air");
-      out_air = $("#local_out_air");
+      air_in = $("#kor_air_in");
+      air_out = $("#kor_air_out");
+    } else if (element.id === "local_air") {
+      air_in = $("#local_air_in");
+      air_out = $("#local_air_out");
     }
 
     // input 태그에 데이터 적용
-    in_air.val(data_in);
-    out_air.val(data_out);
+    air_in.val(data_in);
+    air_out.val(data_out);
   }
 
 
