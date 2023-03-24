@@ -68,20 +68,20 @@
       </div>
       <label for="kor_air" class="col-sm-1 col-form-label">항공편</label>
       <div class="col-sm-2">
-        <select class="form-control selectpicker" id="airport" name="airport" data-live-search="true" style="display: none;">
-          <option selected>항공편명</option>
+        <select class="form-control selectpicker" id="kor_air" name="kor_air" data-live-search="true" style="display: none;" onchange="select_air(this)">
+          <option value="" selected>항공편명</option>
           {% for airport in optionData.airport %}
-          <option value="{{airport.id}}">{{airport.airport_name}}</option>
+          <option value="{{airport.id}}" data-out="{{airport.departure_airport}}" data-in="{{airport.arrival_airport}}">{{airport.airport_name}}</option>
           {% endfor %}
         </select>
       </div>
-      <label for="kor_in_air" class="col-sm-1 col-form-label">IN</label>
+      <label for="kor_air_in" class="col-sm-1 col-form-label">IN</label>
       <div class="col-sm-2">
-        <input id="kor_in_air" type="text" class="form-control" readonly />
+        <input type="text" class="form-control" id="kor_air_in" name="kor_air_in" readonly />
       </div>
-      <label for="kor_out_air" class="col-sm-1 col-form-label">OUT</label>
+      <label for="local_air_out" class="col-sm-1 col-form-label">OUT</label>
       <div class="col-sm-2">
-        <input id="kor_out_air" type="text" class="form-control" readonly />
+        <input type="text" class="form-control"id="local_air_out" name="kor_air_out"  readonly />
       </div>
     </div>
     <div class="row mt-2">
@@ -91,20 +91,20 @@
       </div>
       <label for="loc_air" class="col-sm-1 col-form-label">항공편</label>
       <div class="col-sm-2">
-        <select class="form-control selectpicker" id="airport" name="airport" data-live-search="true" style="display: none;">
+        <select class="form-control selectpicker" id="local_airport" name="local_airport" data-live-search="true" style="display: none;"  onchange="select_air(this)">
           <option selected>항공편명</option>
-          {% for airport in optionData.airport %}>
-          <option value="{{airport.id}}">{{airport.airport_name}}</option>
+          {% for airport in optionData.airport %}
+          <option value="{{airport.id}}" data-out="{{airport.departure_airport}}" data-in="{{airport.arrival_airport}}">{{airport.airport_name}}</option>
           {% endfor %}
         </select>
       </div>
-      <label for="loc_in_air" class="col-sm-1 col-form-label">IN</label>
+      <label for="local_air_in" class="col-sm-1 col-form-label">IN</label>
       <div class="col-sm-2">
-        <input id="loc_in_air" type="text" class="form-control" readonly />
+        <input type="text" class="form-control" id="local_air_in" name="local_air_in" readonly />
       </div>
-      <label for="loc_out_air" class="col-sm-1 col-form-label">OUT</label>
+      <label for="local_air_out" class="col-sm-1 col-form-label">OUT</label>
       <div class="col-sm-2">
-        <input id="loc_out_air" type="text" class="form-control" readonly />
+        <inputtype="text" class="form-control" id="local_air_out" name="local_air_out" readonly />
       </div>
     </div>
     <div class="devider"></div>
@@ -229,6 +229,28 @@
 </div>
 
 <script>
+
+  function select_air(element){
+    // 선택한 option에서 data-in과 data-out 값 가져오기
+    var data_in = $(element).find(':selected').data('in');
+    var data_out = $(element).find(':selected').data('out');
+
+    // 선택한 select box에 따라서 데이터를 적용할 input 태그 선택
+    var in_air, out_air;
+    if (element.id === "kor_air") {
+      in_air = $("#kor_in_air");
+      out_air = $("#kor_out_air");
+    } else if (element.id === "local_airport") {
+      in_air = $("#local_in_air");
+      out_air = $("#local_out_air");
+    }
+
+    // input 태그에 데이터 적용
+    in_air.val(data_in);
+    out_air.val(data_out);
+  }
+
+
   function agentChange() {
     alert("aaaa");
   }
@@ -250,7 +272,6 @@
     select.selectpicker('destroy');
     select.empty();
     for (var i = 0; i < data.length; i++) {
-        console.log(i);
         var option = $('<option>', {
             value: data[i].id,
             text: data[i].manager_name
