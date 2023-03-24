@@ -1,60 +1,107 @@
 {% extends "base/setting_base.html" %}
 {% block content %}
-<div class="card mt-3 mx-5">
-    <div class="card-header">
+
+<div class="container">
+    <h1 class="mt-5 title">
         {{title_nm}}
-    </div>
-    <div class="card-body">
-        <div class="datatable-wrapper datatable-loading no-footer sortable searchable fixed-columns">
-            <div class="datatable-top">
-                <form id="hotelFrm">
-                    {% csrf_token %}
-                    <input type="hidden" id="id" name="id" value="{{selectData.hotel.0.id}}">
-                    <div class="input-group mb-3">
-                        <span class="input-group-text col-sm-1 text-end" >호텔명(한글)</span>
-                        <input type="text" id="hotel_name" name="hotel_name" class="form-control col-sm-3" value="{{selectData.hotel.0.hotel_name}}" >
-                        <span class="input-group-text col-sm-1 text-center" >호텔명(영어)</span>
-                        <input type="text" id="hotel_en_name" name="hotel_en_name" class="form-control col-sm-3" value="{{selectData.hotel.0.hotel_en_name}}" >
-                        <span class="input-group-text col-sm-1 text-center" >등급</span>
-                        <input type="text" id="rank" name="rank" class="form-control col-sm-3" value="{{selectData.hotel.0.rank}}" >
-                    </div>
-                    <div class="input-group mb-3">
-                        <span class="input-group-text col-sm-1 text-end" >나라</span>
-                        <input type="text" id="country" name="country" class="form-control col-sm-3" value="{{selectData.hotel.0.country}}" >
-                        <span class="input-group-text col-sm-1 text-center" >도시</span>
-                        <input type="text" id="city" name="city" class="form-control col-sm-3" value="{{selectData.hotel.0.city}}" >
-                        <span class="input-group-text col-sm-1 text-center" >주소</span>
-                        <input type="text" id="address" name="address" class="form-control col-sm-3" value="{{selectData.hotel.0.address}}" >
-                    </div>
-                    <div class="input-group mb-3">
-                        <span class="input-group-text col-sm-1 text-end" >호텔연락처</span>
-                        <input type="text" id="hotel_tel" name="hotel_tel" class="form-control col-sm-3" value="{{selectData.hotel.0.hotel_tel}}" >
-                        <label class="input-group-text col-sm-1" for="use_yn" >사용여부</label>
-                        <select class="form-select col-sm-3" id="use_yn" name="use_yn" >
-                            <option value="Y" {% if selectData.hotel.0.use_yn == 'Y' %} selected {% endif %}>사용</option>
-                            <option value="N" {% if selectData.hotel.0.use_yn == 'N' %} selected {% endif %}>미사용</option>
-                        </select>
-                        <div class="col-sm-4"></div>
-                    </div>
-                    <div class="input-group mb-3">
-                        <label class="input-group-text col-sm-1 col-form-label" for="hotel_remark" >REMARK</label>
-                        <textarea id="hotel_remark" class="form-control col-sm-11" name="hotel_remark">{{ selectData.hotel.0.hotel_remark }}</textarea>
-                    </div>
- 
-                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                        {% if pageType == 'I' %}
-                            <input type="button" value="저장" onclick="saveData('hotelFrm')">
-                        {% elif pageType == 'U' %}
-                            <input type="button" value="수정" onclick="updateData('hotelFrm')">
-                            <input type="button" value="삭제" onclick="deleteData('hotelFrm')">
-                        {% endif %}
-                            <input type="button" value="목록" onclick="goMenuList()">
-                    </div>
-                </form>
+    </h1>
+</div>
+  
+<div class="container mt-5">
+    <form id="hotelFrm">
+        {% csrf_token %}
+        <input type="hidden" id="id" name="id" value="{{selectData.hotel.0.id}}">
+        <div class="row">
+            <label for="hotel_name" class="col-sm-20 col-form-label">호텔명(한글)</label>
+            <div class="col-sm-4">
+                <input type="text" id="hotel_name" name="hotel_name" class="form-control" value="{{selectData.citycode.0.hotel_name}}" >
+            </div>
+            <label for="hotel_en_name" class="col-sm-20 col-form-label">호텔명(영문)</label>
+            <div class="col-sm-4">
+                <input type="text" id="hotel_en_name" name="hotel_en_name" class="form-control" value="{{selectData.citycode.0.hotel_en_name}}" >
             </div>
         </div>
-    </div>
+        <div class="row mt-2">
+            <label for="hotel_tel" class="col-sm-20 col-form-label">연락처</label>
+            <div class="col-sm-3">
+                <input type="text" id="hotel_tel" name="hotel_tel" class="form-control" value="{{selectData.citycode.0.hotel_tel}}" >
+            </div>
+            <div class="col-sm-1"></div>
+            <label for="rank" class="col-sm-20 col-form-label">등급</label>
+            <div class="col-sm-2">
+                <select class="form-select" id="rank" name="rank">
+                    <option selected>성급</option>
+                    <option value="2 STAR" {% if selectData.hotel.0.rank == '2 STAR' %} selected {% endif %}>2성</option>
+                    <option value="3 STAR" {% if selectData.hotel.0.rank == '3 STAR' %} selected {% endif %}>3성</option>
+                    <option value="4 STAR" {% if selectData.hotel.0.rank == '4 STAR' %} selected {% endif %}>4성</option>
+                    <option value="5 STAR" {% if selectData.hotel.0.rank == '5 STAR' %} selected {% endif %}>5성</option>
+                    <option value="TOURIST" {% if selectData.hotel.0.rank == 'TOURIST' %} selected {% endif %}>투어리스트급</option>
+                    <option value="DELUXE" {% if selectData.hotel.0.rank == 'DELUXE' %} selected {% endif %}>디럭스급</option>
+                    <option value="LUXURY" {% if selectData.hotel.0.rank == 'LUXURY' %} selected {% endif %}>럭셔리급</option>
+                </select>
+            </div>
+            <label for="use_yn" class="col-sm-20 col-form-label">사용여부</label>
+            <div class="col-sm-2">
+                <select class="form-select" id="use_yn" name="use_yn" >
+                    <option value="Y" {% if selectData.hotel.0.use_yn == 'Y' %} selected {% endif %}>사용</option>
+                    <option value="N" {% if selectData.hotel.0.use_yn == 'N' %} selected {% endif %}>미사용</option>
+                </select>
+            </div>
+        </div>
+        <div class="devider"></div>
+        <div class="row mt-2">
+            <label for="country" class="col-sm-20 col-form-label">국가</label>
+            <div class="col-sm-4">
+                <input type="text" id="country" name="country" class="form-control" value="{{selectData.citycode.0.country}}" >
+            </div>
+            <label for="city" class="col-sm-20 col-form-label">도시</label>
+            <div class="col-sm-4">
+                <input type="text" id="city" name="city" class="form-control" value="{{selectData.citycode.0.city}}" >
+            </div>
+        </div>
+        <div class="row mt-2">
+            <label for="address" class="col-sm-20 col-form-label">주소</label>
+            <div class="col-sm-9">
+                <input type="text" id="address" name="address" class="form-control" value="{{selectData.citycode.0.address}}" >
+            </div>
+        </div>
+        <div class="row mt-2">
+            <label for="url" class="col-sm-20 col-form-label">웹사이트</label>
+            <div class="col-sm-9">
+                <input type="text" id="url" name="url" class="form-control" value="{{selectData.citycode.0.url}}" >
+            </div>
+        </div>
+        <div class="devider"></div>
+        <div class="row mt-2">
+            <label for="hotel_remark" class="col-sm-20 col-form-label">REMARK</label>
+            <div class="col-sm-10">
+                <textarea type="text" id="hotel_remark" name="hotel_remark" class="form-control" value="{{selectData.citycode.0.hotel_remark}}" style="height: 80px;"></textarea>
+            </div>
+        </div>
+        <div class="d-grid gap-2 d-md-flex mt-5 justify-content-md-end">
+            {% if pageType == 'I' %}
+                <input class="btn btn-primary" type="button" value="저장" onclick="saveData('citycodeFrm')">
+            {% elif pageType == 'U' %}
+                <input class="btn btn-secondary" type="button" value="수정" onclick="updateData('citycodeFrm')">
+                <input class="btn btn-danger" type="button" value="삭제" onclick="deleteData('citycodeFrm')">
+            {% endif %}
+                <input class="btn btn-outline-primary" type="button" value="목록" onclick="goMenuList()">
+        </div>
+    </form>
 </div>
+
+
+
+<style>
+    .col-sm-20 {
+      flex: 0 0 auto;
+      width: 11%;
+    }
+  
+  </style>
+  
+
+
 
 {% include 'base/commonValue.html'%} <!-- 공통변수 -->
 {% endblock %}

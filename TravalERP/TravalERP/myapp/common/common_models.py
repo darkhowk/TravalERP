@@ -163,8 +163,9 @@ class Hotel(commonModel):
     country = models.CharField(db_column='COUNTRY', max_length=100, verbose_name='국가')
     city = models.CharField(db_column='CITY', max_length=100, verbose_name='도시')
     address = models.CharField(db_column='ADDRESS', max_length=1000, verbose_name='주소')
-    hotel_tel = models.CharField(db_column='HOTEL_TEL', max_length=100, verbose_name='전화번호')
+    hotel_tel = models.CharField(db_column='HOTEL_TEL', max_length=100, verbose_name='연락처')
     hotel_remark = models.TextField(db_column='HOTEL_REMARK', max_length=1000, verbose_name='REMARK')
+    url = models.TextField(db_column='URL', max_length=1000, verbose_name='웹사이트')
     
     def __iter__(self):
         yield self.hotel_name
@@ -175,6 +176,7 @@ class Hotel(commonModel):
         yield self.address
         yield self.hotel_tel
         yield self.hotel_remark
+        yield self.url
 
     class Meta:
         managed = False

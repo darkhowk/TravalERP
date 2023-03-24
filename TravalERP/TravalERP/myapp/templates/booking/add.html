@@ -46,17 +46,16 @@
     <div class="row mt-2">
       <label for="localagent" class="col-sm-1 col-form-label">현지사무실</label>
       <div class="col-sm-4">
-        <select class="form-control selectpicker" aria-label="lagent_name" onchange="changeAgent()" data-live-search="true" style="display: none;" id="agent">
+        <select class="form-control selectpicker" aria-label="localagent_name" onchange="changeAgent()" data-live-search="true" style="display: none;" id="agent">
           {% for agent in optionData.localAgent %}
-          <!-- optionData 로 온 Object에서 agent만 선택하여 for문 돌린다-->
           <option value="{{agent.id}}">{{agent.agent_name}}</option>
           {% endfor %}
         </select>
       </div>
       <div class="col-sm-1"></div>
-      <label for="localManager" class="col-sm-1 col-form-label">담당자</label>
+      <label for="localmanager" class="col-sm-1 col-form-label">담당자</label>
       <div class="col-sm-4">
-        <select class="form-control  selectpicker" aria-label="localManager" data-live-search="true" style="display: none;" id="localManager">
+        <select class="form-control  selectpicker" aria-label="localmanager" data-live-search="true" style="display: none;" id="localmanager">
         </select>
       </div>
     </div>
