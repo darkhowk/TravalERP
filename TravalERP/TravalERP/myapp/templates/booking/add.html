@@ -71,7 +71,7 @@
         <input id="kor_air_def" type="date" class="form-control" />
       </div>
       <label for="kor_air" class="col-sm-1 col-form-label">항공편</label>
-      <div class="col-sm-1">
+      <div class="col-sm-2">
         <select class="form-control selectpicker" id="kor_air" name="kor_air" data-live-search="true" style="display: none;" onchange="select_air(this)">
           <option value="" selected>항공편명</option>
           {% for airport in optionData.airport %}
@@ -85,10 +85,10 @@
       <div class="col-sm-1">
         <input type="text" class="form-control"id="kor_air_out" name="kor_air_out"  readonly />
       </div>
-      <div class="col-sm-1">
+      <div class="col-sm-2">
         <input type="text" class="form-control"id="kor_air_time_dep" name="kor_air_time_dep"  readonly />
       </div>
-      <div class="col-sm-1">
+      <div class="col-sm-2">
         <input type="text" class="form-control"id="kor_air_time_arri" name="kor_air_time_arri"  readonly />
       </div>
     </div>
@@ -98,7 +98,7 @@
         <input id="loc_air_def" type="date" class="form-control" />
       </div>
       <label for="loc_air" class="col-sm-1 col-form-label">항공편</label>
-      <div class="col-sm-1">
+      <div class="col-sm-2">
         <select class="form-control selectpicker" id="local_air" name="local_air" data-live-search="true" style="display: none;"  onchange="select_air(this)">
           <option value="" selected>항공편명</option>
           {% for airport in optionData.airport %}
@@ -112,10 +112,10 @@
       <div class="col-sm-1">
         <input type="text" class="form-control" id="local_air_out" name="local_air_out" readonly />
       </div>
-      <div class="col-sm-1">
+      <div class="col-sm-2">
         <input type="text" class="form-control"id="loc_air_time_dep" name="loc_air_time_dep"  readonly />
       </div>
-      <div class="col-sm-1">
+      <div class="col-sm-2">
         <input type="text" class="form-control"id="loc_air_time_arri" name="loc_air_time_arri"  readonly />
       </div>
     </div>
