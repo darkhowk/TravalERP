@@ -230,59 +230,54 @@
 
 <script>
 
-  function select_air(element){
-    // 선택한 option에서 data-in과 data-out 값 가져오기
-    var data_in = $(element).find(':selected').data('in');
-    var data_out = $(element).find(':selected').data('out');
+    function select_air(element){
+        // 선택한 option에서 data-in과 data-out 값 가져오기
+        var data_in = $(element).find(':selected').data('in');
+        var data_out = $(element).find(':selected').data('out');
 
-    // 선택한 select box에 따라서 데이터를 적용할 input 태그 선택
-    var air_in, air_out;
-    if (element.id === "kor_air") {
-      air_in = $("#kor_air_in");
-      air_out = $("#kor_air_out");
-    } else if (element.id === "local_air") {
-      air_in = $("#local_air_in");
-      air_out = $("#local_air_out");
+        // 선택한 select box에 따라서 데이터를 적용할 input 태그 선택
+        var air_in, air_out;
+        if (element.id === "kor_air") {
+            air_in = $("#kor_air_in");
+            air_out = $("#kor_air_out");
+        } else if (element.id === "local_air") {
+            air_in = $("#local_air_in");
+            air_out = $("#local_air_out");
+        }
+
+        // input 태그에 데이터 적용
+        air_in.val(data_in);
+        air_out.val(data_out);
+
     }
 
-    // input 태그에 데이터 적용
-    air_in.val(data_in);
-    air_out.val(data_out);
+    $( document ).ready(function() {
+        changeAgent();
+    });
 
-  }
+    function changeAgent(element){
+        $("#tmpChangeAgentFrm").remove();
+        var frm = makeForm('', 'tmpChangeAgentFrm');
+        var param;
+        if (element.id == "agent") {
+            param = $("#agent")
+        }
+        else{
+            param = $("#localAgent")
+        }
 
+        frm.appendChild(addData('agent', param.val()));
+        document.body.appendChild(frm);
+        if (element.id == "agent") {
+            getAjax('tmpChangeAgentFrm', 'manager', 'changeAgentSucc');
+        }
+        else{
+            getAjax('tmpChangeAgentFrm', 'manager', 'changeLocalAgentSucc');
+        }
 
-  function agentChange() {
-    alert("aaaa");
-  }
-  
-  $( document ).ready(function() {
-    changeAgent();
-  });
-
-  function changeAgent(element){
-    $("#tmpChangeAgentFrm").remove();
-    var frm = makeForm('', 'tmpChangeAgentFrm');
-    var param;
-    if (element.id == "agent") {
-      param = $("#agent")
-    }
-    else{
-      param = $("#localAgent")
-    }
-
-    frm.appendChild(addData('agent', param.val()));
-    document.body.appendChild(frm);
-    if (element.id == "agent") {
-      getAjax('tmpChangeAgentFrm', 'manager', 'changeAgentSucc');
-    }
-    else{
-      getAjax('tmpChangeAgentFrm', 'manager', 'changeLocalAgentSucc');
     }
 
-  }
-
-  function changeLocalAgentSucc(data){
+    function changeLocalAgentSucc(data){
     var select = $("#localmanager");
     select.selectpicker('destroy');
     select.empty();
@@ -295,9 +290,9 @@
     }
 
     select.selectpicker();
-  }
+    }
 
-  function changeAgentSucc(data){
+    function changeAgentSucc(data){
     var select = $("#manager");
     select.selectpicker('destroy');
     select.empty();
@@ -320,30 +315,30 @@
 </script>
 
 <style>
-  .devider {
-    width: 100%;
-    height: 5px;
-    border-top: rgba(155, 151, 151, 0.979) 2px solid;
-    margin: 20px 10px 20px 0px;
-  }
-  .title {
-    font-size: 30px;
-    font-weight: bolder;
-    margin-bottom: 20px;
-  }
+    .devider {
+        width: 100%;
+        height: 5px;
+        border-top: rgba(155, 151, 151, 0.979) 2px solid;
+        margin: 20px 10px 20px 0px;
+    }
+    .title {
+        font-size: 30px;
+        font-weight: bolder;
+        margin-bottom: 20px;
+    }
 
-  .tr_row {
-    margin-bottom: 10px;
-  }
+    .tr_row {
+        margin-bottom: 10px;    
+    }
 
-  .tr_row label {
-    width: 5rem;
-    text-align: justify;
-  }
-  .tr_row input {
-    width: 10rem;
-    margin-right: 10px;
-  }
+    .tr_row label {
+        width: 5rem;
+        text-align: justify;
+    }
+    .tr_row input {
+        width: 10rem;
+        margin-right: 10px;
+    }
 </style>
 
 {% endblock %} {% block js %} {{block.super}} {% endblock js %}
