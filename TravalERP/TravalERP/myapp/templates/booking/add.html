@@ -28,7 +28,8 @@
     <div class="row mt-2">
       <label for="agent" class="col-sm-1 col-form-label">여행사</label>
       <div class="col-sm-4">
-        <select class="form-control selectpicker" aria-label="agent_name" onchange="changeAgent(this)" data-live-search="true" style="display: none;" id="agent">
+        <select class="form-control selectpicker" aria-label="agent_name" onchange="changeAgent(this)" data-live-search="true" style="display: none;" id="agent" data-none-selected-text="조건을 찾을 수 없습니다">
+          <option value="">여행사명</option>
           {% for agent in optionData.agent %}
           <!-- optionData 로 온 Object에서 agent만 선택하여 for문 돌린다-->
           <option value="{{agent.id}}">{{agent.agent_name}}</option>
@@ -38,7 +39,8 @@
       <div class="col-sm-1"></div>
       <label for="manager" class="col-sm-1 col-form-label">담당자</label>
       <div class="col-sm-4">
-        <select class="form-control  selectpicker" aria-label="manager" data-live-search="true" style="display: none;" id="manager">
+        <select class="form-control  selectpicker" aria-label="manager" data-live-search="true" style="display: none;" id="manager" data-none-selected-text="조건을 찾을 수 없습니다">
+          <option value="">담당자명</option>
         </select>
       </div>
     </div>
@@ -46,7 +48,8 @@
     <div class="row mt-2">
       <label for="localagent" class="col-sm-1 col-form-label">현지사무실</label>
       <div class="col-sm-4">
-        <select class="form-control selectpicker" aria-label="localagent_name" onchange="changeAgent(this)" data-live-search="true" style="display: none;" id="localAgent">
+        <select class="form-control selectpicker" aria-label="localagent_name" onchange="changeAgent(this)" data-live-search="true" style="display: none;" id="localAgent" data-none-selected-text="조건을 찾을 수 없습니다">
+          <option value="">현지사무실명</option>
           {% for agent in optionData.localAgent %}
           <option value="{{agent.id}}">{{agent.agent_name}}</option>
           {% endfor %}
@@ -55,7 +58,8 @@
       <div class="col-sm-1"></div>
       <label for="localmanager" class="col-sm-1 col-form-label">담당자</label>
       <div class="col-sm-4">
-        <select class="form-control  selectpicker" aria-label="localmanager" data-live-search="true" style="display: none;" id="localmanager">
+        <select class="form-control  selectpicker" aria-label="localmanager" data-live-search="true" style="display: none;" id="localmanager" data-none-selected-text="조건을 찾을 수 없습니다">
+          <option value="">담당자명</option>
         </select>
       </div>
     </div>
@@ -71,17 +75,21 @@
         <select class="form-control selectpicker" id="kor_air" name="kor_air" data-live-search="true" style="display: none;" onchange="select_air(this)">
           <option value="" selected>항공편명</option>
           {% for airport in optionData.airport %}
-          <option value="{{airport.id}}" data-out="{{airport.departure_airport}}" data-in="{{airport.arrival_airport}}">{{airport.airport_name}}</option>
+          <option value="{{airport.id}}" data-out="{{airport.arrival_airport}}" data-in="{{airport.departure_airport}}" data-timedep="{{airport.departure_time}}" data-timearri="{{airport.arrival_time}}">{{airport.airport_name}}</option>
           {% endfor %}
         </select>
       </div>
-      <label for="kor_air_in" class="col-sm-1 col-form-label">IN</label>
-      <div class="col-sm-2">
+      <div class="col-sm-1">
         <input type="text" class="form-control" id="kor_air_in" name="kor_air_in" readonly />
       </div>
-      <label for="kor_air_out" class="col-sm-1 col-form-label">OUT</label>
-      <div class="col-sm-2">
+      <div class="col-sm-1">
         <input type="text" class="form-control"id="kor_air_out" name="kor_air_out"  readonly />
+      </div>
+      <div class="col-sm-2">
+        <input type="text" class="form-control"id="kor_air_time_dep" name="kor_air_time_dep"  readonly />
+      </div>
+      <div class="col-sm-2">
+        <input type="text" class="form-control"id="kor_air_time_arri" name="kor_air_time_arri"  readonly />
       </div>
     </div>
     <div class="row mt-2">
@@ -92,19 +100,23 @@
       <label for="loc_air" class="col-sm-1 col-form-label">항공편</label>
       <div class="col-sm-2">
         <select class="form-control selectpicker" id="local_air" name="local_air" data-live-search="true" style="display: none;"  onchange="select_air(this)">
-          <option selected>항공편명</option>
+          <option value="" selected>항공편명</option>
           {% for airport in optionData.airport %}
-          <option value="{{airport.id}}" data-out="{{airport.departure_airport}}" data-in="{{airport.arrival_airport}}">{{airport.airport_name}}</option>
+          <option value="{{airport.id}}" data-out="{{airport.arrival_airport}}" data-in="{{airport.departure_airport}}" data-timedep="{{airport.departure_time}}" data-timearri="{{airport.arrival_time}}">{{airport.airport_name}}</option>
           {% endfor %}
         </select>
       </div>
-      <label for="local_air_in" class="col-sm-1 col-form-label">IN</label>
-      <div class="col-sm-2">
+      <div class="col-sm-1">
         <input type="text" class="form-control" id="local_air_in" name="local_air_in" readonly />
       </div>
-      <label for="local_air_out" class="col-sm-1 col-form-label">OUT</label>
-      <div class="col-sm-2">
+      <div class="col-sm-1">
         <input type="text" class="form-control" id="local_air_out" name="local_air_out" readonly />
+      </div>
+      <div class="col-sm-2">
+        <input type="text" class="form-control"id="loc_air_time_dep" name="loc_air_time_dep"  readonly />
+      </div>
+      <div class="col-sm-2">
+        <input type="text" class="form-control"id="loc_air_time_arri" name="loc_air_time_arri"  readonly />
       </div>
     </div>
     <div class="devider"></div>
@@ -228,56 +240,72 @@
   </form>
 </div>
 
+
+
+
 <script>
 
-    function select_air(element){
-        // 선택한 option에서 data-in과 data-out 값 가져오기
-        var data_in = $(element).find(':selected').data('in');
-        var data_out = $(element).find(':selected').data('out');
+  function select_air(element){
+    // 선택한 option에서 data-in과 data-out 값 가져오기
+    var data_in = $(element).find(':selected').data('in');
+    var data_out = $(element).find(':selected').data('out');
+    var data_timedep = $(element).find(':selected').data('timedep');
+    var data_timearri = $(element).find(':selected').data('timearri');
 
-        // 선택한 select box에 따라서 데이터를 적용할 input 태그 선택
-        var air_in, air_out;
-        if (element.id === "kor_air") {
-            air_in = $("#kor_air_in");
-            air_out = $("#kor_air_out");
-        } else if (element.id === "local_air") {
-            air_in = $("#local_air_in");
-            air_out = $("#local_air_out");
-        }
-
-        // input 태그에 데이터 적용
-        air_in.val(data_in);
-        air_out.val(data_out);
-
+    // 선택한 select box에 따라서 데이터를 적용할 input 태그 선택
+    var air_in, air_out
+    if (element.id === "kor_air") {
+      air_in = $("#kor_air_in");
+      air_out = $("#kor_air_out");
+      air_timedep = $("#kor_air_time_dep");
+      air_timearri = $("#kor_air_time_arri");
+    } else if (element.id === "local_air") {
+      air_in = $("#local_air_in");
+      air_out = $("#local_air_out");
+      air_timedep = $("#loc_air_time_dep");
+      air_timearri = $("#loc_air_time_arri");
     }
 
-    $( document ).ready(function() {
-        changeAgent();
-    });
 
-    function changeAgent(element){
-        $("#tmpChangeAgentFrm").remove();
-        var frm = makeForm('', 'tmpChangeAgentFrm');
-        var param;
-        if (element.id == "agent") {
-            param = $("#agent")
-        }
-        else{
-            param = $("#localAgent")
-        }
+    // input 태그에 데이터 적용
+    air_in.val(data_in);
+    air_out.val(data_out);
+    air_timedep.val(data_timedep);
+    air_timearri.val(data_timearri);
+  }
 
-        frm.appendChild(addData('agent', param.val()));
-        document.body.appendChild(frm);
-        if (element.id == "agent") {
-            getAjax('tmpChangeAgentFrm', 'manager', 'changeAgentSucc');
-        }
-        else{
-            getAjax('tmpChangeAgentFrm', 'manager', 'changeLocalAgentSucc');
-        }
 
+  function agentChange() {
+    alert("aaaa");
+  }
+  
+  $( document ).ready(function() {
+    changeAgent();
+  });
+
+  function changeAgent(element){
+    $("#tmpChangeAgentFrm").remove();
+    var frm = makeForm('', 'tmpChangeAgentFrm');
+    var param;
+    if (element.id == "agent") {
+      param = $("#agent")
+    }
+    else{
+      param = $("#localAgent")
     }
 
-    function changeLocalAgentSucc(data){
+    frm.appendChild(addData('agent', param.val()));
+    document.body.appendChild(frm);
+    if (element.id == "agent") {
+      getAjax('tmpChangeAgentFrm', 'manager', 'changeAgentSucc');
+    }
+    else{
+      getAjax('tmpChangeAgentFrm', 'manager', 'changeLocalAgentSucc');
+    }
+
+  }
+
+  function changeLocalAgentSucc(data){
     var select = $("#localmanager");
     select.selectpicker('destroy');
     select.empty();
@@ -290,9 +318,9 @@
     }
 
     select.selectpicker();
-    }
+  }
 
-    function changeAgentSucc(data){
+  function changeAgentSucc(data){
     var select = $("#manager");
     select.selectpicker('destroy');
     select.empty();
@@ -315,30 +343,35 @@
 </script>
 
 <style>
-    .devider {
-        width: 100%;
-        height: 5px;
-        border-top: rgba(155, 151, 151, 0.979) 2px solid;
-        margin: 20px 10px 20px 0px;
-    }
-    .title {
-        font-size: 30px;
-        font-weight: bolder;
-        margin-bottom: 20px;
-    }
+  .devider {
+    width: 100%;
+    height: 5px;
+    border-top: rgba(155, 151, 151, 0.979) 2px solid;
+    margin: 20px 10px 20px 0px;
+  }
+  .title {
+    font-size: 30px;
+    font-weight: bolder;
+    margin-bottom: 20px;
+  }
 
-    .tr_row {
-        margin-bottom: 10px;    
-    }
+  .tr_row {
+    margin-bottom: 10px;
+  }
 
-    .tr_row label {
-        width: 5rem;
-        text-align: justify;
-    }
-    .tr_row input {
-        width: 10rem;
-        margin-right: 10px;
-    }
+  .tr_row label {
+    width: 5rem;
+    text-align: justify;
+  }
+  .tr_row input {
+    width: 10rem;
+    margin-right: 10px;
+  }
 </style>
 
+
 {% endblock %} {% block js %} {{block.super}} {% endblock js %}
+
+
+
+
