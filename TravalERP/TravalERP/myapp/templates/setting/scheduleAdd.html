@@ -7,6 +7,9 @@
     <div class="card-body">
         <div class="datatable-wrapper datatable-loading no-footer sortable searchable fixed-columns">
             <div class="datatable-top">
+                <!-- 동적생성부분 선택을 위한 hidden data -->
+                <input type="hidden" id="selManager_id" value="{{selectData.scheduleMaster.0.manager.id}}">
+                <!-- 동적생성부분 선택을 위한 hidden data -->
                 <form id="scheduleFrm">
                     {% csrf_token %}
                     <input type="hidden" id="id" name="id" value="{{selectData.scheduleMaster.0.id}}">
@@ -14,7 +17,10 @@
                         <span class="input-group-text col-sm-1 text-end" >상품명</span>
                         <input type="text" id="product_name" name="product_name" class="form-control col-sm-5" value="{{selectData.scheduleMaster.0.product_name}}" >
                         <span class="input-group-text col-sm-1 text-end" >사용여부</span>
-                        <input type="text" id="use_yn" name="use_yn" class="form-control col-sm-5" value="{{selectData.scheduleMaster.0.use_yn}}" >
+                        <select class="form-select" id="use_yn" name="use_yn">
+                            <option value="Y" {% if selectData.scheduleMaster.0.use_yn == 'Y' %}selected{% endif %}>사용</option>
+                            <option value="N" {% if selectData.scheduleMaster.0.use_yn == 'N' %}selected{% endif %}>미사용</option>
+                        </select>
                     </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text col-sm-1 text-center" >여행사</span>
@@ -128,8 +134,6 @@ function getSchedule(){
 }
 
 function getScheduleSucc(data){
-    console.log(data)
-
     var table = $("#scheduleDetailFrm");
     // 자식노드 모두 삭제
     table.empty();
@@ -152,7 +156,7 @@ function getScheduleSucc(data){
         sche += '<td><input type="text" id="day" name="day" class="input-group-text" readonly value="'+i+'일차" ></td>';
         sche += '<td><input type="text" id="schedule" name="schedule" value="'+data[i-1].schedule+'"></td>';
         sche += '<td><input type="text" id="hotel" name="hotel" value="'+data[i-1].hotel+'" ></td>';
-        sche += '<td><input type="button" class="input-group" value="삭제"><input type="hidden" id="master_id" name="master_id" value="{{selectData.schedule_master.0.id}}" ><input type="hidden" id="use_yn" name="use_yn" value="Y" ></td>';
+        sche += '<td><input type="hidden" id="id" name="id" value="'+data[i-1].id+'"><input type="button" class="input-group" value="삭제"><input type="hidden" id="master_id" name="master_id" value="{{selectData.schedule_master.0.id}}" ><input type="hidden" id="use_yn" name="use_yn" value="Y" ></td>';
         sche += '</tr>'
     }
     sche +='</tbody>'
@@ -172,11 +176,22 @@ function changeAgentSucc(data){
     var select = $("#manager");
     select.selectpicker('destroy');
     select.empty();
+    var selManager = $("#selManager_id").val()
+
     for (var i = 0; i < data.length; i++) {
-        var option = $('<option>', {
-            value: data[i].id,
-            text: data[i].manager_name
-        });
+        var option;
+        if (selManager == data[i].id){
+            option = $('<option>', {
+                value: data[i].id,
+                text: data[i].manager_name,
+                selected: true
+            });
+        }else{
+            option = $('<option>', {
+                value: data[i].id,
+                text: data[i].manager_name
+            });
+        }
         select.append(option);
     }
 
@@ -206,8 +221,6 @@ function saveDetail(tName, id){
     $('input[name="master_id"]').val(id);
 
     var tableJson = tableToJson(document.getElementById(tName))
-
-
     $.ajax({
         url: 'addDataDetail', // 앞에 자동으로 setting/agent 붙음
         method: 'POST',
@@ -227,16 +240,37 @@ function saveDetail(tName, id){
 function updateData(fName, tName){
     var jsonData = $("#"+fName).serializeArray()
     $.ajax({
-        url: 'updateData', // 앞에 자동으로 setting/agent 붙음
+        url: 'updateDataMaster', // 앞에 자동으로 setting/agent 붙음
         method: 'POST',
         data: jsonData,
         dataType: 'json',
         success: function(data) {
-            alert('수정성공 메뉴등록 화면으로 이동합니다.')
+            id = data.id
+            updateDetail(tName, id);
+        },
+        error: function(xhr, status, error) {
+            alert('등록 실패')
+        }
+    });
+}
+
+function updateDetail(tName, id){
+    $('input[name="master_id"]').val(id);
+
+    var tableJson = tableToJson(document.getElementById(tName))
+
+    $.ajax({
+        url: 'updateDataDetail', // 앞에 자동으로 setting/agent 붙음
+        method: 'POST',
+        data: JSON.stringify(tableJson),
+        headers: { "X-CSRFToken": $('[name="csrfmiddlewaretoken"]').val() }, // CSRF 토큰을 HTTP 헤더에 추가
+        dataType: 'json',
+        success: function(data) {
+            alert('입력 완료 목록 화면으로 이동합니다.')
             goMenuList();
         },
         error: function(xhr, status, error) {
-            alert('여행사 수정 실패')
+            alert('등록 실패')
         }
     });
 }
