@@ -6,6 +6,11 @@ from django.core.paginator import Paginator
 from ..common.CommonView import CommonView, addView
 import datetime, json
 
+from django.db.models.functions import Concat
+from django.db.models import F, Value, CharField
+
+from django.db.models.functions import Now
+
 from ..common.common_models import *
 
 # Create your views here.
@@ -684,3 +689,112 @@ def commonGetAjaxData(request, path, item):
       return JsonResponse(data, safe=False)
   
    
+#################################################
+# Common 데이터 카피
+#################################################
+def commonCopy(request):
+   target = request.POST.get('target', None)
+   id = request.POST.get('id', None)
+   now = datetime.datetime.now()
+  
+   if (target == 'schedule'):
+
+      MasterModels = pathtoMode(target+'Master')
+      MasterQueryset = MasterModels.objects.filter(id=id).select_related('agent').select_related('manager')
+
+      newMasterQueryset = MasterQueryset.annotate(
+           new_product_name=Concat('product_name', Value('_copy'))
+         , new_entry_date=Now()
+         , new_use_yn =Value('N')
+      ).values(
+           'new_product_name'
+         , 'new_entry_date'
+         , 'new_use_yn'
+         , 'entry_id'
+         , 'location'
+         , 'start'
+         , 'night'
+         , 'day'
+         , 'bus'
+         , 'entrance'
+         , 'breakfast'
+         , 'lunch'
+         , 'dinner'
+         , 'special'
+         , 'option'
+         , 'shopping'
+         , 'schedule_remark'
+         , 'agent'
+         , 'manager'
+      )
+
+      # 이전의 id 필드는 제외합니다.
+      new_queryset = newMasterQueryset.exclude(id__isnull=False, updat_date__isnull=False, updat_id__isnull=False)
+
+      # 변경한 쿼리셋을 DB에 저장합니다.
+      new_master_instances = []
+      for row in new_queryset:
+         agent_id = row['agent']
+         agent = Agent.objects.get(id=agent_id)
+         row['agent'] = agent
+         manager_id = row['manager']
+         manager = Manager.objects.get(id=manager_id)
+         row['manager'] = manager
+         new_master_instance = MasterModels.objects.create(
+            product_name=row['new_product_name'],
+            entry_date=row['new_entry_date'],
+            use_yn=row['new_use_yn'],
+            location=row['location'],
+            start=row['start'],
+            night=row['night'],
+            day=row['day'],
+            bus=row['bus'],
+            entrance=row['entrance'],
+            breakfast=row['breakfast'],
+            lunch=row['lunch'],
+            dinner=row['dinner'],
+            special=row['special'],
+            option=row['option'],
+            shopping=row['shopping'],
+            schedule_remark=row['schedule_remark'],
+            agent=agent,
+            manager=manager,
+         )
+         new_master_instances.append(new_master_instance)
+
+      new_master_id =  new_master_instance.id
+            
+      DeatilModels = pathtoMode(target+'Detail')
+      DeatilQueryset = DeatilModels.objects.filter(master_id=id)
+
+      newDetailQueryset = DeatilQueryset.annotate(
+         new_entry_date=Now(),
+         new_use_yn=Value('N'),
+      ).values(
+         'new_entry_date',
+         'new_use_yn',
+         'master_id',
+         'entry_id',
+         'day',
+         'schedule',
+         'hotel',
+      )
+
+      # 이전의 id 필드는 제외합니다.
+      new_queryset = newDetailQueryset.exclude(id__isnull=False, updat_date__isnull=False, updat_id__isnull=False)
+      master_instance = ScheduleMaster.objects.get(id=new_master_id)
+      # 변경한 쿼리셋을 DB에 저장합니다.
+      new_detail_instances = []
+      for row in new_queryset:
+         row['master_id'] = master_instance
+         new_detail_instance = DeatilModels.objects.create(
+            entry_date=row['new_entry_date'],
+            use_yn=row['new_use_yn'],
+            day=row['day'],
+            schedule=row['schedule'],
+            hotel=row['hotel'],
+            master_id= row['master_id'],
+         )
+         new_detail_instances.append(new_detail_instance)
+
+      return JsonResponse({'result': 'success'})

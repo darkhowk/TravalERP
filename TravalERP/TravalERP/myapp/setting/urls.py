@@ -23,15 +23,18 @@ urlpatterns = [
 
     
     
-    ### 공통 List View
+    ## 공통 List View
     path("setting/commonSettingView", views.commonSettingView.as_view(), name="공통 List 화면"), 
+
+    ### 공통 copy Data
+    path("setting/copyData", views.commonCopy, name="데이터 카피 ajax"),
 
     #### 공통 ajax
     path("setting/<str:path>/addData", views.commonInsert, name="공통등록 ajax"),
     path("setting/<str:path>/updateData", views.commonModify, name="공통수정 ajax"),
     path("setting/<str:path>/deleteData", views.commonDelete, name="공통삭제 ajax"),
 
-    ##### 스케쥴ajax
+    ##### Master Detail ajax
     path("setting/<str:path>/addDataMaster", views.commonInsertMaster, name="공통 master등록 ajax"),
     path("setting/<str:path>/addDataDetail", views.commonInsertDetail, name="공통 detail등록 ajax"),
     path("setting/<str:path>/updateDataMaster", views.commonModifyMaster, name="공통 master등록수정 ajax"),

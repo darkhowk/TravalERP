@@ -40,40 +40,13 @@
 </div>
 
 <script>
-$( document ).ready(function() {
-    var date = '2023-03-27'
-    var td = '<td class="__REST__ __TODAY__"><a __HREF__>__DATE__</a></td>';
-    var href = '/depart/schedule?date=' + date.substring(0, 8);
-    var hasEvent;
-    var tdClass;
-    var week = null;
-    var days = fullDays(date);
-    for (var i = 0, length = days.length; i < length; i += 7) {
-        // 전체 셀을 주단위로 잘라서 사용
-        week = days.slice(i, i + 7);
-        
-        var $tr = $('<tr></tr>');
-        week.forEach(function (obj, index) {
-            // 매주 수요일에 이벤트가 있다고 가정
-           // hasEvent = (index === 3);
-            tdClass = (index === 0)? 'sun': '';
-            tdClass = (index === 6)? 'sat': tdClass;
 
-            $tr.append(td.replace('__REST__', tdClass)
-                        .replace('__TODAY__', (obj['today'])? 'today': '')
-                        .replace('__HREF__', (hasEvent)? 'href="'+ href + ('0' + obj['date']).slice(-2) +'"': '')
-                        .replace('__DATE__', obj['date']));
-        });
-        $('#tbl-month').append($tr);
-    }
-
-});
 function prevMonth(date) {
     var target = new Date(date);
     target.setDate(1);
     var month = target.getMonth() - 1;
     target.setMonth(month);
-        return getYmd(target);
+    return getYmd(target);
 }
 
 function nextMonth(date) {
@@ -94,7 +67,7 @@ function fullDays(date) {
     var target = new Date(date);
     var year = target.getFullYear();
     var month = target.getMonth();
-    $("#month-this").html(year+ '-' + ('0' +(month+1)).slice(-2))
+    $("#month-this").html(year+ '년 ' + ('0' +(month+1)).slice(-2)+ '월 그룹 현황표')
     var firstWeekDay = new Date(year, month, 1).getDay();
     var thisDays = new Date(year, month + 1, 0).getDate();
     
@@ -127,6 +100,8 @@ function fullDays(date) {
 }
 
 function drawMonth(date) {
+//  이번 날짜를 가져와서, DB에서 해당하는 스케쥴을 가져와 같이 뿌리기.
+
     $('#month-this').text(date.substring(0, 7).replace('-', '.'));
     $('#month-prev').data('ym', prevMonth(date));
     $('#month-next').data('ym', nextMonth(date));
@@ -164,7 +139,6 @@ $(function () {
 
     $('.month-move').on('click', function (e) {
         e.preventDefault();
-
         drawMonth($(this).data('ym'));
     });
 });
