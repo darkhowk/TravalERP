@@ -53,7 +53,7 @@
                                 <td>{{ field|truncatechars:9 }}</td>
                             {% endfor %}
                             {% if target == 'schedule' %}
-                                <td><input type="button" value="복사" onclick="copyData({{list.id}})"></td>
+                                <td><input type="button" value="복사" onclick="copyData('{{list.id}}')"></td>
                             {% endif %}
                         </tr>
                     {% endfor %}
