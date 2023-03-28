@@ -136,7 +136,7 @@
         <input id="dinner" type="text" class="form-control" readonly />
       </div>
       <div class="col-sm-3 text-end">
-        <button type="search" class="btn btn-primary">등록일정 가져오기</button>
+        <button type="search" class="btn btn-primary" onclick="openSearch()">등록일정 가져오기</button>
       </div>
     </div>
     <div class="row mt-3">
@@ -332,12 +332,6 @@
     air_timedep.val(data_timedep);
     air_timearri.val(data_timearri);
   }
-
-
-  function agentChange() {
-    alert("aaaa");
-  }
-  
   $( document ).ready(function() {
     changeAgent();
   });
@@ -449,7 +443,9 @@
     });
   });
 
-
+  function openSearch() {
+    window.open('/booking/search/', '일정검색', 'width=800,height=600');
+  }
 </script>
 
 <style>
