@@ -432,80 +432,9 @@ class commonSettingView(CommonView):
       return response
    
 
-def commonInsertMaster(request, path):
-   # model별로 insert할 fields 작성
-   fields = []
-   Models = pathtoMode(path+'Master')
-   fields = [f.name for f in Models._meta.fields if f.name not in ['entry_date', 'entry_id', 'updat_date', 'updat_id', 'id']]
-
-   return insert(request, Models, fields)
-
-
-def commonModifyMaster(request, path):
-   Models = pathtoMode(path+'Master')
-
-   type = request.POST.get('type', None)
-
-   if type is None:
-      return modify(request, Models)
-   else: 
-      return modify(request, Models, pk_name='id', type=type)
-
-def commonDeleteMaster(request, path):
-   Models = pathtoMode(path+'Master')
-
-   type = request.POST.get('type', None)
-   if type is None:
-      return delete(request, Models)
-   else: 
-      return delete(request, Models, pk_name='id', type=type)
-   
-
-
-def commonInsertDetail(request, path):
-   # model별로 insert할 fields 작성
-   data = request.body
-   data_list = json.loads(data.decode('utf-8'))
-   fields = []
-   Models = pathtoMode(path+'Detail')
-   fields = [f.name for f in Models._meta.fields if f.name not in ['entry_date', 'entry_id', 'updat_date', 'updat_id', 'id']]
-   for item in data_list:
-      insertDetail(item, Models, fields)
-
-   return JsonResponse({'result': 'success'})
-
-def commonModifyDetail(request, path):
-
-   data = request.body
-   data_list = json.loads(data.decode('utf-8'))
-
-   Models = pathtoMode(path+'Detail')
-
-   type = request.POST.get('type', None)
-   if type is None:
-      for item in data_list:
-         modifyDetail(item, Models)
-   else: 
-      for item in data_list:
-         modifyDetail(item, Models, pk_name='id', type=type)
-         
-   return JsonResponse({'result': 'success'})
-
-def commonDeleteDetail(request, path):
-
-   data = request.body
-   data_list = json.loads(data.decode('utf-8'))
-
-   Models = pathtoMode(path+'Detail')
-
-   type = request.POST.get('type', None)
-   if type is None:
-      for item in data_list:
-         return deleteDetail(item, Models)
-   else: 
-      for item in data_list:
-         return deleteDetail(item, Models, pk_name='id', type=type)
-
+#################################################
+# Common 공통 CRUD
+#################################################
 
 def commonInsert(request, path):
    # model별로 insert할 fields 작성
@@ -552,6 +481,105 @@ def insert(request, model, fields):
 
     return JsonResponse({'result': 'success', 'id': obj.id})
 
+def modify(request, model, pk_name='id', **kwargs):
+    now = datetime.datetime.now()
+    pk_value = request.POST.get(pk_name)
+    obj = model.objects.get(**{pk_name: pk_value}, **kwargs)
+    for field in obj._meta.fields:
+        if field.name in request.POST:
+            # Check if field is a foreign key
+            if isinstance(field, models.ForeignKey):
+               fk_id = request.POST.get(field.name)
+               # Get the related model instance using the foreign key id
+               related_model = field.related_model.objects.get(id=fk_id)
+               setattr(obj, field.name, related_model)
+            else:
+               setattr(obj, field.name, request.POST.get(field.name))
+    obj.updat_date = now.strftime('%Y-%m-%d %H:%M:%S')
+    obj.save()
+
+    return JsonResponse({'result': 'success', 'id': obj.id})
+
+def delete(request, model, pk_name='id', **kwargs):
+    now = datetime.datetime.now()
+    pk_value = request.POST.get(pk_name)
+
+    obj = model.objects.get(**{pk_name: pk_value}, **kwargs)
+    obj.use_yn = 'N'
+    obj.updat_date = now.strftime('%Y-%m-%d %H:%M:%S')
+    obj.save()
+
+    return JsonResponse({'result': 'success', 'id': obj.id})
+
+
+#################################################
+# Common Master Detail 공통 CRUD
+#################################################
+def commonInsertMaster(request, path):
+   # model별로 insert할 fields 작성
+   fields = []
+   Models = pathtoMode(path+'Master')
+   fields = [f.name for f in Models._meta.fields if f.name not in ['entry_date', 'entry_id', 'updat_date', 'updat_id', 'id']]
+
+   return insert(request, Models, fields)
+
+def commonInsertDetail(request, path):
+   # model별로 insert할 fields 작성
+   data = request.body
+   data_list = json.loads(data.decode('utf-8'))
+   fields = []
+   Models = pathtoMode(path+'Detail')
+   fields = [f.name for f in Models._meta.fields if f.name not in ['entry_date', 'entry_id', 'updat_date', 'updat_id', 'id']]
+   for item in data_list:
+      insertDetail(item, Models, fields)
+
+   return JsonResponse({'result': 'success'})
+
+def commonModifyMaster(request, path):
+   Models = pathtoMode(path+'Master')
+   type = request.POST.get('type', None)
+   if type is None:
+      return modify(request, Models)
+   else: 
+      return modify(request, Models, pk_name='id', type=type)
+
+def commonModifyDetail(request, path):
+   data = request.body
+   data_list = json.loads(data.decode('utf-8'))
+   Models = pathtoMode(path+'Detail')
+   type = request.POST.get('type', None)
+   if type is None:
+      for item in data_list:
+         modifyDetail(item, Models)
+   else: 
+      for item in data_list:
+         modifyDetail(item, Models, pk_name='id', type=type)
+         
+   return JsonResponse({'result': 'success'})
+
+def commonDeleteMaster(request, path):
+   Models = pathtoMode(path+'Master')
+   type = request.POST.get('type', None)
+   if type is None:
+      return delete(request, Models)
+   else: 
+      return delete(request, Models, pk_name='id', type=type)
+
+def commonDeleteDetail(request, path):
+
+   data = request.body
+   data_list = json.loads(data.decode('utf-8'))
+   Models = pathtoMode(path+'Detail')
+   type = request.POST.get('type', None)
+   if type is None:
+      for item in data_list:
+         deleteDetail(item, Models)
+   else: 
+      for item in data_list:
+         deleteDetail(item, Models, pk_name='id', type=type)
+      
+   return JsonResponse({'result': 'success'})
+
 def insertDetail(jsonData, model, fields):
     now = datetime.datetime.now()
     data = {}
@@ -568,25 +596,6 @@ def insertDetail(jsonData, model, fields):
          data[field] = jsonData[field]
 
     obj = model(**data, entry_date=now.strftime('%Y-%m-%d %H:%M:%S'))
-    obj.save()
-
-    return JsonResponse({'result': 'success', 'id': obj.id})
-
-def modify(request, model, pk_name='id', **kwargs):
-    now = datetime.datetime.now()
-    pk_value = request.POST.get(pk_name)
-    obj = model.objects.get(**{pk_name: pk_value}, **kwargs)
-    for field in obj._meta.fields:
-        if field.name in request.POST:
-            # Check if field is a foreign key
-            if isinstance(field, models.ForeignKey):
-               fk_id = request.POST.get(field.name)
-               # Get the related model instance using the foreign key id
-               related_model = field.related_model.objects.get(id=fk_id)
-               setattr(obj, field.name, related_model)
-            else:
-               setattr(obj, field.name, request.POST.get(field.name))
-    obj.updat_date = now.strftime('%Y-%m-%d %H:%M:%S')
     obj.save()
 
     return JsonResponse({'result': 'success', 'id': obj.id})
@@ -611,29 +620,31 @@ def modifyDetail(jsonData, model, pk_name='id', **kwargs):
     return JsonResponse({'result': 'success', 'id': obj.id})
 
 def deleteDetail(jsonData, model, pk_name='id', **kwargs):
-    now = datetime.datetime.now()
-    pk_value = jsonData[pk_name]
+   now = datetime.datetime.now()
+   pk_value = jsonData[pk_name]
 
-    obj = model.objects.get(**{pk_name: pk_value}, **kwargs)
-    obj.use_yn = 'N'
-    obj.updat_date = now.strftime('%Y-%m-%d %H:%M:%S')
-    obj.save()
+   obj = model.objects.get(**{pk_name: pk_value}, **kwargs)
+   for field in obj._meta.fields:
+      if field.name in jsonData:
+         # Check if field is a foreign key
+         if isinstance(field, models.ForeignKey):
+            fk_id = jsonData.get(field.name)
+            # Get the related model instance using the foreign key id
+            related_model = field.related_model.objects.get(id=fk_id)
+            setattr(obj, field.name, related_model)
+         else:
+            setattr(obj, field.name, jsonData.get(field.name))
+   obj.use_yn = 'N'
+   obj.updat_date = now.strftime('%Y-%m-%d %H:%M:%S')
+   obj.save()
 
-    return JsonResponse({'result': 'success', 'id': obj.id})
+   return JsonResponse({'result': 'success', 'id': obj.id})
 
-def delete(request, model, pk_name='id', **kwargs):
-    now = datetime.datetime.now()
-    jsondata = json.loads(request.body)
-    pk_value = jsondata.get(pk_name)
-
-    obj = model.objects.get(**{pk_name: pk_value}, **kwargs)
-    obj.use_yn = 'N'
-    obj.updat_date = now.strftime('%Y-%m-%d %H:%M:%S')
-    obj.save()
-
-    return JsonResponse({'result': 'success', 'id': obj.id})
-
+#################################################
+# Common Path별 Model선택
+#################################################
 def pathtoMode(path):
+   print(path)
    if path == 'agent':
       Models = Agent
    if path == 'airport':
