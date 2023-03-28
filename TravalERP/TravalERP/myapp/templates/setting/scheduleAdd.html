@@ -119,7 +119,11 @@
 <script>
 $( document ).ready(function() {
     changeAgent();
-    getSchedule();
+    var pageType = $("#pageType").val();
+    // 수정인경우만 스케쥴 불러오기
+    if (pageType != 'I'){
+        getSchedule();
+    }
 });
 
 function getSchedule(){
@@ -318,9 +322,9 @@ function makeSchedule(){
     // 기본 틀 생성
         basic += '<thead>';
         basic += '<tr>';
-        basic += '<td name="day">일차</td>';
-        basic += '<td name="schedule">일정</td>';
-        basic += '<td name="hotel">호텔</td>';
+        basic += '<td class="col-1" name="day">일차</td>';
+        basic += '<td class="col-10" name="schedule">일정</td>';
+        basic += '<td class="col-1" name="hotel">호텔</td>';
         basic += '<td></td>';
         basic += '</tr>';
         basic += '</thead>';
@@ -329,10 +333,9 @@ function makeSchedule(){
     var sche = '<tbody>';
     for (var i =1 ; i <= day ; i ++ ){
         sche += '<tr>';
-        sche += '<td><input type="text" id="day" name="day" class="input-group-text" readonly value="'+i+'일차" ></td>';
-        sche += '<td><input type="text" id="schedule" name="schedule" ></td>';
-        sche += '<td><input type="text" id="hotel" name="hotel" ></td>';
-        sche += '<td><input type="button" class="input-group" value="검색"><input type="hidden" id="master_id" name="master_id" value="{{selectData.schedule_master.0.id}}" ><input type="hidden" id="use_yn" name="use_yn" value="Y" ></td>';
+        sche += '<td class="col-1"><input type="text" id="day" name="day" class="input-group-text" style="width: 100%;" readonly value="'+i+'일차" ></td>';
+        sche += '<td class="col-10"><input type="text" id="schedule"  style="width: 100%;" name="schedule" ></td>';
+        sche += '<td class="col-1"><input type="text" id="hotel" name="hotel"  style="width: 100%;" ><input type="hidden" id="master_id" name="master_id" value="{{selectData.schedule_master.0.id}}" ><input type="hidden" id="use_yn" name="use_yn" value="Y" ></td>';
         sche += '</tr>'
     }
     sche +='</tbody>'
