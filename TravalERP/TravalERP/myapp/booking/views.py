@@ -88,3 +88,6 @@ def pathtoMode(path):
    if path == 'citycode':
       Models = Citycode
    return Models
+
+def bookingSearch(request):
+    return render(request, 'booking/search.html')
