@@ -147,26 +147,27 @@
           </table>
           </div>
 
-          <div class="devider"></div> 
-          <div class="row">
-            <p><h5>상세내역</h5></p>
-            <input type="button" class="btn btn-sm btn-primary" value="추가" onclick="rowAdd()">
-            <table id="testTable" calss="text-center">
-              <thead class="table-light">
-                <tr>
-                  <th>삭제</th>
-                  <th>항목</th>
-                  <th colspan="2">금액</th>
-                  <th>인원(수량)</th>
-                  <th>박수(night)</th>
-                  <th colsapn="2">합계</th>
-                  <th>비고</th>
-                </tr>
-              </thead>
-              <tbody id="tbody"></tbody>
-            </table>
-          </div>
-
+          <table  calss="table text-center">
+              <div class="devider"></div> 
+              <div class="row">
+                  <p><h5>상세내역</h5></p>
+                  <input type="button" class="btn btn-sm btn-primary" value="추가" onclick="rowAdd()">
+                <table class="table text-center" id="testTable">
+                    <thead class="table-light">
+                        <tr>
+                            <th scope="col">삭제</th>
+                            <th scope="col">항목명</th>
+                            <th scope="col" >금액</th>
+                            <th scope="col">인원(수량)</th>
+                            <th scope="col">박수(night)</th>
+                            <th scope="col" >합계</th>
+                            <th scope="col">비고</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody">
+                    </tbody>
+                </table>
+            </div>
 
           <div class="devider"></div>
             <div class="p-2 bg-warning text-dark">
@@ -291,19 +292,14 @@ function rowAdd() {
    var cell5 = row.insertCell(4);
    var cell6 = row.insertCell(5);
    var cell7 = row.insertCell(6);
-   var cell8 = row.insertCell(7);
-   var cell9 = row.insertCell(8);
+   cell1.innerHTML = "<td class='col'><input style='width:50px;' type='checkbox' id='checkbox'></td>";
+   cell2.innerHTML = "<td class='col'><input id='thtle'></td>";
+   cell3.innerHTML = "<td class='col'><div class='row'><input class='col-10' id='price'><input  class='col-1' id='unit'></div></td>";
+   cell4.innerHTML = "<td class='col'><input id='pax'></td>";
+   cell5.innerHTML = "<td class='col'><input id='night'></td>";
+   cell6.innerHTML = "<td class='col'><div class='row'><input class='col-10' id='total'><input class='col-1'  id='unit2'></div></td>";
+   cell7.innerHTML = "<td class='col'><input id='note'></td>";
 
-
-   cell1.innerHTML = "<td class='col-sm-1'><input type='checkbox' id='checkbox'></td>";
-   cell2.innerHTML = "<td><input id='thtle'></td>";
-   cell3.innerHTML = "<td><input id='price'></td>";
-   cell4.innerHTML = "<td><input id='unit'></td>";
-   cell5.innerHTML = "<td><input id='pax'></td>";
-   cell6.innerHTML = "<td><input id='night'></td>";
-   cell7.innerHTML = "<td><input id='total'></td>";
-   cell8.innerHTML = "<td><input id='unit2'></td>";
-   cell9.innerHTML = "<td><input id='note'></td>";
 
 
 }
