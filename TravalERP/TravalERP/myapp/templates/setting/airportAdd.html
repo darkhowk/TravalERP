@@ -18,6 +18,13 @@
       		<div class="col-sm-3">
         		<input type="text" id="time_taken" name="time_taken" class="form-control" value="{{selectData.airport.0.time_taken}}" />
       		</div>
+			<label class="col-sm-1 col-form-label" for="use_yn" value="{{airport.0.use_yn}}" >사용여부</label>
+			<div class="col-sm-3">
+				<select class="form-select" id="use_yn" name="use_yn">
+					<option value="Y">사용</option>
+					<option value="N">미사용</option>
+				</select>
+			</div>
     	</div>
     	<div class="devider"></div>
 		<div class="row mt-2">
@@ -47,24 +54,6 @@
 			<label for="arrival_time" class="col-sm-1 col-form-label">도착시간</label>
 			<div class="col-sm-3">
 				<input type="text" id="arrival_time" name="arrival_time" class="form-control" value="{{selectData.airport.0.arrival_time}}" />
-			</div>
-		</div>
-		<div class="devider"></div>
-		<div class="row mt-2">
-			<label for="manager" cla ss="col-sm-1 col-form-label">담당자</label>
-			<div class="col-sm-3">
-				<select class="form-select col-sm-3" id="manager"  name="manager" value="{{airport.0.manager}}" >
-					{% for managerList in optionData.manager %}
-						<option value="{{managerList.id}}"> {{managerList.manager_name}} </option>
-					{% endfor %}
-				</select>
-			</div>
-			<label class="col-form-label col-sm-1" for="use_yn" value="{{airport.0.use_yn}}" >사용여부</label>
-			<div class="col-sm-3">
-				<select class="form-select" id="use_yn" name="use_yn">
-					<option value="Y">사용</option>
-					<option value="N">미사용</option>
-				</select>
 			</div>
 		</div>
 		<div class="devider"></div>

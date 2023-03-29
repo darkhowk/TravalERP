@@ -177,26 +177,28 @@
     <div class="row">
       <label for="network" class="col-sm-1 col-form-label">NETWORK</label>
       <div class="col-sm-1">
-        <input
-          id="local_area"
-          type="text"
-          class="form-control"
-          placeholder="지역"
-          readonly
-        />
+        <input id="local_area" type="text" class="form-control" placeholder="지역"/>
       </div>
-      <div class="col-sm-2">
-        <input id="local_name" type="text" class="form-control" readonly />
-      </div>
-      <div class="col-sm-3">
-        <input id="local_tel" type="text" class="form-control" readonly />
-      </div>
-      <div class="col-sm-2">
-        <input id="local_person" type="text" class="form-control" readonly />
+      <div class="col-sm-2"> 
+        <select class="form-control selectpicker" aria-label="localagent_name" onchange="changeAgent(this)" data-live-search="true" style="display: none;" id="agent" data-none-selected-text="조건을 찾을 수 없습니다">
+          <option value="">현지</option>
+          {% for agent in optionData.localAgent %}
+          <option value="{{agent.id}}">{{agent.agent_name}}</option>
+          {% endfor %}
+        </select>
       </div>
       <div class="col-sm-3">
-        <input
-          id="local_perseon_tel"
+        <select class="form-control  selectpicker" aria-label="agentTel" data-live-search="true" style="display: none;" id="agentTel" data-none-selected-text="조건을 찾을 수 없습니다">
+          <option value="">연락처</option>
+        </select>
+      </div>
+      <div class="col-sm-2">
+        <select class="form-control  selectpicker" aria-label="localManager" data-live-search="true" style="display: none;" id="localManager" data-none-selected-text="조건을 찾을 수 없습니다">
+          <option value="">담당자명</option>
+        </select>
+      </div>
+      <div class="col-sm-3">
+        <input id="local_perseon_tel"
           type="text"
           class="form-control"
           readonly
@@ -403,6 +405,77 @@
     <div class="mt-5"></div>
   </form>
 </div>
+
+
+
+<script>
+
+function agentChange() {
+    alert("aaaa");
+  }
+  
+  $( document ).ready(function() {
+    changeAgent();
+  });
+
+  function changeAgent(element){
+    $("#tmpChangeAgentFrm").remove();
+    var frm = makeForm('', 'tmpChangeAgentFrm');
+    var param;
+    if (element.id == "agent") {
+      param = $("#agent")
+    }
+    else{
+      param = $("#localAgent")
+    }
+
+    frm.appendChild(addData('agent', param.val()));
+    document.body.appendChild(frm);
+    if (element.id == "agent") {
+      getAjax('tmpChangeAgentFrm', 'manager', 'changeAgentSucc');
+    }
+    else{
+      getAjax('tmpChangeAgentFrm', 'manager', 'changeLocalAgentSucc');
+    }
+
+  }
+
+  function changeLocalAgentSucc(data){
+    var select = $("#localmanager");
+    select.selectpicker('destroy');
+    select.empty();
+    for (var i = 0; i < data.length; i++) {
+        var option = $('<option>', {
+            value: data[i].id,
+            text: data[i].manager_name
+        });
+        select.append(option);
+    }
+
+    select.selectpicker();
+  }
+
+  function changeAgentSucc(data){
+    var select = $("#manager");
+    select.selectpicker('destroy');
+    select.empty();
+    for (var i = 0; i < data.length; i++) {
+        var option = $('<option>', {
+            value: data[i].id,
+            text: data[i].manager_name
+        });
+        select.append(option);
+    }
+
+    select.selectpicker();   
+}
+
+
+
+</script>
+
+
+
 
 <style>
   .devider {

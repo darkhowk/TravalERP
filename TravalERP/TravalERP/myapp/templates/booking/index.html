@@ -19,7 +19,7 @@
                   <option value="20" {% if per_page == 20%} selected {% endif %}>20</option>
                   <option value="30" {% if per_page == 30%} selected {% endif %}>30</option>
                   <option value="40" {% if per_page == 40%} selected {% endif %}>40</option>
-                  <option value="50" {% if per_page == 50%} selected {% endif %}>50</option>
+                  <option value="50" {% if per_page == 50%} selected {% endif %}>50</option> 
               </select>
               페이지당 목록표시
           </label>
@@ -27,19 +27,13 @@
         <div class="text-end">
           <form class="d-none d-sm-inline-block navbar-search" >
             <div class="input-group">
-              <input
-                type="text"
-                class="form-control bg-light border"
-                aria-label="Search"
-                aria-describedby="basic-addon2"
-              />
+              <input type="text" class="form-control bg-light border" aria-label="Search" aria-describedby="basic-addon2"/>
               <div class="input-group-append">
                 <button class="btn btn-primary" type="button">
                   <i class="fas fa-search fa-sm"></i>
                 </button>
                 <a href="add" class="btn btn-primary">등록</a>
               </div>
-
           </div>
           </form>
         </div>
@@ -48,67 +42,28 @@
           <thead>
             <tr>
               <th
-                data-sortable="true"
-                style="width: 5%"
-                aria-sort="ascending"
-                class="datatable-ascending"
-              >
+                data-sortable="true" style="width: 5%" aria-sort="ascending" class="datatable-ascending">
                 <a href="#" class="datatable-sorter text-center">수배상태</a>
               </th>
-              <th
-                data-sortable="true"
-                style="width: 10%"
-                aria-sort="ascending"
-                class="datatable-ascending"
-              >
+              <th data-sortable="true" style="width: 10%" aria-sort="ascending" class="datatable-ascending">
                 <a href="#" class="datatable-sorter text-center">ref</a>
               </th>
-              <th
-                data-sortable="true"
-                style="width: 7%"
-                aria-sort="ascending"
-                class="datatable-ascending"
-              >
+              <th data-sortable="true" style="width: 7%" aria-sort="ascending" class="datatable-ascending">
                 <a href="#" class="datatable-sorter text-center">여행사</a>
               </th>
-              <th
-                data-sortable="true"
-                style="width: 20%"
-                aria-sort="ascending"
-                class="datatable-ascending"
-              >
+              <th data-sortable="true" style="width: 20%" aria-sort="ascending" class="datatable-ascending" >
                 <a href="#" class="datatable-sorter text-center">상품명</a>
               </th>
-              <th
-                data-sortable="true"
-                style="width: 8%"
-                aria-sort="ascending"
-                class="datatable-ascending"
-              >
+              <th data-sortable="true" style="width: 8%" aria-sort="ascending" class="datatable-ascending">
                 <a href="#" class="datatable-sorter text-center">행사일</a>
               </th>
-              <th
-                data-sortable="true"
-                style="width: 8%"
-                aria-sort="ascending"
-                class="datatable-ascending"
-              >
+              <th data-sortable="true" style="width: 8%" aria-sort="ascending" class="datatable-ascending">
                 <a href="#" class="datatable-sorter text-center">등록일</a>
               </th>
-              <th
-                data-sortable="true"
-                style="width: 8%"
-                aria-sort="ascending"
-                class="datatable-ascending"
-              >
+              <th data-sortable="true" style="width: 8%" aria-sort="ascending" class="datatable-ascending">
                 <a href="#" class="datatable-sorter text-center">여행사담당자</a>
               </th>
-              <th
-                data-sortable="true"
-                style="width: 5%"
-                aria-sort="ascending"
-                class="datatable-ascending"
-              >
+              <th data-sortable="true" style="width: 5%" aria-sort="ascending" class="datatable-ascending">
                 <a href="#" class="datatable-sorter text-center">담당자</a>
               </th>
             </tr>
