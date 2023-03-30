@@ -108,142 +108,123 @@
             <textarea id="remark" class="form-control" style="height: 100px"></textarea>
           </div>
         </div>
-        <div class="devider"></div>
+        <div class="devider"></div> 
         <div class="row">
-        <p><h5>상세내역</h5></p>
-        <input type="button" class="btn btn-sm btn-primary" value="추가" onclick="addRow()">
-          <table class="table text-center" id="list">
+          <p><h5>상세내역</h5></p>
+          <div class="text-end">
+            <input type="button" class="btn btn-primary"  onclick="addRow()" value="추가">
+            <input type="button" class="btn btn-secondary" onclick="delRow()" value="삭제">
+          </div>
+          <table class="table text-center" id="invList">
             <thead class="table-light">
               <tr>
-                <th scope="col">삭제</th>
-                <th scope="col">항목명</th>
-                <th scope="col" colspan="2">금액</th>
-                <th scope="col">인원(수량)</th>
-                <th scope="col">박수(night)</th>
-                <th scope="col" colspan="2">합계</th>
-                <th scope="col">비고</th>
+                <th scope="col" style="width: 5%;">삭제</th>
+                <th scope="col" style="width: 5%;">NO.</th>
+                <th scope="col" style="width: 30%;">항목명</th>
+                <th scope="col" style="width: 10%;">금액</th>
+                <th scope="col" style="width: 8%;">인원</th>
+                <th scope="col" style="width: 8%;">박수</th>
+                <th scope="col" style="width: 14%;">합계</th>
+                <th scope="col" style="width: 20%;">비고</th>
               </tr>
             </thead>
-            <tbody>
-              <tr class="row1" text>
-                <td class="action-checkbox">
-                  <input type="checkbox" name="delete_select" value="" class="action-select">
-                </td>
-                <td>스페인 지상비</td>
-                <td>500</td>
-                <td class="col-sm-1"><select class="form-select " aria-label="local_person" >
-                  <option selected>단위</option>
-                  <option value="1">€</option>
-                  <option value="2">＄</option>
-                  <option value="3">￡</option>
-                </select></td>
-                <td>24</td>
-                <td>1</td>
-                <td>12000</td> <!--여기에는 위에 항목명(500) 인원(24)와 박수(1)이 곱해진 값이 들어가야함-->
-                <td value="">€</td> <!--위에 단위에서 지정한 화폐단위가 자동입력-->
-                <td>비고없음</td>
-              </tr>
+            <tbody id="tbody">
             </tbody>
           </table>
-          </div>
-
-          <table  calss="table text-center">
-              <div class="devider"></div> 
-              <div class="row">
-                  <p><h5>상세내역</h5></p>
-                  <input type="button" class="btn btn-sm btn-primary" value="추가" onclick="rowAdd()">
-                <table class="table text-center" id="testTable">
-                    <thead class="table-light">
-                        <tr>
-                            <th scope="col">삭제</th>
-                            <th scope="col">항목명</th>
-                            <th scope="col" >금액</th>
-                            <th scope="col">인원(수량)</th>
-                            <th scope="col">박수(night)</th>
-                            <th scope="col" >합계</th>
-                            <th scope="col">비고</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tbody">
-                    </tbody>
-                </table>
+        </div>
+        <div class="devider"></div>
+        <div class="p-2 bg-warning text-dark">
+          <div class="row">
+            <label for="total_rate" class="col-sm-2 col-form-label">합계</label>
+            <div class="col-sm-3">
+              <input id="totalSum" type="text" class="form-control" readonly />
             </div>
-
-          <div class="devider"></div>
-            <div class="p-2 bg-warning text-dark">
-              <div class="row">
-                <label for="total_rate" class="col-sm-2 col-form-label">합계</label>
-               <div class="col-sm-3">
-                <input id="tota_rate" type="text" class="form-control" readonly />
-               </div>
-               <div class="col-sm-1">
-                 <input id="tota_rate_currency" type="text" class="form-control text-center" value="유로" readonly />
-               </div>
-               <div class="col-sm-1"></div>
-                 <label for="prodName" class="col-sm-1 col-form-label"></label>
-               <div class="col-sm-3">
-                <input id="tota_rate" type="text" class="form-control" readonly />
-                </div>
-              <div class="col-sm-1">
-               <input id="tota_rate_currency" type="text" class="form-control text-center" value="원" readonly />
-               </div>
+            <div class="col-sm-1">
+              <input id="total_rate_" type="text" class="form-control text-center" value="유로" readonly />
+            </div>
+            <div class="col-sm-1"></div>
+            <label for="tota_rate" class="col-sm-1 col-form-label"></label>
+            <div class="col-sm-3">
+              <input id="total_rate" type="text" class="form-control" readonly />
+            </div>
+            <div class="col-sm-1">
+              <input id="tota_rate_won" type="text" class="form-control text-center" value="원" readonly />
             </div>
           </div>
+        </div>
           <div class="devider"></div>
           <div class="row">
             <label for="bank_account" class="col-sm-2 col-form-label">BANK ACCOUNT</label>
             <div class="col-sm-4 mt-2">
               <div class="form-check">
-                <input class="form-check-input" type="radio" name="flexRadioDefault" id="overseas_bank">
-                <label class="form-check-label" for="overseas_bank">
-                  해외
-                </label>
+                <input class="form-check-input" type="radio" name="flexRadioDefault" id="overseas_bank" value="overseas">
+                <label class="form-check-label" for="overseas_bank">해외</label>
               </div>
             </div>
             <div class="col-sm-4 mt-2">
               <div class="form-check">
-                <input class="form-check-input" type="radio" name="flexRadioDefault" id="domestic_bank" checked>
-                <label class="form-check-label" for="domestic_bank">
-                  국내
-                </label>
+                <input class="form-check-input" type="radio" name="flexRadioDefault" id="domestic_bank" value="domestic">
+                <label class="form-check-label" for="domestic_bank">국내</label>
               </div>
             </div>
             <div class="col-sm-2 text-end">
               <button type="search" class="btn btn-primary">검색하기</button>
             </div>
-            <div class="row mt-5">
-              <label for="url" class="col-sm-20 col-form-label">BANK</label>
+            <div class="row mt-5" id="overseas1">
+              <label for="bank" class="col-sm-20 col-form-label">BANK</label>
               <div class="col-sm-4">
-                <input id="url" type="url" class="form-control" readonly />
+                <input id="bank" type="text" class="form-control" readonly />
               </div>
               <div class="col-sm-1"></div>
-              <label for="url" class="col-sm-20 col-form-label">BRANCH</label>
+              <label for="branch" class="col-sm-20 col-form-label">BRANCH</label>
               <div class="col-sm-4">
-                <input id="url" type="url" class="form-control" readonly />
+                <input id="branch" type="text" class="form-control" readonly />
               </div>
             </div>
-            <div class="row mt-2">
-              <label for="url" class="col-sm-20 col-form-label">BANK NAME</label>
+            <div class="row mt-2" id="overseas1">
+              <label for="bank_name" class="col-sm-20 col-form-label">BANK NAME</label>
               <div class="col-sm-4">
-                <input id="url" type="url" class="form-control" readonly />
+                <input id="bank_name" type="text" class="form-control" readonly />
               </div>
               <div class="col-sm-1"></div>
-              <label for="url" class="col-sm-20 col-form-label">ACCOUNT NO.</label>
+              <label for="account" class="col-sm-20 col-form-label">ACCOUNT NO.</label>
               <div class="col-sm-4">
-                <input id="url" type="url" class="form-control" readonly />
+                <input id="account" type="text" class="form-control" readonly />
               </div>
             </div>
-            <div class="row mt-2">
-              <label for="url" class="col-sm-20 col-form-label">SWIFT</label>
+            <div class="row mt-2" id="overseas1">
+              <label for="swift" class="col-sm-20 col-form-label">SWIFT</label>
               <div class="col-sm-4">
-                <input id="url" type="url" class="form-control" readonly />
+                <input id="swift" type="text" class="form-control" readonly />
               </div>
               <div class="col-sm-1"></div>
-              <label for="url" class="col-sm-20 col-form-label">IBAN CODE</label>
+              <label for="iban" class="col-sm-20 col-form-label">IBAN CODE</label>
               <div class="col-sm-4">
-                <input id="url" type="url" class="form-control" readonly />
+                <input id="iban" type="text" class="form-control" readonly />
               </div>
             </div>
+          </div>
+          <div class="row mt-5" id="domestic1">
+            <label for="ko_bank" class="col-sm-20 col-form-label">은행명</label>
+            <div class="col-sm-4">
+              <input id="ko_bank" type="text" class="form-control" readonly />
+            </div>
+            <div class="col-sm-1"></div>
+            <label for="ko_account" class="col-sm-20 col-form-label">계좌번호</label>
+            <div class="col-sm-4">
+              <input id="ko_account" type="text" class="form-control" readonly />
+            </div>
+          </div>
+          <div class="row mt-2" id="domestic2">
+            <label for="ko_name" class="col-sm-20 col-form-label">예금주</label>
+            <div class="col-sm-4">
+              <input id="ko_name" type="text" class="form-control" readonly />
+            </div>
+          </div>
+
+
+
+
           <div class="text-end mt-5">
             <button type="submit" class="btn btn-primary">저장</button>
             <button type="reset" class="btn btn-secondary">초기화</button>
@@ -263,26 +244,9 @@
 
 <script>
 
+var sum = 0;
+
 function addRow() {
-  // table element 찾기
-  const table = document.getElementById('list');
-  
-  // 새 행(Row) 추가
-  const newRow = table.insertRow();
-  
-  const newCell1 = newRow.insertCell(0);
-  const newCell2 = newRow.insertCell(1);
-  const newCell3 = newRow.insertCell(2);
-  const newCell4 = newRow.insertCell(3);
-  const newCell5 = newRow.insertCell(4);
-  const newCell6 = newRow.insertCell(5);
-  const newCell7 = newRow.insertCell(6);
-  const newCell8 = newRow.insertCell(7);
-  
-}
-
-
-function rowAdd() {
    var tbody = document.getElementById("tbody");
    var row = tbody.insertRow(-1)
    var cell1 = row.insertCell(0);
@@ -292,17 +256,102 @@ function rowAdd() {
    var cell5 = row.insertCell(4);
    var cell6 = row.insertCell(5);
    var cell7 = row.insertCell(6);
-   cell1.innerHTML = "<td class='col'><input style='width:50px;' type='checkbox' id='checkbox'></td>";
-   cell2.innerHTML = "<td class='col'><input style='width:120px;' id='thtle'></td>";
-   cell3.innerHTML = "<td class='col'><div class='row'><input style='width:100px;' class='col' id='price'><select class='col' id='unit'><option>선택</option></select></div></td>";
-   cell4.innerHTML = "<td class='col'><input style='width:120px;' id='pax'></td>";
-   cell5.innerHTML = "<td class='col'><input style='width:120px;' id='night'></td>";
-   cell6.innerHTML = "<td class='col'><div class='row'><input style='width:100px;' class='col' id='total'><select class='col'  id='unit2'><option>선택</option></select></div></td>";
-   cell7.innerHTML = "<td class='col'><input style='width:120px;' id='note'></td>";
+   var cell8 = row.insertCell(7);
+   cell1.innerHTML = "<td class='col'><input style='width:100%;' type='checkbox' id='checkbox'></td>";
+   cell2.innerHTML = "<td class='col'>"+tbody.rows.length+"</td>";
+   cell3.innerHTML = "<td class='col'><input style='width:100%;' id='title'></td>";
+   cell4.innerHTML = "<td class='col'><div class='row'><input style='width:80%;' class='col' id='price' onkeyup='multi()'><select style='width:20%;' id='unit' onChange='getselect()'><option selected>단위</option><option value='euro'>€</option><option value='doller'>＄</option></select></div></td>";
+   cell5.innerHTML = "<td class='col'><input style='width:100%;' id='pax' onkeyup='multi()'></td>";
+   cell6.innerHTML = "<td class='col'><input style='width:100%;' id='night' onkeyup='multi()'></td>";
+   cell7.innerHTML = "<td class='col'><div class='row'><input style='width:50%;' class='col' id='total' readonly tabindex'-1'><input style='width:25%;' id='selectUnit' onChange='getselect()' type='text' readonly></div></td>";
+   cell8.innerHTML = "<td class='col'><input style='width:100%;' id='note'></td>";
+
+   }
+
+function delRow() {
+  var tbody = document.getElementById("tbody");
+  for(var i = 1 ; i<tbody.rows.length;i++){
+    var checkbox = tbody.rows[i].cells[0].childNodes[0].checked;
+
+    if(checkbox){
+      tbody.deleteRow(i);
+i--;
+    }
+  }
+}
+
+function multi() {
+    var a = parseInt(document.getElementById('price').value) | 0;
+    var b = parseInt(document.getElementById('pax').value) | 0;
+    var c = parseInt(document.getElementById('night').value) | 0;
 
 
+    document.getElementById('total').value = a*b*c;
+
+    var rows = document.querySelectorAll('#tbody tr');
+    var totalSum = 0;
+    for (var i = 0; i < rows.length; i++) {
+      var rowTotal = parseInt(rows[i].querySelector('#total').value) | 0;
+      totalSum += rowTotal;
+    }
+    document.getElementById('totalSum').value = totalSum;
 
 }
+
+
+function getselect() {
+  var select = document.getElementById("unit");
+  var selectedOption = select.options[select.selectedIndex].text;
+  document.getElementById("selectUnit").value = selectedOption
+}
+
+
+function updateTotal() {
+    var totalSum = 0;
+    var totalCells = document.querySelectorAll('input[name^="total_"]');
+
+    for (var i = 0; i < totalCells.length; i++) {
+        var totalValue = parseInt(totalCells[i].value) || 0;
+        totalSum += totalValue;
+    }
+  }
+
+
+
+
+
+
+
+
+
+
+const overseasBank = document.getElementById('overseas_bank');
+const domesticBank = document.getElementById('domestic_bank');
+
+  // 보여줄 element 요소 가져오기
+const overseasRow = document.querySelector('overseas1', 'overseas2', 'overseas3');
+const domesticRow = document.querySelector('domestic1', 'domestic2');
+
+  // radio button 변경 시 호출될 함수
+function toggleBankInfo() {
+    if (overseasBank.checked) {
+      // 해외 bank 선택 시 보여줄 내용
+      overseasRow.style.display = 'block';
+      domesticRow.style.display = 'none';
+    } else if (domesticBank.checked) {
+      // 국내 bank 선택 시 보여줄 내용
+      overseasRow.style.display = 'none';
+      domesticRow.style.display = 'block';
+    }
+  }
+
+  // radio button 변경 이벤트에 함수 연결
+overseasBank.addEventListener('change', toggleBankInfo);
+domesticBank.addEventListener('change', toggleBankInfo);
+
+
+
+
 
 
 
