@@ -285,24 +285,10 @@ function addRow() {
 		price.id = "price";
 		price.onkeyup = multi;
 		div1.appendChild(price);
-
-	var selectUnit = document.createElement('select');
-		selectUnit.style.width = "20%";
-		selectUnit.id = "unit";
-		selectUnit.onchange = getselect;
-		var option1 = document.createElement('option');
-			option1.selected = true;
-			option1.text = "단위";
-		var option2 = document.createElement('option');
-			option2.value = "euro";
-			option2.text = "€";
-		var option3 = document.createElement('option');
-			option3.value = "doller";
-			option3.text = "＄";
-		selectUnit.appendChild(option1);
-		selectUnit.appendChild(option2);
-		selectUnit.appendChild(option3);
-	div1.appendChild(selectUnit);
+	var text = document.createElement('span');
+		text.className = "col";
+		text.innerHTML = '원';
+		div1.appendChild(text);
 	cell4.appendChild(div1);
 
 	// cell 5
@@ -374,6 +360,7 @@ function multi() {
       totalSum += rowTotal;
     }
     document.getElementById('totalSum').value = totalSum;
+
 }
 
 
