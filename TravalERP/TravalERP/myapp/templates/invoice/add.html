@@ -247,26 +247,105 @@
 var sum = 0;
 
 function addRow() {
-   var tbody = document.getElementById("tbody");
-   var row = tbody.insertRow(-1)
-   var cell1 = row.insertCell(0);
-   var cell2 = row.insertCell(1);
-   var cell3 = row.insertCell(2);
-   var cell4 = row.insertCell(3);
-   var cell5 = row.insertCell(4);
-   var cell6 = row.insertCell(5);
-   var cell7 = row.insertCell(6);
-   var cell8 = row.insertCell(7);
-   cell1.innerHTML = "<td class='col'><input style='width:100%;' type='checkbox' id='checkbox'></td>";
-   cell2.innerHTML = "<td class='col'>"+tbody.rows.length+"</td>";
-   cell3.innerHTML = "<td class='col'><input style='width:100%;' id='title'></td>";
-   cell4.innerHTML = "<td class='col'><div class='row'><input style='width:80%;' class='col' id='price' onkeyup='multi()'><select style='width:20%;' id='unit' onChange='getselect()'><option selected>단위</option><option value='euro'>€</option><option value='doller'>＄</option></select></div></td>";
-   cell5.innerHTML = "<td class='col'><input style='width:100%;' id='pax' onkeyup='multi()'></td>";
-   cell6.innerHTML = "<td class='col'><input style='width:100%;' id='night' onkeyup='multi()'></td>";
-   cell7.innerHTML = "<td class='col'><div class='row'><input style='width:50%;' class='col' id='total' readonly tabindex'-1'><input style='width:25%;' id='selectUnit' onChange='getselect()' type='text' readonly></div></td>";
-   cell8.innerHTML = "<td class='col'><input style='width:100%;' id='note'></td>";
+	var tbody = document.getElementById("tbody");
+	var row = tbody.insertRow(-1)
+	var cell1 = row.insertCell(0);
+	var cell2 = row.insertCell(1);
+	var cell3 = row.insertCell(2);
+	var cell4 = row.insertCell(3);
+	var cell5 = row.insertCell(4);
+	var cell6 = row.insertCell(5);
+	var cell7 = row.insertCell(6);
+	var cell8 = row.insertCell(7);
 
-   }
+	// cell 1
+	var checkbox = document.createElement('input');
+		checkbox.type = "checkbox";
+		checkbox.style.width = "100%";
+		checkbox.id = "checkbox";
+		cell1.appendChild(checkbox);
+   
+	// cell 2
+	cell2.innerHTML = "<td class='col'>"+tbody.rows.length+"</td>";
+
+	// cell 3
+   	var title = document.createElement('input');
+		title.type = "text";
+		title.style.width = "100%";
+		title.id = "title";
+		cell3.appendChild(title);
+
+	// cell 4
+   	var div1 = document.createElement('div');
+   		div1.className = "row";
+	var price = document.createElement('input');
+		price.type = "text";
+		price.style.width = "80%";
+		price.className = "col";
+		price.id = "price";
+		price.onkeyup = multi;
+		div1.appendChild(price);
+
+	var selectUnit = document.createElement('select');
+		selectUnit.style.width = "20%";
+		selectUnit.id = "unit";
+		selectUnit.onchange = getselect;
+		var option1 = document.createElement('option');
+			option1.selected = true;
+			option1.text = "단위";
+		var option2 = document.createElement('option');
+			option2.value = "euro";
+			option2.text = "€";
+		var option3 = document.createElement('option');
+			option3.value = "doller";
+			option3.text = "＄";
+		selectUnit.appendChild(option1);
+		selectUnit.appendChild(option2);
+		selectUnit.appendChild(option3);
+	div1.appendChild(selectUnit);
+	cell4.appendChild(div1);
+
+	// cell 5
+	var pax = document.createElement('input');
+		pax.type = "text";
+		pax.style.width = "100%";
+		pax.id = "pax";
+		pax.onkeyup = multi;
+		cell5.appendChild(pax);
+	
+	// cell 6
+	var night = document.createElement('input');
+		night.type = "text";
+		night.style.width = "100%";
+		night.id = "night";
+		night.onkeyup = multi;
+		cell6.appendChild(night);
+
+	// cell 7
+	var div2 = document.createElement('div');
+		div2.className = "row";
+	var total = document.createElement('input');
+		total.type = "text";
+		total.style.width = "50%";
+		total.readOnly = true;
+		total.tabIndex = -1;
+		total.id = "total";
+		var selectUnit2 = document.createElement('input');
+			selectUnit2.type = "text";
+			selectUnit2.style.width = "25%";
+			selectUnit2.readOnly = true;
+			selectUnit2.id = "selectUnit";
+		div2.appendChild(total);
+		div2.appendChild(selectUnit2);
+		cell7.appendChild(div2);
+	
+	// cell 8
+	var note = document.createElement('input');
+		note.type = "text";
+		note.style.width = "100%";
+		note.id = "note";
+		cell8.appendChild(note);
+}
 
 function delRow() {
   var tbody = document.getElementById("tbody");
@@ -279,14 +358,14 @@ i--;
     }
   }
 }
-
 function multi() {
-    var a = parseInt(document.getElementById('price').value) | 0;
-    var b = parseInt(document.getElementById('pax').value) | 0;
-    var c = parseInt(document.getElementById('night').value) | 0;
+	// event 현재 이벤트가 일어난 놈
+    var currentRow = event.target.closest('tr');
+    var a = parseInt(currentRow.querySelector('#price').value) | 0;
+    var b = parseInt(currentRow.querySelector('#pax').value) | 0;
+    var c = parseInt(currentRow.querySelector('#night').value) | 0;
 
-
-    document.getElementById('total').value = a*b*c;
+    currentRow.querySelector('#total').value = a*b*c;
 
     var rows = document.querySelectorAll('#tbody tr');
     var totalSum = 0;
@@ -295,8 +374,8 @@ function multi() {
       totalSum += rowTotal;
     }
     document.getElementById('totalSum').value = totalSum;
-
 }
+
 
 function getselect() {
   var select = document.getElementById("unit");
