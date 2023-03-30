@@ -157,20 +157,20 @@
             <label for="bank_account" class="col-sm-2 col-form-label">BANK ACCOUNT</label>
             <div class="col-sm-4 mt-2">
               <div class="form-check">
-                <input class="form-check-input" type="radio" name="flexRadioDefault" id="overseas_bank" value="overseas">
+                <input class="form-check-input" type="radio" name="flexRadioDefault" id="overseas_bank" value="overseas" onchange="setDisplay()">
                 <label class="form-check-label" for="overseas_bank">해외</label>
               </div>
             </div>
             <div class="col-sm-4 mt-2">
               <div class="form-check">
-                <input class="form-check-input" type="radio" name="flexRadioDefault" id="domestic_bank" value="domestic">
+                <input class="form-check-input" type="radio" name="flexRadioDefault" id="domestic_bank" value="domestic" onchange="setDisplay()">
                 <label class="form-check-label" for="domestic_bank">국내</label>
               </div>
             </div>
             <div class="col-sm-2 text-end">
               <button type="search" class="btn btn-primary">검색하기</button>
             </div>
-            <div class="row mt-5" id="overseas1">
+            <div class="row mt-5" id="overseas1" style="display:none;">
               <label for="bank" class="col-sm-20 col-form-label">BANK</label>
               <div class="col-sm-4">
                 <input id="bank" type="text" class="form-control" readonly />
@@ -181,7 +181,7 @@
                 <input id="branch" type="text" class="form-control" readonly />
               </div>
             </div>
-            <div class="row mt-2" id="overseas1">
+            <div class="row mt-2" id="overseas2" style="display:none;">
               <label for="bank_name" class="col-sm-20 col-form-label">BANK NAME</label>
               <div class="col-sm-4">
                 <input id="bank_name" type="text" class="form-control" readonly />
@@ -192,7 +192,7 @@
                 <input id="account" type="text" class="form-control" readonly />
               </div>
             </div>
-            <div class="row mt-2" id="overseas1">
+            <div class="row mt-2" id="overseas3" style="display:none;">
               <label for="swift" class="col-sm-20 col-form-label">SWIFT</label>
               <div class="col-sm-4">
                 <input id="swift" type="text" class="form-control" readonly />
@@ -204,7 +204,7 @@
               </div>
             </div>
           </div>
-          <div class="row mt-5" id="domestic1">
+          <div class="row mt-5" id="domestic1" style="display:none;">
             <label for="ko_bank" class="col-sm-20 col-form-label">은행명</label>
             <div class="col-sm-4">
               <input id="ko_bank" type="text" class="form-control" readonly />
@@ -215,7 +215,7 @@
               <input id="ko_account" type="text" class="form-control" readonly />
             </div>
           </div>
-          <div class="row mt-2" id="domestic2">
+          <div class="row mt-2" id="domestic2" style="display:none;">
             <label for="ko_name" class="col-sm-20 col-form-label">예금주</label>
             <div class="col-sm-4">
               <input id="ko_name" type="text" class="form-control" readonly />
@@ -298,56 +298,28 @@ function multi() {
 
 }
 
-
 function getselect() {
   var select = document.getElementById("unit");
   var selectedOption = select.options[select.selectedIndex].text;
   document.getElementById("selectUnit").value = selectedOption
 }
 
-
-function updateTotal() {
-    var totalSum = 0;
-    var totalCells = document.querySelectorAll('input[name^="total_"]');
-
-    for (var i = 0; i < totalCells.length; i++) {
-        var totalValue = parseInt(totalCells[i].value) || 0;
-        totalSum += totalValue;
-    }
+function setDisplay() {
+  if($('input:radio[id=overseas_bank]').is(':checked')){
+    $('#overseas1').show();
+    $('#overseas2').show();
+    $('#overseas3').show();
+    $('#domestic1').hide();
+    $('#domestic2').hide();
+  }else{
+    $('#overseas1').hide();
+    $('#overseas2').hide();
+    $('#overseas3').hide();
+    $('#domestic1').show();
+    $('#domestic2').show();
   }
+}
 
-
-
-
-
-
-
-
-
-
-const overseasBank = document.getElementById('overseas_bank');
-const domesticBank = document.getElementById('domestic_bank');
-
-  // 보여줄 element 요소 가져오기
-const overseasRow = document.querySelector('overseas1', 'overseas2', 'overseas3');
-const domesticRow = document.querySelector('domestic1', 'domestic2');
-
-  // radio button 변경 시 호출될 함수
-function toggleBankInfo() {
-    if (overseasBank.checked) {
-      // 해외 bank 선택 시 보여줄 내용
-      overseasRow.style.display = 'block';
-      domesticRow.style.display = 'none';
-    } else if (domesticBank.checked) {
-      // 국내 bank 선택 시 보여줄 내용
-      overseasRow.style.display = 'none';
-      domesticRow.style.display = 'block';
-    }
-  }
-
-  // radio button 변경 이벤트에 함수 연결
-overseasBank.addEventListener('change', toggleBankInfo);
-domesticBank.addEventListener('change', toggleBankInfo);
 
 
 
