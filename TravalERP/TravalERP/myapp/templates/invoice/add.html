@@ -140,7 +140,7 @@
               <input id="totalSum" type="text" class="form-control" readonly />
             </div>
             <div class="col-sm-1">
-              <input id="total_rate_" type="text" class="form-control text-center" value="유로" readonly />
+              <input id="total_rate_" type="text" class="form-control text-center" value="" readonly />
             </div>
             <div class="col-sm-1"></div>
             <label for="tota_rate" class="col-sm-1 col-form-label"></label>
@@ -248,8 +248,7 @@ var sum = 0;
 
 function addRow() {
 
-	var tmpUnit = $("#rate_unit").val();
-	alert(tmpUnit);
+	var selectedText = $("#rate_unit option:selected").text();
 
 	var tbody = document.getElementById("tbody");
 	var row = tbody.insertRow(-1)
@@ -294,7 +293,7 @@ function addRow() {
 		input_rate.className = "form-control text-center";
 		input_rate.id = 'rate';
 		input_rate.style.width = "40%";
-		input_rate.value = tmpUnit
+		input_rate.value = selectedText;
 		input_rate.readOnly = true;
 		div1.appendChild(input_rate);
 		cell4.appendChild(div1);
@@ -375,10 +374,18 @@ function multi() {
 }
 
 function getselect() {
+	// select에서 선택한 value 가져오기
+	var selectedValue = $("#rate_unit").val();
+	// select에서 선택한 글자 가져오기
+	var selectedText = $("#rate_unit option:selected").text();
+
 	var rows = document.querySelectorAll('#tbody tr');
     for (var i = 0; i < rows.length; i++) {
-      rows[i].querySelector('#rate').value = $("#rate_unit").val()
+      rows[i].querySelector('#rate').value = selectedText;
     }
+
+	$("#total_rate_").val(selectedValue);
+
 }
 
 function setDisplay() {
@@ -396,20 +403,7 @@ function setDisplay() {
     $('#domestic2').show();
   }
 }
-
-
-
-
-
-
-
-
-
 </script>
-
-
-
-
 
 <style>
   .devider {
