@@ -136,7 +136,9 @@
         <input id="dinner" type="text" class="form-control" readonly />
       </div>
       <div class="col-sm-3 text-end">
-        <button type="search" class="btn btn-primary" onclick="openSearch()">등록일정 가져오기</button>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+          등록일정 검색
+        </button>
       </div>
     </div>
     <div class="row mt-3">
@@ -302,14 +304,28 @@
     </div>
   </form>
 </div>
-
-
-
-
-
-
-
-
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">일정검색</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="input-group">
+          <label for="keyWord1">검색어</label><input type="text"  class="form-control" id="keyWord1" name="keyWord1">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <script>
 
@@ -453,7 +469,9 @@
   });
 
   function openSearch() {
-    window.open('/booking/search/', '일정검색', 'width=800,height=600');
+			var searchUrl = "/booking/search/";
+			var childWindow = window.open(searchUrl, "Search", "width=600,height=400");
+			childWindow.focus();
   }
 </script>
 
