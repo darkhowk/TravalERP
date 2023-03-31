@@ -88,7 +88,7 @@
       <div class="row mt-3">
         <div class="col-sm-2">
           <label for="tc" class="col-form-label visually-hidden">TOUR LEADER</label>
-         <input type="text" readonly class="form-control-plaintext" id="tc" value="TOUR LEADER">
+          <input type="text" readonly class="form-control-plaintext" id="tc" value="TOUR LEADER">
         </div>
         <div class="col-sm-2">
           <label for="tc_name" class="visually-hidden">이름</label>
@@ -109,32 +109,32 @@
     <div class="devider"></div> 
     <div class="row">
       <div class="text-end">
-        <input type="number" id="inputNum" placeholder="추가할 갯수를 입력">
+        <input type="text" id="inputNum" placeholder="추가할 갯수를 입력">
         <input type="button" class="btn btn-primary"  onclick="addRow()" value="추가">
         <input type="button" class="btn btn-secondary" onclick="delRow()" value="삭제">
       </div>
-      <table class="table mx-3 text-center" id="roomingList">
+      <table class="table mx-3 text-center" id="roomingList" style="border-collapse: collapse;" >
         <thead class="table-light" style="font-size: small;">
           <tr>
             <th scope="col" style="width: 5%;">삭제</th>
-            <th scope="col" style="width: 5%;">NO.</th>
-            <th scope="col" style="width: 10%;">ROOM TYPE</th>
-            <th scope="col" style="width: 10%;">NAME(K)</th>
-            <th scope="col" style="width: 10%;">NAME(E)</th>
+            <th scope="col" style="width: 3%;">NO.</th>
+            <th scope="col" style="width: 7%;">ROOM</th>
+            <th scope="col" style="width: 8%;">NAME(K)</th>
+            <th scope="col" style="width: 15%;">NAME(E)</th>
             <th scope="col" style="width: 5%;">SEX</th>
             <th scope="col" style="width: 5%;">구분</th>
             <th scope="col" style="width: 10%;">DATE OF BIRTH</th>
-            <th scope="col" style="width: 10%;">PASSPORT</th>
+            <th scope="col" style="width: 8%;">PASSPORT</th>
             <th scope="col" style="width: 10%;">DATE OF EXPIRY</th>
             <th scope="col" style="width: 10%;">MOBILE</th>
-            <th scope="col" style="width: 10%;">REMARK</th>
+            <th scope="col" style="width: 14%;">REMARK</th>
           </tr>
         </thead>
         <tbody id="tbody">
         </tbody>
       </table>
       <div class="text-end mt-5">
-        <button type="submit" class="btn btn-primary">저장</button>
+        <button type="submit" class="btn btn-primary" >저장</button>
         <button type="reset" class="btn btn-secondary">초기화</button>
         <button type="button" class="btn btn-secondary">취소</button>
       </div>    
@@ -166,16 +166,16 @@
 
     cell1.innerHTML = "<td class='col'><input style='width:100%;' type='checkbox' id='checkbox'></td>";
     cell2.innerHTML = "<td class='col'>"+tbody.rows.length+"</td>";
-    cell3.innerHTML = "<td class='col'><input style='width:100%;' id='roomType'></td>";
-    cell4.innerHTML = "<td class='col'><input style='width:100%;' id='nemeKo'></td>";
-    cell5.innerHTML = "<td class='col'><input style='width:100%;' id='nameEn'></td>";
-    cell6.innerHTML = "<td class='col'><input style='width:100%;' id='sex'></td>";
-    cell7.innerHTML = "<td class='col'><input style='width:100%;' id='divide'></td>";
-    cell8.innerHTML = "<td class='col'><input style='width:100%;' id='birth'></td>";
-    cell9.innerHTML = "<td class='col'><input style='width:100%;' id='passport'></td>";
-    cell10.innerHTML = "<td class='col'><input style='width:100%;' id='expiry'></td>";
-    cell11.innerHTML = "<td class='col'><input style='width:100%;' id='mobile'></td>";
-    cell12.innerHTML = "<td class='col'><input style='width:100%;' id='remark'></td>";
+    cell3.innerHTML = "<td class='col'><input style='width:100%; border: 0;' id='roomType'></td>";
+    cell4.innerHTML = "<td class='col'><input style='width:100%; border: 0;' id='nemeKo'></td>";
+    cell5.innerHTML = "<td class='col'><input style='width:100%; border: 0;' id='nameEn'></td>";
+    cell6.innerHTML = "<td class='col'><input style='width:100%; border: 0;' id='sex'></td>";
+    cell7.innerHTML = "<td class='col'><input style='width:100%; border: 0;' id='divide'></td>";
+    cell8.innerHTML = "<td class='col'><input style='width:100%; border: 0;' id='birth'></td>";
+    cell9.innerHTML = "<td class='col'><input style='width:100%; border: 0;' id='passport'></td>";
+    cell10.innerHTML = "<td class='col'><input style='width:100%; border: 0;' id='expiry'></td>";
+    cell11.innerHTML = "<td class='col'><input style='width:100%; border: 0;' id='mobile'></td>";
+    cell12.innerHTML = "<td class='col'><input style='width:100%; border: 0;' id='remark'></td>";
 
   }
 }
@@ -199,6 +199,7 @@
     display: inline-block;
     margin-right: 1rem;
   }
+
 </style>
 
 {% endblock %} {% block js %} {{block.super}} {% endblock js %}
