@@ -88,11 +88,11 @@
               <input id="rate" type="text" class="form-control text-center" value="1" readonly />
             </div>
           <div class="col-sm-1">
-            <select class="form-select col-sm-3" aria-label="currency">
+            <select class="form-select col-sm-3" id="rate_unit" name="rate_unit"aria-label="currency" onchange="getselect();"> 
               <option selected>단위</option>
-              <option value="1">€</option>
-              <option value="2">＄</option>
-              <option value="3">￡</option>
+              <option value="유로">€</option>
+              <option value="달러">＄</option>
+              <option value="파운드">￡</option>
             </select>
           </div>
           <div class="col-sm-1"></div>
@@ -120,7 +120,7 @@
               <tr>
                 <th scope="col" style="width: 5%;">삭제</th>
                 <th scope="col" style="width: 5%;">NO.</th>
-                <th scope="col" style="width: 30%;">항목명</th>
+                <th scope="col" style="width: 25%;">항목명</th>
                 <th scope="col" style="width: 10%;">금액</th>
                 <th scope="col" style="width: 8%;">인원</th>
                 <th scope="col" style="width: 8%;">박수</th>
@@ -247,6 +247,10 @@
 var sum = 0;
 
 function addRow() {
+
+	var tmpUnit = $("#rate_unit").val();
+	alert(tmpUnit);
+
 	var tbody = document.getElementById("tbody");
 	var row = tbody.insertRow(-1)
 	var cell1 = row.insertCell(0);
@@ -272,6 +276,7 @@ function addRow() {
    	var title = document.createElement('input');
 		title.type = "text";
 		title.style.width = "100%";
+		title.className = "form-control";
 		title.id = "title";
 		cell3.appendChild(title);
 
@@ -280,22 +285,26 @@ function addRow() {
    		div1.className = "row";
 	var price = document.createElement('input');
 		price.type = "text";
-		price.style.width = "80%";
-		price.className = "col";
+		price.style.width = "60%";
+		price.className = "form-control";
 		price.id = "price";
 		price.onkeyup = multi;
 		div1.appendChild(price);
-	var text = document.createElement('span');
-		text.className = "col";
-		text.innerHTML = '원';
-		div1.appendChild(text);
-	cell4.appendChild(div1);
+	var input_rate = document.createElement('input');
+		input_rate.className = "form-control text-center";
+		input_rate.id = 'rate';
+		input_rate.style.width = "40%";
+		input_rate.value = tmpUnit
+		input_rate.readOnly = true;
+		div1.appendChild(input_rate);
+		cell4.appendChild(div1);
 
 	// cell 5
 	var pax = document.createElement('input');
 		pax.type = "text";
 		pax.style.width = "100%";
 		pax.id = "pax";
+		pax.className = "form-control";
 		pax.onkeyup = multi;
 		cell5.appendChild(pax);
 	
@@ -304,6 +313,7 @@ function addRow() {
 		night.type = "text";
 		night.style.width = "100%";
 		night.id = "night";
+		night.className = "form-control";
 		night.onkeyup = multi;
 		cell6.appendChild(night);
 
@@ -312,6 +322,7 @@ function addRow() {
 		div2.className = "row";
 	var total = document.createElement('input');
 		total.type = "text";
+		total.className = "form-control";
 		total.style.width = "50%";
 		total.readOnly = true;
 		total.tabIndex = -1;
@@ -330,6 +341,7 @@ function addRow() {
 		note.type = "text";
 		note.style.width = "100%";
 		note.id = "note";
+		note.className = "form-control";
 		cell8.appendChild(note);
 }
 
@@ -360,14 +372,13 @@ function multi() {
       totalSum += rowTotal;
     }
     document.getElementById('totalSum').value = totalSum;
-
 }
 
-
 function getselect() {
-  var select = document.getElementById("unit");
-  var selectedOption = select.options[select.selectedIndex].text;
-  document.getElementById("selectUnit").value = selectedOption
+	var rows = document.querySelectorAll('#tbody tr');
+    for (var i = 0; i < rows.length; i++) {
+      rows[i].querySelector('#rate').value = $("#rate_unit").val()
+    }
 }
 
 function setDisplay() {
