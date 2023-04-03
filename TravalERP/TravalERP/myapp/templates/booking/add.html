@@ -27,23 +27,23 @@
     </div>
     <div class="devider"></div>
     <div class="row mt-2">
-      <label for="agent" class="col-sm-1 col-form-label">여행사</label>
-      <div class="col-sm-4">
-        <select class="form-control selectpicker" aria-label="agent_name" onchange="changeAgent(this)" data-live-search="true" style="display: none;" id="agent" data-none-selected-text="조건을 찾을 수 없습니다">
-          <option value="">여행사명</option>
-          {% for agent in optionData.agent %}
-          <!-- optionData 로 온 Object에서 agent만 선택하여 for문 돌린다-->
-          <option value="{{agent.id}}">{{agent.agent_name}}</option>
-          {% endfor %}
-        </select>
-      </div>
-      <div class="col-sm-1"></div>
-      <label for="manager" class="col-sm-1 col-form-label">담당자</label>
-      <div class="col-sm-4">
-        <select class="form-control  selectpicker" aria-label="manager" data-live-search="true" style="display: none;" id="manager" data-none-selected-text="조건을 찾을 수 없습니다">
-          <option value="">담당자명</option>
-        </select>
-      </div>
+		<label for="agent" class="col-sm-1 col-form-label">여행사</label>
+		<div class="col-sm-4">
+			<select class="form-control selectpicker" aria-label="agent_name" onchange="changeAgent(this)" data-live-search="true" style="display: none;" id="agent" data-none-selected-text="조건을 찾을 수 없습니다">
+			<option value="">여행사명</option>
+			{% for agent in optionData.agent %}
+			<!-- optionData 로 온 Object에서 agent만 선택하여 for문 돌린다-->
+			<option value="{{agent.id}}">{{agent.agent_name}}</option>
+			{% endfor %}
+			</select>
+		</div>
+		<div class="col-sm-1"></div>
+		<label for="manager" class="col-sm-1 col-form-label">담당자</label>
+		<div class="col-sm-4">
+			<select class="form-control  selectpicker" aria-label="manager" data-live-search="true" style="display: none;" id="manager" data-none-selected-text="조건을 찾을 수 없습니다">
+			<option value="">담당자명</option>
+			</select>
+		</div>
     </div>
     <div class="devider"></div>
     <div class="row mt-2">
@@ -310,13 +310,38 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">일정검색</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="input-group">
-          <label for="keyWord1">검색어</label><input type="text"  class="form-control" id="keyWord1" name="keyWord1">
+		<button type="button" class="btn btn-success" onclick="searchSchedule();">검색</button>
+	</div>
+	<div class="modal-body">
+		<div class="input-group" >
+			<div class="row mt-2 col-12">
+				<label for="prodName" class="col-2 col-form-label">상품명</label>
+				<div class="col-10">
+				  <input id="prodName" type="text" class="form-control" />
+				</div>
+			</div>
+			<div class="row mt-2 col-12">
+				<label for="agent" class="col-2 col-form-label">여행사</label>
+				<div class="col-4">
+					<select class="form-control selectpicker" aria-label="agent_name" onchange="changeAgent(this)" data-live-search="true" style="display: none;" id="agent" data-none-selected-text="조건을 찾을 수 없습니다">
+						<option value="">여행사명</option>
+						{% for agent in optionData.agent %}
+						<!-- optionData 로 온 Object에서 agent만 선택하여 for문 돌린다-->
+						<option value="{{agent.id}}">{{agent.agent_name}}</option>
+						{% endfor %}
+					</select>
+				</div>
+				<label for="manager" class="col-2 col-form-label">담당자</label>
+				<div class="col-4">
+					<select class="form-control  selectpicker" aria-label="manager" data-live-search="true" style="display: none;" id="manager" data-none-selected-text="조건을 찾을 수 없습니다">
+						<option value="">담당자명</option>
+					</select>
+				</div>
+			</div>
+			<div class="devider"></div>
+			<div class="row mt-2 col-12" id="result_div">
+
+			</div>
         </div>
       </div>
       <div class="modal-footer">
@@ -328,6 +353,42 @@
 </div>
 
 <script>
+	function searchSchedule(){
+		var prodName = $(".modal-body #product_name").val();
+		var agent = $(".modal-body #agent").val();
+		var manager = $(".modal-body #manager").val();
+
+		$("#tmpSearchScheduleFrm").remove();
+		var frm = makeForm('', 'tmpSearchScheduleFrm');
+
+		if (prodName == undefined || prodName == 'undefined' || prodName == ''){
+		}
+		else{
+			frm.appendChild(addData('product_name', prodName));
+		}
+
+		if (agent == undefined || agent == 'undefined' || agent == ''){
+		}
+		else{
+			frm.appendChild(addData('agent', agent));
+		}
+
+		if (manager == undefined || manager == 'undefined' || manager == ''){
+		}
+		else{
+			frm.appendChild(addData('manager', manager));
+		}
+		frm.appendChild(addData('use_yn', 'Y'));
+		document.body.appendChild(frm);
+	
+		getAjax('tmpSearchScheduleFrm', 'scheduleMaster', 'serachScheduleSucc');
+
+	}
+
+	function searchScheduleSucc(data){
+		console.log(data)
+
+	}
 
   function select_air(element){
     // 선택한 option에서 data-in과 data-out 값 가져오기
@@ -358,33 +419,23 @@
     air_timearri.val(data_timearri);
   }
   $( document ).ready(function() {
-    changeAgent();
+    //changeAgent();
   });
 
   function changeAgent(element){
     $("#tmpChangeAgentFrm").remove();
     var frm = makeForm('', 'tmpChangeAgentFrm');
-    var param;
-    if (element.id == "agent") {
-      param = $("#agent")
-    }
-    else{
-      param = $("#localAgent")
-    }
 
-    frm.appendChild(addData('agent', param.val()));
+    frm.appendChild(addData('agent', ($(element).val())));
     document.body.appendChild(frm);
-    if (element.id == "agent") {
-      getAjax('tmpChangeAgentFrm', 'manager', 'changeAgentSucc');
-    }
-    else{
-      getAjax('tmpChangeAgentFrm', 'manager', 'changeLocalAgentSucc');
-    }
+
+    getAjax('tmpChangeAgentFrm', 'manager', 'changeAgentSucc', element);
 
   }
 
-  function changeLocalAgentSucc(data){
-    var select = $("#localmanager");
+  function changeAgentSucc(data, element){
+	var select = $($(element).closest('.row').find('select')[1]);
+
     select.selectpicker('destroy');
     select.empty();
     for (var i = 0; i < data.length; i++) {
@@ -395,22 +446,8 @@
         select.append(option);
     }
 
-    select.selectpicker();
-  }
+    select.selectpicker(); 
 
-  function changeAgentSucc(data){
-    var select = $("#manager");
-    select.selectpicker('destroy');
-    select.empty();
-    for (var i = 0; i < data.length; i++) {
-        var option = $('<option>', {
-            value: data[i].id,
-            text: data[i].manager_name
-        });
-        select.append(option);
-    }
-
-    select.selectpicker();   
 }
 
   $.datepicker.setDefaults({
