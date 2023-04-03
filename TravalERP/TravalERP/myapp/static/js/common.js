@@ -31,7 +31,7 @@ function existFunction(func){
 }
 
 
-function getAjax(fName, item, suF){
+function getAjax(fName, item, suF, suP){
     var formArray = $("#"+fName).serializeArray();
     var formData = {};
     for (var i = 0; i < formArray.length; i++) {
@@ -54,7 +54,7 @@ function getAjax(fName, item, suF){
                     eval(suF);
                 }
                 else{
-                    eval(suF+"(data)");
+                    eval(suF+"(data, suP)");
                 }
             }
         },
