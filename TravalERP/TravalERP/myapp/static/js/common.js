@@ -41,7 +41,7 @@ function getAjax(fName, item, suF, suP){
     var jsonData = JSON.stringify(formData);
 
     $.ajax({
-        url: 'getAjax/'+item, // 앞에 자동으로 setting/agent 붙음
+        url: '/ajax/get/'+item,
         method: 'POST',
         data: jsonData,
         headers: { "X-CSRFToken": $('[name="csrfmiddlewaretoken"]').val() }, // CSRF 토큰을 HTTP 헤더에 추가

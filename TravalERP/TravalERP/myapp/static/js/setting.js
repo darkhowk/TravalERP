@@ -41,9 +41,10 @@ function goMenuList(){
 }
 
 function saveData(fName){
+    var target =$('#target').val();
     var jsonData = $("#"+fName).serializeArray()
     $.ajax({
-        url: 'addData', // 앞에 자동으로 setting/agent 붙음
+        url: '/ajax/insertData/'+target, // 앞에 자동으로 setting/agent 붙음
         method: 'POST',
         data: jsonData,
         dataType: 'json',
@@ -58,9 +59,10 @@ function saveData(fName){
 }
 
 function updateData(fName){
+    var target =$('#target').val();
     var jsonData = $("#"+fName).serializeArray()
     $.ajax({
-        url: 'updateData', // 앞에 자동으로 setting/agent 붙음
+        url: '/ajax/updateData/'+target, // 앞에 자동으로 setting/agent 붙음
         method: 'POST',
         data: jsonData,
         dataType: 'json',
@@ -75,9 +77,10 @@ function updateData(fName){
 }
 
 function deleteData(fName){
+    var target =$('#target').val();
     var jsonData = $("#"+fName).serializeArray()
     $.ajax({
-        url: 'deleteData', // 앞에 자동으로 setting/agent 붙음
+        url: '/ajax/deletaData/'+target, // 앞에 자동으로 setting/agent 붙음
         method: 'POST',
         data: jsonData,
         dataType: 'json',
