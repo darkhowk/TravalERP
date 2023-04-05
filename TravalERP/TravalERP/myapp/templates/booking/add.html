@@ -6,7 +6,7 @@
 </div>
 
 <div class="container mt-5">
-  <form>
+  <form id="bookingFrm">
     {% csrf_token %}
     <div class="row">
       <label for="ref" class="col-sm-1 col-form-label">ref</label>
@@ -14,9 +14,9 @@
         <input id="ref" type="text" class="form-control" />
       </div>
       <div class="col-sm-1"></div>
-      <label for="prodName" class="col-sm-1 col-form-label">상품명</label>
+      <label for="product_name" class="col-sm-1 col-form-label">상품명</label>
       <div class="col-sm-5">
-        <input id="prodName" type="text" class="form-control" />
+        <input id="product_name" name="product_name" type="text" class="form-control" />
       </div>
     </div>
     <div class="row mt-2">
@@ -29,7 +29,7 @@
     <div class="row mt-2">
 		<label for="agent" class="col-sm-1 col-form-label">여행사</label>
 		<div class="col-sm-4">
-			<select class="form-control selectpicker" aria-label="agent_name" onchange="changeAgent(this)" data-live-search="true" style="display: none;" id="agent" data-none-selected-text="조건을 찾을 수 없습니다">
+			<select id="agent" name="agent" class="form-control selectpicker" aria-label="agent_name" onchange="changeAgent(this)" data-live-search="true" style="display: none;" id="agent" data-none-selected-text="조건을 찾을 수 없습니다">
 			<option value="">여행사명</option>
 			{% for agent in optionData.agent %}
 			<!-- optionData 로 온 Object에서 agent만 선택하여 for문 돌린다-->
@@ -40,7 +40,7 @@
 		<div class="col-sm-1"></div>
 		<label for="manager" class="col-sm-1 col-form-label">담당자</label>
 		<div class="col-sm-4">
-			<select class="form-control  selectpicker" aria-label="manager" data-live-search="true" style="display: none;" id="manager" data-none-selected-text="조건을 찾을 수 없습니다">
+			<select id="manager" name="manager" class="form-control  selectpicker" aria-label="manager" data-live-search="true" style="display: none;" id="manager" data-none-selected-text="조건을 찾을 수 없습니다">
 			<option value="">담당자명</option>
 			</select>
 		</div>
@@ -123,17 +123,17 @@
     <div class="devider"></div>
     <div class="row">
       <p>MEAL</p>
-      <label for="brk" class="col-sm-1 col-form-label">조식</label>
+      <label for="breakfast" class="col-sm-1 col-form-label">조식</label>
       <div class="col-sm-2">
-        <input id="brk" type="text" class="form-control" readonly />
+        <input id="breakfast" name="breakfast" type="text" class="form-control" readonly />
       </div>
       <label for="lunch" class="col-sm-1 col-form-label">중식</label>
       <div class="col-sm-2">
-        <input id="lunch" type="text" class="form-control" readonly />
+        <input id="lunch" name="lunch" type="text" class="form-control" readonly />
       </div>
       <label for="dinner" class="col-sm-1 col-form-label">석식</label>
       <div class="col-sm-2">
-        <input id="dinner" type="text" class="form-control" readonly />
+        <input id="dinner" name="dinner" type="text" class="form-control" readonly />
       </div>
       <div class="col-sm-3 text-end">
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
@@ -142,34 +142,34 @@
       </div>
     </div>
     <div class="row mt-3">
-      <label for="special_meal" class="col-sm-1 col-form-label">특식</label>
+      <label for="special" class="col-sm-1 col-form-label">특식</label>
       <div class="col-sm-11">
-        <input id="special_meal" type="text" class="form-control" style="height: 80px" readonly/>
+        <input id="special" name="special" type="text" class="form-control" style="height: 80px" readonly/>
       </div>
     </div>
     <div class="devider"></div>
     <div class="row">
       <label for="option" class="col-sm-1 col-form-label">옵션</label>
       <div class="col-sm-11">
-        <input id="option" type="text" class="form-control" style="height: 80px" />
+        <input id="option" name="option" type="text" class="form-control" style="height: 80px" />
       </div>
     </div>
     <div class="row mt-3">
       <label for="shopping" class="col-sm-1 col-form-label">쇼핑</label>
       <div class="col-sm-11">
-        <input id="shopping" type="text" class="form-control" style="height: 80px" />
+        <input id="shopping" name="shopping" type="text" class="form-control" style="height: 80px" />
       </div>
     </div>
     <div class="devider"></div>
     <div class="row">
       <label for="bus" class="col-sm-1 col-form-label">BUS</label>
       <div class="col-sm-4">
-        <input id="bus" type="text" class="form-control" style="height: 80px" />
+        <input id="bus" name="bus" type="text" class="form-control" style="height: 80px" />
       </div>
       <div class="col-sm-1"></div>
-      <label for="ent" class="col-sm-1 col-form-label">ENTRANCE</label>
+      <label for="entrance" class="col-sm-1 col-form-label">ENTRANCE</label>
       <div class="col-sm-5">
-        <input id="ent" type="text" class="form-control" style="height: 80px" />
+        <input id="entrance" name="entrance" type="text" class="form-control" style="height: 80px" />
       </div>
     </div>
     <div class="devider"></div>
@@ -381,14 +381,44 @@
 		frm.appendChild(addData('use_yn', 'Y'));
 		document.body.appendChild(frm);
 	
-		getAjax('tmpSearchScheduleFrm', 'scheduleMaster', 'serachScheduleSucc');
+		getAjax('tmpSearchScheduleFrm', 'scheduleMaster', 'searchScheduleSucc');
 
 	}
+
+  var searchMaster;
 
 	function searchScheduleSucc(data){
-		console.log(data)
+    searchMaster = '';
+		searchMaster = data;
+    // 어떤 데이터 뿌릴지 결정해야함.
+    var result = $("#result_div");
+    result.empty();
+    for (var i = 0; i < data.length; i ++){
+      result.append("<div data-row="+i+">"+data[i].id+"</div>")
+    }
 
 	}
+
+  $(document).on('dblclick', '#result_div > div', function() {
+      var row = $(this).data('row');
+      var id = searchMaster[row].id;
+      // 여행사, 담당자 넣기
+      var agent = $("#tmpSearchScheduleFrm #agent").val();
+      var manager = $("#tmpSearchScheduleFrm #manager").val();
+      $('#bookingFrm select[name="agent"]').find("option[value='" + agent + "']").prop("selected", true);
+      $('#bookingFrm select[name="manager"]').find("option[value='" + manager + "']").prop("selected", true);
+      // 각각의 input에 데이터 넣기
+      for (var key in searchMaster[0]) {
+        var value = searchMaster[0][key];
+        var input = $('#bookingFrm input[name="' + key + '"]');
+        input.val(value);
+      }
+      // 디테일 검색 이후 모달 닫기
+      console.log(searchMaster)
+      $('#myModal').modal('hide');
+      
+
+  });
 
   function select_air(element){
     // 선택한 option에서 data-in과 data-out 값 가져오기

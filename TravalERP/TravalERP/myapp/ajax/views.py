@@ -16,10 +16,11 @@ def getData(request, item):
    Models = pathtoMode(item)
 
    data = request.body.decode('utf-8')
-
+   
    try:
       # JSON 형식으로 변환
       params = json.loads(data)
+      print(params)
       data = list(Models.objects.filter(**params).values())
       return JsonResponse(data, safe=False)
       # JSON 형식이 맞는 경우 처리할 코드
