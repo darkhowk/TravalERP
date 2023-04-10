@@ -101,15 +101,17 @@
     </div>
     <div class="devider"></div>
     <div class="row">
-        <label for="ref" class="col-sm-1 col-form-label">기준환율</label>
-        <label class="col-sm-1 col-form-label text-end">1</label>
+        <label for="rate" class="col-sm-2 col-form-label">기준환율</label>
+        <div class="col-sm-2">
+          <input id="rate" type="text" class="form-control text-center" value="1" readonly />
+        </div>
         <div class="col-sm-1">
-            <select class="form-select" aria-label="currency">
-             <option selected>단위</option>
-             <option value="1">€</option>
-             <option value="2">＄</option>
-             <option value="3">￡</option>
-            </select>
+          <select class="form-select col-sm-3" id="rate_unit" name="rate_unit"aria-label="currency" onchange="getselect();"> 
+            <option selected>단위</option>
+            <option value="유로">€</option>
+            <option value="달러">＄</option>
+            <option value="파운드">￡</option>
+          </select>
         </div>
         <div class="col-sm-2">
             <input id="rate_won" type="text" class="form-control" />
@@ -154,69 +156,40 @@
     <div class="devider"></div>
     <div class="row">
         <p>부가수익</p>
-        <table class="table table-striped table-bordered text-center">
+        <div class="text-end">
+          <input type="button" class="btn btn-primary"  onclick="addRow()" value="추가">
+          <input type="button" class="btn btn-secondary" onclick="delRow()" value="삭제">
+        </div>
+        <table class="table text-center" id="staList">
           <thead class="table-light">
             <tr>
-              <th scope="col">삭제</th>
-              <th scope="col">항목명</th>
-              <th scope="col" colspan="2">금액</th>
-              <th scope="col">인원(수량)</th>
-              <th scope="col" colspan="2">합계</th>
-              <th scope="col">비고</th>
+              <th scope="col" style="width: 5%;">삭제</th>
+              <th scope="col" style="width: 5%;">NO.</th>
+              <th scope="col" style="width: 29%;">항목명</th>
+              <th scope="col" style="width: 12%;">금액</th>
+              <th scope="col" style="width: 8%;">인원(수량)</th>
+              <th scope="col" style="width: 16%;">합계</th>
+              <th scope="col" style="width: 20%;">비고</th>
             </tr>
           </thead>
-          <tbody>
-            <tr class="row1" text>
-              <td class="action-checkbox col-sm-1">
-                <input type="checkbox" name="delete_select" value="" class="action-select" >
-              </td>
-              <td class="col-sm-3">쇼핑컴</td>
-              <td class="col-sm-1">100</td>
-              <td class="col-sm-1"><select class="form-select " aria-label="local_person">
-                <option selected>단위</option>
-                <option value="1">€</option>
-                <option value="2">＄</option>
-                <option value="3">￡</option>
-              </select></td>
-              <td clas="col-sm-">1</td>
-              <td class="col-sm-20">100</td> <!--여기에는 위에 항목명(500) 인원(24)와 박수(1)이 곱해진 값이 들어가야함-->
-              <td value="">€</td> <!--위에 단위에서 지정한 화폐단위가 자동입력-->
-              <td class="col-sm-3">비고없음</td>
-            </tr>
-            <tr class="row2" text>
-                <td class="action-checkbox col-sm-1">
-                  <input type="checkbox" name="delete_select" value="" class="action-select" >
-                </td>
-                <td class="col-sm-3">길지나가다가 주움</td>
-                <td class="col-sm-1">10</td>
-                <td class="col-sm-1"><select class="form-select " aria-label="local_person">
-                  <option selected>단위</option>
-                  <option value="1">€</option>
-                  <option value="2">＄</option>
-                  <option value="3">￡</option>
-                </select></td>
-                <td clas="col-sm-">1</td>
-                <td class="col-sm-20">10</td> <!--여기에는 위에 항목명(500) 인원(24)와 박수(1)이 곱해진 값이 들어가야함-->
-                <td value="">€</td> <!--위에 단위에서 지정한 화폐단위가 자동입력-->
-                <td class="col-sm-3">야호</td>
-              </tr>
+          <tbody id="tbody">
           </tbody>
         </table>
     </div>
     <div class="devider"></div>
     <div class="p-2 bg-warning text-dark">
         <div class="row">
-          <label for="total_rate" class="col-sm-2 col-form-label">서울수익</label>
+          <label for="totalSum" class="col-sm-2 col-form-label">서울수익</label>
          <div class="col-sm-3">
-          <input id="tota_rate" type="text" class="form-control" readonly />
+          <input id="totalSum" type="text" class="form-control" style="font-weight: bold;" readonly />
          </div>
          <div class="col-sm-1">
-           <input id="tota_rate_currency" type="text" class="form-control text-center" value="유로" readonly />
+          <input id="total_rate_" type="text" class="form-control text-center" value="" readonly />
          </div>
          <div class="col-sm-1"></div>
-           <label for="prodName" class="col-sm-1 col-form-label"></label>
+           <label for="totalSum_won" class="col-sm-1 col-form-label"></label>
          <div class="col-sm-3">
-          <input id="tota_rate" type="text" class="form-control" readonly />
+          <input id="totalSum_won" type="text" class="form-control" style="font-weight: bold; color: red;"  readonly />
           </div>
         <div class="col-sm-1">
          <input id="tota_rate_currency" type="text" class="form-control text-center" value="원" readonly />
@@ -225,19 +198,22 @@
     </div>
     <div class="devider"></div>
     <div class="row">
-        <label for="ref" class="col-sm-2 col-form-label">발란스</label>
+        <label for="agent" class="col-sm-2 col-form-label">발란스</label>
         <div class="col-sm-2">
-            <select class="form-select" aria-label="currency">
-                <option selected>여행사</option>
-           </select>
-        </div>
+          <select id="agent" name="agent" class="form-control selectpicker" aria-label="agent_name" onchange="changeAgent(this)" data-live-search="true" style="display: none;" id="agent" data-none-selected-text="조건을 찾을 수 없습니다">
+            <option value="">여행사명</option>
+            {% for agent in optionData.agent %}
+            <option value="{{agent.id}}">{{agent.agent_name}}</option>
+            {% endfor %}
+            </select>
+          </div>
         <div class="col-sm-20">
-            <select class="form-select" aria-label="currency">
-                <option selected>담당자</option>
-            </select>   
-        </div>
+          <select id="manager" name="manager" class="form-control  selectpicker" aria-label="manager" data-live-search="true" style="display: none;" id="manager" data-none-selected-text="조건을 찾을 수 없습니다">
+            <option value="">담당자명</option>
+            </select>
+          </div>
         <div class="col-sm-20">
-            <select class="form-select" aria-label="currency">
+            <select class="form-select" aria-label="currency"> 
                 <option selected>미과수</option>
                 <option value="1">과수</option>
                 <option value="2">미수</option>
@@ -269,6 +245,185 @@
     </div>
   </form>
 </div>
+
+
+
+<script>
+
+  var sum = 0;
+  
+  function addRow() {
+  
+    var selectedText = $("#rate_unit option:selected").text();
+  
+    var tbody = document.getElementById("tbody");
+    var row = tbody.insertRow(-1)
+    var cell1 = row.insertCell(0);
+    var cell2 = row.insertCell(1);
+    var cell3 = row.insertCell(2);
+    var cell4 = row.insertCell(3);
+    var cell5 = row.insertCell(4);
+    var cell6 = row.insertCell(5);
+    var cell7 = row.insertCell(6);
+  
+    // cell 1
+    var checkbox = document.createElement('input');
+      checkbox.type = "checkbox";
+      checkbox.style.width = "100%";
+      checkbox.id = "checkbox";
+      cell1.appendChild(checkbox);
+     
+    // cell 2
+    cell2.innerHTML = "<td class='col'>"+tbody.rows.length+"</td>";
+  
+    // cell 3
+       var title = document.createElement('input');
+      title.type = "text";
+      title.style.width = "100%";
+      title.className = "form-control";
+      title.id = "title";
+      cell3.appendChild(title);
+  
+    // cell 4
+       var div1 = document.createElement('div');
+         div1.className = "row";
+    var price = document.createElement('input');
+      price.type = "text";
+      price.style.width = "60%";
+      price.className = "form-control";
+      price.id = "price";
+      price.onkeyup = multi;
+      div1.appendChild(price);
+    var input_rate = document.createElement('input');
+      input_rate.className = "form-control text-center";
+      input_rate.id = 'rate';
+      input_rate.style.width = "40%";
+      input_rate.value = selectedText;
+      input_rate.readOnly = true;
+      div1.appendChild(input_rate);
+      cell4.appendChild(div1);
+  
+    // cell 5
+    var pax = document.createElement('input');
+      pax.type = "text";
+      pax.style.width = "100%";
+      pax.id = "pax";
+      pax.className = "form-control";
+      pax.onkeyup = multi;
+      cell5.appendChild(pax);
+  
+    // cell 6
+    var div2 = document.createElement('div');
+      div2.className = "row";
+    var total = document.createElement('input');
+      total.type = "text";
+      total.className = "form-control";
+      total.style.width = "70%";
+      total.readOnly = true;
+      total.tabIndex = -1;
+      total.id = "total";
+    var selectUnit2 = document.createElement('input');
+      selectUnit2.type = "text";
+      selectUnit2.className = "form-control text-center";
+      selectUnit2.style.width = "30%";
+      selectUnit2.readOnly = true;
+      selectUnit2.id = "selectUnit";
+      div2.appendChild(total);
+      div2.appendChild(selectUnit2);
+      cell6.appendChild(div2);
+    
+    // cell 7
+    var note = document.createElement('input');
+      note.type = "text";
+      note.style.width = "100%";
+      note.id = "note";
+      note.className = "form-control";
+      cell7.appendChild(note);
+  }
+  
+  function delRow() {
+    var tbody = document.getElementById("tbody");
+    for(var i = 1 ; i<tbody.rows.length;i++){
+      var checkbox = tbody.rows[i].cells[0].childNodes[0].checked;
+  
+      if(checkbox){
+        tbody.deleteRow(i);
+  i--;
+      }
+    }
+  }
+  function multi() {
+    // event 현재 이벤트가 일어난 놈
+      var currentRow = event.target.closest('tr');
+      var a = parseInt(currentRow.querySelector('#price').value) | 0;
+      var b = parseInt(currentRow.querySelector('#pax').value) | 0;
+  
+      currentRow.querySelector('#total').value = a*b;
+  
+      var rows = document.querySelectorAll('#tbody tr');
+      var totalSum = 0;
+      for (var i = 0; i < rows.length; i++) {
+        var rowTotal = parseInt(rows[i].querySelector('#total').value) | 0;
+        totalSum += rowTotal;
+      }
+      document.getElementById('totalSum').value = totalSum.toLocaleString();
+  
+    // totaSum의 값과 입력한 환율금액(rate_won)의 계산
+      var rate_won = parseInt(document.getElementById('rate_won').value) || 0;
+      var totalSum_won = rate_won * totalSum;
+      document.getElementById('totalSum_won').value = totalSum_won.toLocaleString();
+  }
+  
+  function getselect() {
+    // select에서 선택한 value 가져오기
+    var selectedValue = $("#rate_unit").val();
+    // select에서 선택한 글자 가져오기
+    var selectedText = $("#rate_unit option:selected").text();
+  
+    var rows = document.querySelectorAll('#tbody tr');
+      for (var i = 0; i < rows.length; i++) {
+        rows[i].querySelector('#rate').value = selectedText;
+        rows[i].querySelector('#selectUnit').value = selectedText;
+      }
+  
+    $("#total_rate_").val(selectedValue);
+  
+  }
+
+  function changeAgent(element){
+    $("#tmpChangeAgentFrm").remove();
+    var frm = makeForm('', 'tmpChangeAgentFrm');
+
+    frm.appendChild(addData('agent', ($(element).val())));
+    document.body.appendChild(frm);
+
+    getAjax('tmpChangeAgentFrm', 'manager', 'changeAgentSucc', element);
+
+  }
+
+  function changeAgentSucc(data, element){
+	var select = $($(element).closest('.row').find('select')[1]);
+
+    select.selectpicker('destroy');
+    select.empty();
+    for (var i = 0; i < data.length; i++) {
+        var option = $('<option>', {
+            value: data[i].id,
+            text: data[i].manager_name
+        });
+        select.append(option);
+    }
+
+    select.selectpicker(); 
+
+}
+
+
+
+
+</script>
+
+
 
 
 
