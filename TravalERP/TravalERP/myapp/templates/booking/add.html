@@ -391,8 +391,6 @@
       result.append("<div class='col-2' style='text-align: center;' data-row="+i+">"+data[i].manager_id+"</div>")
     }
 
-    // 이후 master id로 스케쥴 디테일 가져오기
-    searchScheduleDetail(data[0].id);
 	}
   function searchScheduleDetail(master_id){
     $("#tmpSearchScheduleDeatilFrm").remove();
@@ -406,15 +404,37 @@
   }
 
   function searchScheduleDetailSucc(data){
-    console.log(data)
     var detail = $("#schdule_table");
     detail.empty();
+    
+    ///// 날짜 입력 관련 
+    // 선택된 날짜로 Date 변수를 만든다
+    var tmpDate = $("#kor_air_def").val();
+    var selDate;
+    if (tmpDate == ''){
+      selDate = new Date();
+    }
+    else{
+      selDate = new Date(tmpDate);
+    }
+    // 해당 날짜에서 년,월,일을 각각 뽑는다. ( month는 +1을 해줘야 해당 month 가 제대로 나옴)
+    var selYear = selDate.getFullYear();
+    var selMonth = selDate.getMonth()+1;
+    var selDay = selDate.getDate();
+    ///// 날짜 입력 관련 
+
     for (var i = 0; i < data.length; i ++){
-      detail.append("<tr>")
-      detail.append("<td scope='col'>"+data[i].day+"일차</td>")
-      detail.append("<td scope='col'></td>")
-      detail.append("<td scope='col'>"+data[i].schedule+"</td>")
-      detail.append("</tr>")
+      var text = '';
+      text += "<tr>";
+        text += "<td scope='col'>"+data[i].day+"일차</td>";
+
+      var toDate = new Date(selYear, selMonth, selDay + i);
+      var toYear = toDate.getFullYear();
+      var toMonth = ('0' +toDate.getMonth()).slice(-2);// 앞에 0을 붙이고 뒤에서 2개만 선택한다. 1자리수 인경우 앞에 0붙이는것
+      var toDay = ('0' +toDate.getDate()).slice(-2);
+      text += "<td scope='col'>"+toYear+'-'+toMonth+"-"+toDay+"</td>";
+      text += "<td scope='col'>"+data[i].schedule+"</td>";
+      detail.append(text)
     }
   }
 
@@ -436,7 +456,8 @@
       console.log(searchMaster)
       $('#myModal').modal('hide');
       
-
+      // 이후 master id로 스케쥴 디테일 가져오기
+      searchScheduleDetail(id);
   });
 
   function select_air(element){
@@ -525,11 +546,8 @@
         // 테이블에서 tr을 찾아 tr수만큼 for문을 돌린다.
         schdule_table.find('tr').each(function(index, row) {
           // 첫 번째 행(th)은 스킵합니다.
-          if (index === 0) {
-            return true;
-          }
           // 각 행(row)의 두 번째 셀(td)에 오늘 날짜를 입력합니다. 선택한 날짜에서 (index-1)을 더해서 날짜를 만든뒤, 넣어준다.
-          var toDate = new Date(selYear, selMonth, selDay + index - 1);
+          var toDate = new Date(selYear, selMonth, selDay + index);
           var toYear = toDate.getFullYear();
           var toMonth = ('0' +toDate.getMonth()).slice(-2);// 앞에 0을 붙이고 뒤에서 2개만 선택한다. 1자리수 인경우 앞에 0붙이는것
           var toDay = ('0' +toDate.getDate()).slice(-2);
