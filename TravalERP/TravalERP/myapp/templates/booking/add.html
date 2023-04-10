@@ -340,10 +340,10 @@
 			</div>
 			<div class="devider"></div>
       <div class="row mt-2 col-12" id="">
-        <div class="col-6" style="text-align: center;">상품명</div>
+        <div class="col-8" style="text-align: center;">상품명</div>
         <div class="col-1" style="text-align: center;">박</div>
         <div class="col-1" style="text-align: center;">일</div>
-        <div class="col-4" style="text-align: center;">담당자</div>
+        <div class="col-2" style="text-align: center;">담당자</div>
       </div>
 			<div class="row mt-2 col-12" id="result_div">
 
@@ -400,10 +400,10 @@
     var result = $("#result_div");
     result.empty();
     for (var i = 0; i < data.length; i ++){
-      result.append("<div class='col-6' style='text-align: center; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;' data-row="+i+">"+data[i].product_name+"</div>")
+      result.append("<div class='col-8' style='text-align: center; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;' data-row="+i+">"+data[i].product_name+"</div>")
       result.append("<div class='col-1' style='text-align: center;' data-row="+i+">"+data[i].night+"</div>")
       result.append("<div class='col-1' style='text-align: center;' data-row="+i+">"+data[i].day+"</div>")
-      result.append("<div class='col-4' style='text-align: center;' data-row="+i+">"+data[i].manager_id+"</div>")
+      result.append("<div class='col-2' style='text-align: center;' data-row="+i+">"+data[i].manager_id+"</div>")
     }
 
 	}
