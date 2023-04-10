@@ -144,32 +144,32 @@
     <div class="row mt-3">
       <label for="special" class="col-sm-1 col-form-label">특식</label>
       <div class="col-sm-11">
-        <input id="special" name="special" type="text" class="form-control" style="height: 80px" readonly/>
+        <textarea id="special" name="special" type="text" class="form-control" style="height: 80px" readonly></textarea>
       </div>
     </div>
     <div class="devider"></div>
     <div class="row">
       <label for="option" class="col-sm-1 col-form-label">옵션</label>
       <div class="col-sm-11">
-        <input id="option" name="option" type="text" class="form-control" style="height: 80px" />
+        <textarea id="option" name="option" type="text" class="form-control" style="height: 80px"></textarea>
       </div>
     </div>
     <div class="row mt-3">
       <label for="shopping" class="col-sm-1 col-form-label">쇼핑</label>
       <div class="col-sm-11">
-        <input id="shopping" name="shopping" type="text" class="form-control" style="height: 80px" />
+        <textarea id="shopping" name="shopping" type="text" class="form-control" style="height: 80px"></textarea>
       </div>
     </div>
     <div class="devider"></div>
     <div class="row">
       <label for="bus" class="col-sm-1 col-form-label">BUS</label>
       <div class="col-sm-4">
-        <input id="bus" name="bus" type="text" class="form-control" style="height: 80px" />
+        <textarea id="bus" name="bus" type="text" class="form-control" style="height: 80px"></textarea>
       </div>
       <div class="col-sm-1"></div>
       <label for="entrance" class="col-sm-1 col-form-label">ENTRANCE</label>
       <div class="col-sm-5">
-        <input id="entrance" name="entrance" type="text" class="form-control" style="height: 80px" />
+        <textarea id="entrance" name="entrance" type="text" class="form-control" style="height: 80px"></textarea>
       </div>
     </div>
     <div class="devider"></div>
@@ -449,8 +449,12 @@
       // 각각의 input에 데이터 넣기
       for (var key in searchMaster[0]) {
         var value = searchMaster[0][key];
-        var input = $('#bookingFrm input[name="' + key + '"]');
-        input.val(value);
+        var element = $('#bookingFrm [name="' + key + '"]');
+        if (element.is('input')) {
+          element.val(value);
+        } else if (element.is('textarea')) {
+          element.text(value);
+}
       }
       // 디테일 검색 이후 모달 닫기
       console.log(searchMaster)
@@ -459,7 +463,7 @@
       // 이후 master id로 스케쥴 디테일 가져오기
       searchScheduleDetail(id);
   });
-
+  
   function select_air(element){
     // 선택한 option에서 data-in과 data-out 값 가져오기
     var data_in = $(element).find(':selected').data('in');

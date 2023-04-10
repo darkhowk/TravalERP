@@ -145,7 +145,7 @@
             <div class="col-sm-1"></div>
             <label for="tota_rate" class="col-sm-1 col-form-label"></label>
             <div class="col-sm-3">
-              <input id="total_rate" type="text" class="form-control" readonly />
+              <input id="totalSum_won" type="text" class="form-control" readonly />
             </div>
             <div class="col-sm-1">
               <input id="tota_rate_won" type="text" class="form-control text-center" value="원" readonly />
@@ -322,15 +322,16 @@ function addRow() {
 	var total = document.createElement('input');
 		total.type = "text";
 		total.className = "form-control";
-		total.style.width = "50%";
+		total.style.width = "70%";
 		total.readOnly = true;
 		total.tabIndex = -1;
 		total.id = "total";
-		var selectUnit2 = document.createElement('input');
-			selectUnit2.type = "text";
-			selectUnit2.style.width = "25%";
-			selectUnit2.readOnly = true;
-			selectUnit2.id = "selectUnit";
+	var selectUnit2 = document.createElement('input');
+		selectUnit2.type = "text";
+    selectUnit2.className = "form-control text-center";
+		selectUnit2.style.width = "30%";
+		selectUnit2.readOnly = true;
+		selectUnit2.id = "selectUnit";
 		div2.appendChild(total);
 		div2.appendChild(selectUnit2);
 		cell7.appendChild(div2);
@@ -370,7 +371,12 @@ function multi() {
       var rowTotal = parseInt(rows[i].querySelector('#total').value) | 0;
       totalSum += rowTotal;
     }
-    document.getElementById('totalSum').value = totalSum;
+    document.getElementById('totalSum').value = totalSum.toLocaleString();
+
+  // totaSum의 값과 입력한 환율금액(rate_won)의 계산
+    var rate_won = parseInt(document.getElementById('rate_won').value) || 0;
+    var totalSum_won = rate_won * totalSum;
+    document.getElementById('totalSum_won').value = totalSum_won.toLocaleString();
 }
 
 function getselect() {
@@ -382,6 +388,7 @@ function getselect() {
 	var rows = document.querySelectorAll('#tbody tr');
     for (var i = 0; i < rows.length; i++) {
       rows[i].querySelector('#rate').value = selectedText;
+      rows[i].querySelector('#selectUnit').value = selectedText;
     }
 
 	$("#total_rate_").val(selectedValue);
