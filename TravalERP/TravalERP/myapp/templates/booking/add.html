@@ -339,6 +339,12 @@
 				</div>
 			</div>
 			<div class="devider"></div>
+      <div class="row mt-2 col-12" id="">
+        <div class="col-6" style="text-align: center;">상품명</div>
+        <div class="col-1" style="text-align: center;">박</div>
+        <div class="col-1" style="text-align: center;">일</div>
+        <div class="col-4" style="text-align: center;">담당자</div>
+      </div>
 			<div class="row mt-2 col-12" id="result_div">
 
 			</div>
@@ -390,11 +396,14 @@
 	function searchScheduleSucc(data){
     searchMaster = '';
 		searchMaster = data;
-    // 어떤 데이터 뿌릴지 결정해야함.
+    // 어떤 데이터 뿌릴지 결정해야함. 상품명 / 몇박 몇일 / 담당자
     var result = $("#result_div");
     result.empty();
     for (var i = 0; i < data.length; i ++){
-      result.append("<div data-row="+i+">"+data[i].id+"</div>")
+      result.append("<div class='col-6' style='text-align: center; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;' data-row="+i+">"+data[i].product_name+"</div>")
+      result.append("<div class='col-1' style='text-align: center;' data-row="+i+">"+data[i].night+"</div>")
+      result.append("<div class='col-1' style='text-align: center;' data-row="+i+">"+data[i].day+"</div>")
+      result.append("<div class='col-4' style='text-align: center;' data-row="+i+">"+data[i].manager_id+"</div>")
     }
 
 	}
@@ -405,8 +414,8 @@
       // 여행사, 담당자 넣기
       var agent = $("#tmpSearchScheduleFrm #agent").val();
       var manager = $("#tmpSearchScheduleFrm #manager").val();
-      $('#bookingFrm select[name="agent"]').find("option[value='" + agent + "']").prop("selected", true);
-      $('#bookingFrm select[name="manager"]').find("option[value='" + manager + "']").prop("selected", true);
+      $('#bookingFrm select[name="agent"]').selectpicker('val', agent);
+      $('#bookingFrm select[name="manager"]').selectpicker('val', manager);
       // 각각의 input에 데이터 넣기
       for (var key in searchMaster[0]) {
         var value = searchMaster[0][key];
