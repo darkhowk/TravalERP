@@ -187,7 +187,7 @@
     <div class="devider"></div>
     <div class="row">
       <p>SCHDULE</p>
-      <table class="table mx-3" id="schdule_table">
+      <table class="table mx-3" >
         <thead class="table-light">
           <tr>
             <th scope="col">일차</th>
@@ -195,19 +195,8 @@
             <th scope="col">일정</th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <th scope="row">1일차</th>
-            <td></td>
-            <td>인천국제공항 출발</td>
-          </tr>
-          <tr>
-            <th scope="row">2일차</th>
-            <td></td>
-            <td>
-              두바이공항 도착 후 환승-마드리드 도착 후 가이드 미팅-호텔이동
-            </td>
-          </tr>
+        <tbody  id="schdule_table">
+         
         </tbody>
       </table>
     </div>
@@ -317,7 +306,7 @@
 			<div class="row mt-2 col-12">
 				<label for="prodName" class="col-2 col-form-label">상품명</label>
 				<div class="col-10">
-				  <input id="prodName" type="text" class="form-control" />
+				  <input id="prodName" name="prodName" type="text" class="form-control" />
 				</div>
 			</div>
 			<div class="row mt-2 col-12">
@@ -339,20 +328,16 @@
 				</div>
 			</div>
 			<div class="devider"></div>
-      <div class="row mt-2 col-12" id="">
-        <div class="col-8" style="text-align: center;">상품명</div>
-        <div class="col-1" style="text-align: center;">박</div>
-        <div class="col-1" style="text-align: center;">일</div>
-        <div class="col-2" style="text-align: center;">담당자</div>
-      </div>
-			<div class="row mt-2 col-12" id="result_div">
+        <div class="row mt-2 col-12" id="">
+          <div class="col-8" style="text-align: center;">상품명</div>
+          <div class="col-1" style="text-align: center;">박</div>
+          <div class="col-1" style="text-align: center;">일</div>
+          <div class="col-2" style="text-align: center;">담당자</div>
+        </div>
+        <div class="row mt-2 col-12" id="result_div">
 
-			</div>
         </div>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
       </div>
     </div>
   </div>
@@ -396,7 +381,7 @@
 	function searchScheduleSucc(data){
     searchMaster = '';
 		searchMaster = data;
-    // 어떤 데이터 뿌릴지 결정해야함. 상품명 / 몇박 몇일 / 담당자
+    // 상품명 / 몇박 몇일 / 담당자
     var result = $("#result_div");
     result.empty();
     for (var i = 0; i < data.length; i ++){
@@ -406,7 +391,32 @@
       result.append("<div class='col-2' style='text-align: center;' data-row="+i+">"+data[i].manager_id+"</div>")
     }
 
+    // 이후 master id로 스케쥴 디테일 가져오기
+    searchScheduleDetail(data[0].id);
 	}
+  function searchScheduleDetail(master_id){
+    $("#tmpSearchScheduleDeatilFrm").remove();
+		var frm = makeForm('', 'tmpSearchScheduleDeatilFrm');
+    frm.appendChild(addData('use_yn', 'Y'));
+    frm.appendChild(addData('master_id', master_id));
+		document.body.appendChild(frm);
+	
+		getAjax('tmpSearchScheduleDeatilFrm', 'scheduleDetail', 'searchScheduleDetailSucc');
+
+  }
+
+  function searchScheduleDetailSucc(data){
+    console.log(data)
+    var detail = $("#schdule_table");
+    detail.empty();
+    for (var i = 0; i < data.length; i ++){
+      detail.append("<tr>")
+      detail.append("<td scope='col'>"+data[i].day+"일차</td>")
+      detail.append("<td scope='col'></td>")
+      detail.append("<td scope='col'>"+data[i].schedule+"</td>")
+      detail.append("</tr>")
+    }
+  }
 
   $(document).on('dblclick', '#result_div > div', function() {
       var row = $(this).data('row');
