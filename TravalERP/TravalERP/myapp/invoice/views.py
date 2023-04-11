@@ -37,4 +37,8 @@ class invoiceAdd(generic.ListView):
                         "topMenu"  : self.topMenu
                      }
 
-      return render(request, self.template_name, self.content)
+      return render(request, self.template_name, self.content) 
+   
+
+def invoiceSearch(request):
+   return render(request, 'invoice/search.html')

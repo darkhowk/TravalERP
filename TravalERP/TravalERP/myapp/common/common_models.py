@@ -134,6 +134,7 @@ class Bank(commonModel):
     swift = models.CharField(db_column='SWIFT', max_length=100, verbose_name='SWIFT')
     iban_code = models.CharField(db_column='IBAN_CODE', max_length=100, verbose_name='IBAN_CODE')
     branch = models.CharField(db_column='BRANCH', max_length=100, verbose_name='BRANCH')
+    haa = models.CharField(db_column='HAA', max_length=100, verbose_name='국내/국외')
     bank_remark = models.TextField(db_column='BANK_REMARK', max_length=1000, verbose_name='REMARK')
     
     def __iter__(self):
@@ -143,6 +144,7 @@ class Bank(commonModel):
         yield self.swift
         yield self.iban_code
         yield self.branch
+        yield self.haa
         yield self.bank_remark
 
     class Meta:

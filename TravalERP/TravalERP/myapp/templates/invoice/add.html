@@ -5,7 +5,8 @@
 </div>
 
 <div class="container mt-5">
-    <form method="POST" enctype="multipart/form-data" action="/upload">
+  {% csrf_token %}
+    <form id="invoiceFrm" method="POST" enctype="multipart/form-data" action="/upload">
         <div class="d-inline mb-3">
             <label class="form-label" for="roomingfile"><h4>파일업로드</h4></label>
             <input type="file" class="form-control" id="roomingfile" name="roomingfile" accept="image/*, .pdf, .xls, .xlsx" />
@@ -38,11 +39,7 @@
               <label for="matching" class="col-sm-1 col-form-label">단체매칭</label>
               <label class="d-none d-sm-inline-block navbar-search col-form-label">
                 <div class="input-group">
-                  <input
-                    type="text"
-                    class="form-control bg-light border"
-                    aria-label="Search"
-                    aria-describedby="basic-addon2"
+                  <input type="text" class="form-control bg-light border" aria-label="Search" aria-describedby="basic-addon2"
                   />
                   <div class="input-group-append">
                     <button class="btn btn-primary" type="button">
@@ -171,10 +168,10 @@
               </div>
             </div>
             <div class="col-sm-2 text-end">
-              <button type="search" class="btn btn-primary">검색하기</button>
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">검색하기</button>
             </div>
             <div class="row mt-5" id="overseas1" style="display:none;">
-              <label for="bank" class="col-sm-20 col-form-label">BANK</label>
+              <label for="bank_name" class="col-sm-20 col-form-label">BANK</label>
               <div class="col-sm-4">
                 <input id="bank" type="text" class="form-control" readonly />
               </div>
@@ -185,7 +182,7 @@
               </div>
             </div>
             <div class="row mt-2" id="overseas2" style="display:none;">
-              <label for="bank_name" class="col-sm-20 col-form-label">BANK NAME</label>
+              <label for="account_name" class="col-sm-20 col-form-label">BANK NAME</label>
               <div class="col-sm-4">
                 <input id="bank_name" type="text" class="form-control" readonly />
               </div>
@@ -230,7 +227,7 @@
 
           <div class="text-end mt-5">
             <button type="submit" class="btn btn-primary">저장</button>
-            <button type="reset" class="btn btn-secondary">초기화</button>
+            <button type="reset" id="btn_reset" class="btn btn-secondary">초기화</button>
             <button type="button" class="btn btn-secondary">취소</button>
           </div>
           <div class="mt-5"></div>
@@ -238,7 +235,38 @@
     </form>
 </div>
 
-
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">은행검색</h5>
+		<button type="button" class="btn btn-success" onclick="searchBank();">검색</button>
+	</div>
+	<div class="modal-body">
+			<div class="row mt-2 col-12">
+				<label for="bank_name" class="col-3 col-form-label">은행명</label>
+				<div class="col-9">
+				  <input id="bank_name" name="bank_name" type="text" class="form-control" />
+				</div>
+			</div>
+			<div class="row mt-2 col-12">
+        <label for="account_name" class="col-3 col-form-label">예금주명</label>
+				<div class="col-9">
+				  <input id="account_name" name="account_name" type="text" class="form-control" />
+				</div>
+			</div>
+    </div>
+		<div class="devider"></div>
+      <div class="row col-12" id="">
+        <div class="col-4" style="text-align: center;">은행명</div>
+        <div class="col-4" style="text-align: center;">예금주</div>
+        <div class="col-4" style="text-align: center;">계좌번호</div>
+      </div>
+      <div class="row col-12" id="result_div">
+      </div>
+  </div>
+</div>
 
 
 
@@ -246,6 +274,71 @@
 
 
 <script>
+
+	function searchBank(){
+		var bankName = $(".modal-body #bank_name").val();
+		var accountName = $(".modal-body #account_name").val();
+
+		$("#tmpSearchBankFrm").remove();
+		var frm = makeForm('', 'tmpSearchBankFrm');
+
+		if (bankName == undefined || bankName == 'undefined' || bankName == ''){
+		}
+		else{
+			frm.appendChild(addData('bank_name', bankName));
+		}
+
+		if (accountName == undefined || accountName == 'undefined' || accountName == ''){
+		}
+		else{
+			frm.appendChild(addData('account_name', accountName));
+		}
+
+		frm.appendChild(addData('use_yn', 'Y'));
+		document.body.appendChild(frm);
+	
+		getAjax('tmpSearchBankFrm', 'bank', 'searchBankSucc');
+
+	}
+
+  var searchMaster;
+
+	function searchBankSucc(data){
+    searchMaster = '';
+		searchMaster = data;
+    var result = $("#result_div");
+    result.empty();
+    for (var i = 0; i < data.length; i ++){
+      result.append("<div class='col-4 mt-2' style='text-align: center;' data-row="+i+">"+data[i].bank_name+"</div>")
+      result.append("<div class='col-4 mt-2' style='text-align: center;' data-row="+i+">"+data[i].account_name+"</div>")
+      result.append("<div class='col-4 mt-2' style='text-align: center;' data-row="+i+">"+data[i].account_no+"</div>")
+    }
+  }
+
+
+
+  $(document).on('dblclick', '#result_div > div', function() {
+      var row = $(this).data('row');
+      var id = searchMaster[row].id;
+
+      // 각각의 input에 데이터 넣기
+      for (var key in searchMaster[row]) {
+        var value = searchMaster[row][key];
+        var element = $('#invoiceFrm [name="' + key + '"]');
+        if (element.is('input')) {
+          element.val(value);
+        } else if (element.is('textarea')) {
+          element.text(value);
+}
+      }
+      // 디테일 검색 이후 모달 닫기
+      console.log(searchMaster)
+      $('#myModal').modal('hide');
+      
+      // 이후 master id로 스케쥴 디테일 가져오기
+      searchBankDetail(id);
+  });
+
 
 var sum = 0;
 
@@ -391,7 +484,7 @@ function getselect() {
 	var rows = document.querySelectorAll('#tbody tr');
     for (var i = 0; i < rows.length; i++) {
       rows[i].querySelector('#rate').value = selectedText;
-      rows[i].querySelector('#selectUnit').value = selectedText;
+      rows[i].querySelector('#selectUnit').value = selectedText; 
     }
 
 	$("#total_rate_").val(selectedValue);
@@ -413,6 +506,28 @@ function setDisplay() {
     $('#domestic2').show();
   }
 }
+
+
+$(document).ready(function() {  
+	$.fn.clearForm = function(){
+		var tabindex = 1;
+		$(this).each(function(){
+			this.reset();
+		});
+		$(this).find('input,select').each(function(){
+			if (this.type != "hidden") {
+				$(this).attr("tabindex", tabindex);
+				tabindex++;
+			}
+		});
+	}
+
+	$("#btn_reset").click(function(){
+		$("#frm_user_info").clearForm();
+	});
+});
+
+
 </script>
 
 <style>
