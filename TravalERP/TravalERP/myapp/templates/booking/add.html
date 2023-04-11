@@ -185,10 +185,12 @@
       </div>
     </div>
     <div class="devider"></div>
+
     <div class="row">
       <p>SCHDULE</p>
-      <table class="table mx-3" >
-        <thead class="table-light">
+      <div>
+        <table class="table" >
+        <thead >
           <tr>
             <th scope="col">일차</th>
             <th scope="col">날짜</th>
@@ -196,15 +198,18 @@
           </tr>
         </thead>
         <tbody  id="schdule_table">
-         
         </tbody>
-      </table>
+        </table>
+      </div>
     </div>
+
     <div class="devider"></div>
+
     <div class="row">
       <p>HOTEL</p>
-      <table class="table mx-3" >
-        <thead class="table-light">
+      <div>
+      <table class="table" >
+        <thead >
           <tr>
             <th scope="col">날짜</th>
             <th scope="col">지역</th>
@@ -216,6 +221,7 @@
         <tbody  id="hotel_table">
         </tbody>
       </table>
+    </div>
     </div>
     <div class="devider"></div>
     <div class="row">
@@ -266,13 +272,13 @@
 				</div>
 			</div>
 			<div class="devider"></div>
-        <div class="row mt-2 col-12" id="">
+        <div class="row col-12" id="">
           <div class="col-8" style="text-align: center;">상품명</div>
           <div class="col-1" style="text-align: center;">박</div>
           <div class="col-1" style="text-align: center;">일</div>
           <div class="col-2" style="text-align: center;">담당자</div>
         </div>
-        <div class="row mt-2 col-12" id="result_div">
+        <div class="row col-12" id="result_div">
 
         </div>
       </div>
@@ -343,8 +349,10 @@
 
   function searchScheduleDetailSucc(data){
     var detail = $("#schdule_table");
+    var hotel =  $("#hotel_table");
     detail.empty();
-    
+    hotel.empty();
+
     ///// 날짜 입력 관련 
     // 선택된 날짜로 Date 변수를 만든다
     var tmpDate = $("#kor_air_def").val();
@@ -364,7 +372,7 @@
     for (var i = 0; i < data.length; i ++){
       var text = '';
       text += "<tr>";
-        text += "<td scope='col'>"+data[i].day+"일차</td>";
+      text += "<td scope='col'>"+data[i].day+"일차</td>";
 
       var toDate = new Date(selYear, selMonth, selDay + i);
       var toYear = toDate.getFullYear();
@@ -372,7 +380,27 @@
       var toDay = ('0' +toDate.getDate()).slice(-2);
       text += "<td scope='col'>"+toYear+'-'+toMonth+"-"+toDay+"</td>";
       text += "<td scope='col'>"+data[i].schedule+"</td>";
+      text += "</tr>";
       detail.append(text)
+
+      var hotel_text = '';
+      hotel_text += "<tr>";
+      hotel_text += "<td scope='col'>"+toYear+'-'+toMonth+"-"+toDay+"</td>";
+      if (data[i].hotel == ''){
+        hotel_text += "<td scope='col'><input type='text' id='hotel' name='hotel' readonly></td>";  
+        hotel_text += "<td scope='col'><input type='text' id='hotel_day' name='hotel_day' readonly></td>";  
+        hotel_text += "<td scope='col'><input type='text' id='hotel_name' name='hotel_name' readonly></td>";  
+        hotel_text += "<td scope='col'><input type='text' id='remark' name='remark' readonly></td>";  
+      }
+      else{
+        hotel_text += "<td scope='col'><input type='text' id='hotel' name='hotel' value='"+data[i].hotel+"'></td>";  
+        hotel_text += "<td scope='col'><input type='text' id='hotel_day' name='hotel_day' ></td>";  
+        hotel_text += "<td scope='col'><input type='text' id='hotel_name' name='hotel_name' ></td>";  
+        hotel_text += "<td scope='col'><input type='text' id='remark' name='remark' ></td>"; 
+      }
+      hotel_text += "</tr>";
+      hotel.append(hotel_text);
+
     }
   }
 
