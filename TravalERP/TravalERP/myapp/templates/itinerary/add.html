@@ -6,6 +6,7 @@
 
 <div class="container mt-5">
   <form>
+    {% csrf_token %}
     <div class="row">
       <div class="text-start">
         <label for="matching" class="col-sm-2 col-form-label">단체매칭</label>
@@ -440,23 +441,21 @@ function agentChange() {
 
   }
 
-  function changeLocalAgentSucc(data){
-    var select = $("#localmanager");
-    select.selectpicker('destroy');
-    select.empty();
-    for (var i = 0; i < data.length; i++) {
-        var option = $('<option>', {
-            value: data[i].id,
-            text: data[i].manager_name
-        });
-        select.append(option);
-    }
+   function changeAgent(element){
+    $("#tmpChangeAgentFrm").remove();
+    var frm = makeForm('', 'tmpChangeAgentFrm');
 
-    select.selectpicker();
+    frm.appendChild(addData('agent', ($(element).val())));
+    document.body.appendChild(frm);
+
+    getAjax('tmpChangeAgentFrm', 'manager', 'changeAgentSucc', element);
+
   }
 
-  function changeAgentSucc(data){
-    var select = $("#manager");
+  function changeAgentSucc(data, element){
+	var select = $($(element).closest('.row').find('select')[1]);
+  
+
     select.selectpicker('destroy');
     select.empty();
     for (var i = 0; i < data.length; i++) {
@@ -467,9 +466,11 @@ function agentChange() {
         select.append(option);
     }
 
-    select.selectpicker();   
-}
+    select.selectpicker(); 
 
+    
+
+}
 
 
 </script>
