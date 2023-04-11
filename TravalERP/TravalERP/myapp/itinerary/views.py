@@ -1,7 +1,8 @@
 from django.shortcuts import render
 from django.views import generic
-from ..common.common_models import Menu
-# Create your views here.
+from django.http import JsonResponse, HttpResponse
+from ..common.common_models import * 
+import json
 
 class itineraryIndex(generic.ListView):
    def __init__(self):
@@ -30,11 +31,18 @@ class itineraryAdd(generic.ListView):
       self.topMenu = Menu.objects.filter(menu_type="TOP")
 
    def get(self, request, *args, **kwargs):
+      localAgent = Agent.objects.filter(use_yn ='Y', type='L')
+      localTel = Agent.objects.filter(use_yn ='Y', agent_tel='')
+      manager = Manager.objects.filter(use_yn ='Y', type='M')
+      localManager = Manager.objects.filter(use_yn ='Y', type='L')
+      optionData = {'localAgent' : localAgent, 'localTel' : localTel, 'manager' : manager, 'localManager' : localManager} # 추후 추가할 데이터를 위해
       self.content = {
                         "descript" : self.descript,
                         "title_nm" : self.title_nm,
                         "ogImgUrl" : self.ogImgUrl,
-                        "topMenu"  : self.topMenu
+                        "topMenu"  : self.topMenu,
+                        "optionData" : optionData,
                      }
 
       return render(request, self.template_name, self.content)
+   

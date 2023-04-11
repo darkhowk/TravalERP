@@ -208,17 +208,17 @@
     <div class="row">
       <p>HOTEL</p>
       <div>
-      <table class="table" >
+      <table class="table text-center" >
         <thead >
           <tr>
-            <th scope="col">날짜</th>
-            <th scope="col">지역</th>
-            <th scope="col">숙박일수</th>
-            <th scope="col">호텔</th>
-            <th scope="col">비고</th>
+            <th scope="col" style="width: 10%;">날짜</th>
+            <th scope="col" style="width: 10%;">지역</th>
+            <th scope="col" style="width: 10%;">숙박일수</th>
+            <th scope="col" style="width: 50%;">호텔</th>
+            <th scope="col" style="width: 20%;">비고</th>
           </tr>
         </thead>
-        <tbody  id="hotel_table">
+        <tbody  id="hotel_table" class="text-center">
         </tbody>
       </table>
     </div>
@@ -387,16 +387,16 @@
       hotel_text += "<tr>";
       hotel_text += "<td scope='col'>"+toYear+'-'+toMonth+"-"+toDay+"</td>";
       if (data[i].hotel == ''){
-        hotel_text += "<td scope='col'><input type='text' id='hotel' name='hotel' readonly></td>";  
-        hotel_text += "<td scope='col'><input type='text' id='hotel_day' name='hotel_day' readonly></td>";  
-        hotel_text += "<td scope='col'><input type='text' id='hotel_name' name='hotel_name' readonly></td>";  
-        hotel_text += "<td scope='col'><input type='text' id='remark' name='remark' readonly></td>";  
+        hotel_text += "<td scope='col'><input type='text' id='hotel' name='hotel' style='width:100%; border: 0;' readonly></td>";  
+        hotel_text += "<td scope='col'><input type='text' id='hotel_day' name='hotel_day' style='width:100%; border: 0;' readonly></td>";  
+        hotel_text += "<td scope='col'><input type='text' id='hotel_name' name='hotel_name' style='width:100%; border: 0;' readonly></td>";  
+        hotel_text += "<td scope='col'><input type='text' id='remark' name='remark' style='width:100%; border: 0;' readonly></td>";  
       }
       else{
-        hotel_text += "<td scope='col'><input type='text' id='hotel' name='hotel' value='"+data[i].hotel+"'></td>";  
-        hotel_text += "<td scope='col'><input type='text' id='hotel_day' name='hotel_day' ></td>";  
-        hotel_text += "<td scope='col'><input type='text' id='hotel_name' name='hotel_name' ></td>";  
-        hotel_text += "<td scope='col'><input type='text' id='remark' name='remark' ></td>"; 
+        hotel_text += "<td scope='col'><input type='text' id='hotel' name='hotel' class='text-center' style='width:100%; border: 0;' value='"+data[i].hotel+"'></td>";  
+        hotel_text += "<td scope='col'><input type='text' id='hotel_day' name='hotel_day' style='width:100%; border: 0;'></td>";  
+        hotel_text += "<td scope='col'><input type='text' id='hotel_name' name='hotel_name' style='width:100%; border: 0;'></td>";  
+        hotel_text += "<td scope='col'><input type='text' id='remark' name='remark' style='width:100%; border: 0;'></td>"; 
       }
       hotel_text += "</tr>";
       hotel.append(hotel_text);
