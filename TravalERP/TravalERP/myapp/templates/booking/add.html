@@ -342,10 +342,10 @@
 	  hotel_text += "<tr>";
 	  hotel_text += "<td scope='col'>"+toYear+'-'+toMonth+"-"+toDay+"</td>";
 	  if (data[i].hotel == ''){
-		hotel_text += "<td scope='col'><input type='text' class='form-control' id='hotel' name='hotel' class='text-center' style='width:100%; border: 0;' readonly></td>";  
-		hotel_text += "<td scope='col'><input type='text' class='form-control' id='hotel_day' name='hotel_day' style='width:100%; border: 0;' readonly></td>";  
-		hotel_text += "<td scope='col'><input type='text' class='form-control' id='hotel_name' name='hotel_name' style='width:100%; border: 0;' readonly></td>";  
-		hotel_text += "<td scope='col'><input type='text' class='form-control' id='remark' name='remark' style='width:100%; border: 0;' readonly></td>";  
+		hotel_text += "<td scope='col'><input type='text' class='' id='hotel' name='hotel' class='text-center' style='width:100%; border: 0;' readonly></td>";  
+		hotel_text += "<td scope='col'><input type='text' class=''  id='hotel_day' name='hotel_day' style='width:100%; border: 0;' readonly></td>";  
+		hotel_text += "<td scope='col'><input type='text' class=''  id='hotel_name' name='hotel_name' style='width:100%; border: 0;' readonly></td>";  
+		hotel_text += "<td scope='col'><input type='text' class=''  id='remark' name='remark' style='width:100%; border: 0;' readonly></td>";  
 	  }
 	  else{
 		hotel_text += "<td scope='col'><input type='text' class='form-control' id='hotel' name='hotel' class='text-center' style='width:100%;  text-align: center;' value='"+data[i].hotel+"'></td>";  
