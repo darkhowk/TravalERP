@@ -201,7 +201,7 @@ function changeAgentSucc(data){
 function saveData(fName, tName){
     var jsonData = $("#"+fName).serializeArray()
     $.ajax({
-        url: '/ajax/insertData/master/scheduleMaster', // 앞에 자동으로 setting/agent 붙음
+        url: '/ajax/insertData/master/schedule', // 앞에 자동으로 setting/agent 붙음
         method: 'POST',
         data: jsonData,
         dataType: 'json',
@@ -220,7 +220,7 @@ function saveDetail(tName, id){
 
     var tableJson = tableToJson(document.getElementById(tName))
     $.ajax({
-        url: '/ajax/insertData/detail/scheduleDetail', // 앞에 자동으로 setting/agent 붙음
+        url: '/ajax/insertData/detail/schedule', // 앞에 자동으로 setting/agent 붙음
         method: 'POST',
         data: JSON.stringify(tableJson),
         headers: { "X-CSRFToken": $('[name="csrfmiddlewaretoken"]').val() }, // CSRF 토큰을 HTTP 헤더에 추가
