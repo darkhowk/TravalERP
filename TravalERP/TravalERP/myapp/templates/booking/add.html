@@ -10,9 +10,9 @@
 	<form id="bookingFrm">
 	{% csrf_token %}
 		<div class="input-group mb-3">
-			<span class="input-group-text col-2 text-end" style="font-weight: bold;">ref</span>
+			<span class="input-group-text col-2 text-end" >ref</span>
 			<input type="text" class="form-control col-4 me-3" id="ref" name="ref">
-			<span class="input-group-text col-2 text-end" style="font-weight: bold;">상품명</span>
+			<span class="input-group-text col-2 text-end" >상품명</span>
 			<input type="text" class="form-control col-4" id="product_name" name="product_name">
 		</div>
 		<div class="input-group mb-3">
@@ -23,7 +23,7 @@
 		<div class="devider"></div>
 
 		<div class="input-group mb-3">
-			<span class="input-group-text col-2" style="font-weight: bold;">여행사</span>
+			<span class="input-group-text col-2" >여행사</span>
 			<select class="form-select selectpicker col-4 me-3" id="agent" name="agent" aria-label="agent_name" onchange="changeAgent(this)" data-live-search="true" data-none-selected-text="조건을 찾을 수 없습니다" style="border:1px black solid">
 				<option>여행사명</option>
 				{% for agent in optionData.agent %}
@@ -31,7 +31,7 @@
 				<option value="{{agent.id}}">{{agent.agent_name}}</option>
 				{% endfor %}
 			</select>
-			<span class="input-group-text col-2" style="font-weight: bold;">담당자</span>
+			<span class="input-group-text col-2" >담당자</span>
 			<select class="form-select selectpicker col-4" id="manager" name="manager" aria-label="manager" data-live-search="true" style="display: none;" id="manager" data-none-selected-text="조건을 찾을 수 없습니다">
 				<option>담당자명</option>
 			</select>
@@ -40,15 +40,15 @@
 		<div class="devider"></div>
 
 		<div class="input-group mb-3">
-			<span class="input-group-text col-2" style="font-weight: bold;">현지사무실</span>
-			<select class="form-select selectpicker col-4 me-3" id="localAgent" name="localAgent" aria-label="localagent_name" onchange="changeAgent(this)" data-live-search="true" data-none-selected-text="조건을 찾을 수 없습니다">
+			<span class="input-group-text col-2" >현지사무실</span>
+			<select class="form-select selectpicker col-4 me-3" id="local_agent" name="local_agent" aria-label="local_agent" onchange="changeAgent(this)" data-live-search="true" data-none-selected-text="조건을 찾을 수 없습니다">
 				<option>현지사무실명</option>
 				{% for agent in optionData.localAgent %}
 				<option value="{{agent.id}}">{{agent.agent_name}}</option>
 				{% endfor %}
 			</select>
-			<span class="input-group-text col-2" style="font-weight: bold;">담당자</span>
-			<select class="form-select selectpicker col-4" id="localManager" name="localManager" aria-label="localManager" data-live-search="true" data-none-selected-text="조건을 찾을 수 없습니다">
+			<span class="input-group-text col-2" >담당자</span>
+			<select class="form-select selectpicker col-4" id="local_manager" name="local_manager" aria-label="local_manager" data-live-search="true" data-none-selected-text="조건을 찾을 수 없습니다">
 			  <option>담당자명</option>
 			</select>
 	  	</div>
@@ -56,7 +56,7 @@
 		<div class="devider"></div>
 
 		<h5>AIR</h5>
-		<div class="input-group mb-3 mt-4">
+		<div class="input-group mb-3">
 			<span class="input-group-text col-2" >한국출발</span>
 			<input type="text" class="form-control col-2 datepicker me-3" id="kor_air_def" name="kor_air_def" placeholder="출발일" />
 			<span class="input-group-text col-2" >항공편</span>
@@ -76,14 +76,14 @@
 			<span class="input-group-text col-2" >현지출발</span>
 			<input type="text" class="form-control col-2 datepicker me-3" id="loc_air_def" name="loc_air_def" placeholder="현지출발일" />
 			<span class="input-group-text col-2" >항공편</span>
-			<select class="form-select selectpicker col-2" id="local_air" name="local_air" data-live-search="true" data-size="5" onchange="select_air(this)">
+			<select class="form-select selectpicker col-2" id="loc_air" name="loc_air" data-live-search="true" data-size="5" onchange="select_air(this)">
 				<option selected>항공편명</option>
 				{% for airport in optionData.airport %}
 				<option value="{{airport.id}}" data-out="{{airport.arrival_airport}}" data-in="{{airport.departure_airport}}" data-timedep="{{airport.departure_time}}" data-timearri="{{airport.arrival_time}}">{{airport.airport_name}}</option>
 				{% endfor %}
 			</select>
-			<input type="text" class="form-control col mx-1" id="local_air_in" name="local_air_in" readonly />
-			<input type="text" class="form-control col mx-1"id="local_air_out" name="local_air_out"  readonly />
+			<input type="text" class="form-control col mx-1" id="loc_air_in" name="loc_air_in" readonly />
+			<input type="text" class="form-control col mx-1"id="loc_air_out" name="loc_air_out"  readonly />
 			<input type="text" class="form-control col mx-1"id="loc_air_time_dep" name="loc_air_time_dep"  readonly />
 			<input type="text" class="form-control col mx-1"id="loc_air_time_arri" name="loc_air_time_arri"  readonly />
 		</div>
@@ -91,7 +91,7 @@
 		<div class="devider"></div>
 
 		<h5>MEAL</h5>
-		<div class="input-group mb-3 mt-4">
+		<div class="input-group mb-3">
 			<span class="input-group-text col-2" >조식</span>
 			<input type="text" class="form-control col-2 me-3" id="breakfast" name="breakfast" readonly>
 			<span class="input-group-text col-2" >중식</span>
@@ -104,26 +104,26 @@
 			</button>
 	  	</div>
 	  	<div class="input-group mb-3">
-			<span class="input-group-text col-2" style="font-weight: bold;">특식</span>
+			<span class="input-group-text col-2" >특식</span>
 			<textarea class="form-control col-10" id="special" name="special"  style="height: 80px"></textarea>
 		</div>
 
 		<div class="devider"></div>
 
 		<div class="input-group mb-3">
-			<span class="input-group-text col-2" style="font-weight: bold;">옵션</span>
+			<span class="input-group-text col-2" >옵션</span>
 			<textarea class="form-control col-10" id="option" name="option"  style="height: 80px"></textarea>
 		</div>
 
 		<div class="input-group mb-3">
-			<span class="input-group-text col-2" style="font-weight: bold;">쇼핑</span>
+			<span class="input-group-text col-2" >쇼핑</span>
 			<textarea class="form-control col-10" id="shopping" name="shopping"  style="height: 80px"></textarea>
 		</div>
 
 		<div class="devider"></div>
 
 		<div class="input-group mb-3">
-			<span class="input-group-text col-2" style="font-weight: bold;">ENTRANCE</span>
+			<span class="input-group-text col-2">ENTRANCE</span>
 			<textarea class="form-control col-10" id="entrance" name="entrance"  style="height: 80px"></textarea>
 		</div>
 
@@ -135,62 +135,42 @@
 		<div class="devider"></div>
 
 		<h5>GUIDE</h5>
-		<div class="input-group mb-3 mt-4">
+		<div class="input-group mb-3">
 			<span class="input-group-text col-2" >KOR</span>
 			<textarea class="form-control col-4 me-3" id="kor_guide" name="kor_guide"  style="height: 80px"></textarea>
 			<span class="input-group-text col-2" >LOC</span>
 			<textarea class="form-control col-4" id="loc_guide" name="loc_guide"  style="height: 80px"></textarea>
 		</div>
-
-		<div class="devider"></div>
-
-		<h5>SCHDULE</h5>
-		<div class="input-group mb-3 mt-4">
-			<table class="table" >
-			<thead >
-			<tr>
-				<th scope="col">일차</th>
-				<th scope="col">날짜</th>
-				<th scope="col">일정</th>
-			</tr>
-			</thead>
-			<tbody  id="schdule_table">
-			</tbody>
-			</table>
-	 	</div>
-
-		<div class="devider"></div>
-
-		<h5>HOTEL</h5>
-		<div class="input-group mb-3 mt-4">
-			<table class="table text-center" >
-				<thead>
-				<tr>
-					<th scope="col" style="width: 10%;">날짜</th>
-					<th scope="col" style="width: 10%;">지역</th>
-					<th scope="col" style="width: 10%;">숙박일수</th>
-					<th scope="col" style="width: 50%;">호텔</th>
-					<th scope="col" style="width: 20%;">비고</th>
-				</tr>
-				</thead>
-				<tbody  id="hotel_table" class="text-center">
-				</tbody>
-			</table>
-		</div>
-
 		<div class="devider"></div>
 
 		<div class="input-group mb-3">
 			<span class="input-group-text col-2" >REMARK</span>
 			<textarea class="form-control col-10" id="remark" name="remark"  style="height: 100px"></textarea>
 		</div>
+		<input type="hidden" id="use_yn" name="use_yn" value="Y">
+	</form>
 
-		<div class="text-end mt-5">
-			<button type="submit" class="btn btn-primary">저장</button>
-			<button type="reset" class="btn btn-secondary">초기화</button>
-			<button type="button" class="btn btn-secondary">취소</button>
-		</div>
-  </form>
+	<div class="devider"></div>
+
+	<h5>SCHDULE</h5>
+	<div class="input-group mb-3">
+		<table class="table  text-center" id="schdule_table" >
+		</table>
+	</div>
+
+	<div class="devider"></div>
+
+	<h5>HOTEL</h5>
+	<div class="input-group mb-3">
+		<table class="table text-center"  id="hotel_table"  >
+		</table>
+	</div>
+
+	<div class="text-end mt-5">
+		<button type="submit" class="btn btn-primary" onclick="saveData();">저장</button>
+		<button type="button" class="btn btn-secondary">취소</button>
+	</div>
+
 </div>
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -243,6 +223,45 @@
 </div>
 
 <script>
+	function saveData(){
+		var jsonData = $("#bookingFrm").serializeArray()
+		$.ajax({
+			url: '/ajax/insertData/master/booking', // 앞에 자동으로 setting/agent 붙음
+			method: 'POST',
+			data: jsonData,
+			dataType: 'json',
+			success: function(data) {
+				id = data.id
+				saveDetail(id);
+			},
+			error: function(xhr, status, error) {
+				alert('등록 실패')
+			}
+		});
+	}
+
+	function saveDetail(id){
+		console.log(id);
+		$('input[name="master_id"]').val(id);
+
+		var tableJson =tableToJson(document.getElementById('schdule_table'))
+		tableJson += tableToJson(document.getElementById('hotel_table'))
+
+		$.ajax({
+			url: '/ajax/insertData/detail/booking', // 앞에 자동으로 setting/agent 붙음
+			method: 'POST',
+			data: JSON.stringify(tableJson),
+			headers: { "X-CSRFToken": $('[name="csrfmiddlewaretoken"]').val() }, // CSRF 토큰을 HTTP 헤더에 추가
+			dataType: 'json',
+			success: function(data) {
+				alert('입력 완료 목록 화면으로 이동합니다.')
+			},
+			error: function(xhr, status, error) {
+				alert('등록 실패')
+			}
+		});
+	}
+
 	function searchSchedule(){
 		var prodName = $(".modal-body #product_name").val();
 		var agent = $(".modal-body #agent").val();
@@ -275,89 +294,128 @@
 
 	}
 
-  var searchMaster;
+  	var searchMaster;
 
 	function searchScheduleSucc(data){
-	searchMaster = '';
-		searchMaster = data;
-	// 상품명 / 몇박 몇일 / 담당자
-	var result = $("#result_div");
-	result.empty();
-	for (var i = 0; i < data.length; i ++){
-	  result.append("<div class='col-8' style='text-align: center; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;' data-row="+i+">"+data[i].product_name+"</div>")
-	  result.append("<div class='col-1' style='text-align: center;' data-row="+i+">"+data[i].night+"</div>")
-	  result.append("<div class='col-1' style='text-align: center;' data-row="+i+">"+data[i].day+"</div>")
-	  result.append("<div class='col-2' style='text-align: center;' data-row="+i+">"+data[i].manager_id+"</div>")
-	}
+		searchMaster = '';
+			searchMaster = data;
+		// 상품명 / 몇박 몇일 / 담당자
+		var result = $("#result_div");
+		result.empty();
+		for (var i = 0; i < data.length; i ++){
+			result.append("<div class='col-8' style='text-align: center; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;' data-row="+i+">"+data[i].product_name+"</div>")
+			result.append("<div class='col-1' style='text-align: center;' data-row="+i+">"+data[i].night+"</div>")
+			result.append("<div class='col-1' style='text-align: center;' data-row="+i+">"+data[i].day+"</div>")
+			result.append("<div class='col-2' style='text-align: center;' data-row="+i+">"+data[i].manager_id+"</div>")
+		}
 
 	}
-  function searchScheduleDetail(master_id){
-	$("#tmpSearchScheduleDeatilFrm").remove();
+	function searchScheduleDetail(master_id){
+		$("#tmpSearchScheduleDeatilFrm").remove();
 		var frm = makeForm('', 'tmpSearchScheduleDeatilFrm');
-	frm.appendChild(addData('use_yn', 'Y'));
-	frm.appendChild(addData('master_id', master_id));
-		document.body.appendChild(frm);
-	
-		getAjax('tmpSearchScheduleDeatilFrm', 'scheduleDetail', 'searchScheduleDetailSucc');
-
-  }
-
-  function searchScheduleDetailSucc(data){
-	var detail = $("#schdule_table");
-	var hotel =  $("#hotel_table");
-	detail.empty();
-	hotel.empty();
-
-	///// 날짜 입력 관련 
-	// 선택된 날짜로 Date 변수를 만든다
-	var tmpDate = $("#kor_air_def").val();
-	var selDate;
-	if (tmpDate == ''){
-	  selDate = new Date();
-	}
-	else{
-	  selDate = new Date(tmpDate);
-	}
-	// 해당 날짜에서 년,월,일을 각각 뽑는다. ( month는 +1을 해줘야 해당 month 가 제대로 나옴)
-	var selYear = selDate.getFullYear();
-	var selMonth = selDate.getMonth()+1;
-	var selDay = selDate.getDate();
-	///// 날짜 입력 관련 
-
-	for (var i = 0; i < data.length; i ++){
-	  var text = '';
-	  text += "<tr>";
-	  text += "<td scope='col'>"+data[i].day+"일차</td>";
-
-	  var toDate = new Date(selYear, selMonth, selDay + i);
-	  var toYear = toDate.getFullYear();
-	  var toMonth = ('0' +toDate.getMonth()).slice(-2);// 앞에 0을 붙이고 뒤에서 2개만 선택한다. 1자리수 인경우 앞에 0붙이는것
-	  var toDay = ('0' +toDate.getDate()).slice(-2);
-	  text += "<td scope='col'>"+toYear+'-'+toMonth+"-"+toDay+"</td>";
-	  text += "<td scope='col'>"+data[i].schedule+"</td>";
-	  text += "</tr>";
-	  detail.append(text)
-
-	  var hotel_text = '';
-	  hotel_text += "<tr>";
-	  hotel_text += "<td scope='col'>"+toYear+'-'+toMonth+"-"+toDay+"</td>";
-	  if (data[i].hotel == ''){
-		hotel_text += "<td scope='col'><input type='text' class='' id='hotel' name='hotel' class='text-center' style='width:100%; border: 0;' readonly></td>";  
-		hotel_text += "<td scope='col'><input type='text' class=''  id='hotel_day' name='hotel_day' style='width:100%; border: 0;' readonly></td>";  
-		hotel_text += "<td scope='col'><input type='text' class=''  id='hotel_name' name='hotel_name' style='width:100%; border: 0;' readonly></td>";  
-		hotel_text += "<td scope='col'><input type='text' class=''  id='remark' name='remark' style='width:100%; border: 0;' readonly></td>";  
-	  }
-	  else{
-		hotel_text += "<td scope='col'><input type='text' class='form-control' id='hotel' name='hotel' class='text-center' style='width:100%; border: 0; text-align: center;' value='"+data[i].hotel+"'></td>";  
-		hotel_text += "<td scope='col'><input type='text' class='form-control' id='hotel_day' name='hotel_day' style='width:100%; border: 0;'></td>";  
-		hotel_text += "<td scope='col'><input type='text' class='form-control' id='hotel_name' name='hotel_name' style='width:100%; border: 0;'></td>";  
-		hotel_text += "<td scope='col'><input type='text' class='form-control' id='remark' name='remark' style='width:100%; border: 0;'></td>"; 
-	  }
-	  hotel_text += "</tr>";
-	  hotel.append(hotel_text);
+		frm.appendChild(addData('use_yn', 'Y'));
+		frm.appendChild(addData('master_id', master_id));
+			document.body.appendChild(frm);
+		
+			getAjax('tmpSearchScheduleDeatilFrm', 'scheduleDetail', 'searchScheduleDetailSucc');
 
 	}
-  }
+
+	function searchScheduleDetailSucc(data){
+		var detail = $("#schdule_table");
+		var hotel =  $("#hotel_table");
+		detail.empty();
+		hotel.empty();
+
+		///// 날짜 입력 관련 
+		// 선택된 날짜로 Date 변수를 만든다
+		var tmpDate = $("#kor_air_def").val();
+		var selDate;
+		if (tmpDate == ''){
+		selDate = new Date();
+		}
+		else{
+		selDate = new Date(tmpDate);
+		}
+		// 해당 날짜에서 년,월,일을 각각 뽑는다. ( month는 +1을 해줘야 해당 month 가 제대로 나옴)
+		var selYear = selDate.getFullYear();
+		var selMonth = selDate.getMonth()+1;
+		var selDay = selDate.getDate();
+		///// 날짜 입력 관련 
+
+		var sch_table = $("#schdule_table");
+		var hot_table = $("#hotel_table");
+
+		// 스케쥴 생성 
+		sch_table.empty();
+		var basic="";
+			basic += '<thead>';
+			basic += '<tr>';
+			basic += '<td class="col-1" name="day">일차</td>';
+			basic += '<td class="col-2" name="">날짜</td>';
+			basic += '<td class="col-9" name="">일정</td>';
+			basic += '</tr>';
+			basic += '</thead>';
+			sch_table.append(basic);
+		
+		var sche = '<tbody>';
+		for (var i = 0 ; i < data.length ; i ++ ){
+			sche += '<tr>';
+			sche += "<td scope='col'>"+data[i].day+"일차</td>";
+
+			var toDate = new Date(selYear, selMonth, selDay + i);
+			var toYear = toDate.getFullYear();
+			var toMonth = ('0' +toDate.getMonth()).slice(-2);// 앞에 0을 붙이고 뒤에서 2개만 선택한다. 1자리수 인경우 앞에 0붙이는것
+			var toDay = ('0' +toDate.getDate()).slice(-2);
+			sche += "<td scope='col'><input type='text' class='form-control' id='date' name='date' style='width:100%; border: 0;' value='"+toYear+'-'+toMonth+"-"+toDay+"'></td>";
+			sche += "<td scope='col'><input type='text' class='form-control' id='schedule' name='schedule' style='width:100%; border: 0;' value='"+data[i].schedule+"'><input type='hidden' id='master_id' name='master_id'></td>";
+			sche += '</tr>'
+		}
+		sche +='</tbody>'
+		sch_table.append(sche);
+
+		// 호텔 생성
+		hot_table.empty();
+		var basic="";
+			basic += '<thead>';
+			basic += '<tr>';
+			basic += '<td class="col-2" name="day">날짜</td>';
+			basic += '<td class="col-1" name="">지역</td>';
+			basic += '<td class="col-1" name="">숙박일수</td>';
+			basic += '<td class="col-4" name="">호텔</td>';
+			basic += '<td class="col-4" name="">비고</td>';
+			basic += '</tr>';
+			basic += '</thead>';
+			hot_table.append(basic);
+		
+		var sche = '<tbody>';
+		for (var i = 0 ; i < data.length ; i ++ ){
+			sche += '<tr>';
+
+			var toDate = new Date(selYear, selMonth, selDay + i);
+			var toYear = toDate.getFullYear();
+			var toMonth = ('0' +toDate.getMonth()).slice(-2);// 앞에 0을 붙이고 뒤에서 2개만 선택한다. 1자리수 인경우 앞에 0붙이는것
+			var toDay = ('0' +toDate.getDate()).slice(-2);
+			sche += "<td scope='col'><input type='text' class='form-control' id='date' name='date' style='width:100%; border: 0;' value='"+toYear+'-'+toMonth+"-"+toDay+"'></td>";
+			if (data[i].hotel == ''){
+				sche += "<td scope='col'><input type='text' class='' id='hotel' name='hotel' class='text-center' style='width:100%; border: 0;' readonly></td>";  
+				sche += "<td scope='col'><input type='text' class=''  id='hotel_day' name='hotel_day' style='width:100%; border: 0;' readonly></td>";  
+				sche += "<td scope='col'><input type='text' class=''  id='hotel_name' name='hotel_name' style='width:100%; border: 0;' readonly></td>";  
+				sche += "<td scope='col'><input type='text' class=''  id='remark' name='remark' style='width:100%; border: 0;' readonly><input type='hidden' id='master_id' name='master_id'></td>";  
+			}
+			else{
+				sche += "<td scope='col'><input type='text' class='form-control' id='hotel' name='hotel' class='text-center' style='width:100%;  text-align: center;' value='"+data[i].hotel+"'></td>";  
+				sche += "<td scope='col'><input type='text' class='form-control' id='hotel_day' name='hotel_day' style='width:100%; border: 0;'></td>";  
+				sche += "<td scope='col'><input type='text' class='form-control' id='hotel_name' name='hotel_name' style='width:100%; border: 0;'></td>";  
+				sche += "<td scope='col'><input type='text' class='form-control' id='remark' name='remark' style='width:100%; border: 0;'><input type='hidden' id='master_id' name='master_id'></td>"; 
+			}
+			sche += '</tr>'
+		}
+		sche +='</tbody>'
+		hot_table.append(sche);
+
+
+	}
 
   $(document).on('dblclick', '#result_div > div', function() {
 	  var row = $(this).data('row');
@@ -399,9 +457,9 @@
 	  air_out = $("#kor_air_out");
 	  air_timedep = $("#kor_air_time_dep");
 	  air_timearri = $("#kor_air_time_arri");
-	} else if (element.id === "local_air") {
-	  air_in = $("#local_air_in");
-	  air_out = $("#local_air_out");
+	} else if (element.id === "loc_air") {
+	  air_in = $("#loc_air_in");
+	  air_out = $("#loc_air_out");
 	  air_timedep = $("#loc_air_time_dep");
 	  air_timearri = $("#loc_air_time_arri");
 	}
@@ -470,13 +528,16 @@
 
 		// 테이블에서 tr을 찾아 tr수만큼 for문을 돌린다.
 		schdule_table.find('tr').each(function(index, row) {
-		  // 첫 번째 행(th)은 스킵합니다.
-		  // 각 행(row)의 두 번째 셀(td)에 오늘 날짜를 입력합니다. 선택한 날짜에서 (index-1)을 더해서 날짜를 만든뒤, 넣어준다.
-		  var toDate = new Date(selYear, selMonth, selDay + index);
-		  var toYear = toDate.getFullYear();
-		  var toMonth = ('0' +toDate.getMonth()).slice(-2);// 앞에 0을 붙이고 뒤에서 2개만 선택한다. 1자리수 인경우 앞에 0붙이는것
-		  var toDay = ('0' +toDate.getDate()).slice(-2);
-		  $(row).find('td:nth-child(2)').text(toYear+'-'+toMonth+"-"+toDay);
+		 	// 첫 번째 행(th)은 스킵합니다.
+		 	if (index === 0) {
+				return; // continue to the next iteration
+			}
+			// 각 행(row)의 두 번째 셀(td)에 오늘 날짜를 입력합니다. 선택한 날짜에서 (index-1)을 더해서 날짜를 만든뒤, 넣어준다.
+			var toDate = new Date(selYear, selMonth, selDay + (index -1));
+			var toYear = toDate.getFullYear();
+			var toMonth = ('0' +toDate.getMonth()).slice(-2);// 앞에 0을 붙이고 뒤에서 2개만 선택한다. 1자리수 인경우 앞에 0붙이는것
+			var toDay = ('0' +toDate.getDate()).slice(-2);
+			$(row).find('td:nth-child(2)').text(toYear+'-'+toMonth+"-"+toDay);
 
 		});
 		hotel_table.find('tr').each(function(index, row) {
@@ -485,7 +546,7 @@
 			return true;
 		  }
 		  // 각 행(row)의 두 번째 셀(td)에 오늘 날짜를 입력합니다.
-		  var toDate = new Date(selYear, selMonth, selDay + index - 1);
+		  var toDate = new Date(selYear, selMonth, selDay + (index - 1));
 		  var toYear = toDate.getFullYear();
 		  var toMonth = ('0' +toDate.getMonth()).slice(-2);
 		  var toDay = ('0' +toDate.getDate()).slice(-2);
@@ -497,11 +558,61 @@
 	});
   });
 
-  function openSearch() {
-			var searchUrl = "/booking/search/";
-			var childWindow = window.open(searchUrl, "Search", "width=600,height=400");
-			childWindow.focus();
+ 	function openSearch() {
+		var searchUrl = "/booking/search/";
+		var childWindow = window.open(searchUrl, "Search", "width=600,height=400");
+		childWindow.focus();
+	}
+
+function tableToJson(table) {
+  var data = [];
+  var headers = [];
+
+  for (var i = 0; i < table.rows[0].cells.length; i++) {
+    var inputElem = table.rows[0].cells[i].querySelector('input[type="text"]');
+    if (inputElem) {
+      var headerText = inputElem.name;
+      headers.push(headerText);
+    } else {
+      var headerText = table.rows[0].cells[i].getAttribute('name');
+      if (headerText) {
+        headers.push(headerText);
+      }
+    }
   }
+
+  for (var i = 1; i < table.rows.length; i++) {
+    var tableRow = table.rows[i];
+    var rowData = {};
+
+    for (var j = 0; j < tableRow.cells.length; j++) {
+      var cellInput = tableRow.cells[j].querySelector('input[type="text"]');
+      if (cellInput && headers[j]) {
+        if (cellInput =='day' || headers[j] == 'day'){
+            rowData[headers[j]] = cellInput.value.replace("일차", "");
+        }
+        else{
+            rowData[headers[j]] = cellInput.value;
+        }
+      }
+      var cellHiddenInputs = tableRow.cells[j].querySelectorAll('input[type="hidden"]');
+      if (cellHiddenInputs) {
+        for (var k = 0; k < cellHiddenInputs.length; k++) {
+          var hiddenInput = cellHiddenInputs[k];
+          if (hiddenInput.name) {
+            rowData[hiddenInput.name] = hiddenInput.value;
+          }
+        }
+      }
+    }
+
+    if (Object.keys(rowData).length > 0) {
+      data.push(rowData);
+    }
+  }
+
+  return data;
+}
 </script>
 
 <style>
@@ -511,28 +622,13 @@
 	border-top: rgba(155, 151, 151, 0.979) 2px solid;
 	margin: 20px 10px 20px 0px;
   }
-  .title {
-	font-size: 30px;
-	font-weight: bolder;
-	margin-bottom: 20px;
-  }
-
-  .tr_row {
-	margin-bottom: 10px;
-  }
-
-  .tr_row label {
-	width: 5rem;
-	text-align: justify;
-  }
-  .tr_row input {
-	width: 10rem;
-	margin-right: 10px;
-  }
 </style>
 
 
-{% endblock %} {% block js %} {{block.super}} {% endblock js %}
+{% endblock %} 
+{% block js %} 
+{{block.super}} 
+{% endblock js %}
 
 
 
