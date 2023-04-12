@@ -6,14 +6,13 @@
 
 <div class="container mt-5">
   {% csrf_token %}
-    <form id="invoiceFrm" method="POST" enctype="multipart/form-data" action="/upload">
+    <form>
         <div class="d-inline mb-3">
             <label class="form-label" for="roomingfile"><h4>파일업로드</h4></label>
             <input type="file" class="form-control" id="roomingfile" name="roomingfile" accept="image/*, .pdf, .xls, .xlsx" />
         </div>
-        <button type="submit">업로드</button>
     </form>
-    <form>
+    <form id="invoiceFrm">
         <div class="devider"></div>
         <div class="row mt-2">
           <label for="bank_account" class="col-sm-2 col-form-label">인보이스 형태</label>
@@ -152,78 +151,42 @@
             </div>
           </div>
         </div>
-          <div class="devider"></div>
-          <div class="row">
-            <label for="bank_account" class="col-sm-2 col-form-label">BANK ACCOUNT</label>
-            <div class="col-sm-4 mt-2">
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="flexRadioDefault" id="overseas_bank" value="overseas" onchange="setDisplay()">
-                <label class="form-check-label" for="overseas_bank">해외</label>
-              </div>
-            </div>
-            <div class="col-sm-4 mt-2">
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="flexRadioDefault" id="domestic_bank" value="domestic" onchange="setDisplay()">
-                <label class="form-check-label" for="domestic_bank">국내</label>
-              </div>
-            </div>
-            <div class="col-sm-2 text-end">
-              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">검색하기</button>
-            </div>
-            <div class="row mt-5" id="overseas1" style="display:none;">
-              <label for="bank_name" class="col-sm-20 col-form-label">BANK</label>
-              <div class="col-sm-4">
-                <input id="bank" type="text" class="form-control" readonly />
-              </div>
-              <div class="col-sm-1"></div>
-              <label for="branch" class="col-sm-20 col-form-label">BRANCH</label>
-              <div class="col-sm-4">
-                <input id="branch" type="text" class="form-control" readonly />
-              </div>
-            </div>
-            <div class="row mt-2" id="overseas2" style="display:none;">
-              <label for="account_name" class="col-sm-20 col-form-label">BANK NAME</label>
-              <div class="col-sm-4">
-                <input id="bank_name" type="text" class="form-control" readonly />
-              </div>
-              <div class="col-sm-1"></div>
-              <label for="account" class="col-sm-20 col-form-label">ACCOUNT NO.</label>
-              <div class="col-sm-4">
-                <input id="account" type="text" class="form-control" readonly />
-              </div>
-            </div>
-            <div class="row mt-2" id="overseas3" style="display:none;">
-              <label for="swift" class="col-sm-20 col-form-label">SWIFT</label>
-              <div class="col-sm-4">
-                <input id="swift" type="text" class="form-control" readonly />
-              </div>
-              <div class="col-sm-1"></div>
-              <label for="iban" class="col-sm-20 col-form-label">IBAN CODE</label>
-              <div class="col-sm-4">
-                <input id="iban" type="text" class="form-control" readonly />
-              </div>
+        <div class="devider"></div>
+        <label class="col-sm-2 col-form-label" style="font-weight: bold;">BANK ACCOUNT</label>
+          <div class="col-sm-4 mt-2">
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="flexRadioDefault" id="overseas_bank" value="overseas" onchange="setDisplay()">
+              <label class="form-check-label" for="overseas_bank">해외</label>
             </div>
           </div>
-          <div class="row mt-5" id="domestic1" style="display:none;">
-            <label for="ko_bank" class="col-sm-20 col-form-label">은행명</label>
-            <div class="col-sm-4">
-              <input id="ko_bank" type="text" class="form-control" readonly />
-            </div>
-            <div class="col-sm-1"></div>
-            <label for="ko_account" class="col-sm-20 col-form-label">계좌번호</label>
-            <div class="col-sm-4">
-              <input id="ko_account" type="text" class="form-control" readonly />
+          <div class="col-sm-4 mt-2">
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="flexRadioDefault" id="domestic_bank" value="domestic" onchange="setDisplay()">
+              <label class="form-check-label" for="domestic_bank">국내</label>
             </div>
           </div>
-          <div class="row mt-2" id="domestic2" style="display:none;">
-            <label for="ko_name" class="col-sm-20 col-form-label">예금주</label>
-            <div class="col-sm-4">
-              <input id="ko_name" type="text" class="form-control" readonly />
+          <div class="col-sm-2 text-end">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">검색하기</button>
+          </div>
+          <div class="input-group mb-3 mt-3" id="overseas1" style="display:none;">
+            <span class="input-group-text" style="font-weight: bold;">BANK_NAME</span>
+            <input type="text" class="form-control col-2 me-1" id="bank_name" name="bank_name" readonly>
+            <span class="input-group-text" style="font-weight: bold;">NAME</span>
+            <input type="text" class="form-control col-2 me-1" id="account_name" name="account_name" readonly>
+            <span class="input-group-text" style="font-weight: bold;">ACCOUTN_NO</span>
+            <input type="text" class="form-control col-2 me-1" id="account_no" name="account_no" readonly>
+          </div>
+          <div id="overseas2" style="display:none;">
+            <p class="mt-5" style="font-weight: bold;">해외계좌</p>
+            <div class="input-group mb-3">
+              <span class="input-group-text" style="font-weight: bold;">IBAN CODE</span>
+              <input type="text" class="form-control col-2 me-1" id="iban_code" name="iban_code" readonly>
+              <span class="input-group-text" style="font-weight: bold;">SWIFT</span>
+              <input type="text" class="form-control col-2 me-1" id="swift" name="swift" readonly>
+              <span class="input-group-text" style="font-weight: bold;">BRANCH</span>
+              <input type="text" class="form-control col-2 me-1" id="branch" name="branch" readonly>
             </div>
           </div>
-
-
-
 
           <div class="text-end mt-5">
             <button type="submit" class="btn btn-primary">저장</button>
@@ -503,15 +466,9 @@ function setDisplay() {
   if($('input:radio[id=overseas_bank]').is(':checked')){
     $('#overseas1').show();
     $('#overseas2').show();
-    $('#overseas3').show();
-    $('#domestic1').hide();
-    $('#domestic2').hide();
   }else{
-    $('#overseas1').hide();
+    $('#overseas1').show();
     $('#overseas2').hide();
-    $('#overseas3').hide();
-    $('#domestic1').show();
-    $('#domestic2').show();
   }
 }
 
