@@ -294,6 +294,14 @@
 			frm.appendChild(addData('account_name', accountName));
 		}
 
+    var haa;
+    if($('input:radio[id=overseas_bank]').is(':checked')){
+      haa = 'I'; 
+    }
+    else{
+      haa = 'D';
+    }
+    frm.appendChild(addData('haa',haa));
 		frm.appendChild(addData('use_yn', 'Y'));
 		document.body.appendChild(frm);
 	
