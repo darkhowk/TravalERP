@@ -10,9 +10,9 @@
 	<form id="bookingFrm">
 	{% csrf_token %}
 		<div class="input-group mb-3">
-			<span class="input-group-text col-2 text-end" >ref</span>
+			<span class="input-group-text col-2 text-end" style="font-weight: bold;">ref</span>
 			<input type="text" class="form-control col-4 me-3" id="ref" name="ref">
-			<span class="input-group-text col-2 text-end" >상품명</span>
+			<span class="input-group-text col-2 text-end" style="font-weight: bold;">상품명</span>
 			<input type="text" class="form-control col-4" id="product_name" name="product_name">
 		</div>
 		<div class="input-group mb-3">
@@ -23,7 +23,7 @@
 		<div class="devider"></div>
 
 		<div class="input-group mb-3">
-			<span class="input-group-text col-2">여행사</span>
+			<span class="input-group-text col-2" style="font-weight: bold;">여행사</span>
 			<select class="form-control selectpicker col-4 me-3" id="agent" name="agent" aria-label="agent_name" onchange="changeAgent(this)" data-live-search="true" data-none-selected-text="조건을 찾을 수 없습니다" style="border:1px black solid">
 				<option>여행사명</option>
 				{% for agent in optionData.agent %}
@@ -31,7 +31,7 @@
 				<option value="{{agent.id}}">{{agent.agent_name}}</option>
 				{% endfor %}
 			</select>
-			<span class="input-group-text col-2" >담당자</span>
+			<span class="input-group-text col-2" style="font-weight: bold;">담당자</span>
 			<select class="form-control selectpicker col-4" id="manager" name="manager" aria-label="manager" data-live-search="true" style="display: none;" id="manager" data-none-selected-text="조건을 찾을 수 없습니다">
 				<option>담당자명</option>
 			</select>
@@ -40,14 +40,14 @@
 		<div class="devider"></div>
 
 		<div class="input-group mb-3">
-			<span class="input-group-text col-2" >현지사무실</span>
+			<span class="input-group-text col-2" style="font-weight: bold;">현지사무실</span>
 			<select class="form-control selectpicker col-4 me-3" id="localAgent" name="localAgent" aria-label="localagent_name" onchange="changeAgent(this)" data-live-search="true" data-none-selected-text="조건을 찾을 수 없습니다">
 				<option>현지사무실명</option>
 				{% for agent in optionData.localAgent %}
 				<option value="{{agent.id}}">{{agent.agent_name}}</option>
 				{% endfor %}
 			</select>
-			<span class="input-group-text col-2" >담당자</span>
+			<span class="input-group-text col-2" style="font-weight: bold;">담당자</span>
 			<select class="form-control selectpicker col-4" id="localManager" name="localManager" aria-label="localManager" data-live-search="true" data-none-selected-text="조건을 찾을 수 없습니다">
 			  <option>담당자명</option>
 			</select>
@@ -104,26 +104,26 @@
 			</button>
 	  	</div>
 	  	<div class="input-group mb-3">
-			<span class="input-group-text col-2" >특식</span>
+			<span class="input-group-text col-2" style="font-weight: bold;">특식</span>
 			<textarea class="form-control col-10" id="special" name="special"  style="height: 80px"></textarea>
 		</div>
 
 		<div class="devider"></div>
 
 		<div class="input-group mb-3">
-			<span class="input-group-text col-2" >옵션</span>
+			<span class="input-group-text col-2" style="font-weight: bold;">옵션</span>
 			<textarea class="form-control col-10" id="option" name="option"  style="height: 80px"></textarea>
 		</div>
 
 		<div class="input-group mb-3">
-			<span class="input-group-text col-2" >쇼핑</span>
+			<span class="input-group-text col-2" style="font-weight: bold;">쇼핑</span>
 			<textarea class="form-control col-10" id="shopping" name="shopping"  style="height: 80px"></textarea>
 		</div>
 
 		<div class="devider"></div>
 
 		<div class="input-group mb-3">
-			<span class="input-group-text col-2" >ENTRANCE</span>
+			<span class="input-group-text col-2" style="font-weight: bold;">ENTRANCE</span>
 			<textarea class="form-control col-10" id="entrance" name="entrance"  style="height: 80px"></textarea>
 		</div>
 
@@ -342,7 +342,7 @@
 	  hotel_text += "<tr>";
 	  hotel_text += "<td scope='col'>"+toYear+'-'+toMonth+"-"+toDay+"</td>";
 	  if (data[i].hotel == ''){
-		hotel_text += "<td scope='col'><input type='text' class='form-control' id='hotel' name='hotel' style='width:100%; border: 0;' readonly></td>";  
+		hotel_text += "<td scope='col'><input type='text' class='form-control' id='hotel' name='hotel' class='text-center' style='width:100%; border: 0;' readonly></td>";  
 		hotel_text += "<td scope='col'><input type='text' class='form-control' id='hotel_day' name='hotel_day' style='width:100%; border: 0;' readonly></td>";  
 		hotel_text += "<td scope='col'><input type='text' class='form-control' id='hotel_name' name='hotel_name' style='width:100%; border: 0;' readonly></td>";  
 		hotel_text += "<td scope='col'><input type='text' class='form-control' id='remark' name='remark' style='width:100%; border: 0;' readonly></td>";  
@@ -368,8 +368,8 @@
 	  $('#bookingFrm select[name="agent"]').selectpicker('val', agent);
 	  $('#bookingFrm select[name="manager"]').selectpicker('val', manager);
 	  // 각각의 input에 데이터 넣기
-	  for (var key in searchMaster[0]) {
-		var value = searchMaster[0][key];
+	  for (var key in searchMaster[row]) {
+		var value = searchMaster[row][key];
 		var element = $('#bookingFrm [name="' + key + '"]');
 		if (element.is('input')) {
 		  element.val(value);
