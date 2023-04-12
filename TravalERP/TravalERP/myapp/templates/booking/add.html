@@ -24,7 +24,7 @@
 
 		<div class="input-group mb-3">
 			<span class="input-group-text col-2" style="font-weight: bold;">여행사</span>
-			<select class="form-control selectpicker col-4 me-3" id="agent" name="agent" aria-label="agent_name" onchange="changeAgent(this)" data-live-search="true" data-none-selected-text="조건을 찾을 수 없습니다" style="border:1px black solid">
+			<select class="form-select selectpicker col-4 me-3" id="agent" name="agent" aria-label="agent_name" onchange="changeAgent(this)" data-live-search="true" data-none-selected-text="조건을 찾을 수 없습니다" style="border:1px black solid">
 				<option>여행사명</option>
 				{% for agent in optionData.agent %}
 				<!-- optionData 로 온 Object에서 agent만 선택하여 for문 돌린다-->
@@ -32,7 +32,7 @@
 				{% endfor %}
 			</select>
 			<span class="input-group-text col-2" style="font-weight: bold;">담당자</span>
-			<select class="form-control selectpicker col-4" id="manager" name="manager" aria-label="manager" data-live-search="true" style="display: none;" id="manager" data-none-selected-text="조건을 찾을 수 없습니다">
+			<select class="form-select selectpicker col-4" id="manager" name="manager" aria-label="manager" data-live-search="true" style="display: none;" id="manager" data-none-selected-text="조건을 찾을 수 없습니다">
 				<option>담당자명</option>
 			</select>
 		</div>
@@ -41,14 +41,14 @@
 
 		<div class="input-group mb-3">
 			<span class="input-group-text col-2" style="font-weight: bold;">현지사무실</span>
-			<select class="form-control selectpicker col-4 me-3" id="localAgent" name="localAgent" aria-label="localagent_name" onchange="changeAgent(this)" data-live-search="true" data-none-selected-text="조건을 찾을 수 없습니다">
+			<select class="form-select selectpicker col-4 me-3" id="localAgent" name="localAgent" aria-label="localagent_name" onchange="changeAgent(this)" data-live-search="true" data-none-selected-text="조건을 찾을 수 없습니다">
 				<option>현지사무실명</option>
 				{% for agent in optionData.localAgent %}
 				<option value="{{agent.id}}">{{agent.agent_name}}</option>
 				{% endfor %}
 			</select>
 			<span class="input-group-text col-2" style="font-weight: bold;">담당자</span>
-			<select class="form-control selectpicker col-4" id="localManager" name="localManager" aria-label="localManager" data-live-search="true" data-none-selected-text="조건을 찾을 수 없습니다">
+			<select class="form-select selectpicker col-4" id="localManager" name="localManager" aria-label="localManager" data-live-search="true" data-none-selected-text="조건을 찾을 수 없습니다">
 			  <option>담당자명</option>
 			</select>
 	  	</div>
@@ -60,7 +60,7 @@
 			<span class="input-group-text col-2" >한국출발</span>
 			<input type="text" class="form-control col-2 datepicker me-3" id="kor_air_def" name="kor_air_def" placeholder="출발일" />
 			<span class="input-group-text col-2" >항공편</span>
-			<select class="form-control selectpicker col-2" id="kor_air" name="kor_air" data-live-search="true" data-size="5" onchange="select_air(this)">
+			<select class="form-select selectpicker col-2" id="kor_air" name="kor_air" data-live-search="true" data-size="5" onchange="select_air(this)">
 				<option selected>항공편명</option>
 				{% for airport in optionData.airport %}
 				<option value="{{airport.id}}" data-out="{{airport.arrival_airport}}" data-in="{{airport.departure_airport}}" data-timedep="{{airport.departure_time}}" data-timearri="{{airport.arrival_time}}">{{airport.airport_name}}</option>
@@ -76,7 +76,7 @@
 			<span class="input-group-text col-2" >현지출발</span>
 			<input type="text" class="form-control col-2 datepicker me-3" id="loc_air_def" name="loc_air_def" placeholder="현지출발일" />
 			<span class="input-group-text col-2" >항공편</span>
-			<select class="form-control selectpicker col-2" id="local_air" name="local_air" data-live-search="true" data-size="5" onchange="select_air(this)">
+			<select class="form-select selectpicker col-2" id="local_air" name="local_air" data-live-search="true" data-size="5" onchange="select_air(this)">
 				<option selected>항공편명</option>
 				{% for airport in optionData.airport %}
 				<option value="{{airport.id}}" data-out="{{airport.arrival_airport}}" data-in="{{airport.departure_airport}}" data-timedep="{{airport.departure_time}}" data-timearri="{{airport.arrival_time}}">{{airport.airport_name}}</option>
