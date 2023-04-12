@@ -240,7 +240,7 @@ function saveDetail(tName, id){
 function updateData(fName, tName){
     var jsonData = $("#"+fName).serializeArray()
     $.ajax({
-        url: '/ajax/updateData/master/scheduleMaster', // 앞에 자동으로 setting/agent 붙음
+        url: '/ajax/updateData/master/schedule', // 앞에 자동으로 setting/agent 붙음
         method: 'POST',
         data: jsonData,
         dataType: 'json',
@@ -260,7 +260,7 @@ function updateDetail(tName, id){
     var tableJson = tableToJson(document.getElementById(tName))
 
     $.ajax({
-        url: '/ajax/updateData/detail/scheduleDetail', // 앞에 자동으로 setting/agent 붙음
+        url: '/ajax/updateData/detail/schedule', // 앞에 자동으로 setting/agent 붙음
         method: 'POST',
         data: JSON.stringify(tableJson),
         headers: { "X-CSRFToken": $('[name="csrfmiddlewaretoken"]').val() }, // CSRF 토큰을 HTTP 헤더에 추가
@@ -278,7 +278,7 @@ function updateDetail(tName, id){
 function deleteData(fName, tName){
     var jsonData = $("#"+fName).serializeArray()
     $.ajax({
-        url: '/ajax/deleteData/master/scheduleMaster', // 앞에 자동으로 setting/agent 붙음
+        url: '/ajax/deleteData/master/schedule', // 앞에 자동으로 setting/agent 붙음
         method: 'POST',
         data: jsonData,
         dataType: 'json',
@@ -298,7 +298,7 @@ function deleteDetail(tName, id){
     var tableJson = tableToJson(document.getElementById(tName))
 
     $.ajax({
-        url: '/ajax/deleteData/detail/scheduleDetail', // 앞에 자동으로 setting/agent 붙음
+        url: '/ajax/deleteData/detail/schedule', // 앞에 자동으로 setting/agent 붙음
         method: 'POST',
         data: JSON.stringify(tableJson),
         headers: { "X-CSRFToken": $('[name="csrfmiddlewaretoken"]').val() }, // CSRF 토큰을 HTTP 헤더에 추가
