@@ -57,7 +57,8 @@ MY_APP = [
     'myapp.statement',
     'myapp.tourconductor',
     'myapp.common',
-    
+    'myapp.ajax',
+   
 ]
 INSTALLED_APPS = DJANGO_BASE_APP + MY_APP
 
