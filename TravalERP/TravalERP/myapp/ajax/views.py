@@ -385,4 +385,6 @@ def pathtoMode(path):
       Models = BookingDetail
    if path == 'citycode':
       Models = Citycode
+   if path == 'tourconductor':
+      Models = Tourconductor
    return Models
