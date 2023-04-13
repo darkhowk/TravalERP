@@ -296,6 +296,26 @@ class Citycode(commonModel):
         verbose_name_plural = '국가 및 도시코드 목록'       
 
 
+class Tourconductor(commonModel):
+    tc_company = models.CharField(db_column='TC_COMPANY', max_length=100, verbose_name='소속회사')
+    tc_name = models.CharField(db_column='TC_NAME', max_length=100, verbose_name='이름')
+    tc_tel = models.CharField(db_column='TC_TEL', max_length=100, verbose_name='연락처')
+    tc_remark = models.TextField(db_column='TC_REMARK', max_length=100, verbose_name='리마크')
+    
+    def __iter__(self):
+        yield self.tc_company
+        yield self.tc_name
+        yield self.tc_tel
+        yield self.tc_remark
+
+    class Meta:
+        managed = False
+        db_table = 'tourconductor'
+        verbose_name = 'T/C'
+        verbose_name_plural = 'T/C 목록'       
+
+
+
 
 class RoomingMaster(commonModel):
     rooming = models.CharField(db_column='ROOMING', max_length=100, verbose_name='루밍상태')

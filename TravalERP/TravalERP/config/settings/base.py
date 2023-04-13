@@ -55,7 +55,6 @@ MY_APP = [
     'myapp.itinerary',
     'myapp.invoice',
     'myapp.statement',
-    'myapp.tourconductor',
     'myapp.common',
     'myapp.ajax',
    

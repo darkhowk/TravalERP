@@ -365,6 +365,35 @@ class citycodeAdd(addView):
       return response
    
 
+
+#################################################
+# T/C
+#################################################
+class tourconductorAdd(addView):
+   def seletData(self):
+      return {"tourconductor":Tourconductor.objects.filter(id=self.id)}
+   
+   def selectOption(self, request):
+      return {}
+   
+   def get(self, request, *args, **kwargs):
+      self.template_name = "setting/tourconductorAdd.html"
+      self.pageType = request.GET.get('pageType', None)
+      self.id = request.GET.get('id', None)
+      if self.pageType == 'I':
+            self.title_nm = "T/C 추가"
+            self.descript = "T/C 추가 페이지입니다"
+      elif self.pageType == 'U':
+            self.title_nm = "T/C 수정"
+            self.descript = "T/C 수정 페이지입니다"
+      
+      response = super().get(request, *args, **kwargs)
+      
+      if response is None:
+         response = HttpResponse()
+         
+      return response
+
 #################################################
 # Common Setting View ( 공통 List 화면 View)
 #################################################
@@ -372,7 +401,7 @@ class commonSettingView(CommonView):
    def custom_queryset(self):
       if self.target == 'airport':
          self.title_nm='항공'
-         self.descript = '항동 등록 페이지입니다.'
+         self.descript = '항공 등록 페이지입니다.'
          return  Airport, None, None
       
       if self.target ==  'manager':
@@ -422,6 +451,13 @@ class commonSettingView(CommonView):
          self.title_nm = "도시코드"
          self.descript = "도시코드 페이지입니다"
          return Citycode, None, None
+      
+      if self.target == 'tourconductor':
+         self.title_nm = "T/C"
+         self.descript = "T/C 페이지입니다"
+         return Tourconductor, None, None
+      
+      
 
    def get(self, request, *args, **kwargs):
       self.type = request.GET.get('type')
@@ -458,4 +494,6 @@ def pathtoMode(path):
       Models = ScheduleDetail
    if path == 'citycode':
       Models = Citycode
+   if path == 'tourconductor':
+      Models = Tourconductor
    return Models

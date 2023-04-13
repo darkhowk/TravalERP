@@ -26,7 +26,6 @@ urlpatterns = [
     path("", include("myapp.itinerary.urls")),
     path("", include("myapp.invoice.urls")),
     path("", include("myapp.statement.urls")),
-    path("", include("myapp.tourconductor.urls")),
     path("", include("myapp.ajax.urls")),
 
 ]
