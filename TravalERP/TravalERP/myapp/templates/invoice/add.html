@@ -13,44 +13,40 @@
         </div>
     </form>
     <form id="invoiceFrm">
-        <div class="devider"></div>
-        <div class="row mt-2">
-          <label for="bank_account" class="col-sm-2 col-form-label">인보이스 형태</label>
-          <div class="col-sm-5 mt-2">
+      <div class="devider"></div>
+      <div class="row mt-2">
+        <label for="bank_account" class="col-sm-2 col-form-label">인보이스 형태</label>
+        <div class="col-sm-5 mt-2">
           <div class="form-check">
             <input class="form-check-input" type="radio" name="flexRadioDefault" id="local_inv">
-            <label class="form-check-label " for="local_inv">
-            현지
-            </label>
+            <label class="form-check-label " for="local_inv">현지</label>
           </div>
         </div>
         <div class="col-sm-5 mt-2">
           <div class="form-check">
             <input class="form-check-input" type="radio" name="flexRadioDefault" id="agent_inv" checked>
-            <label class="form-check-label" for="agent_inv">
-            여행사
-            </label>
+            <label class="form-check-label" for="agent_inv">여행사</label>
           </div>
         </div>
-          <div class="devider"></div>
-          <div class="row mt-2">
-            <div class="text-start">
-              <label for="matching" class="col-sm-1 col-form-label">단체매칭</label>
-              <label class="d-none d-sm-inline-block navbar-search col-form-label">
-                <div class="input-group">
-                  <input type="text" class="form-control bg-light border" aria-label="Search" aria-describedby="basic-addon2"
-                  />
+        <div class="devider"></div>
+        <div class="row mt-2">
+          <div class="text-start">
+            <label for="matching" class="col-sm-1 col-form-label" style="font-weight: bold;">단체매칭</label>
+            <label class="d-none d-sm-inline-block navbar-search col-form-label">
+              <div class="input-group">
+                <input type="text" class="form-control bg-light border" aria-label="Search" aria-describedby="basic-addon2"/>
                   <div class="input-group-append">
                     <button class="btn btn-primary" type="button">
                       <i class="fas fa-search fa-sm"></i>
                     </button>
-                </div>
-              </label>
-            </div>
+                  </div>
+              </div>
+            </label>
           </div>
-          <div class="devider"></div>
-          <div class="row">
-            <p>단체상세</p>
+        </div>
+        <div class="devider"></div>
+        <div class="row">
+            <p style="font-weight: bold;">단체상세</p>
             <label for="totalpax" class="col-sm-2 col-form-label">TOTAL PAX</label>
             <div class="col-sm-2">
               <div class="input-group">
@@ -109,7 +105,7 @@
         </div>
         <div class="devider"></div> 
         <div class="row">
-          <p><h5>상세내역</h5></p>
+          <p><h4>상세내역</h4></p>
           <div class="text-end">
             <input type="button" class="btn btn-primary"  onclick="addRow()" value="추가">
             <input type="button" class="btn btn-secondary" onclick="delRow()" value="삭제">
@@ -134,7 +130,7 @@
         <div class="devider"></div>
         <div class="p-2 bg-warning text-dark">
           <div class="row">
-            <label for="total_rate" class="col-sm-2 col-form-label">합계</label>
+            <label for="total_rate" class="col-sm-2 col-form-label" style="font-weight: bold;">합계</label>
             <div class="col-sm-3">
               <input id="totalSum" type="text" class="form-control" readonly />
             </div>
@@ -414,15 +410,19 @@ function addRow() {
 
 function delRow() {
   var tbody = document.getElementById("tbody");
-  for(var i = 1 ; i<tbody.rows.length;i++){
+  var deletedCount = 0; 
+  for (var i = 0; i < tbody.rows.length; i++) {
     var checkbox = tbody.rows[i].cells[0].childNodes[0].checked;
-
-    if(checkbox){
+    if (checkbox) {
       tbody.deleteRow(i);
-i--;
+      i--;
+      deletedCount++;
+    } else {
+      tbody.rows[i].cells[1].innerHTML = i + 1;
     }
   }
 }
+
 function multi() {
 	// event 현재 이벤트가 일어난 놈
     var currentRow = event.target.closest('tr');

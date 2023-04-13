@@ -180,19 +180,35 @@
   }
 }
 
+
 function delRow() {
   var tbody = document.getElementById("tbody");
-  for(var i = 1 ; i<tbody.rows.length;i++){
+  for (var i = 1; i < tbody.rows.length; i++) {
     var checkbox = tbody.rows[i].cells[0].childNodes[0].checked;
-
-    if(checkbox){
+    if (checkbox) {
       tbody.deleteRow(i);
-i--;
+      i--;
+    }
+    else {
+    tbody.rows[i].cells[1].innerHTML = i - deletedCount + 1;
     }
   }
 }
 
-
+function delRow() {
+  var tbody = document.getElementById("tbody");
+  var deletedCount = 0; // 삭제된 row의 수
+  for (var i = 0; i < tbody.rows.length; i++) {
+    var checkbox = tbody.rows[i].cells[0].childNodes[0].checked;
+    if (checkbox) {
+      tbody.deleteRow(i);
+      i--;
+      deletedCount++;
+    } else {
+      tbody.rows[i].cells[1].innerHTML = i + 1;
+    }
+  }
+}
 
 
 </script>
