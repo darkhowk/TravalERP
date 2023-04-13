@@ -241,11 +241,11 @@
 	}
 
 	function saveDetail(id){
-		console.log(id);
 		$('input[name="master_id"]').val(id);
+		var sch = tableToJson(document.getElementById('schdule_table'));
+		var hot = tableToJson(document.getElementById('hotel_table'));
 
-		var tableJson =tableToJson(document.getElementById('schdule_table'))
-		tableJson += tableToJson(document.getElementById('hotel_table'))
+		var tableJson = mergeJson(sch, hot);
 
 		$.ajax({
 			url: '/ajax/insertData/detail/booking', // 앞에 자동으로 setting/agent 붙음
@@ -368,7 +368,7 @@
 			var toMonth = ('0' +toDate.getMonth()).slice(-2);// 앞에 0을 붙이고 뒤에서 2개만 선택한다. 1자리수 인경우 앞에 0붙이는것
 			var toDay = ('0' +toDate.getDate()).slice(-2);
 			sche += "<td scope='col'><input type='text' class='form-control' id='date' name='date' style='width:100%; border: 0;' value='"+toYear+'-'+toMonth+"-"+toDay+"'></td>";
-			sche += "<td scope='col'><input type='text' class='form-control' id='schedule' name='schedule' style='width:100%; border: 0;' value='"+data[i].schedule+"'><input type='hidden' id='master_id' name='master_id'></td>";
+			sche += "<td scope='col'><input type='text' class='form-control' id='schedule' name='schedule' style='width:100%; border: 0;' value='"+data[i].schedule+"'><input type='hidden' id='master_id' name='master_id'><input type='hidden' id='type' name='type' value='S'><input type='hidden' id='use_yn' name='use_yn' value='Y'></td>";
 			sche += '</tr>'
 		}
 		sche +='</tbody>'
@@ -379,11 +379,11 @@
 		var basic="";
 			basic += '<thead>';
 			basic += '<tr>';
-			basic += '<td class="col-2" name="day">날짜</td>';
-			basic += '<td class="col-1" name="">지역</td>';
-			basic += '<td class="col-1" name="">숙박일수</td>';
-			basic += '<td class="col-4" name="">호텔</td>';
-			basic += '<td class="col-4" name="">비고</td>';
+			basic += '<td class="col-2" name="date">날짜</td>';
+			basic += '<td class="col-1" name="loc">지역</td>';
+			basic += '<td class="col-1" name="day">숙박일수</td>';
+			basic += '<td class="col-4" name="hotel">호텔</td>';
+			basic += '<td class="col-4" name="remark">비고</td>';
 			basic += '</tr>';
 			basic += '</thead>';
 			hot_table.append(basic);
@@ -401,13 +401,13 @@
 				sche += "<td scope='col'><input type='text' class='' id='hotel' name='hotel' class='text-center' style='width:100%; border: 0;' readonly></td>";  
 				sche += "<td scope='col'><input type='text' class=''  id='hotel_day' name='hotel_day' style='width:100%; border: 0;' readonly></td>";  
 				sche += "<td scope='col'><input type='text' class=''  id='hotel_name' name='hotel_name' style='width:100%; border: 0;' readonly></td>";  
-				sche += "<td scope='col'><input type='text' class=''  id='remark' name='remark' style='width:100%; border: 0;' readonly><input type='hidden' id='master_id' name='master_id'></td>";  
+				sche += "<td scope='col'><input type='text' class=''  id='remark' name='remark' style='width:100%; border: 0;' readonly><input type='hidden' id='master_id' name='master_id'><input type='hidden' id='type' name='type' value='H'><input type='hidden' id='use_yn' name='use_yn' value='Y'></td>";  
 			}
 			else{
 				sche += "<td scope='col'><input type='text' class='form-control' id='hotel' name='hotel' class='text-center' style='width:100%;  text-align: center;' value='"+data[i].hotel+"'></td>";  
 				sche += "<td scope='col'><input type='text' class='form-control' id='hotel_day' name='hotel_day' style='width:100%; border: 0;'></td>";  
 				sche += "<td scope='col'><input type='text' class='form-control' id='hotel_name' name='hotel_name' style='width:100%; border: 0;'></td>";  
-				sche += "<td scope='col'><input type='text' class='form-control' id='remark' name='remark' style='width:100%; border: 0;'><input type='hidden' id='master_id' name='master_id'></td>"; 
+				sche += "<td scope='col'><input type='text' class='form-control' id='remark' name='remark' style='width:100%; border: 0;'><input type='hidden' id='master_id' name='master_id'><input type='hidden' id='type' name='type' value='H'><input type='hidden' id='use_yn' name='use_yn' value='Y'></td>"; 
 			}
 			sche += '</tr>'
 		}
@@ -565,53 +565,32 @@
 	}
 
 function tableToJson(table) {
-  var data = [];
-  var headers = [];
+    var data = []; // JSON으로 변환될 데이터를 저장할 배열
+    $(table).find('tr').each(function(index) {
+		if (index !== 0) {
+			var row = {}; // 행 데이터를 저장할 객체
+			$(this).find('input').each(function() {
 
-  for (var i = 0; i < table.rows[0].cells.length; i++) {
-    var inputElem = table.rows[0].cells[i].querySelector('input[type="text"]');
-    if (inputElem) {
-      var headerText = inputElem.name;
-      headers.push(headerText);
-    } else {
-      var headerText = table.rows[0].cells[i].getAttribute('name');
-      if (headerText) {
-        headers.push(headerText);
-      }
-    }
+				var id = $(this).attr('id'); // input 요소의 id 값을 추출
+				var value = $(this).val(); // input 요소의 값(value)을 추출
+				row[id] = value; // id를 속성 이름으로, 값(value)을 속성 값으로 저장
+			});
+			data.push(row); // 행 데이터 객체를 배열에 추가
+		}
+    });
+    return data; // JSON으로 변환된 데이터 배열 반환
   }
 
-  for (var i = 1; i < table.rows.length; i++) {
-    var tableRow = table.rows[i];
-    var rowData = {};
+function mergeJson(ori, add){
+	var data = [];
+	$.each(ori, function(index, item) {
+		data.push(item);
+	});
+	$.each(add, function(index, item) {
+		data.push(item);
+	});
 
-    for (var j = 0; j < tableRow.cells.length; j++) {
-      var cellInput = tableRow.cells[j].querySelector('input[type="text"]');
-      if (cellInput && headers[j]) {
-        if (cellInput =='day' || headers[j] == 'day'){
-            rowData[headers[j]] = cellInput.value.replace("일차", "");
-        }
-        else{
-            rowData[headers[j]] = cellInput.value;
-        }
-      }
-      var cellHiddenInputs = tableRow.cells[j].querySelectorAll('input[type="hidden"]');
-      if (cellHiddenInputs) {
-        for (var k = 0; k < cellHiddenInputs.length; k++) {
-          var hiddenInput = cellHiddenInputs[k];
-          if (hiddenInput.name) {
-            rowData[hiddenInput.name] = hiddenInput.value;
-          }
-        }
-      }
-    }
-
-    if (Object.keys(rowData).length > 0) {
-      data.push(rowData);
-    }
-  }
-
-  return data;
+	return data;
 }
 </script>
 

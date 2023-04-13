@@ -3,6 +3,7 @@ from django.views import generic
 from django.http import JsonResponse, HttpResponse
 # from ..common.common_models import Menu # 기존 Menu만 불러오던걸 주석
 from ..common.common_models import * # 모든 모델 가져올수있게 변경
+from ..booking.models import * # 모든 모델 가져올수있게 변경
 import datetime, json
 # Create your views here.
 
@@ -240,6 +241,9 @@ def insert(request, model, fields):
       field_instance = model._meta.get_field(field)
       if isinstance(field_instance, models.ForeignKey):
          # ForeignKey field 처리
+         print("??")
+         print(request.POST.get(field))
+         print(field)
          data[field] = pathtoMode(field).objects.get(id=request.POST.get(field))
       else:
          # 일반 field 처리
@@ -281,19 +285,31 @@ def delete(request, model, pk_name='id', **kwargs):
     return JsonResponse({'result': 'success', 'id': obj.id})
 
 def insertDetail(jsonData, model, fields):
+    print(jsonData)
+    print(fields)
+    print("---------------")
     now = datetime.datetime.now()
     data = {}
     for field in fields:
-      field_instance = model._meta.get_field(field)
-      if isinstance(field_instance, models.ForeignKey):
-         # ForeignKey field 처리
-         if field == 'master_id':
-            data[field] = ScheduleMaster.objects.get(id=jsonData[field])
+      if field in jsonData:
+         field_instance = model._meta.get_field(field)
+         if isinstance(field_instance, models.ForeignKey):
+            # ForeignKey field 처리
+            if model == ScheduleDetail:
+               if field == 'master_id':
+                  data[field] = ScheduleMaster.objects.get(id=jsonData[field])
+               else:
+                  data[field] = pathtoMode(field).objects.get(id=jsonData[field])
+            elif model == BookingDetail:
+               if field == 'master_id':
+                  data[field] = BookingMaster.objects.get(id=jsonData[field])
+               else:
+                  data[field] = pathtoMode(field).objects.get(id=jsonData[field])
          else:
-            data[field] = pathtoMode(field).objects.get(id=jsonData[field])
+            # 일반 field 처리
+            data[field] = jsonData[field]
       else:
-         # 일반 field 처리
-         data[field] = jsonData[field]
+         data[field] = None  
 
     obj = model(**data, entry_date=now.strftime('%Y-%m-%d %H:%M:%S'))
     obj.save()
@@ -341,6 +357,10 @@ def deleteDetail(jsonData, model, pk_name='id', **kwargs):
    return JsonResponse({'result': 'success', 'id': obj.id})
 
 def pathtoMode(path):
+   if path == 'local_agent':
+      Models = Agent
+   if path == 'local_manager':
+      Models = Manager
    if path == 'agent':
       Models = Agent
    if path == 'airport':
@@ -359,6 +379,10 @@ def pathtoMode(path):
       Models = ScheduleMaster
    if path == 'scheduleDetail':
       Models = ScheduleDetail
+   if path == 'bookingMaster':
+      Models = BookingMaster
+   if path == 'bookingDetail':
+      Models = BookingDetail
    if path == 'citycode':
       Models = Citycode
    return Models
