@@ -12,26 +12,16 @@
     </div>
     <div class="devider"></div>
     <div class="row mt-2">
-      <label for="roomingstate" class="col-sm-1 col-form-label">루밍상태</label>
+      <label for="roomingstate" class="col-sm-1 col-form-label" style="font-weight: bolder;">루밍상태</label>
       <div class="col-sm-5 mt-2">
         <div class="form-check form-check-inline">
-          <input
-            id="semirooming"
-            type="radio"
-            class="form-check-input"
-            value="semi"
-          />
+          <input id="semirooming" type="radio" class="form-check-input" value="semi"/>
           <label class="form-check-label" for="semiroom">세미루밍</label>
         </div>
       </div>
       <div class="col-sm-6 mt-2">
         <div class="form-check form-check-inline">
-          <input
-            id="finalrooming"
-            type="radio"
-            class="form-check-input"
-            value="final"
-          />
+          <input id="finalrooming" type="radio" class="form-check-input" value="final" />
           <label class="form-check-label" for="finalroom">파이널루밍</label>
         </div>
       </div>
@@ -39,15 +29,10 @@
     <div class="devider"></div>
     <div class="row mt-2">
       <div class="text-start">
-        <label for="matching" class="col-sm-1 col-form-label">단체매칭</label>
+        <label for="matching" class="col-sm-1 col-form-label" style="font-weight: bolder;">단체매칭</label>
         <label class="d-none d-sm-inline-block navbar-search col-form-label">
           <div class="input-group">
-            <input
-              type="text"
-              class="form-control bg-light border"
-              aria-label="Search"
-              aria-describedby="basic-addon2"
-            />
+            <input type="text" class="form-control bg-light border" aria-label="Search" aria-describedby="basic-addon2" />
             <div class="input-group-append">
               <button class="btn btn-primary" type="button">
                 <i class="fas fa-search fa-sm"></i>
@@ -59,14 +44,14 @@
     <div class="devider"></div>
     <div class="row">
       <p></p>
-      <label for="totalpax" class="col-sm-2 col-form-label">TOTAL PAX</label>
+      <label for="totalpax" class="col-sm-2 col-form-label" style="font-weight: bolder;">TOTAL PAX</label>
       <div class="col-sm-2">
         <div class="input-group">
           <input id="totalpax" type="text" class="form-control" />
           <div class="input-group-text">pax</div>
         </div>
       </div>
-      <label for="roomtype" class="col-sm-2 col-form-label">ROOM TYPE</label>
+      <label for="roomtype" class="col-sm-2 col-form-label text-end" style="font-weight: bolder;">ROOM TYPE</label>
       <div class="col-sm-2">
         <div class="input-group">
           <input id="twinroom" type="text" class="form-control"/>
@@ -85,21 +70,26 @@
           <div class="input-group-text">SINGLE</div>
         </div>
       </div>
-      <div class="row mt-3">
+      <div class="row mt-5">
         <div class="col-sm-2">
-          <label for="tc" class="col-form-label">TOUR LEADER</label>
+          <label for="tourconductor" class="col-form-label" style="font-weight: bolder;">TOUR LEADER</label>
         </div>
         <div class="col-sm-2">
-          <label for="tc_name" class="visually-hidden">이름</label>
-          <input type="text" class="form-control" id="tc_name" placeholder="이름">
+          <select class="form-select-diy selectpicker col-2" id="tc_name" name="tc_name" data-live-search="true" data-size="2" onchange="select_tc(this)">
+            <option selected>이름</option>
+            {% for tourconductor in optionData.tourconductor %}
+            <option value="{{tourconductor.id}}" data-name="{{tourconductor.tc_name}}" data-tel="{{tourconductor.tc_tel}}" data-en="{{tourconductor.tc_name_en}}">{{tourconductor.tc_name}}</option>
+            {% endfor %}
+          </select>
         </div>
         <div class="col-sm-3">
-          <label for="tc_tel" class="visually-hidden">연락처</label>
-          <input type="text" class="form-control" id="tc_tel" placeholder="연락처">
+          <input type="text" class="form-control" id="tc_name_en" name="tc_name_en"  placeholder="영문명" readonly />
+        </div>
+        <div class="col-sm-3">
+          <input type="text" class="form-control" id="tc_tel" name="tc_tel"  placeholder="연락처" readonly />
         </div>
       </div>
-    </div>
-    <div class="row mt-3">
+    <div class="row mt-5">
       <label for="remark" class="col-sm-2 col-form-label">REMARK</label>
       <div class="col-sm-10">
         <textarea id="remark" class="form-control" style="height: 100px"></textarea>
@@ -210,6 +200,22 @@ function delRow() {
   }
 }
 
+function select_tc(element){
+  var data_name = $(element).find(':selected').data('name');
+  var data_tel = $(element).find(':selected').data('tel');
+  var data_en = $(element).find(':selected').data('en');
+
+  // 선택한 select box에 따라서 데이터를 적용할 input 태그 선택
+  var name = $("#tc_name");
+  var tel = $("#tc_tel");
+  var en = $("#tc_name_en");
+
+  // input 태그에 데이터 적용
+  name.val(data_name);
+  tel.val(data_tel);
+  en.val(data_en);
+}
+
 
 </script>
 
@@ -226,6 +232,19 @@ function delRow() {
     display: inline-block;
     margin-right: 1rem;
   }
+
+  .form-select-diy, .dataTable-selector {
+  display: block;
+  width: 100%;
+  font-size: 1rem;
+  font-weight: 400;
+  color: #6c757d;
+  line-height: 1.5;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+
+}
+
 
 </style>
 
