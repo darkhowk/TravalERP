@@ -196,7 +196,7 @@
             </select>
           </div>
         <div class="col-sm-20">
-          <select id="manager" name="manager" class="form-control  selectpicker" aria-label="manager" data-live-search="true" style="display: none;" id="manager" data-none-selected-text="조건을 찾을 수 없습니다">
+          <select id="manager" name="manager" class="form-control  selectpicker" aria-label="manager" data-live-search="true" style="display: none;" data-none-selected-text="조건을 찾을 수 없습니다">
             <option value="">담당자명</option>
             </select>
           </div>
@@ -389,33 +389,32 @@
   }
 
   function changeAgent(element){
-    $("#tmpChangeAgentFrm").remove();
-    var frm = makeForm('', 'tmpChangeAgentFrm');
+	$("#tmpChangeAgentFrm").remove();
+	var frm = makeForm('', 'tmpChangeAgentFrm');
 
-    frm.appendChild(addData('agent', ($(element).val())));
-    document.body.appendChild(frm);
+	frm.appendChild(addData('agent', ($(element).val())));
+	document.body.appendChild(frm);
 
-    getAjax('tmpChangeAgentFrm', 'manager', 'changeAgentSucc', element);
+	getAjax('tmpChangeAgentFrm', 'manager', 'changeAgentSucc', element);
 
   }
 
   function changeAgentSucc(data, element){
-	var select = $($(element).closest('.row').find('select')[1]);
+	var select = $($(element).closest('.input-group').find('select')[1]);
 
-    select.selectpicker('destroy');
-    select.empty();
-    for (var i = 0; i < data.length; i++) {
-        var option = $('<option>', {
-            value: data[i].id,
-            text: data[i].manager_name
-        });
-        select.append(option);
-    }
+	select.selectpicker('destroy');
+	select.empty();
+	for (var i = 0; i < data.length; i++) {
+		var option = $('<option>', {
+			value: data[i].id,
+			text: data[i].manager_name
+		});
+		select.append(option);
+	}
 
-    select.selectpicker(); 
+	select.selectpicker(); 
 
 }
-
 
 
 
