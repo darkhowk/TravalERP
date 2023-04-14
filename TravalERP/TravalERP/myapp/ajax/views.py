@@ -22,7 +22,19 @@ def getData(request, item):
       # JSON 형식으로 변환
       params = json.loads(data)
       print(params)
-      data = list(Models.objects.filter(**params).values())
+
+      if params is None or not isinstance(params, dict):
+          # params가 None이거나 딕셔너리가 아닌 경우 처리할 코드
+          raise ValueError("params가 None이거나 딕셔너리가 아닙니다.")
+      
+      # params 딕셔너리 내의 값들을 수정하여 icontains 필터 적용
+      filtered_params = {}
+      for key, value in params.items():
+          filtered_params[key + '__icontains'] = value
+
+      print(filtered_params)
+      
+      data = list(Models.objects.filter(**filtered_params).values())
       return JsonResponse(data, safe=False)
       # JSON 형식이 맞는 경우 처리할 코드
    except json.decoder.JSONDecodeError:
