@@ -1,10 +1,10 @@
 from django.db import models
 from ..common.common_models import commonModel
-from ..booking.models import BookingMaster
+from ..itinerary.models import ItineraryMaster
 
 # Create your models here.
 class InvoiceMaster(commonModel):
-    master_id=models.ForeignKey(BookingMaster, db_column='MASTER_ID', on_delete=models.SET_NULL, blank=True, null=True, verbose_name='마스터 id')
+    master_id=models.ForeignKey(ItineraryMaster, db_column='MASTER_ID', on_delete=models.SET_NULL, blank=True, null=True, verbose_name='마스터 id')
     invoice_type=models.CharField(db_column='INVOICE_TYPE', max_length=100, verbose_name='TYPE')
     total_pax=models.CharField(db_column='TOTAL_PAX', max_length=100, verbose_name='PAX')
     bank_id=models.CharField(db_column='BANK_ID', max_length=100, verbose_name='은행')
@@ -31,6 +31,9 @@ class InvoiceDetail(commonModel):
         db_table = 'invoice_detail'
         verbose_name = '인보이스 디테일'
         verbose_name_plural = '인보이스 디테일 목록'      
+
+
+
 
 
  
