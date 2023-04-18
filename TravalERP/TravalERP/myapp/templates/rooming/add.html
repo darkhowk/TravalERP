@@ -53,11 +53,11 @@
       </div>
       <div class="col-sm-30">
         <div class="input-group">
-          <select class="form-select" id="tc_type" aria-label="currency">
+          <select class="form-select" id="tc_type" aria-label="currency" onchange="getselect()">
           <option selected>T/C여부</option>
-          <option value="1">NO</option>
-          <option value="2">+ 1</option>
-          <option value="3">+ 2</option>
+          <option value="0">NO</option>
+          <option value="1">+ 1</option>
+          <option value="2">+ 2</option>
           </select>
           <div class="input-group-text">T/C</div>
         </div>
@@ -227,18 +227,25 @@ function select_tc(element){
   en.val(data_en);
 }
 
+
 function getselect() {
 	// select에서 선택한 value 가져오기
 	var selectedValue = $("#total_pax").val();
 	// select에서 선택한 글자 가져오기
-	var selected = $("#rate_unit option:selected").text();
+	var selected = $("#tc_type option:selected").val();
 
-	var rows = document.querySelectorAll('#tbody tr');
-    for (var i = 0; i < rows.length; i++) {
-      rows[i].querySelector('#inputNum').value = selected;
-    }
+	// 아직 입력전이라면
+	if (selectedValue == undefined ){
+		selectedValue = 0;
+	}
+	
+	// 아직 선택 전이라면
+	if (selected == undefined){
+		selected = 0;
+	}
 
-	$("#inputNum").val(selectedValue);
+	// 각각의 값을 숫자형식으로 바꿔 더한다.
+	$("#inputNum").val(Number(selectedValue)+Number(selected));
 
 }
 
