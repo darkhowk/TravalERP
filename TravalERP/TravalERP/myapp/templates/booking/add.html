@@ -13,7 +13,7 @@
 			<span class="input-group-text col-2 text-end" >ref</span>
 			<input type="text" class="form-control col-4 me-3" id="ref" name="ref" value="{{selectData.master.0.ref}}">
 			<th scope="col"></th>
-			{% if type == 'I' %}
+			{% if pageType == 'I' %}
 				<input type="hidden" id="yyyy" name="yyyy" value="{{ now|date:'Y' }}">
 			{% else %}
 				<input type="hidden" id="yyyy" name="yyyy" value="{{selectData.master.0.yyyy}}">
@@ -35,12 +35,17 @@
 				<option>여행사명</option>
 				{% for agent in optionData.agent %}
 				<!-- optionData 로 온 Object에서 agent만 선택하여 for문 돌린다-->
-				<option value="{{agent.id}}">{{agent.agent_name}}</option>
+				<option value="{{agent.id}}" {% if agent.agent_name == selectData.master.0.attn_agent.agent_name %}selected{% endif %}>{{agent.agent_name}}</option>
 				{% endfor %}
 			</select>
 			<span class="input-group-text col-2" >담당자</span>
 			<select class="form-select selectpicker col-4" id="attn_manager" name="attn_manager" aria-label="attn_manager" data-live-search="true" style="display: none;" id="manager" data-none-selected-text="조건을 찾을 수 없습니다">
 				<option>담당자명</option>
+				{% for manager in optionData.manager %}
+					{% if manager.id == selectData.master.0.attn_manager.id %}
+						<option value="{{manager.id}}" selected>{{manager.manager_name}}</option>
+					{% endif %}
+				{% endfor %}
 			</select>
 		</div>
 		
@@ -51,12 +56,18 @@
 			<select class="form-select selectpicker col-4 me-3" id="from_agent" name="from_agent" aria-label="from_agent" onchange="changeAgent(this)" data-live-search="true" data-none-selected-text="조건을 찾을 수 없습니다">
 				<option>현지사무실명</option>
 				{% for agent in optionData.localAgent %}
-				<option value="{{agent.id}}">{{agent.agent_name}}</option>
+				 <option value="{{agent.id}}" {% if agent.agent_name == selectData.master.0.from_agent.agent_name %} selected {% endif %} >{{agent.agent_name}}</option>
 				{% endfor %}
 			</select>
+			
 			<span class="input-group-text col-2" >담당자</span>
 			<select class="form-select selectpicker col-4" id="from_manager" name="from_manager" aria-label="from_manager" data-live-search="true" data-none-selected-text="조건을 찾을 수 없습니다">
 			  <option>담당자명</option>
+			  	{% for manager in optionData.localManager %}
+					{% if manager.id == selectData.master.0.from_manager.id %}
+						<option value="{{manager.id}}" selected>{{manager.manager_name}}</option>
+					{% endif %}
+				{% endfor %}
 			</select>
 	  	</div>
 
@@ -65,34 +76,35 @@
 		<h5>AIR</h5>
 		<div class="input-group mb-3">
 			<span class="input-group-text col-2" >한국출발</span>
-			<input type="text" class="form-control col-2 datepicker me-3" id="kor_air_date" name="kor_air_date" placeholder="출발일" />
+			<input type="text" class="form-control col-2 datepicker me-3" id="kor_air_date" name="kor_air_date" placeholder="출발일" value="{{selectData.master.0.kor_air_date}}" />
 			<span class="input-group-text col-2" >항공편</span>
+
 			<select class="form-select selectpicker col-2" id="kor_air" name="kor_air" data-live-search="true" data-size="5" onchange="select_air(this)">
 				<option selected>항공편명</option>
 				{% for airport in optionData.airport %}
-				<option value="{{airport.id}}" data-out="{{airport.arrival_airport}}" data-in="{{airport.departure_airport}}" data-timedep="{{airport.departure_time}}" data-timearri="{{airport.arrival_time}}">{{airport.airport_name}}</option>
+					<option value="{{airport.id}}" data-out="{{airport.arrival_airport}}" data-in="{{airport.departure_airport}}" data-timedep="{{airport.departure_time}}" data-timearri="{{airport.arrival_time}}" {% if airport.id == selectData.master.0.kor_air %}selected{% endif %}>{{airport.airport_name}}</option>
 				{% endfor %}
 			</select>
-			<input type="text" class="form-control col mx-1" id="kor_air_in" name="kor_air_in" readonly />
-			<input type="text" class="form-control col mx-1"id="kor_air_out" name="kor_air_out"  readonly />
-			<input type="text" class="form-control col mx-1"id="kor_air_dep_time" name="kor_air_dep_time"  readonly />
-			<input type="text" class="form-control col mx-1"id="kor_air_ari_time" name="kor_air_ari_time"  readonly />
+			<input type="text" class="form-control col mx-1" id="kor_air_in" name="kor_air_in" readonly value="{{selectData.master.0.kor_air_in}}" />
+			<input type="text" class="form-control col mx-1"id="kor_air_out" name="kor_air_out"  readonly value="{{selectData.master.0.kor_air_out}}" />
+			<input type="text" class="form-control col mx-1"id="kor_air_dep_time" name="kor_air_dep_time"  readonly value="{{selectData.master.0.kor_air_dep_time}}" />
+			<input type="text" class="form-control col mx-1"id="kor_air_ari_time" name="kor_air_ari_time"  readonly value="{{selectData.master.0.kor_air_ari_time}}" />
 		</div>
 
 		<div class="input-group mb-3">
 			<span class="input-group-text col-2" >현지출발</span>
-			<input type="text" class="form-control col-2 datepicker me-3" id="loc_air_date" name="loc_air_date" placeholder="현지출발일" />
+			<input type="text" class="form-control col-2 datepicker me-3" id="loc_air_date" name="loc_air_date" placeholder="현지출발일" value="{{selectData.master.0.loc_air_date}}"/>
 			<span class="input-group-text col-2" >항공편</span>
 			<select class="form-select selectpicker col-2" id="loc_air" name="loc_air" data-live-search="true" data-size="5" onchange="select_air(this)">
 				<option selected>항공편명</option>
 				{% for airport in optionData.airport %}
-				<option value="{{airport.id}}" data-out="{{airport.arrival_airport}}" data-in="{{airport.departure_airport}}" data-timedep="{{airport.departure_time}}" data-timearri="{{airport.arrival_time}}">{{airport.airport_name}}</option>
+					<option value="{{airport.id}}" data-out="{{airport.arrival_airport}}" data-in="{{airport.departure_airport}}" data-timedep="{{airport.departure_time}}" data-timearri="{{airport.arrival_time}}" {% if airport.id == selectData.master.0.loc_air %}selected{% endif %}>{{airport.airport_name}}</option>
 				{% endfor %}
 			</select>
-			<input type="text" class="form-control col mx-1" id="loc_air_in" name="loc_air_in" readonly />
-			<input type="text" class="form-control col mx-1"id="loc_air_out" name="loc_air_out"  readonly />
-			<input type="text" class="form-control col mx-1"id="loc_air_dep_time" name="loc_air_dep_time"  readonly />
-			<input type="text" class="form-control col mx-1"id="loc_air_ari_time" name="loc_air_ari_time"  readonly />
+			<input type="text" class="form-control col mx-1" id="loc_air_in" name="loc_air_in" readonly value="{{selectData.master.0.loc_air_in}}"/>
+			<input type="text" class="form-control col mx-1"id="loc_air_out" name="loc_air_out"  readonly value="{{selectData.master.0.loc_air_out}}"/>
+			<input type="text" class="form-control col mx-1"id="loc_air_dep_time" name="loc_air_dep_time"  readonly value="{{selectData.master.0.loc_air_dep_time}}"/>
+			<input type="text" class="form-control col mx-1"id="loc_air_ari_time" name="loc_air_ari_time"  readonly value="{{selectData.master.0.loc_air_ari_time}}"/>
 		</div>
 
 		<div class="devider"></div>
