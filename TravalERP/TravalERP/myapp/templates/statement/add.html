@@ -13,7 +13,7 @@
     </div>
     <div class="devider"></div>
     <div class="row mt-2">
-      <label for="statement" class="col-sm-2 col-form-label">정산상태</label>
+      <label for="statement" class="col-sm-2 col-form-label" style="font-weight: bold;">정산상태</label>
       <div class="col-sm-5 mt-2">
         <div class="form-check">
           <input class="form-check-input" type="radio" name="flexRadioDefault" id="local_stat"/>
@@ -30,7 +30,7 @@
     <div class="devider"></div>
     <div class="row mt-2">
       <div class="text-start">
-        <label for="matching" class="col-sm-2 col-form-label">단체매칭</label>
+        <label for="matching" class="col-sm-2 col-form-label" style="font-weight: bold;">단체매칭</label>
         <label class="d-none d-sm-inline-block navbar-search col-form-label">
           <div class="input-group">
             <input type="text" class="form-control bg-light border" aria-label="Search" aria-describedby="basic-addon2"/>
@@ -45,8 +45,9 @@
     </div>
     <div class="devider"></div>
     <div class="row">
-      <p>단체상세</p>
-      <label for="totalpax" class="col-sm-2 col-form-label">TOTAL PAX</label>
+      <h5>단체상세</h5>
+      <div class="mt-4"></div>
+      <label for="totalpax" class="col-sm-2 col-form-label" style="font-weight: bold;">TOTAL PAX</label>
       <div class="col-sm-2">
         <div class="input-group">
           <input id="totalpax" type="text" class="form-control" />
@@ -54,7 +55,7 @@
         </div>
       </div>
       <div class="col-sm-1"></div>
-      <label for="totalpax" class="col-sm-1 col-form-label">T/C</label>
+      <label for="totalpax" class="col-sm-1 col-form-label text-end" style="font-weight: bold;">T/C</label>
       <div class="col-sm-2">
         <select class="form-select col-sm-2" aria-label="currency">
          <option selected>T/C여부</option>
@@ -65,8 +66,8 @@
       </div>
     </div>
     <div class="col-sm-2"></div>
-    <div class="row mt-2">
-      <label for="roomtype" class="col-sm-2 col-form-label">ROOM TYPE</label>
+    <div class="row mt-3">
+      <label for="roomtype" class="col-sm-2 col-form-label" style="font-weight: bold;">ROOM TYPE</label>
       <div class="col-sm-3">
         <div class="input-group">
           <input id="twinroom" type="text" class="form-control" readonly />
@@ -88,9 +89,9 @@
     </div>
     <div class="devider"></div>
     <div class="row">
-        <label for="rate" class="col-sm-2 col-form-label">기준환율</label>
+        <label for="rate" class="col-sm-2 col-form-label" style="font-weight: bold;">기준환율</label>
         <div class="col-sm-2">
-          <input id="rate" type="text" class="form-control text-center" value="1" readonly />
+          <input id="base_exchange_rate" type="text" class="form-control text-center" value="1" readonly />
         </div>
         <div class="col-sm-1">
           <select class="form-select col-sm-3" id="rate_unit" name="rate_unit"aria-label="currency" onchange="getselect();"> 
@@ -104,45 +105,45 @@
             <input id="rate_won" type="text" class="form-control" />
         </div>
         <div class="col-sm-1">
-            <input id="rate_won" type="text" class="form-control text-center" value="원" readonly/>
+            <input type="text" class="form-control text-center" value="원" readonly/>
         </div>
     </div>
     <div class="devider"></div>
     <div class="row">
-        <label for="ref" class="col-sm-1 col-form-label">인보이스</label>
-        <label class="col-sm-1 col-form-label text-end">현지</label>
+        <label class="col-sm-1 col-form-label" style="font-weight: bold;">인보이스</label>
+        <label class="col-sm-1 col-form-label text-end" style="font-weight: bold;">현지</label>
         <div class="col-sm-3">
-            <input id="rate_won" type="text" class="form-control" readonly/>
+            <input id="local_price" type="text" class="form-control" readonly/>
         </div>
         <div class="col-sm-1">
-            <input id="rate_won" type="text" class="form-control" value="유로" readonly/>
+            <input id="local_price_unit" type="text" class="form-control" readonly/>
         </div>
-        <div class="col-sm-3">
-            <input id="rate_won" type="text" class="form-control" readonly/>
+        <div class="col-sm-3"> 
+            <input id="ko_local_price" type="text" class="form-control" readonly/>
         </div>
         <div class="col-sm-1">
-            <input id="rate_won" type="text" class="form-control" value="원" readonly/>
+            <input id="ko_local_price_unit" type="text" class="form-control" value="원" readonly/>
         </div>
     </div>
-    <div class="row mt-2">
+    <div class="row mt-3">
         <label class="col-sm-1 col-form-label"></label>
-        <label class="col-sm-1 col-form-label text-end">여행사</label>
+        <label class="col-sm-1 col-form-label text-end" style="font-weight: bold;">여행사</label>
         <div class="col-sm-3">
-            <input id="rate_won" type="text" class="form-control" readonly/>
+            <input id="agent_price" type="text" class="form-control" readonly/>
         </div>
         <div class="col-sm-1">
-            <input id="rate_won" type="text" class="form-control" value="유로" readonly/>
+            <input id="agent_price_unit" type="text" class="form-control" readonly/>
         </div>
         <div class="col-sm-3">
-            <input id="rate_won" type="text" class="form-control" readonly/>
+            <input id="ko_agent_price" type="text" class="form-control" readonly/>
         </div>
         <div class="col-sm-1">
-            <input id="rate_won" type="text" class="form-control" value="원" readonly/>
+            <input id="ko_agent_price_unit" type="text" class="form-control" value="원" readonly/>
         </div>
     </div>
     <div class="devider"></div>
     <div class="row">
-        <p>부가수익</p>
+        <h5>부가수익</h5>
         <div class="text-end">
           <input type="button" class="btn btn-primary"  onclick="addRow()" value="추가">
           <input type="button" class="btn btn-secondary" onclick="delRow()" value="삭제">
@@ -166,7 +167,7 @@
     <div class="devider"></div>
     <div class="p-2 bg-warning text-dark">
         <div class="row">
-          <label for="totalSum" class="col-sm-2 col-form-label">서울수익</label>
+          <label for="totalSum" class="col-sm-2 col-form-label" style="font-weight: bold; font-size: larger;">서울수익</label>
          <div class="col-sm-3">
           <input id="totalSum" type="text" class="form-control" style="font-weight: bold;" readonly />
          </div>
@@ -185,7 +186,7 @@
     </div>
     <div class="devider"></div>
     <div class="row">
-        <label for="agent" class="col-sm-1 col-form-label">발란스</label>
+        <label for="agent" class="col-sm-1 col-form-label" style="font-weight: bold;">발란스</label>
         <div class="col-sm-2">
           <select id="agent" name="agent" class="form-control selectpicker" aria-label="agent_name" onchange="changeAgent(this)" data-live-search="true" style="display: none;" id="agent" data-none-selected-text="조건을 찾을 수 없습니다">
             <option value="">여행사명</option>
@@ -195,7 +196,7 @@
             </select>
           </div>
         <div class="col-sm-20">
-          <select id="manager" name="manager" class="form-control  selectpicker" aria-label="manager" data-live-search="true" style="display: none;" id="manager" data-none-selected-text="조건을 찾을 수 없습니다">
+          <select id="manager" name="manager" class="form-control  selectpicker" aria-label="manager" data-live-search="true" style="display: none;" data-none-selected-text="조건을 찾을 수 없습니다">
             <option value="">담당자명</option>
             </select>
           </div>
@@ -374,7 +375,6 @@
     var selectedValue = $("#rate_unit").val();
     // select에서 선택한 글자 가져오기
     var selectedText = $("#rate_unit option:selected").text();
-  
     var rows = document.querySelectorAll('#tbody tr');
       for (var i = 0; i < rows.length; i++) {
         rows[i].querySelector('#rate').value = selectedText;
@@ -382,37 +382,39 @@
       }
   
     $("#total_rate_").val(selectedValue);
+    $("#local_price_unit").val(selectedText);
+    $("#agent_price_unit").val(selectedText);
+  
   
   }
 
   function changeAgent(element){
-    $("#tmpChangeAgentFrm").remove();
-    var frm = makeForm('', 'tmpChangeAgentFrm');
+	$("#tmpChangeAgentFrm").remove();
+	var frm = makeForm('', 'tmpChangeAgentFrm');
 
-    frm.appendChild(addData('agent', ($(element).val())));
-    document.body.appendChild(frm);
+	frm.appendChild(addData('agent', ($(element).val())));
+	document.body.appendChild(frm);
 
-    getAjax('tmpChangeAgentFrm', 'manager', 'changeAgentSucc', element);
+	getAjax('tmpChangeAgentFrm', 'manager', 'changeAgentSucc', element);
 
   }
 
   function changeAgentSucc(data, element){
-	var select = $($(element).closest('.row').find('select')[1]);
+	var select = $($(element).closest('.input-group').find('select')[1]);
 
-    select.selectpicker('destroy');
-    select.empty();
-    for (var i = 0; i < data.length; i++) {
-        var option = $('<option>', {
-            value: data[i].id,
-            text: data[i].manager_name
-        });
-        select.append(option);
-    }
+	select.selectpicker('destroy');
+	select.empty();
+	for (var i = 0; i < data.length; i++) {
+		var option = $('<option>', {
+			value: data[i].id,
+			text: data[i].manager_name
+		});
+		select.append(option);
+	}
 
-    select.selectpicker(); 
+	select.selectpicker(); 
 
 }
-
 
 
 
@@ -427,7 +429,7 @@
         width: 100%;
         height: 5px;
         border-top: rgba(155, 151, 151, 0.979) 2px solid;
-        margin: 20px 10px 20px 0px;
+        margin: 30px 10px 30px 0px;
     }
 
     .col-sm-20 {

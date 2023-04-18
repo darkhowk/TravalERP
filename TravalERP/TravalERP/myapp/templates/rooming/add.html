@@ -7,8 +7,8 @@
 <div class="container mt-5">
   <form>
     <div class="d-inline mb-3">
-      <label class="form-label" for="roomingfile"><h4>파일업로드</h4></label>
-      <input type="file" class="form-control" id="roomingfile" />
+      <label class="form-label" for="fileupload"><h4>파일업로드</h4></label>
+      <input type="file" class="form-control" id="fileupload" />
     </div>
     <div class="devider"></div>
     <div class="row mt-2">
@@ -75,7 +75,7 @@
           <label for="tourconductor" class="col-form-label" style="font-weight: bolder;">TOUR LEADER</label>
         </div>
         <div class="col-sm-2">
-          <select class="form-select-diy selectpicker col-2" id="tc_name" name="tc_name" data-live-search="true" data-size="2" onchange="select_tc(this)">
+          <select class="form-select-diy selectpicker col-2" id="tc_name" name="tc_name" data-live-search="true" data-size="3" onchange="select_tc(this)">
             <option selected>이름</option>
             {% for tourconductor in optionData.tourconductor %}
             <option value="{{tourconductor.id}}" data-name="{{tourconductor.tc_name}}" data-tel="{{tourconductor.tc_tel}}" data-en="{{tourconductor.tc_name_en}}">{{tourconductor.tc_name}}</option>
@@ -217,6 +217,10 @@ function select_tc(element){
 }
 
 
+
+
+
+
 </script>
 
 
@@ -228,10 +232,6 @@ function select_tc(element){
     margin: 20px 10px 20px 0px;
   }
 
-  .form-check-inline {
-    display: inline-block;
-    margin-right: 1rem;
-  }
 
   .form-select-diy, .dataTable-selector {
   display: block;

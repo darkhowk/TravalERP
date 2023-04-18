@@ -29,7 +29,7 @@
           </div>
         </div>
         <div class="devider"></div>
-        <div class="row mt-2">
+        <div class="row">
           <div class="text-start">
             <label for="matching" class="col-sm-1 col-form-label" style="font-weight: bold;">단체매칭</label>
             <label class="d-none d-sm-inline-block navbar-search col-form-label">
@@ -55,23 +55,23 @@
               </div>
             </div> 
         </div>
-        <div class="row mt-2">
+        <div class="row mt-3">
             <label for="roomtype" class="col-sm-2 col-form-label">ROOM TYPE</label>
             <div class="col-sm-3">
               <div class="input-group">
-                <input id="twinroom" type="text" class="form-control" readonly />
+                <input id="twinroom" type="text" class="form-control"/>
                 <div class="input-group-text">TWIN</div>
               </div>
             </div>
             <div class="col-sm-3">
               <div class="input-group">
-                <input id="tripleroom" type="text" class="form-control" readonly />
+                <input id="tripleroom" type="text" class="form-control"/>
                 <div class="input-group-text">TRIPLE</div>
               </div>
             </div>
             <div class="col-sm-3">
               <div class="input-group">
-                <input id="singleroom" type="text" class="form-control" readonly />
+                <input id="singleroom" type="text" class="form-control"/>
                 <div class="input-group-text">SINGLE</div>
               </div>
             </div>
@@ -97,7 +97,7 @@
             </div>
            </div>
         <div class="devider"></div>
-        <div class="row mt-3">
+        <div class="row">
           <label for="remark" class="col-sm-2 col-form-label">REMARK</label>
           <div class="col-sm-10">
             <textarea id="remark" class="form-control" style="height: 100px"></textarea>
@@ -194,6 +194,9 @@
     </form>
 </div>
 
+
+
+
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -217,7 +220,7 @@
 			</div>
     </div>
 		<div class="devider"></div>
-      <div class="row col-12" id="">
+      <div class="row col-12" id="result_title" style="display: none;">
         <div class="col-4" style="text-align: center;">은행명</div>
         <div class="col-4" style="text-align: center;">예금주</div>
         <div class="col-4" style="text-align: center;">계좌번호</div>
@@ -268,26 +271,36 @@
 
 	}
 
+
   var searchMaster;
 
 	function searchBankSucc(data){
     searchMaster = '';
 		searchMaster = data;
-    var result = $("#result_div");
-    result.empty();
+    var resultTitle = $("#result_title");
+    var resultDiv = $("#result_div");
+    resultDiv.empty();
+    resultTitle.show();
+    resultDiv.show();
     for (var i = 0; i < data.length; i ++){
-      result.append("<div class='col-4 mt-2' style='text-align: center;' data-row="+i+">"+data[i].bank_name+"</div>")
-      result.append("<div class='col-4 mt-2' style='text-align: center;' data-row="+i+">"+data[i].account_name+"</div>")
-      result.append("<div class='col-4 mt-2' style='text-align: center;' data-row="+i+">"+data[i].account_no+"</div>")
+      resultDiv.append("<div class='col-4 mt-2' style='text-align: center;' data-row="+i+">"+data[i].bank_name+"</div>")
+      resultDiv.append("<div class='col-4 mt-2' style='text-align: center;' data-row="+i+">"+data[i].account_name+"</div>")
+      resultDiv.append("<div class='col-4 mt-2' style='text-align: center;' data-row="+i+">"+data[i].account_no+"</div>")
     }
   }
+
+
+
+  $('#myModal').on('shown.bs.modal', function () {
+    $('#result_div').empty();
+    $('#result_title').hide();
+});
 
 
 
   $(document).on('dblclick', '#result_div > div', function() {
       var row = $(this).data('row');
       var id = searchMaster[row].id;
-
       // 각각의 input에 데이터 넣기
       for (var key in searchMaster[row]) {
         var value = searchMaster[row][key];
@@ -305,6 +318,9 @@
       // 이후 master id로 스케쥴 디테일 가져오기
       searchBankDetail(id);
   });
+
+
+
 
 
 var sum = 0;
@@ -504,7 +520,7 @@ $(document).ready(function() {
     width: 100%;
     height: 5px;
     border-top: rgba(155, 151, 151, 0.979) 2px solid;
-    margin: 20px 10px 20px 0px;
+    margin: 30px 10px 30px 0px;
   }
 
 

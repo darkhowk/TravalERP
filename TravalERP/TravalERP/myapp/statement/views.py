@@ -33,17 +33,22 @@ class statementAdd(generic.ListView):
 
    def get(self, request, *args, **kwargs):
       agent = Agent.objects.filter(use_yn ='Y', type='A') # 사용여부 Y, 타입 A(여행사) 인것 선택
-      localAgent = Agent.objects.filter(use_yn ='Y', type='L')
       manager = Manager.objects.filter(use_yn ='Y', type='M')
-      localManager = Manager.objects.filter(use_yn ='Y', type='L')
-      airport = Airport.objects.filter(use_yn ='Y')
-      optionData = {'agent': agent, 'localAgent' : localAgent, 'manager' : manager, 'localManager' : localManager, 'airport' : airport} # 추후 추가할 데이터를 위해
+      optionData = {'agent': agent, 'manager' : manager} 
       self.content = {
                         "descript" : self.descript,
                         "title_nm" : self.title_nm,
                         "ogImgUrl" : self.ogImgUrl,
                         "topMenu"  : self.topMenu,
                         "optionData" : optionData,
-                     }
+                     } 
 
       return render(request, self.template_name, self.content) 
+
+
+def pathtoMode(path):
+   if path == 'agent':
+      Models = Agent
+   if path == 'manager':
+      Models = Manager
+   return Models
