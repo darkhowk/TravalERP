@@ -30,7 +30,11 @@ def getData(request, item):
       # params 딕셔너리 내의 값들을 수정하여 icontains 필터 적용
       filtered_params = {}
       for key, value in params.items():
-          filtered_params[key + '__icontains'] = value
+         if key not in ['user_yn', 'master_id', 'id']:
+            filtered_params[key + '__icontains'] = value
+         else:
+            filtered_params[key] = value
+            
 
       print(filtered_params)
       
