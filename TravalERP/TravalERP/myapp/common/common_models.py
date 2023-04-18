@@ -299,12 +299,14 @@ class Citycode(commonModel):
 class Tourconductor(commonModel):
     tc_company = models.CharField(db_column='TC_COMPANY', max_length=100, verbose_name='소속회사')
     tc_name = models.CharField(db_column='TC_NAME', max_length=100, verbose_name='이름')
+    tc_name_en = models.CharField(db_column='TC_NAME_EN', max_length=100, verbose_name='영문명')
     tc_tel = models.CharField(db_column='TC_TEL', max_length=100, verbose_name='연락처')
     tc_remark = models.TextField(db_column='TC_REMARK', max_length=100, verbose_name='리마크')
     
     def __iter__(self):
         yield self.tc_company
         yield self.tc_name
+        yield self.tc_name_en
         yield self.tc_tel
         yield self.tc_remark
 

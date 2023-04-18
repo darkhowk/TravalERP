@@ -44,27 +44,38 @@
     <div class="devider"></div>
     <div class="row">
       <p></p>
-      <label for="totalpax" class="col-sm-2 col-form-label" style="font-weight: bolder;">TOTAL PAX</label>
-      <div class="col-sm-2">
+      <label for="total_pax" class="col-sm-2 col-form-label" style="font-weight: bolder;">TOTAL PAX</label>
+      <div class="col-sm-30">
         <div class="input-group">
-          <input id="totalpax" type="text" class="form-control" />
+          <input id="total_pax" name="total_pax" type="text" class="form-control" onchange="getselect();" />
           <div class="input-group-text">pax</div>
         </div>
       </div>
+      <div class="col-sm-30">
+        <div class="input-group">
+          <select class="form-select" id="tc_type" aria-label="currency">
+          <option selected>T/C여부</option>
+          <option value="1">NO</option>
+          <option value="2">+ 1</option>
+          <option value="3">+ 2</option>
+          </select>
+          <div class="input-group-text">T/C</div>
+        </div>
+      </div>
       <label for="roomtype" class="col-sm-2 col-form-label text-end" style="font-weight: bolder;">ROOM TYPE</label>
-      <div class="col-sm-2">
+      <div class="col-sm-30">
         <div class="input-group">
           <input id="twinroom" type="text" class="form-control"/>
           <div class="input-group-text">TWIN</div>
         </div>
       </div>
-      <div class="col-sm-2">
+      <div class="col-sm-30">
         <div class="input-group">
           <input id="tripleroom" type="text" class="form-control"/>
           <div class="input-group-text">TRIPLE</div>
         </div>
       </div>
-      <div class="col-sm-2">
+      <div class="col-sm-30">
         <div class="input-group">
           <input id="singleroom" type="text" class="form-control"/>
           <div class="input-group-text">SINGLE</div>
@@ -216,7 +227,20 @@ function select_tc(element){
   en.val(data_en);
 }
 
+function getselect() {
+	// select에서 선택한 value 가져오기
+	var selectedValue = $("#total_pax").val();
+	// select에서 선택한 글자 가져오기
+	var selected = $("#rate_unit option:selected").text();
 
+	var rows = document.querySelectorAll('#tbody tr');
+    for (var i = 0; i < rows.length; i++) {
+      rows[i].querySelector('#inputNum').value = selected;
+    }
+
+	$("#inputNum").val(selectedValue);
+
+}
 
 
 
@@ -244,6 +268,11 @@ function select_tc(element){
   border-radius: 0.25rem;
 
 }
+
+.col-sm-30 {
+    flex: 0 0 auto;
+    width: 12%;
+  }
 
 
 </style>
