@@ -159,7 +159,10 @@ class Hotel(commonModel):
     rank = models.CharField(db_column='RANK', max_length=100, verbose_name='등급')
     country = models.CharField(db_column='COUNTRY', max_length=100, verbose_name='국가')
     city = models.CharField(db_column='CITY', max_length=100, verbose_name='도시')
+    address = models.CharField(db_column='ADDRESS', max_length=1000, verbose_name='주소')
+    hotel_tel = models.CharField(db_column='HOTEL_TEL', max_length=100, verbose_name='연락처')
     hotel_remark = models.TextField(db_column='HOTEL_REMARK', max_length=1000, verbose_name='REMARK')
+    url = models.TextField(db_column='URL', max_length=1000, verbose_name='웹사이트')
     
     def __iter__(self):
         yield self.hotel_name
@@ -167,7 +170,10 @@ class Hotel(commonModel):
         yield self.rank
         yield self.country
         yield self.city
+        yield self.address
+        yield self.hotel_tel
         yield self.hotel_remark
+        yield self.url
 
     class Meta:
         managed = False
@@ -209,6 +215,14 @@ class ScheduleMaster(commonModel):
     start = models.CharField(db_column='START', max_length=100, verbose_name='출발지')
     night = models.CharField(db_column='NIGHT', max_length=100, verbose_name='박')
     day = models.CharField(db_column='DAY', max_length=100, verbose_name='일')
+    bus = models.CharField(db_column='BUS', max_length=100, verbose_name='버스')
+    entrance = models.CharField(db_column='ENTRANCE', max_length=1000, verbose_name='입장지')
+    breakfast = models.CharField(db_column='BREAKFAST', max_length=100, verbose_name='조식')
+    lunch = models.CharField(db_column='LUNCH', max_length=100, verbose_name='중식')
+    dinner = models.CharField(db_column='DINNER', max_length=100, verbose_name='석식')
+    special = models.CharField(db_column='SPECIAL', max_length=1000, verbose_name='특식')
+    option = models.CharField(db_column='OPTION', max_length=1000, verbose_name='옵션')
+    shopping = models.CharField(db_column='SHOPPING', max_length=1000, verbose_name='쇼핑')
     schedule_remark = models.TextField(db_column='SCHEDULE_REMARK', max_length=1000, verbose_name='REMARK')
     
     def __str__(self):
@@ -222,6 +236,14 @@ class ScheduleMaster(commonModel):
         yield self.start
         yield self.night
         yield self.day
+        yield self.bus
+        yield self.entrance
+        yield self.breakfast
+        yield self.lunch
+        yield self.dinner
+        yield self.special
+        yield self.option
+        yield self.shopping
         yield self.schedule_remark
 
     class Meta:
@@ -278,16 +300,12 @@ class Tourconductor(commonModel):
     tc_company = models.CharField(db_column='TC_COMPANY', max_length=100, verbose_name='소속회사')
     tc_name = models.CharField(db_column='TC_NAME', max_length=100, verbose_name='이름')
     tc_tel = models.CharField(db_column='TC_TEL', max_length=100, verbose_name='연락처')
-    tc_name_en = models.CharField(db_column='TC_NAME_EN', max_length=100, verbose_name='영문명')
-    passport_no = models.CharField(db_column='PASSPORT_NO', max_length=100, verbose_name='여권번호')
     tc_remark = models.TextField(db_column='TC_REMARK', max_length=100, verbose_name='리마크')
     
     def __iter__(self):
         yield self.tc_company
         yield self.tc_name
         yield self.tc_tel
-        yield self.tc_name_en
-        yield self.passport_no
         yield self.tc_remark
 
     class Meta:

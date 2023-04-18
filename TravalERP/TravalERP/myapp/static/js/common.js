@@ -66,7 +66,7 @@ function getAjax(fName, item, suF, suP){
 
 
 function getLikeAjax(fName, item, suF, suP){
-    alert("???")
+
     var formArray = $("#"+fName).serializeArray();
     var formData = {};
     for (var i = 0; i < formArray.length; i++) {
