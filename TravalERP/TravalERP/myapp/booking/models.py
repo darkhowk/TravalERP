@@ -3,7 +3,7 @@ from ..common.common_models import commonModel, Agent, Manager
 
 # Create your models here.
 class BookingMaster(commonModel):
-    yyy=models.CharField(db_column='YYYY', max_length=4, verbose_name='년도')  # Field name made lowercase.y
+    yyyy=models.CharField(db_column='YYYY', max_length=4, verbose_name='년도')  # Field name made lowercase.y
     ref=models.CharField(db_column='REF', max_length=20, verbose_name='레퍼런스')  # Field name made lowercase.
     attn_agent=models.ForeignKey(Agent, db_column='attn_agent', on_delete=models.SET_NULL, blank=True, null=True, verbose_name='현지 여행사', related_name='attn_agents')
     attn_manager=models.ForeignKey(Manager, db_column='attn_manager', on_delete=models.SET_NULL, blank=True, null=True, verbose_name='현지 매니저', related_name='attn_managers')

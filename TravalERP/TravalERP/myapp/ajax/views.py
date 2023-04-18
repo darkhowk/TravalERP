@@ -21,8 +21,6 @@ def getData(request, item):
    try:
       # JSON 형식으로 변환
       params = json.loads(data)
-      print(params)
-
       data = list(Models.objects.filter(**params).values())
       return JsonResponse(data, safe=False)
       # JSON 형식이 맞는 경우 처리할 코드
@@ -39,7 +37,6 @@ def getLikeData(request, item):
    try:
       # JSON 형식으로 변환
       params = json.loads(data)
-      print(params)
 
       if params is None or not isinstance(params, dict):
           # params가 None이거나 딕셔너리가 아닌 경우 처리할 코드
@@ -52,10 +49,6 @@ def getLikeData(request, item):
             filtered_params[key + '__icontains'] = value
          else:
             filtered_params[key] = value
-            
-
-      print(filtered_params)
-      
       data = list(Models.objects.filter(**filtered_params).values())
       return JsonResponse(data, safe=False)
       # JSON 형식이 맞는 경우 처리할 코드
@@ -67,6 +60,7 @@ def dataInsert(request, item):
    # model별로 insert할 fields 작성
    fields = []
    Models = pathtoMode(item)
+   
    fields = [f.name for f in Models._meta.fields if f.name not in ['entry_date', 'entry_id', 'updat_date', 'updat_id', 'id']]
 
    return insert(request, Models, fields)
@@ -397,6 +391,14 @@ def pathtoMode(path):
       Models = Manager
    if path == 'agent':
       Models = Agent
+   if path == 'attn_agent':
+      Models = Agent
+   if path == 'attn_manager':
+      Models = Manager
+   if path == 'from_agent':
+      Models = Agent
+   if path == 'from_manager':
+      Models = Manager
    if path == 'airport':
       Models = Airport
    if path == 'bank':
