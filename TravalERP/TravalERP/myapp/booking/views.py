@@ -25,7 +25,6 @@ class bookingIndex(CommonMainView):
       return response
    
 
-   
 class bookingAdd(generic.ListView):
    def __init__(self):
       self.title_nm = "수배추가"
@@ -41,6 +40,9 @@ class bookingAdd(generic.ListView):
       manager = Manager.objects.filter(use_yn ='Y', type='M')
       localManager = Manager.objects.filter(use_yn ='Y', type='L')
       airport = Airport.objects.filter(use_yn ='Y')
+      master = BookingMaster.objects.filter(id=request.GET.get('id'))
+      detail = BookingDetail.objects.filter(master_id=request.GET.get('id'))
+      selectData = {'master': master,'detail':detail}
       optionData = {'agent': agent, 'localAgent' : localAgent, 'manager' : manager, 'localManager' : localManager, 'airport' : airport} # 추후 추가할 데이터를 위해
       self.content = {
                         "descript" : self.descript,
@@ -48,6 +50,7 @@ class bookingAdd(generic.ListView):
                         "ogImgUrl" : self.ogImgUrl,
                         "topMenu"  : self.topMenu,
                         "optionData" : optionData,
+                        "selectData" : selectData,
                      }
 
       return render(request, self.template_name, self.content)

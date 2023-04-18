@@ -11,14 +11,20 @@
 	{% csrf_token %}
 		<div class="input-group mb-3">
 			<span class="input-group-text col-2 text-end" >ref</span>
-			<input type="text" class="form-control col-4 me-3" id="ref" name="ref">
-			<input type="hidden" id="yyyy" name="yyyy" value="{{ now|date:'Y' }}">
+			<input type="text" class="form-control col-4 me-3" id="ref" name="ref" value="{{selectData.master.0.ref}}">
+			<th scope="col"></th>
+			{% if type == 'I' %}
+				<input type="hidden" id="yyyy" name="yyyy" value="{{ now|date:'Y' }}">
+			{% else %}
+				<input type="hidden" id="yyyy" name="yyyy" value="{{selectData.master.0.yyyy}}">
+			{% endif%}
+			
 			<span class="input-group-text col-2 text-end" >상품명</span>
-			<input type="text" class="form-control col-4" id="product_name" name="product_name">
+			<input type="text" class="form-control col-4" id="product_name" name="product_name" value="{{selectData.master.0.product_name}}">
 		</div>
 		<div class="input-group mb-3">
 			<span class="input-group-text col-2 text-end" >URL</span>
-			<input type="text" class="form-control col-10" id="url" name="url" >
+			<input type="text" class="form-control col-10" id="url" name="url" value="{{selectData.master.0.url}}">
 		</div>
 
 		<div class="devider"></div>
