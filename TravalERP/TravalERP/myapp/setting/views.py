@@ -203,7 +203,7 @@ class airportAdd(addView):
       return {"airport":Airport.objects.filter(id=self.id)}
    
    def selectOption(self, request):
-      return {"manager":Manager.objects.filter(use_yn='Y')}
+      return {"citycode":Citycode.objects.filter(use_yn='Y')}
    
    def get(self, request, *args, **kwargs):
       self.template_name = "setting/airportAdd.html"
@@ -215,6 +215,7 @@ class airportAdd(addView):
       elif self.pageType == 'U':
             self.title_nm = "항공 수정"
             self.descript = "항공 수정 페이지입니다"
+
       
       response = super().get(request, *args, **kwargs)
       
@@ -307,6 +308,8 @@ class hotelAdd(addView):
          
       return response
    
+   
+   
 #################################################
 # SCHEDULE
 #################################################
@@ -362,7 +365,7 @@ class citycodeAdd(addView):
       if response is None:
          response = HttpResponse()
          
-      return response
+      return response    
    
 
 
@@ -468,6 +471,12 @@ class commonSettingView(CommonView):
          response = HttpResponse()
          
       return response
+   
+
+
+
+
+   
 
 #################################################
 # Common Path별 Model선택

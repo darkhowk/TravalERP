@@ -30,11 +30,16 @@
 		<div class="row mt-2">
 			<label for="departure_airport" class="col-sm-1 col-form-label" >출발공항</label>
 			<div class="col-sm-3">
-				<input type="text" id="departure_airport" name="departure_airport" class="form-control" value="{{selectData.airport.0.departure_airport}}" />
+				<select class="form-select-diy selectpicker" id="departure_city_code" name="departure_city_code" value="{{selectData.airport.0.departure_airport}}" data-live-search="true" data-size="3" onchange="select_city(this)">
+					<option selected>공항코드</option>
+					{% for citycode in optionData.citycode %}
+					<option value="{{citycode.id}}" data-code="{{citycode.city_code}}" data-name="{{citycode.cityname}}">{{citycode.city_code}}</option>
+					{% endfor %}
+				</select>
 			</div>
-			<label for="departure_city" class="col-sm-1 col-form-label">출발도시</label>
+			<label for="departure_city_name" class="col-sm-1 col-form-label">출발도시</label>
 			<div class="col-sm-3">
-				<input type="text" id="departure_city" name="departure_city" class="form-control" value="{{selectData.airport.0.departure_city}}" />
+				<input type="text" id="departure_city_name" name="departure_city_name" class="form-control" value="{{selectData.airport.0.departure_city}}" />
 			</div>
 			<label for="departure_time" class="col-sm-1 col-form-label" >출발시간</label>
 			<div class="col-sm-3">
@@ -45,11 +50,16 @@
 		<div class="row mt-2">
 			<label for="arrival_airport" class="col-sm-1 col-form-label">도착공항</label>
 			<div class="col-sm-3">
-				<input type="text" id="arrival_airport" name="arrival_airport" class="form-control" value="{{selectData.airport.0.arrival_airport}}" />
+				<select class="form-select-diy selectpicker" id="arrival_city_code" name="arrival_city_code" value="{{selectData.airport.0.arrival_airport}}" data-live-search="true" data-size="3" onchange="select_city(this)">
+					<option selected>공항코드</option>
+					{% for citycode in optionData.citycode %}
+					<option>{{citycode.city_code}}</option>
+					{% endfor %}
+				</select>
 			</div>
-			<label for="arrival_city" class="col-sm-1 col-form-label">도착도시</label>
+			<label for="arrival_city_name" class="col-sm-1 col-form-label">도착도시</label>
 			<div class="col-sm-3">
-				<input type="text" id="arrival_city" name="arrival_city" class="form-control" value="{{selectData.airport.0.arrival_city}}" />
+				<input type="text" id="arrival_city_name" name="arrival_city_name" class="form-control" value="{{selectData.airport.0.arrival_city}}" />
 			</div>
 			<label for="arrival_time" class="col-sm-1 col-form-label">도착시간</label>
 			<div class="col-sm-3">
@@ -74,6 +84,24 @@
 		</div>
   	</form>
 </div>
+
+
+
+<script>
+function select_city(element) {
+  var data_code = $(element).find(':selected').data('code');
+  var data_name = $(element).find(':selected').data('name');
+
+  if ($(element).attr('id') === 'departure_city_code') {
+    $('#departure_city_name').val(data_name);
+  } else if ($(element).attr('id') === 'arrival_city_code') {
+    $('#arrival_city_name').val(data_name);
+  }
+}
+
+</script>
+
+
 
 {% include 'base/commonValue.html'%}
 <!-- 공통변수 -->
