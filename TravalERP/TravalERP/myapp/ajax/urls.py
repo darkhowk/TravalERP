@@ -5,7 +5,7 @@ app_name = "ajax"
 
 urlpatterns = [    
     path("ajax/get/<str:item>", views.getData, name="ajax검색"), 
-
+    path("ajax/getLike/<str:item>", views.getLikeData, name="ajax Like 검색"), 
     ### copy Data
     path("ajax/copyData", views.dataCopy, name="데이터 카피 ajax"),
 
