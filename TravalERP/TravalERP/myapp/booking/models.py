@@ -25,7 +25,7 @@ class BookingMaster(commonModel):
     pax=models.CharField(db_column='PAX', max_length=100, verbose_name='PAX')  # Field name made lowercase.
     bus=models.CharField(db_column='BUS', max_length=1000, verbose_name='버스')  # Field name made lowercase.
     entrance=models.CharField(db_column='ENTRANCE', max_length=100, verbose_name='입장지')  # Field name made lowercase.
-    breakfase=models.CharField(db_column='BREAKFAST', max_length=100, verbose_name='아침')  # Field name made lowercase.
+    breakfast=models.CharField(db_column='BREAKFAST', max_length=100, verbose_name='아침')  # Field name made lowercase.
     lunch=models.CharField(db_column='LUNCH', max_length=100, verbose_name='점심')  # Field name made lowercase.
     dinner=models.CharField(db_column='DINNER', max_length=100, verbose_name='저녁')  # Field name made lowercase.
     special=models.CharField(db_column='SPECIAL', max_length=1000, verbose_name='특식')  # Field name made lowercase.
@@ -37,6 +37,12 @@ class BookingMaster(commonModel):
     include=models.CharField(db_column='INCLUDE', max_length=1000, verbose_name='포함')  # Field name made lowercase.
     not_include=models.CharField(db_column='NOT_INCLUDE', max_length=1000, verbose_name='불포함')  # Field name made lowercase.
     hotel=models.CharField(db_column='HOTEL', max_length=1000, verbose_name='호텔')  # Field name made lowercase.
+
+    def __iter__(self):
+        yield self.ref
+        yield self.attn_agent.agent_name
+        yield self.attn_manager.manager_name
+        yield self.product_name
 
     class Meta:
         managed = False

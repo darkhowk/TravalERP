@@ -70,7 +70,7 @@
 			<input type="text" class="form-control col mx-1" id="kor_air_in" name="kor_air_in" readonly />
 			<input type="text" class="form-control col mx-1"id="kor_air_out" name="kor_air_out"  readonly />
 			<input type="text" class="form-control col mx-1"id="kor_air_dep_time" name="kor_air_dep_time"  readonly />
-			<input type="text" class="form-control col mx-1"id="kor_air_arri_time" name="kor_air_arri_time"  readonly />
+			<input type="text" class="form-control col mx-1"id="kor_air_ari_time" name="kor_air_ari_time"  readonly />
 		</div>
 
 		<div class="input-group mb-3">
@@ -86,7 +86,7 @@
 			<input type="text" class="form-control col mx-1" id="loc_air_in" name="loc_air_in" readonly />
 			<input type="text" class="form-control col mx-1"id="loc_air_out" name="loc_air_out"  readonly />
 			<input type="text" class="form-control col mx-1"id="loc_air_dep_time" name="loc_air_dep_time"  readonly />
-			<input type="text" class="form-control col mx-1"id="loc_air_arri_time" name="loc_air_arri_time"  readonly />
+			<input type="text" class="form-control col mx-1"id="loc_air_ari_time" name="loc_air_ari_time"  readonly />
 		</div>
 
 		<div class="devider"></div>
@@ -111,6 +111,16 @@
 
 		<div class="devider"></div>
 		
+		<div class="input-group mb-3">
+			<span class="input-group-text col-2" >PAX</span>
+			<textarea class="form-control col-10" id="pax" name="pax"  style="height: 80px"></textarea>
+		</div>
+
+		<div class="input-group mb-3">
+			<span class="input-group-text col-2" >HOTEL</span>
+			<textarea class="form-control col-10" id="hotel" name="hotel"  style="height: 80px"></textarea>
+		</div>
+
 		<div class="input-group mb-3">
 			<span class="input-group-text col-2" >BUS</span>
 			<textarea class="form-control col-10" id="bus" name="bus"  style="height: 80px"></textarea>
@@ -336,7 +346,7 @@ function searchScheduleDetailSucc(data){
 
 	///// 날짜 입력 관련 
 	// 선택된 날짜로 Date 변수를 만든다
-	var tmpDate = $("#kor_air_def").val();
+	var tmpDate = $("#kor_air_date").val();
 	var selDate;
 	if (tmpDate == ''){
 	selDate = new Date();
@@ -463,12 +473,12 @@ function select_air(element){
 	  air_in = $("#kor_air_in");
 	  air_out = $("#kor_air_out");
 	  air_timedep = $("#kor_air_dep_time");
-	  air_timearri = $("#kor_air_arri_time");
+	  air_timearri = $("#kor_air_ari_time");
 	} else if (element.id === "loc_air") {
 	  air_in = $("#loc_air_in");
 	  air_out = $("#loc_air_out");
 	  air_timedep = $("#loc_air_dep_time");
-	  air_timearri = $("#loc_air_arri_time");
+	  air_timearri = $("#loc_air_ari_time");
 	}
 
 
@@ -520,8 +530,8 @@ $.datepicker.setDefaults({
 
 
 $(function() {
-	// id kor_air_def의 datepicker 선택시
-	$('#kor_air_def').datepicker({
+	// id kor_air_date datepicker 선택시
+	$('#kor_air_date').datepicker({
 		onSelect: function(date) {
 		// 선택된 날짜로 Date 변수를 만든다
 		var selDate = new Date(date);
@@ -545,7 +555,7 @@ $(function() {
 			var toYear = toDate.getFullYear();
 			var toMonth = ('0' +toDate.getMonth()).slice(-2);// 앞에 0을 붙이고 뒤에서 2개만 선택한다. 1자리수 인경우 앞에 0붙이는것
 			var toDay = ('0' +toDate.getDate()).slice(-2);
-			$(row).find('td:nth-child(2)').text(toYear+'-'+toMonth+"-"+toDay);
+			$(row).find('td:nth-child(2)').html("<input type='text' class='form-control' id='date' name='date' style='width:100%; border: 0;' value='"+toYear+'-'+toMonth+"-"+toDay+"'>");
 
 		});
 		hotel_table.find('tr').each(function(index, row) {
@@ -553,17 +563,18 @@ $(function() {
 			if (index === 0) {
 			return true;
 			}
-			// 각 행(row)의 두 번째 셀(td)에 오늘 날짜를 입력합니다.
+			// 각 행(row)의 첫번째 셀(td)에 오늘 날짜를 입력합니다.
 			var toDate = new Date(selYear, selMonth, selDay + (index - 1));
 			var toYear = toDate.getFullYear();
 			var toMonth = ('0' +toDate.getMonth()).slice(-2);
 			var toDay = ('0' +toDate.getDate()).slice(-2);
-			$(row).find('td:nth-child(2)').text(toYear+'-'+toMonth+"-"+toDay);
+			$(row).find('td:nth-child(1)').html("<input type='text' class='form-control' id='date' name='date' style='width:100%; border: 0;' value='"+toYear+'-'+toMonth+"-"+toDay+"'>");
 
 		});
 
 		}
 	});
+	$('#loc_air_date').datepicker({});
 });
 
 function openSearch() {

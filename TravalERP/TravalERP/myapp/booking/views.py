@@ -1,28 +1,30 @@
 from django.shortcuts import render
 from django.views import generic
 from django.http import JsonResponse, HttpResponse
-# from ..common.common_models import Menu # 기존 Menu만 불러오던걸 주석
-from ..common.common_models import * # 모든 모델 가져올수있게 변경
+from ..common.common_models import * # 기존 Menu만 불러오던걸 주석
+from ..booking.models import * # 모든 모델 가져올수있게 변경
 import json
+from ..common.CommonView import CommonMainView
 # Create your views here.
 
-class bookingIndex(generic.ListView):
-   def __init__(self):
+class bookingIndex(CommonMainView):
+
+   def custom_queryset(self):
+      return  BookingMaster, None, None
+        
+   def get(self, request, *args, **kwargs):
       self.title_nm = "수배내역"
-      self.ogImgUrl = ""
       self.descript = "수배내역 페이지입니다"
       self.template_name = "booking/index.html"
-      self.topMenu = Menu.objects.filter(menu_type="TOP")
+      self.target = "booking"
+      response = super().get(request, *args, **kwargs)
+      
+      if response is None:
+         response = HttpResponse()
+         
+      return response
+   
 
-   def get(self, request, *args, **kwargs):
-      self.content = {
-                        "descript" : self.descript,
-                        "title_nm" : self.title_nm,
-                        "ogImgUrl" : self.ogImgUrl,
-                        "topMenu"  : self.topMenu
-                     }
-
-      return render(request, self.template_name, self.content)
    
 class bookingAdd(generic.ListView):
    def __init__(self):
