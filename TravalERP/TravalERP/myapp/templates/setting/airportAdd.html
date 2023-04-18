@@ -33,7 +33,7 @@
 				<select class="form-select-diy selectpicker" id="departure_city_code" name="departure_city_code" value="{{selectData.airport.0.departure_airport}}" data-live-search="true" data-size="3" onchange="select_city(this)">
 					<option selected>공항코드</option>
 					{% for citycode in optionData.citycode %}
-					<option value="{{citycode.id}}" data-code="{{citycode.city_code}}" data-name="{{citycode.cityname}}">{{citycode.city_code}}</option>
+					<option value="{{citycode.id}}" data-code="{{citycode.city_code}}" data-name="{{citycode.city_name}}">{{citycode.city_code}}</option>
 					{% endfor %}
 				</select>
 			</div>
@@ -91,7 +91,8 @@
 function select_city(element) {
   var data_code = $(element).find(':selected').data('code');
   var data_name = $(element).find(':selected').data('name');
-
+console.log(data_code)
+console.log(data_name)
   if ($(element).attr('id') === 'departure_city_code') {
     $('#departure_city_name').val(data_name);
   } else if ($(element).attr('id') === 'arrival_city_code') {
