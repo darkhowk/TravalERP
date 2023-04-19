@@ -1,10 +1,5 @@
 {% extends "base/base.html" %}
 {% block content %}
-
-<div class="container-fluid">
-    <h1 class="mx-5 mt-5 title">수배내역</h1>
-</div>
-
 <div class="card mt-3 mx-5">
     <div class="card-header">
         {{title_nm}}
@@ -43,23 +38,17 @@
             <table id="datatablesSimple" class="datatable-table table table-light table-responsive table-border table-striped table-hover">
                 <thead>
                     <tr>
-                        {% for th in tr_list %}
-                            <th scope="col">{{ th }}</th>
-                        {% endfor %}
-                        {% if target == 'schedule' %}
-                            <th scope="col"></th>
-                        {% endif %}
+                        <th scope="col">REF</th>
+                        <th scope="col">상품명</th>
+                        <th scope="col">한국 출발일</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for list in content_list %}
                         <tr id="{{list.id}}" data-index="{{ forloop.counter0 }}">
-                            {% for field in list %}
-                                <td>{{ field|truncatechars:30 }}</td>
-                            {% endfor %}
-                            {% if target == 'schedule' %}
-                                <td><input type="button" value="복사" onclick="copyData('{{list.id}}')"></td>
-                            {% endif %}
+                            <td>{{ list.ref|truncatechars:30 }}</td>
+                            <td>{{ list.product_name|truncatechars:30 }}</td>
+                            <td>{{ list.kor_air_date|truncatechars:30 }}</td>
                         </tr>
                     {% endfor %}
                 </tbody>

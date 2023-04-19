@@ -28,32 +28,6 @@ class CommonMainView(generic.ListView):
         else:
             queryset = model.objects.filter(type=value)
 
-        if queryset.first() is None:
-            # 각 필드의 verbose_name을 tr_list에 추가
-
-            for field in model._meta.fields:
-                tmp = True
-                for common in commonModel._meta.fields:
-                    if field.verbose_name == common.verbose_name:
-                        tmp = False
-                    elif field.verbose_name in ['ID', 'TYPE']:
-                        tmp = False
-                if tmp:
-                    self.tr_list.append(field.verbose_name)
-
-        else:
-            # 각 필드의 verbose_name을 tr_list에 추가
-            for field in queryset.first()._meta.fields:
-                tmp = True
-                for common in commonModel._meta.fields:
-                    if field.verbose_name == common.verbose_name:
-                        tmp = False
-                    elif field.verbose_name in ['ID', 'TYPE']:
-                        tmp = False
-                if tmp:
-                    if field.verbose_name in ['ref', '상품명', '한국 출발일', '등록자']:
-                        self.tr_list.append(field.verbose_name)
-
         self.content_list = queryset[self.perPage * (self.paging - 1):self.perPage * self.paging]
 
         # 페이지 수
