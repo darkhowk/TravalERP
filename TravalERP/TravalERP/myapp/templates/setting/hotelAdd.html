@@ -7,56 +7,64 @@
     </h1>
 </div>
   
-<div class="container mt-5">
+<div class="container mt-5"> 
     <form id="hotelFrm">
         {% csrf_token %}
         <input type="hidden" id="id" name="id" value="{{selectData.hotel.0.id}}">
         <div class="row">
             <label for="hotel_name" class="col-sm-20 col-form-label">호텔명(한글)</label>
-            <div class="col-sm-4">
+            <div class="col-sm-5">
                 <input type="text" id="hotel_name" name="hotel_name" class="form-control" value="{{selectData.citycode.0.hotel_name}}" >
             </div>
-            <label for="hotel_en_name" class="col-sm-20 col-form-label">호텔명(영문)</label>
-            <div class="col-sm-4">
-                <input type="text" id="hotel_en_name" name="hotel_en_name" class="form-control" value="{{selectData.citycode.0.hotel_en_name}}" >
-            </div>
-        </div>
-        <div class="row mt-2">
-            <label for="hotel_tel" class="col-sm-20 col-form-label">연락처</label>
-            <div class="col-sm-3">
-                <input type="text" id="hotel_tel" name="hotel_tel" class="form-control" value="{{selectData.citycode.0.hotel_tel}}" >
-            </div>
-            <div class="col-sm-1"></div>
-            <label for="rank" class="col-sm-20 col-form-label">등급</label>
-            <div class="col-sm-2">
-                <select class="form-select" id="rank" name="rank">
-                    <option selected>성급</option>
-                    <option value="2 STAR" {% if selectData.hotel.0.rank == '2 STAR' %} selected {% endif %}>2성</option>
-                    <option value="3 STAR" {% if selectData.hotel.0.rank == '3 STAR' %} selected {% endif %}>3성</option>
-                    <option value="4 STAR" {% if selectData.hotel.0.rank == '4 STAR' %} selected {% endif %}>4성</option>
-                    <option value="5 STAR" {% if selectData.hotel.0.rank == '5 STAR' %} selected {% endif %}>5성</option>
-                    <option value="TOURIST" {% if selectData.hotel.0.rank == 'TOURIST' %} selected {% endif %}>투어리스트급</option>
-                    <option value="DELUXE" {% if selectData.hotel.0.rank == 'DELUXE' %} selected {% endif %}>디럭스급</option>
-                    <option value="LUXURY" {% if selectData.hotel.0.rank == 'LUXURY' %} selected {% endif %}>럭셔리급</option>
-                </select>
-            </div>
+            <div class="col-sm-2"></div>
             <label for="use_yn" class="col-sm-20 col-form-label">사용여부</label>
-            <div class="col-sm-2">
+            <div class="col-sm-20">
                 <select class="form-select" id="use_yn" name="use_yn" >
                     <option value="Y" {% if selectData.hotel.0.use_yn == 'Y' %} selected {% endif %}>사용</option>
                     <option value="N" {% if selectData.hotel.0.use_yn == 'N' %} selected {% endif %}>미사용</option>
                 </select>
             </div>
         </div>
+        <div class="row mt-2">
+         <label for="hotel_en_name" class="col-sm-20 col-form-label">호텔명(영문)</label>
+            <div class="col-sm-6">
+                <input type="text" id="hotel_en_name" name="hotel_en_name" class="form-control" value="{{selectData.citycode.0.hotel_en_name}}" >
+            </div>
+            <div class="col-sm-1"></div>
+            <label for="rank" class="col-sm-20 col-form-label">등급</label>
+            <div class="col-sm-20">
+                <select class="form-select" id="rank" name="rank">
+                    <option selected>성급</option>
+                    <option value="2 STAR" {% if selectData.hotel.0.rank == '2 STAR' %}{% endif %}>2성</option>
+                    <option value="3 STAR" {% if selectData.hotel.0.rank == '3 STAR' %}{% endif %}>3성</option>
+                    <option value="4 STAR" {% if selectData.hotel.0.rank == '4 STAR' %}{% endif %}>4성</option>
+                    <option value="5 STAR" {% if selectData.hotel.0.rank == '5 STAR' %}{% endif %}>5성</option>
+                    <option value="TOURIST" {% if selectData.hotel.0.rank == 'TOURIST' %}{% endif %}>투어리스트급</option>
+                    <option value="DELUXE" {% if selectData.hotel.0.rank == 'DELUXE' %}{% endif %}>디럭스급</option>
+                    <option value="LUXURY" {% if selectData.hotel.0.rank == 'LUXURY' %}{% endif %}>럭셔리급</option>
+                </select>
+            </div>
+        </div>
         <div class="devider"></div>
         <div class="row mt-2">
             <label for="country" class="col-sm-20 col-form-label">국가</label>
-            <div class="col-sm-4">
+            <div class="col-sm-2">
                 <input type="text" id="country" name="country" class="form-control" value="{{selectData.citycode.0.country}}" >
             </div>
+            <div class="col-sm-0"></div>
             <label for="city" class="col-sm-20 col-form-label">도시</label>
-            <div class="col-sm-4">
-                <input type="text" id="city" name="city" class="form-control" value="{{selectData.citycode.0.city}}" >
+            <div class="col-sm-1">
+                <select class="form-select-diy selectpicker" id="city_name" name="city_name" value="{{selectData.citycode.0.city}}" data-live-search="true" data-size="3" onchange="select_city(this)">
+					<option selected>도시명</option>
+					{% for citycode in optionData.citycode %}
+					<option value="{{citycode.id}}" data-name="{{citycode.city_name}}" data-country="{{citycode.country_name}}">{{citycode.city_name}}</option>
+					{% endfor %}
+				</select>
+            </div>
+            <div class="col-sm-2"></div>
+            <label for="hotel_tel" class="col-sm-20 col-form-label">연락처</label>
+            <div class="col-sm-2">
+                <input type="text" id="hotel_tel" name="hotel_tel" class="form-control" value="{{selectData.citycode.0.hotel_tel}}" >
             </div>
         </div>
         <div class="row mt-2">
@@ -92,11 +100,52 @@
 
 
 
+<script>
+function select_city(element) {
+    var data_name = $(element).find(':selected').data('name');
+    var data_country = $(element).find(':selected').data('country');
+    console.log(data_name)
+    console.log(data_country)
+
+    var name = $("#city_name");
+    var country = $("#country");
+
+    name.val(data_name);
+    country.val(data_country);
+
+}
+</script>
+
+
+
 <style>
+    .col-sm-0 {
+      flex: 0 0 auto;
+      width: 4%;
+    }
+
+
     .col-sm-20 {
       flex: 0 0 auto;
       width: 11%;
     }
+
+    .col-sm-30 {
+    flex: 0 0 auto;
+    width: 12%;
+  }
+
+  .form-select-diy, .dataTable-selector {
+  display: block;
+  width: 100%;
+  font-size: 1rem;
+  font-weight: 400;
+  color: #6c757d;
+  line-height: 1.5;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+
+}
   
   </style>
   

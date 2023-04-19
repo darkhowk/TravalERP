@@ -1,10 +1,15 @@
 {% extends "base/base.html" %}
 {% block content %}
+
+<div class="container-fluid">
+    <h1 class="mx-5 mt-5 title">수배내역</h1>
+</div>
+
 <div class="card mt-3 mx-5">
     <div class="card-header">
         {{title_nm}}
     </div>
-    <div class="card-body">
+    <div class="card-body"> 
         {% csrf_token %}
       <div class="datatable-wrapper datatable-loading no-footer sortable searchable fixed-columns">
         <div class="datatable-top">
@@ -23,7 +28,7 @@
             <div class="text-end">
                 <form class="d-none d-sm-inline-block navbar-search" >
                     <div class="input-group">
-                        <input class="datatable-input" placeholder="Search..." type="search" title="Search within table" aria-controls="datatablesSimple" />
+                        <input type="text" class="form-control bg-light border" aria-label="Search" aria-describedby="basic-addon2"/>
                         <div class="input-group-append">
                             <button class="btn btn-primary" type="button">
                                 <i class="fas fa-search fa-sm"></i>

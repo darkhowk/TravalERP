@@ -45,7 +45,7 @@ class Agent(commonModel):
         managed = False
         db_table = 'agent'
         verbose_name = '여행사'
-        verbose_name_plural = '여행사 목록'
+        verbose_name_plural = '여행사 목록' 
 
 class Manager(commonModel):
     agent= models.ForeignKey(Agent, db_column='agent', on_delete=models.SET_NULL, blank=True, null=True, verbose_name='여행사')

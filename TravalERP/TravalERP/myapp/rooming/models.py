@@ -7,13 +7,21 @@ class RoomingMaster(commonModel):
     master_id=models.ForeignKey(BookingMaster, db_column='MASTER_ID', on_delete=models.SET_NULL, blank=True, null=True, verbose_name='마스터 id')
     type=models.CharField(db_column='TYPE', max_length=2, verbose_name='TYPE')
     file_id=models.CharField(db_column='FILE_ID', max_length=20, verbose_name='매칭')
-    total_pax=models.CharField(db_column='TOTAL_TAX', max_length=100, verbose_name='PAX')
+    total_pax=models.CharField(db_column='TOTAL_PAX', max_length=100, verbose_name='PAX')
     twin=models.CharField(db_column='TWIN', max_length=10, verbose_name='TWIN')
     triple=models.CharField(db_column='TRIPLE', max_length=10, verbose_name='TRIPLE')
     single=models.CharField(db_column='SINGLE', max_length=10, verbose_name='SINGLE')
     tc=models.CharField(db_column='TC', max_length=20, verbose_name='TOUR LEADER')
     remark=models.CharField(db_column='REMARK', max_length=2000, verbose_name='REMARK')
   
+    def __iter__(self):
+        yield self.type
+        yield self.master_id.ref
+        yield self.master_id.product_name
+        yield self.total_pax
+        yield self.entry_id
+
+
     class Meta:
         managed = False
         db_table = 'rooming_master'

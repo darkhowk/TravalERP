@@ -4,12 +4,12 @@ from ..common.common_models import commonModel, Agent, Manager
 # Create your models here.
 class BookingMaster(commonModel):
     yyyy=models.CharField(db_column='YYYY', max_length=4, verbose_name='년도')  # Field name made lowercase.y
-    ref=models.CharField(db_column='REF', max_length=20, verbose_name='레퍼런스')  # Field name made lowercase.
+    ref=models.CharField(db_column='REF', max_length=20, verbose_name='ref')  # Field name made lowercase.
+    product_name=models.CharField(db_column='PRODUCT_NAME', max_length=100, verbose_name='상품명')  # Field name made lowercase.
     attn_agent=models.ForeignKey(Agent, db_column='attn_agent', on_delete=models.SET_NULL, blank=True, null=True, verbose_name='현지 여행사', related_name='attn_agents')
     attn_manager=models.ForeignKey(Manager, db_column='attn_manager', on_delete=models.SET_NULL, blank=True, null=True, verbose_name='현지 매니저', related_name='attn_managers')
     from_agent=models.ForeignKey(Agent, db_column='from_agent', on_delete=models.SET_NULL, blank=True, null=True, verbose_name='여행사', related_name='from_agents')
     from_manager=models.ForeignKey(Manager, db_column='from_manager', on_delete=models.SET_NULL, blank=True, null=True, verbose_name='매니저', related_name='from_managers')
-    product_name=models.CharField(db_column='PRODUCT_NAME', max_length=100, verbose_name='상품명')  # Field name made lowercase.
     kor_air_date=models.CharField(db_column='KOR_AIR_DATE', max_length=100, verbose_name='한국 출발일')  # Field name made lowercase.
     kor_air_in=models.CharField(db_column='KOR_AIR_IN', max_length=100, verbose_name='한국 출발 공항')  # Field name made lowercase.
     kor_air_out=models.CharField(db_column='KOR_AIR_OUT', max_length=100, verbose_name='한국 도착 공항')  # Field name made lowercase.
@@ -37,12 +37,13 @@ class BookingMaster(commonModel):
     include=models.CharField(db_column='INCLUDE', max_length=1000, verbose_name='포함')  # Field name made lowercase.
     not_include=models.CharField(db_column='NOT_INCLUDE', max_length=1000, verbose_name='불포함')  # Field name made lowercase.
     hotel=models.CharField(db_column='HOTEL', max_length=1000, verbose_name='호텔')  # Field name made lowercase.
+    entry_id = models.CharField(db_column='ENTRY_ID', max_length=20, verbose_name='등록자')
 
     def __iter__(self):
         yield self.ref
-        yield self.attn_agent.agent_name
-        yield self.attn_manager.manager_name
         yield self.product_name
+        yield self.kor_air_date
+        yield self.entry_id
 
     class Meta:
         managed = False

@@ -51,7 +51,7 @@ class CommonMainView(generic.ListView):
                     elif field.verbose_name in ['ID', 'TYPE']:
                         tmp = False
                 if tmp:
-                    if field.verbose_name in ['레퍼런스', '현지 여행사', '현지 매니저', '상품명']:
+                    if field.verbose_name in ['ref', '상품명', '한국 출발일', '등록자']:
                         self.tr_list.append(field.verbose_name)
 
         self.content_list = queryset[self.perPage * (self.paging - 1):self.perPage * self.paging]

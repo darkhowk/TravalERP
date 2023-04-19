@@ -5,7 +5,7 @@
 </div>
 
 <div class="container mt-5">
-  <form>
+	<form id="roomingFrm">
     <div class="d-inline mb-3">
       <label class="form-label" for="fileupload"><h4>파일업로드</h4></label>
       <input type="file" class="form-control" id="fileupload" />
@@ -145,6 +145,51 @@
 
 
 <script>
+
+function saveData(){
+
+var jsonData = $("#roomingFrm").serializeArray()
+$.ajax({
+  url: '/ajax/insertData/master/rooming',
+  method: 'POST',
+  data: jsonData,
+  dataType: 'json',
+  success: function(data) {
+    id = data.id
+    saveDetail(id);
+  },
+  error: function(xhr, status, error) {
+    alert('등록 실패')
+  }
+});
+}
+
+function saveDetail(id){
+$('input[name="master_id"]').val(id);
+var room = tableToJson(document.getElementById('roomingList'));
+
+var tableJson = mergeJson(room);
+
+$.ajax({
+  url: '/ajax/insertData/detail/rooming',
+  method: 'POST',
+  data: JSON.stringify(tableJson),
+  headers: { "X-CSRFToken": $('[name="csrfmiddlewaretoken"]').val() }, // CSRF 토큰을 HTTP 헤더에 추가
+  dataType: 'json',
+  success: function(data) {
+    alert('입력 완료 목록 화면으로 이동합니다.')
+  },
+  error: function(xhr, status, error) {
+    alert('등록 실패')
+  }
+});
+}
+
+
+
+
+
+
   function addRow() {
 	var tbody = document.getElementById("tbody");
   var inputNum = document.getElementById("inputNum");
@@ -182,19 +227,6 @@
 }
 
 
-function delRow() {
-  var tbody = document.getElementById("tbody");
-  for (var i = 1; i < tbody.rows.length; i++) {
-    var checkbox = tbody.rows[i].cells[0].childNodes[0].checked;
-    if (checkbox) {
-      tbody.deleteRow(i);
-      i--;
-    }
-    else {
-    tbody.rows[i].cells[1].innerHTML = i - deletedCount + 1;
-    }
-  }
-}
 
 function delRow() {
   var tbody = document.getElementById("tbody");

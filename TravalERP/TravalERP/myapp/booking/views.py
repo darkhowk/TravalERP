@@ -13,7 +13,7 @@ class bookingIndex(CommonMainView):
       return  BookingMaster, None, None
         
    def get(self, request, *args, **kwargs):
-      self.title_nm = "수배내역"
+      self.title_nm = "BOOKING LIST"
       self.descript = "수배내역 페이지입니다"
       self.template_name = "booking/index.html"
       self.target = "booking"

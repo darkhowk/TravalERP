@@ -288,7 +288,7 @@ class hotelAdd(addView):
       return {"hotel":Hotel.objects.filter(id=self.id)}
    
    def selectOption(self, request):
-      return {}
+      return {"citycode":Citycode.objects.filter(use_yn='Y')}
    
    def get(self, request, *args, **kwargs):
       self.template_name = "setting/hotelAdd.html"
