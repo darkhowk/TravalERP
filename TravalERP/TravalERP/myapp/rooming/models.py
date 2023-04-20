@@ -24,16 +24,16 @@ class RoomingMaster(commonModel):
 
 class RoomingDetail(commonModel):
     rooming_id=models.ForeignKey(RoomingMaster, db_column='ROOMING_ID', on_delete=models.SET_NULL, blank=True, null=True, verbose_name='루밍 id')
-    room_type=models.CharField(db_column='ROOM_TYPE', max_length=100, verbose_name='ROOM')
-    name_ko=models.CharField(db_column='NAME_KO', max_length=100, verbose_name='NAME(K)')
-    name_en=models.CharField(db_column='NAME_EN', max_length=100, verbose_name='NAME(E)')
-    sex=models.CharField(db_column='SEX', max_length=2, verbose_name='SEX')
+    room=models.CharField(db_column='ROOM', max_length=100, verbose_name='방')
+    name_k=models.CharField(db_column='NAME_K', max_length=100, verbose_name='이름(한)')
+    name_e=models.CharField(db_column='NAME_E', max_length=100, verbose_name='이름(영)')
+    sex=models.CharField(db_column='SEX', max_length=2, verbose_name='성별')
     kubun=models.CharField(db_column='KUBUN', max_length=5, verbose_name='구분')
-    birth=models.CharField(db_column='BIRTH', max_length=8, verbose_name='DATE OF BIRTH')
-    passport=models.CharField(db_column='PASSPORT', max_length=9, verbose_name='PASSPORT')
-    expiry=models.CharField(db_column='EXPIRY', max_length=8, verbose_name='DATE OF EXPIRY')
-    mobile=models.CharField(db_column='MOBILE', max_length=13, verbose_name='MOBILE')
-    remark=models.CharField(db_column='REMARK', max_length=2000, verbose_name='REMARK')
+    birth=models.CharField(db_column='BIRTH', max_length=8, verbose_name='생년월일')
+    passport=models.CharField(db_column='PASSPORT', max_length=9, verbose_name='여권')
+    expiry=models.CharField(db_column='EXPIRY', max_length=8, verbose_name='말소일')
+    mobile=models.CharField(db_column='MOBILE', max_length=13, verbose_name='연락처')
+    remark=models.CharField(db_column='REMARK', max_length=2000, verbose_name='기타')
  
   
     class Meta:
