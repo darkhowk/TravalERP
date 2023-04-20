@@ -44,6 +44,12 @@ class bookingAdd(generic.ListView):
       detail = BookingDetail.objects.filter(master_id=request.GET.get('id'))
       selectData = {'master': master,'detail':detail}
       optionData = {'agent': agent, 'localAgent' : localAgent, 'manager' : manager, 'localManager' : localManager, 'airport' : airport} # 추후 추가할 데이터를 위해
+      pageType = request.GET.get('pageType')
+      id = request.GET.get('id')
+      perPage = request.GET.get('perPage')
+      paging = request.GET.get('paging')
+      type = request.GET.get('type')
+      target = request.GET.get('target')
       self.content = {
                         "descript" : self.descript,
                         "title_nm" : self.title_nm,
@@ -51,6 +57,13 @@ class bookingAdd(generic.ListView):
                         "topMenu"  : self.topMenu,
                         "optionData" : optionData,
                         "selectData" : selectData,
+                        "pageType" : pageType,
+                        "id" : id,
+                        "perPage" : perPage,
+                        "paging" : paging,
+                        "type" : type,
+                        "target" : target,
+
                      }
 
       return render(request, self.template_name, self.content)
