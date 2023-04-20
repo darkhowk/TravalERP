@@ -10,7 +10,7 @@ class StatementMaster(commonModel):
     tc_type=models.CharField(db_column='TC_TYPE', max_length=2, verbose_name='T/C')
     agent=models.ForeignKey(Agent, db_column='AGENT', on_delete=models.SET_NULL, blank=True, null=True, verbose_name='여행사', related_name='agents')
     manager=models.ForeignKey(Manager, db_column='MANAGER', on_delete=models.SET_NULL, blank=True, null=True, verbose_name='매니저', related_name='managers')
-    amt_type=models.CharField(db_column='ACT_TYPE', max_length=20, verbose_name='미과수')
+    amt_type=models.CharField(db_column='AMT_TYPE', max_length=20, verbose_name='미과수')
     amt=models.CharField(db_column='AMT', max_length=20, verbose_name='금액')
     amt_unit=models.CharField(db_column='AMT_UNIT', max_length=20, verbose_name='단위')
     remark=models.CharField(db_column='REMARK', max_length=2000, verbose_name='REMARK')

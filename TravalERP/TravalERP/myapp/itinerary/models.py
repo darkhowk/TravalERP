@@ -1,12 +1,11 @@
 from django.db import models
-from ..common.common_models import commonModel
+from ..common.common_models import commonModel, Tourconductor
 from ..rooming.models import RoomingMaster
 
 # Create your models here.
 class ItineraryMaster(commonModel):
     master_id=models.ForeignKey(RoomingMaster, db_column='MASTER_ID', on_delete=models.SET_NULL, blank=True, null=True, verbose_name='마스터 id')
-    tc_name=models.CharField(db_column='TC_NAME', max_length=200, verbose_name='이름')
-    tc_tel=models.CharField(db_column='TC_TEL', max_length=13, verbose_name='연락처')
+    tc=models.ForeignKey(Tourconductor, db_column='tc', on_delete=models.SET_NULL, blank=True, null=True, verbose_name='인솔자')
     guide_loc=models.CharField(db_column='GUIDE_LOC', max_length=100, verbose_name='지역명')
     guide_name=models.CharField(db_column='GUIDE_NAME', max_length=20, verbose_name='이름')
     guide_tel=models.CharField(db_column='GUIDE_TEL', max_length=13, verbose_name='연락처')

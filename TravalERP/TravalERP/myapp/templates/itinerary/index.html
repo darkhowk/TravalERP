@@ -5,9 +5,10 @@
   <h1 class="mx-5 mt-5 title">확정서</h1>
 </div>
 
-<div class="card mt-3 mx-5">
+
+<div class="card mt-3 mx-5"> 
   <div class="card-header">
-    {{title_nm}}
+    <h5>&nbsp; {{title_nm}}</h5>
   </div>
   <div class="card-body"> 
     {% csrf_token %}
@@ -43,23 +44,27 @@
         <table id="datatablesSimple" class="datatable-table table table-light table-responsive table-border table-striped table-hover">
             <thead>
                 <tr>
-                    {% for th in tr_list %}
-                        <th scope="col">{{ th }}</th>
-                    {% endfor %}
-                    {% if target == 'schedule' %}
-                        <th scope="col"></th>
-                    {% endif %}
+                    <th scope="col" style="width: 15%;">REF</th>
+                    <th scope="col" style="width: 10%;">출발일</th>
+                    <th scope="col" style="width: 30%;">상품명</th>
+                    <th scope="col" style="width: 10%;">인솔자</th>
+                    <th scope="col" style="width: 5%; text-align: center;">총인원</th>
+                    <th scope="col" style="width: 10%;">등록일</th>
+                    <th scope="col" style="width: 10%;">여행사담당자</th>
+                    <th scope="col" style="width: 10%;">작성자</th>
                 </tr>
             </thead>
             <tbody>
                 {% for list in content_list %}
                     <tr id="{{list.id}}" data-index="{{ forloop.counter0 }}">
-                        {% for field in list %}
-                            <td>{{ field|truncatechars:30 }}</td>
-                        {% endfor %}
-                        {% if target == 'schedule' %}
-                            <td><input type="button" value="복사" onclick="copyData('{{list.id}}')"></td>
-                        {% endif %}
+                        <td>{{ list.master_id.ref|truncatechars:13 }}</td>
+                        <td>{{ list.id.kor_air_date|truncatechars:10 }}</td>
+                        <td>{{ list.id.product_name|truncatechars:30 }}</td>
+                        <td>{{ list.tc.tc_name|truncatechars:5 }}</td>
+                        <td style="text-align: center;">{{ list.master_id.total_pax|default_if_none:"0"|truncatechars:2 }}</td>
+                        <td>{{ list.entry_date|truncatechars:20 }}</td>
+                        <td>{{ list.id.attn_manager.manager_name|truncatechars:10 }}</td>
+                        <td >{{ list.entry_id|truncatechars:10 }}</td>
                     </tr>
                 {% endfor %}
             </tbody>
@@ -87,8 +92,16 @@
     </div>
 </div>
 </div>  
+
+<script>
+    console.log(addMenu)
+</script>
+
+
+
+
 {% include 'base/commonValue.html'%} <!-- 공통변수 -->
 {% endblock %}
 {% block js %}
-{{block.super}}      
+    {{block.super}}      
 {% endblock js %}

@@ -1,8 +1,15 @@
 {% extends "base/base.html" %}
 {% block content %}
+
+
+<div class="container-fluid">
+    <h1 class="mx-5 mt-5 title">수배</h1>
+</div>
+
+
 <div class="card mt-3 mx-5">
     <div class="card-header">
-        {{title_nm}}
+        <h5>&nbsp; {{title_nm}}</h5>
     </div>
     <div class="card-body"> 
         {% csrf_token %}
@@ -38,17 +45,25 @@
             <table id="datatablesSimple" class="datatable-table table table-light table-responsive table-border table-striped table-hover">
                 <thead>
                     <tr>
-                        <th scope="col">REF</th>
-                        <th scope="col">상품명</th>
-                        <th scope="col">한국 출발일</th>
+                        <th scope="col" style="width: 15%;">REF</th>
+                        <th scope="col" style="width: 10%;">출발일</th>
+                        <th scope="col" style="width: 30%;">상품명</th>
+                        <th scope="col" style="width: 10%;">등록일</th>
+                        <th scope="col" style="width: 10%;">수정일</th>
+                        <th scope="col" style="width: 10%;">여행사담당자</th>
+                        <th scope="col" style="width: 10%;">작성자</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for list in content_list %}
                         <tr id="{{list.id}}" data-index="{{ forloop.counter0 }}">
-                            <td>{{ list.ref|truncatechars:30 }}</td>
+                            <td>{{ list.ref|truncatechars:13 }}</td>
+                            <td>{{ list.kor_air_date|truncatechars:10 }}</td>
                             <td>{{ list.product_name|truncatechars:30 }}</td>
-                            <td>{{ list.kor_air_date|truncatechars:30 }}</td>
+                            <td>{{ list.entry_date|truncatechars:20 }}</td>
+                            <td>{{ list.updat_date|truncatechars:20 }}</td>
+                            <td>{{ list.attn_manager.manager_name|truncatechars:10 }}</td>
+                            <td>{{ list.entry_id|truncatechars:10 }}</td>
                         </tr>
                     {% endfor %}
                 </tbody>
