@@ -1,6 +1,7 @@
 from django.db import models
-from ..common.common_models import commonModel
+from ..common.common_models import commonModel, Tourconductor
 from ..booking.models import BookingMaster
+
 
 # Create your models here.
 class RoomingMaster(commonModel):
@@ -11,7 +12,7 @@ class RoomingMaster(commonModel):
     twin=models.CharField(db_column='TWIN', max_length=10, verbose_name='TWIN')
     triple=models.CharField(db_column='TRIPLE', max_length=10, verbose_name='TRIPLE')
     single=models.CharField(db_column='SINGLE', max_length=10, verbose_name='SINGLE')
-    tc=models.CharField(db_column='TC', max_length=20, verbose_name='TOUR LEADER')
+    tc=models.ForeignKey(Tourconductor, db_column='tourconductor', on_delete=models.SET_NULL, blank=True, null=True, verbose_name='담당자')
     remark=models.CharField(db_column='REMARK', max_length=2000, verbose_name='REMARK')
 
     class Meta:
