@@ -12,6 +12,7 @@
 		<div class="input-group mb-3">
 			<span class="input-group-text col-2 text-end" >ref</span>
 			<input type="text" class="form-control col-4 me-3" id="ref" name="ref" value="{{selectData.master.0.ref}}">
+			<input type="hidden" id="id", name="id" value="{{selectData.master.0.id}}">
 			<th scope="col"></th>
 			{% if pageType == 'I' %}
 				<input type="hidden" id="yyyy" name="yyyy" value="{{ now|date:'Y' }}">
@@ -122,11 +123,11 @@
 		<h5>MEAL</h5>
 		<div class="input-group mb-3">
 			<span class="input-group-text col-2" >조식</span>
-			<input type="text" class="form-control col-2 me-3" id="breakfast" name="breakfast" readonly>
+			<input type="text" class="form-control col-2 me-3" id="breakfast" name="breakfast" readonly value="{{selectData.master.0.breakfast}}"/>
 			<span class="input-group-text col-2" >중식</span>
-			<input type="text" class="form-control col-2 me-3" id="lunch" name="lunch" readonly>
+			<input type="text" class="form-control col-2 me-3" id="lunch" name="lunch" readonly value="{{selectData.master.0.lunch}}"/>
 			<span class="input-group-text col-2" >석식</span>
-			<input type="text" class="form-control col-2 me-3" id="dinner" name="dinner" readonly>
+			<input type="text" class="form-control col-2 me-3" id="dinner" name="dinner" readonly value="{{selectData.master.0.dinner}}"/>
 
 			<button type="button" class="form-control btn btn-primary col-4" data-toggle="modal" data-target="#myModal">
 		  		등록일정 검색
@@ -134,24 +135,24 @@
 	  	</div>
 	  	<div class="input-group mb-3">
 			<span class="input-group-text col-2" >특식</span>
-			<textarea class="form-control col-10" id="special" name="special"  style="height: 80px"></textarea>
+			<textarea class="form-control col-10" id="special" name="special"  style="height: 80px">{{selectData.master.0.special}}</textarea>
 		</div>
 
 		<div class="devider"></div>
 		
 		<div class="input-group mb-3">
 			<span class="input-group-text col-2" >PAX</span>
-			<textarea class="form-control col-10" id="pax" name="pax"  style="height: 80px"></textarea>
+			<textarea class="form-control col-10" id="pax" name="pax"  style="height: 80px">{{selectData.master.0.pax}}</textarea>
 		</div>
 
 		<div class="input-group mb-3">
 			<span class="input-group-text col-2" >HOTEL</span>
-			<textarea class="form-control col-10" id="hotel" name="hotel"  style="height: 80px"></textarea>
+			<textarea class="form-control col-10" id="hotel" name="hotel"  style="height: 80px">{{selectData.master.0.hotel}}</textarea>
 		</div>
 
 		<div class="input-group mb-3">
 			<span class="input-group-text col-2" >BUS</span>
-			<textarea class="form-control col-10" id="bus" name="bus"  style="height: 80px"></textarea>
+			<textarea class="form-control col-10" id="bus" name="bus"  style="height: 80px">{{selectData.master.0.bus}}</textarea>
 		</div>
 
 		<div class="devider"></div>
@@ -159,19 +160,19 @@
 		<h5>상품구성</h5>
 		<div class="input-group mb-3">
 			<span class="input-group-text col-2">ENTRANCE</span>
-			<textarea class="form-control col-10" id="entrance" name="entrance"  style="height: 80px"></textarea>
+			<textarea class="form-control col-10" id="entrance" name="entrance"  style="height: 80px">{{selectData.master.0.entrance}}</textarea>
 		</div>
 		<div class="input-group mb-3">
 			<span class="input-group-text col-2" >포함</span>
-			<textarea class="form-control col-10" id="include" name="include"  style="height: 80px"></textarea>
+			<textarea class="form-control col-10" id="include" name="include"  style="height: 80px">{{selectData.master.0.include}}</textarea>
 		</div>
 		<div class="input-group mb-3">
 			<span class="input-group-text col-2" >불포함</span>
-			<textarea class="form-control col-10" id="not_include" name="not_include"  style="height: 80px"></textarea>
+			<textarea class="form-control col-10" id="not_include" name="not_include"  style="height: 80px">{{selectData.master.0.not_include}}</textarea>
 		</div>
 		<div class="input-group mb-3">
 			<span class="input-group-text col-2" >옵션투어</span>
-			<textarea class="form-control col-10" id="option" name="option"  style="height: 80px"></textarea>
+			<textarea class="form-control col-10" id="option" name="option"  style="height: 80px">{{selectData.master.0.option}}</textarea>
 		</div>
 
 
@@ -180,15 +181,15 @@
 		<h5>GUIDE</h5>
 		<div class="input-group mb-3">
 			<span class="input-group-text col-2" >KOR</span>
-			<textarea class="form-control col-4 me-3" id="kor_guide" name="kor_guide"  style="height: 80px"></textarea>
+			<textarea class="form-control col-4 me-3" id="kor_guide" name="kor_guide"  style="height: 80px">{{selectData.master.0.kor_guide}}</textarea>
 			<span class="input-group-text col-2" >LOC</span>
-			<textarea class="form-control col-4" id="loc_guide" name="loc_guide"  style="height: 80px"></textarea>
+			<textarea class="form-control col-4" id="loc_guide" name="loc_guide"  style="height: 80px">{{selectData.master.0.loc_guide}}</textarea>
 		</div>
 		<div class="devider"></div>
 
 		<div class="input-group mb-3">
 			<span class="input-group-text col-2" >REMARK</span>
-			<textarea class="form-control col-10" id="remark" name="remark"  style="height: 100px"></textarea>
+			<textarea class="form-control col-10" id="remark" name="remark"  style="height: 100px">{{selectData.master.0.remark}}</textarea>
 		</div>
 		<input type="hidden" id="use_yn" name="use_yn" value="Y">
 	</form>
@@ -209,9 +210,15 @@
 		</table>
 	</div>
 
-	<div class="text-end mt-5">
-		<button type="submit" class="btn btn-primary" onclick="saveData();">저장</button>
-		<button type="button" class="btn btn-secondary">취소</button>
+	<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+
+	{% if pageType == 'I' %}
+		<input type="button" value="저장" onclick="saveData()">
+	{% elif pageType == 'U' %}
+		<input type="button" value="수정" onclick="updateData()">
+		<input type="button" value="삭제" onclick="deleteData()">
+	{% endif %}
+		<input type="button" value="목록" onclick="goMenuList()">
 	</div>
 
 
@@ -307,6 +314,93 @@ function saveDetail(id){
 		}
 	});
 }
+
+
+function updateData(){
+    var jsonData = $("#bookingFrm").serializeArray()
+    $.ajax({
+        url: '/ajax/updateData/master/booking', // 앞에 자동으로 setting/agent 붙음
+        method: 'POST',
+        data: jsonData,
+        dataType: 'json',
+        success: function(data) {
+            id = data.id
+            updateDetail(id);
+        },
+        error: function(xhr, status, error) {
+            alert('등록 실패')
+        }
+    });
+}
+
+function updateDetail(id){
+    $('input[name="master_id"]').val(id);
+
+	var sch = tableToJson(document.getElementById('schdule_table'));
+	var hot = tableToJson(document.getElementById('hotel_table'));
+
+	var tableJson = mergeJson(sch, hot);
+
+    $.ajax({
+        url: '/ajax/updateData/detail/booking', // 앞에 자동으로 setting/agent 붙음
+        method: 'POST',
+        data: JSON.stringify(tableJson),
+        headers: { "X-CSRFToken": $('[name="csrfmiddlewaretoken"]').val() }, // CSRF 토큰을 HTTP 헤더에 추가
+        dataType: 'json',
+        success: function(data) {
+            alert('입력 완료 목록 화면으로 이동합니다.')
+            goMenuList();
+        },
+        error: function(xhr, status, error) {
+            alert('등록 실패')
+        }
+    });
+}
+
+function deleteData(){
+    var jsonData = $("#bookingFrm").serializeArray()
+    $.ajax({
+        url: '/ajax/deleteData/master/booking', // 앞에 자동으로 setting/agent 붙음
+        method: 'POST',
+        data: jsonData,
+        dataType: 'json',
+        success: function(data) {
+            id = data.id
+            deleteDetail( id);
+        },
+        error: function(xhr, status, error) {
+            alert('삭제 실패')
+        }
+    });
+}
+
+function deleteDetail(id){
+	$('input[name="master_id"]').val(id);
+
+	var sch = tableToJson(document.getElementById('schdule_table'));
+	var hot = tableToJson(document.getElementById('hotel_table'));
+
+	var tableJson = mergeJson(sch, hot);
+
+    $.ajax({
+        url: '/ajax/deleteData/detail/booking', // 앞에 자동으로 setting/agent 붙음
+        method: 'POST',
+        data: JSON.stringify(tableJson),
+        headers: { "X-CSRFToken": $('[name="csrfmiddlewaretoken"]').val() }, // CSRF 토큰을 HTTP 헤더에 추가
+        dataType: 'json',
+        success: function(data) {
+            alert('삭제 완료 목록 화면으로 이동합니다.')
+            goMenuList();
+        },
+        error: function(xhr, status, error) {
+            alert('삭제 실패')
+        }
+    });
+}
+
+
+
+
 
 function searchSchedule(){
 	var prodName = $(".modal-body #product_name").val();
@@ -443,15 +537,15 @@ function searchScheduleDetailSucc(data){
 		var toDay = ('0' +toDate.getDate()).slice(-2);
 		sche += "<td scope='col'><input type='text' class='form-control' id='date' name='date' style='width:100%; border: 0;' value='"+toYear+'-'+toMonth+"-"+toDay+"'></td>";
 		if (data[i].hotel == ''){
-			sche += "<td scope='col'><input type='text' class='' id='hotel' name='hotel' class='text-center' style='width:100%; border: 0;' readonly></td>";  
-			sche += "<td scope='col'><input type='text' class=''  id='hotel_day' name='hotel_day' style='width:100%; border: 0;' readonly></td>";  
-			sche += "<td scope='col'><input type='text' class=''  id='hotel_name' name='hotel_name' style='width:100%; border: 0;' readonly></td>";  
+			sche += "<td scope='col'><input type='text' class='' id='loc' name='loc' class='text-center' style='width:100%; border: 0;' readonly></td>";  
+			sche += "<td scope='col'><input type='text' class=''  id='day' name='day' style='width:100%; border: 0;' readonly></td>";  
+			sche += "<td scope='col'><input type='text' class=''  id='hotel' name='hotel' style='width:100%; border: 0;' readonly></td>";  
 			sche += "<td scope='col'><input type='text' class=''  id='remark' name='remark' style='width:100%; border: 0;' readonly><input type='hidden' id='master_id' name='master_id'><input type='hidden' id='type' name='type' value='H'><input type='hidden' id='use_yn' name='use_yn' value='Y'></td>";  
 		}
 		else{
-			sche += "<td scope='col'><input type='text' class='form-control' id='hotel' name='hotel' class='text-center' style='width:100%;  text-align: center;' value='"+data[i].hotel+"'></td>";  
-			sche += "<td scope='col'><input type='text' class='form-control' id='hotel_day' name='hotel_day' style='width:100%; border: 0;'></td>";  
-			sche += "<td scope='col'><input type='text' class='form-control' id='hotel_name' name='hotel_name' style='width:100%; border: 0;'></td>";  
+			sche += "<td scope='col'><input type='text' class='form-control' id='loc' name='loc' class='text-center' style='width:100%;  text-align: center;' value='"+data[i].hotel+"'></td>";  
+			sche += "<td scope='col'><input type='text' class='form-control' id='day' name='day' style='width:100%; border: 0;'></td>";  
+			sche += "<td scope='col'><input type='text' class='form-control' id='hotel' name='hotel' style='width:100%; border: 0;'></td>";  
 			sche += "<td scope='col'><input type='text' class='form-control' id='remark' name='remark' style='width:100%; border: 0;'><input type='hidden' id='master_id' name='master_id'><input type='hidden' id='type' name='type' value='H'><input type='hidden' id='use_yn' name='use_yn' value='Y'></td>"; 
 		}
 		sche += '</tr>'
@@ -518,8 +612,93 @@ function select_air(element){
 }
 
 $( document ).ready(function() {
-	//changeAgent();
+	var pageType = $("#pageType").val();
+    // 수정인경우만 스케쥴 불러오기
+    if (pageType != 'I'){
+        getDetailData();
+    }
 });
+
+function getDetailData(){
+	$("#tmpDetailFrm").remove();
+	var frm = makeForm('', 'tmpDetailFrm');
+	frm.appendChild(addData('use_yn', 'Y'));
+	frm.appendChild(addData('type', 'S'));
+	frm.appendChild(addData('master_id', $("#id").val()));
+	document.body.appendChild(frm);
+	getAjax('tmpDetailFrm', 'bookingDetail', 'getDetailDataSucc');
+}
+
+function getDetailDataSucc(data){
+
+	var sch_table = $("#schdule_table");
+	sch_table.empty();
+	
+	// 스케쥴 생성 
+	sch_table.empty();
+	var basic="";
+		basic += '<thead>';
+		basic += '<tr>';
+		basic += '<td class="col-1" name="">일차</td>';
+		basic += '<td class="col-2" name="">날짜</td>';
+		basic += '<td class="col-9" name="">일정</td>';
+		basic += '</tr>';
+		basic += '</thead>';
+		sch_table.append(basic);
+	
+	var sche = '<tbody>';
+	for (var i = 0 ; i < data.length ; i ++ ){
+		sche += '<tr>';
+		sche += "<td scope='col'>"+(i+1)+"일차</td>";
+		sche += "<td scope='col'><input type='text' class='form-control' id='date' name='date' style='width:100%; border: 0;' value='"+data[i].date+"'></td>";
+		sche += "<td scope='col'><input type='text' class='form-control' id='schedule' name='schedule' style='width:100%; border: 0;' value='"+data[i].schedule+"'><input type='hidden' id='master_id' name='master_id' value='"+data[i].master_id+"'><input type='hidden' id='type' name='type' value='"+data[i].type+"'><input type='hidden' id='use_yn' name='use_yn' value='Y'><input type='hidden' id='id' name='id' value='"+data[i].id+"'></td>";
+		sche += '</tr>'
+	}
+	sche +='</tbody>'
+	sch_table.append(sche);
+
+	getDetailData2();
+}
+function getDetailData2(){
+	$("#tmpDetailFrm").remove();
+	var frm = makeForm('', 'tmpDetailFrm');
+	frm.appendChild(addData('use_yn', 'Y'));
+	frm.appendChild(addData('type', 'H'));
+	frm.appendChild(addData('master_id', $("#id").val()));
+	document.body.appendChild(frm);
+	getAjax('tmpDetailFrm', 'bookingDetail', 'getDetailData2Succ');
+}
+
+function getDetailData2Succ(data){
+	var hot_table = $("#hotel_table");
+		// 호텔 생성
+		hot_table.empty();
+	var basic="";
+		basic += '<thead>';
+		basic += '<tr>';
+		basic += '<td class="col-2" name="date">날짜</td>';
+		basic += '<td class="col-1" name="loc">지역</td>';
+		basic += '<td class="col-1" name="day">숙박일수</td>';
+		basic += '<td class="col-4" name="hotel">호텔</td>';
+		basic += '<td class="col-4" name="remark">비고</td>';
+		basic += '</tr>';
+		basic += '</thead>';
+		hot_table.append(basic);
+	
+	var sche = '<tbody>';
+	for (var i = 0 ; i < data.length ; i ++ ){
+		sche += '<tr>';
+		sche += "<td scope='col'><input type='text' class='form-control' id='date' name='date' style='width:100%; border: 0;' value='"+data[i].date+"'></td>";
+		sche += "<td scope='col'><input type='text' class='form-control' id='loc' name='loc' class='text-center' style='width:100%;  text-align: center;' value='"+data[i].loc+"'></td>";  
+		sche += "<td scope='col'><input type='text' class='form-control' id='day' name='day' style='width:100%; border: 0;' value='"+data[i].day+"'></td>";  
+		sche += "<td scope='col'><input type='text' class='form-control' id='hotel' name='hotel' style='width:100%; border: 0;' value='"+data[i].hotel+"'></td>";  
+		sche += "<td scope='col'><input type='text' class='form-control' id='remark' name='remark' style='width:100%; border: 0;' value='"+data[i].remark+"'><input type='hidden' id='master_id' name='master_id' value='"+data[i].master_id+"'><input type='hidden' id='type' name='type' value='H'><input type='hidden' id='use_yn' name='use_yn' value='Y'><input type='hidden' id='id' name='id' value='"+data[i].id+"'></td>"; 
+		
+		sche += '</tr>'
+	}
+	sche +='</tbody>'
+	hot_table.append(sche);
+}
 
 function changeAgent(element){
 	$("#tmpChangeAgentFrm").remove();
@@ -650,7 +829,7 @@ function mergeJson(ori, add){
   }
 </style>
  
-
+{% include 'base/commonValue.html'%} <!-- 공통변수 -->
 {% endblock %} 
 {% block js %} 
 {{block.super}} 

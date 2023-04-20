@@ -22,6 +22,11 @@ def getData(request, item):
       # JSON 형식으로 변환
       params = json.loads(data)
       data = list(Models.objects.filter(**params).values())
+
+      for row in data:
+         for key, value in row.items():
+            if value is None:
+                  row[key] = ''
       return JsonResponse(data, safe=False)
       # JSON 형식이 맞는 경우 처리할 코드
    except json.decoder.JSONDecodeError:
