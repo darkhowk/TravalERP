@@ -41,7 +41,7 @@ class bookingAdd(generic.ListView):
       localManager = Manager.objects.filter(use_yn ='Y', type='L')
       airport = Airport.objects.filter(use_yn ='Y')
       master = BookingMaster.objects.filter(id=request.GET.get('id'))
-      detail = BookingDetail.objects.filter(master_id=request.GET.get('id'))
+      detail = BookingDetail.objects.filter(booking_id=request.GET.get('id'))
       selectData = {'master': master,'detail':detail}
       optionData = {'agent': agent, 'localAgent' : localAgent, 'manager' : manager, 'localManager' : localManager, 'airport' : airport} # 추후 추가할 데이터를 위해
       pageType = request.GET.get('pageType')

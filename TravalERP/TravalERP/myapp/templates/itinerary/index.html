@@ -57,7 +57,7 @@
             <tbody>
                 {% for list in content_list %}
                     <tr id="{{list.id}}" data-index="{{ forloop.counter0 }}">
-                        <td>{{ list.master_id.ref|truncatechars:13 }}</td>
+                        <td>{{ list.master_id.master_id.ref|truncatechars:13 }}</td>
                         <td>{{ list.id.kor_air_date|truncatechars:10 }}</td>
                         <td>{{ list.id.product_name|truncatechars:30 }}</td>
                         <td>{{ list.tc.tc_name|truncatechars:5 }}</td>

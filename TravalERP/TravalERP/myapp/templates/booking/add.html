@@ -294,7 +294,7 @@ function saveData(){
 }
 
 function saveDetail(id){
-	$('input[name="master_id"]').val(id);
+	$('input[name="booking_id"]').val(id);
 	var sch = tableToJson(document.getElementById('schdule_table'));
 	var hot = tableToJson(document.getElementById('hotel_table'));
 
@@ -334,7 +334,7 @@ function updateData(){
 }
 
 function updateDetail(id){
-    $('input[name="master_id"]').val(id);
+    $('input[name="booking_id"]').val(id);
 
 	var sch = tableToJson(document.getElementById('schdule_table'));
 	var hot = tableToJson(document.getElementById('hotel_table'));
@@ -375,7 +375,7 @@ function deleteData(){
 }
 
 function deleteDetail(id){
-	$('input[name="master_id"]').val(id);
+	$('input[name="booking_id"]').val(id);
 
 	var sch = tableToJson(document.getElementById('schdule_table'));
 	var hot = tableToJson(document.getElementById('hotel_table'));
@@ -449,11 +449,11 @@ function searchScheduleSucc(data){
 	}
 }
 
-function searchScheduleDetail(master_id){
+function searchScheduleDetail(booking_id){
 	$("#tmpSearchScheduleDeatilFrm").remove();
 	var frm = makeForm('', 'tmpSearchScheduleDeatilFrm');
 	frm.appendChild(addData('use_yn', 'Y'));
-	frm.appendChild(addData('master_id', master_id));
+	frm.appendChild(addData('booking_id', booking_id));
 	document.body.appendChild(frm);
 	
 	getAjax('tmpSearchScheduleDeatilFrm', 'scheduleDetail', 'searchScheduleDetailSucc');
@@ -507,7 +507,7 @@ function searchScheduleDetailSucc(data){
 		var toMonth = ('0' +toDate.getMonth()).slice(-2);// 앞에 0을 붙이고 뒤에서 2개만 선택한다. 1자리수 인경우 앞에 0붙이는것
 		var toDay = ('0' +toDate.getDate()).slice(-2);
 		sche += "<td scope='col'><input type='text' class='form-control' id='date' name='date' style='width:100%; border: 0;' value='"+toYear+'-'+toMonth+"-"+toDay+"'></td>";
-		sche += "<td scope='col'><input type='text' class='form-control' id='schedule' name='schedule' style='width:100%; border: 0;' value='"+data[i].schedule+"'><input type='hidden' id='master_id' name='master_id'><input type='hidden' id='type' name='type' value='S'><input type='hidden' id='use_yn' name='use_yn' value='Y'></td>";
+		sche += "<td scope='col'><input type='text' class='form-control' id='schedule' name='schedule' style='width:100%; border: 0;' value='"+data[i].schedule+"'><input type='hidden' id='booking_id' name='booking_id'><input type='hidden' id='type' name='type' value='S'><input type='hidden' id='use_yn' name='use_yn' value='Y'></td>";
 		sche += '</tr>'
 	}
 	sche +='</tbody>'
@@ -540,13 +540,13 @@ function searchScheduleDetailSucc(data){
 			sche += "<td scope='col'><input type='text' class='' id='loc' name='loc' class='text-center' style='width:100%; border: 0;' readonly></td>";  
 			sche += "<td scope='col'><input type='text' class=''  id='day' name='day' style='width:100%; border: 0;' readonly></td>";  
 			sche += "<td scope='col'><input type='text' class=''  id='hotel' name='hotel' style='width:100%; border: 0;' readonly></td>";  
-			sche += "<td scope='col'><input type='text' class=''  id='remark' name='remark' style='width:100%; border: 0;' readonly><input type='hidden' id='master_id' name='master_id'><input type='hidden' id='type' name='type' value='H'><input type='hidden' id='use_yn' name='use_yn' value='Y'></td>";  
+			sche += "<td scope='col'><input type='text' class=''  id='remark' name='remark' style='width:100%; border: 0;' readonly><input type='hidden' id='booking_id' name='booking_id'><input type='hidden' id='type' name='type' value='H'><input type='hidden' id='use_yn' name='use_yn' value='Y'></td>";  
 		}
 		else{
 			sche += "<td scope='col'><input type='text' class='form-control' id='loc' name='loc' class='text-center' style='width:100%;  text-align: center;' value='"+data[i].hotel+"'></td>";  
 			sche += "<td scope='col'><input type='text' class='form-control' id='day' name='day' style='width:100%; border: 0;'></td>";  
 			sche += "<td scope='col'><input type='text' class='form-control' id='hotel' name='hotel' style='width:100%; border: 0;'></td>";  
-			sche += "<td scope='col'><input type='text' class='form-control' id='remark' name='remark' style='width:100%; border: 0;'><input type='hidden' id='master_id' name='master_id'><input type='hidden' id='type' name='type' value='H'><input type='hidden' id='use_yn' name='use_yn' value='Y'></td>"; 
+			sche += "<td scope='col'><input type='text' class='form-control' id='remark' name='remark' style='width:100%; border: 0;'><input type='hidden' id='booking_id' name='booking_id'><input type='hidden' id='type' name='type' value='H'><input type='hidden' id='use_yn' name='use_yn' value='Y'></td>"; 
 		}
 		sche += '</tr>'
 	}
@@ -624,7 +624,7 @@ function getDetailData(){
 	var frm = makeForm('', 'tmpDetailFrm');
 	frm.appendChild(addData('use_yn', 'Y'));
 	frm.appendChild(addData('type', 'S'));
-	frm.appendChild(addData('master_id', $("#id").val()));
+	frm.appendChild(addData('booking_id', $("#id").val()));
 	document.body.appendChild(frm);
 	getAjax('tmpDetailFrm', 'bookingDetail', 'getDetailDataSucc');
 }
@@ -651,7 +651,7 @@ function getDetailDataSucc(data){
 		sche += '<tr>';
 		sche += "<td scope='col'>"+(i+1)+"일차</td>";
 		sche += "<td scope='col'><input type='text' class='form-control' id='date' name='date' style='width:100%; border: 0;' value='"+data[i].date+"'></td>";
-		sche += "<td scope='col'><input type='text' class='form-control' id='schedule' name='schedule' style='width:100%; border: 0;' value='"+data[i].schedule+"'><input type='hidden' id='master_id' name='master_id' value='"+data[i].master_id+"'><input type='hidden' id='type' name='type' value='"+data[i].type+"'><input type='hidden' id='use_yn' name='use_yn' value='Y'><input type='hidden' id='id' name='id' value='"+data[i].id+"'></td>";
+		sche += "<td scope='col'><input type='text' class='form-control' id='schedule' name='schedule' style='width:100%; border: 0;' value='"+data[i].schedule+"'><input type='hidden' id='booking_id' name='booking_id' value='"+data[i].booking_id+"'><input type='hidden' id='type' name='type' value='"+data[i].type+"'><input type='hidden' id='use_yn' name='use_yn' value='Y'><input type='hidden' id='id' name='id' value='"+data[i].id+"'></td>";
 		sche += '</tr>'
 	}
 	sche +='</tbody>'
@@ -664,7 +664,7 @@ function getDetailData2(){
 	var frm = makeForm('', 'tmpDetailFrm');
 	frm.appendChild(addData('use_yn', 'Y'));
 	frm.appendChild(addData('type', 'H'));
-	frm.appendChild(addData('master_id', $("#id").val()));
+	frm.appendChild(addData('booking_id', $("#id").val()));
 	document.body.appendChild(frm);
 	getAjax('tmpDetailFrm', 'bookingDetail', 'getDetailData2Succ');
 }
@@ -692,7 +692,7 @@ function getDetailData2Succ(data){
 		sche += "<td scope='col'><input type='text' class='form-control' id='loc' name='loc' class='text-center' style='width:100%;  text-align: center;' value='"+data[i].loc+"'></td>";  
 		sche += "<td scope='col'><input type='text' class='form-control' id='day' name='day' style='width:100%; border: 0;' value='"+data[i].day+"'></td>";  
 		sche += "<td scope='col'><input type='text' class='form-control' id='hotel' name='hotel' style='width:100%; border: 0;' value='"+data[i].hotel+"'></td>";  
-		sche += "<td scope='col'><input type='text' class='form-control' id='remark' name='remark' style='width:100%; border: 0;' value='"+data[i].remark+"'><input type='hidden' id='master_id' name='master_id' value='"+data[i].master_id+"'><input type='hidden' id='type' name='type' value='H'><input type='hidden' id='use_yn' name='use_yn' value='Y'><input type='hidden' id='id' name='id' value='"+data[i].id+"'></td>"; 
+		sche += "<td scope='col'><input type='text' class='form-control' id='remark' name='remark' style='width:100%; border: 0;' value='"+data[i].remark+"'><input type='hidden' id='booking_id' name='booking_id' value='"+data[i].booking_id+"'><input type='hidden' id='type' name='type' value='H'><input type='hidden' id='use_yn' name='use_yn' value='Y'><input type='hidden' id='id' name='id' value='"+data[i].id+"'></td>"; 
 		
 		sche += '</tr>'
 	}

@@ -36,7 +36,7 @@ class roomingAdd(generic.ListView):
    def get(self, request, *args, **kwargs):
       tourconductor = Tourconductor.objects.filter(use_yn ='Y')
       master = RoomingMaster.objects.filter(id=request.GET.get('id'))
-      detail = RoomingDetail.objects.filter(master_id=request.GET.get('id'))
+      detail = RoomingDetail.objects.filter(rooming_id=request.GET.get('id'))
       selectData = {'master': master,'detail':detail}
       optionData = {'tourconductor': tourconductor}
       self.content = {

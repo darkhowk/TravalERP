@@ -5,7 +5,7 @@ from ..booking.models import BookingMaster
 
 # Create your models here.
 class RoomingMaster(commonModel):
-    master_id=models.ForeignKey(BookingMaster, db_column='MASTER_ID', on_delete=models.SET_NULL, blank=True, null=True, verbose_name='마스터 id')
+    booking_id=models.ForeignKey(BookingMaster, db_column='BOOKING_ID', on_delete=models.SET_NULL, blank=True, null=True, verbose_name='수배 id')
     type=models.CharField(db_column='TYPE', max_length=2, verbose_name='TYPE')
     file_id=models.CharField(db_column='FILE_ID', max_length=20, verbose_name='매칭')
     total_pax=models.CharField(db_column='TOTAL_PAX', max_length=100, verbose_name='PAX')
@@ -23,7 +23,7 @@ class RoomingMaster(commonModel):
 
 
 class RoomingDetail(commonModel):
-    master_id=models.ForeignKey(RoomingMaster, db_column='MASTER_ID', on_delete=models.SET_NULL, blank=True, null=True, verbose_name='마스터 id')
+    rooming_id=models.ForeignKey(RoomingMaster, db_column='ROOMING_ID', on_delete=models.SET_NULL, blank=True, null=True, verbose_name='루밍 id')
     room_type=models.CharField(db_column='ROOM_TYPE', max_length=100, verbose_name='ROOM')
     name_ko=models.CharField(db_column='NAME_KO', max_length=100, verbose_name='NAME(K)')
     name_en=models.CharField(db_column='NAME_EN', max_length=100, verbose_name='NAME(E)')
