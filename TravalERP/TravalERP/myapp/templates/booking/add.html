@@ -437,7 +437,7 @@ function searchSchedule(){
 var searchMaster;
 function searchScheduleSucc(data){
 	searchMaster = '';
-		searchMaster = data;
+	searchMaster = data;
 	// 상품명 / 몇박 몇일 / 담당자
 	var result = $("#result_div");
 	result.empty();
@@ -449,11 +449,11 @@ function searchScheduleSucc(data){
 	}
 }
 
-function searchScheduleDetail(booking_id){
+function searchScheduleDetail(master_id){
 	$("#tmpSearchScheduleDeatilFrm").remove();
 	var frm = makeForm('', 'tmpSearchScheduleDeatilFrm');
 	frm.appendChild(addData('use_yn', 'Y'));
-	frm.appendChild(addData('booking_id', booking_id));
+	frm.appendChild(addData('master_id', master_id));
 	document.body.appendChild(frm);
 	
 	getAjax('tmpSearchScheduleDeatilFrm', 'scheduleDetail', 'searchScheduleDetailSucc');
