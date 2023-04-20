@@ -15,7 +15,6 @@ class CommonMainView(generic.ListView):
 
     def __init__(self):
         self.topMenu = Menu.objects.filter(menu_type="TOP", use_yn='Y')
-        self.tr_list = []
 
     def get(self, request, *args, **kwargs):
         
@@ -47,7 +46,6 @@ class CommonMainView(generic.ListView):
             "title_nm": self.title_nm,
             "topMenu": self.topMenu,
             "content_list": self.content_list,
-            "tr_list": self.tr_list,
             'pages': self.pages,
             'paging': int(self.paging),
             'perPage': int(self.perPage),
