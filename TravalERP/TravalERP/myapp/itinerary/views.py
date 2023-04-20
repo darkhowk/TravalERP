@@ -42,7 +42,7 @@ class itineraryAdd(generic.ListView):
       localManager = Manager.objects.filter(use_yn ='Y', type='L')
       tourconductor = Tourconductor.objects.filter(use_yn ='Y')
       master = ItineraryMaster.objects.filter(id=request.GET.get('id'))
-      detail = ItineraryDetail.objects.filter(master_id=request.GET.get('id'))
+      detail = ItineraryDetail.objects.filter(itinerary_id=request.GET.get('id'))
       selectData = {'master': master,'detail':detail}
       optionData = {'localAgent' : localAgent, 'localTel' : localTel, 'manager' : manager, 'localManager' : localManager, 'tourconductor': tourconductor} # 추후 추가할 데이터를 위해
       self.content = {
