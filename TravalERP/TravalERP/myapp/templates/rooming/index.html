@@ -45,23 +45,15 @@
           <table id="datatablesSimple" class="datatable-table table table-light table-responsive table-border table-striped table-hover">
               <thead>
                   <tr>
-                      {% for th in tr_list %}
-                          <th scope="col">{{ th }}</th>
-                      {% endfor %}
-                      {% if target == 'schedule' %}
-                          <th scope="col"></th>
-                      {% endif %}
+                    <th scope="col">REF</th>
+                    <th scope="col">상품명</th>
                   </tr>
               </thead>
               <tbody>
                   {% for list in content_list %}
                       <tr id="{{list.id}}" data-index="{{ forloop.counter0 }}">
-                          {% for field in list %}
-                              <td>{{ field|truncatechars:30 }}</td>
-                          {% endfor %}
-                          {% if target == 'schedule' %}
-                              <td><input type="button" value="복사" onclick="copyData('{{list.id}}')"></td>
-                          {% endif %}
+                          <td>{{ list.master_id.ref|truncatechars:30 }}</td>
+						  <td>{{ list.master_id.product_name|truncatechars:30 }}</td>
                       </tr>
                   {% endfor %}
               </tbody>

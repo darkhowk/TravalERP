@@ -13,14 +13,6 @@ class RoomingMaster(commonModel):
     single=models.CharField(db_column='SINGLE', max_length=10, verbose_name='SINGLE')
     tc=models.CharField(db_column='TC', max_length=20, verbose_name='TOUR LEADER')
     remark=models.CharField(db_column='REMARK', max_length=2000, verbose_name='REMARK')
-  
-    def __iter__(self):
-        yield self.type
-        yield self.master_id.ref
-        yield self.master_id.product_name
-        yield self.total_pax
-        yield self.entry_id
-
 
     class Meta:
         managed = False
