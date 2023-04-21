@@ -440,27 +440,28 @@ function delRow() {
 }
 
 function multi() {
-	// event 현재 이벤트가 일어난 놈
+    // event 현재 이벤트가 일어난 놈
     var currentRow = event.target.closest('tr');
-    var a = parseInt(currentRow.querySelector('#price').value) | 0;
-    var b = parseInt(currentRow.querySelector('#pax').value) | 0;
-    var c = parseInt(currentRow.querySelector('#night').value) | 0;
+    var a = parseInt(currentRow.querySelector('#price').value) || 0;
+    var b = parseInt(currentRow.querySelector('#pax').value) || 0;
+    var c = parseInt(currentRow.querySelector('#night').value) || 0;
 
     currentRow.querySelector('#total').value = a*b*c;
 
     var rows = document.querySelectorAll('#tbody tr');
     var totalSum = 0;
     for (var i = 0; i < rows.length; i++) {
-      var rowTotal = parseInt(rows[i].querySelector('#total').value) | 0;
+      var rowTotal = parseInt(rows[i].querySelector('#total').value) || 0;
       totalSum += rowTotal;
     }
     document.getElementById('totalSum').value = totalSum.toLocaleString();
 
-  // totaSum의 값과 입력한 환율금액(rate_won)의 계산
+    // totaSum의 값과 입력한 환율금액(rate_won)의 계산
     var rate_won = parseInt(document.getElementById('rate_won').value) || 0;
     var totalSum_won = rate_won * totalSum;
     document.getElementById('totalSum_won').value = totalSum_won.toLocaleString();
 }
+
 
 function getselect() {
 	// select에서 선택한 value 가져오기
