@@ -57,13 +57,13 @@
             <tbody>
                 {% for list in content_list %}
                     <tr id="{{list.id}}" data-index="{{ forloop.counter0 }}">
-                        <td style="text-align: center;">{{ list.type|truncatechars:6 }}</td>
-                        <td>{{ list.master_id.ref|truncatechars:13 }}</td>
-                        <td>{{ list.master_id.kor_air_date|truncatechars:10 }}</td>
-                        <td>{{ list.master_id.product_name|truncatechars:30 }}</td>
-                        <td>{{ list.entry_date|truncatechars:20 }}</td>
-                        <td>{{ list.updat_date|truncatechars:20 }}</td>
-                        <td>{{ list.attn_manager.manager_name|truncatechars:10 }}</td>
+                        <td style="text-align: center;">{{ list.invoice_type|truncatechars:6 }}</td>
+                        <td>{{ list.itinerary_id.rooming_id.booking_id.ref|truncatechars:13 }}</td>
+                        <td>{{ list.itinerary_id.rooming_id.booking_id.kor_air_date|truncatechars:10 }}</td>
+                        <td>{{ list.itinerary_id.rooming_id.booking_id.product_name|truncatechars:30 }}</td>
+                        <td>{{ list.entry_date|date:"Y-m-d" }}</td>
+                        <td>{{ list.updat_date|date:"Y-m-d" }}</td>
+                        <td>{{ list.itinerary_id.rooming_id.booking_id.attn_manager.manager_name|truncatechars:10 }}</td>
                         <td >{{ list.entry_id|truncatechars:10 }}</td>
                     </tr>
                 {% endfor %}

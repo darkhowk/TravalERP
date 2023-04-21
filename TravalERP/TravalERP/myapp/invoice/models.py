@@ -4,7 +4,7 @@ from ..itinerary.models import ItineraryMaster
 
 # Create your models here.
 class InvoiceMaster(commonModel):
-    itinerary=models.ForeignKey(ItineraryMaster, db_column='ITINERARY_ID', on_delete=models.SET_NULL, blank=True, null=True, verbose_name='확정서 id')
+    itinerary_id=models.ForeignKey(ItineraryMaster, db_column='ITINERARY_ID', on_delete=models.SET_NULL, blank=True, null=True, verbose_name='확정서 id')
     invoice_type=models.CharField(db_column='INVOICE_TYPE', max_length=2, verbose_name='인보이스 타입')
     bank_id=models.CharField(db_column='BANK_ID', max_length=20, verbose_name='은행')
     remark=models.CharField(db_column='REMARK', max_length=2000, verbose_name='기타')
