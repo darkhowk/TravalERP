@@ -35,7 +35,7 @@ class invoiceAdd(generic.ListView):
 
    def get(self, request, *args, **kwargs):
       master = InvoiceMaster.objects.filter(id=request.GET.get('id'))
-      detail = InvoiceDetail.objects.filter(master_id=request.GET.get('id'))
+      detail = InvoiceDetail.objects.filter(invoice_id=request.GET.get('id'))
       selectData = {'master': master,'detail':detail}
       self.content = {
                         "descript" : self.descript,

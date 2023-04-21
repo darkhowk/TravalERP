@@ -4,10 +4,8 @@ from ..invoice.models import InvoiceMaster
 
 # Create your models here.
 class StatementMaster(commonModel):
-    master_id=models.ForeignKey(InvoiceMaster, db_column='MASTER_ID', on_delete=models.SET_NULL, blank=True, null=True, verbose_name='마스터 id')
+    invoice_id=models.ForeignKey(InvoiceMaster, db_column='INVOICE_ID', on_delete=models.SET_NULL, blank=True, null=True, verbose_name='마스터 id')
     type=models.CharField(db_column='TYPE', max_length=2, verbose_name='TYPE')
-    total_pax=models.CharField(db_column='TOTAL_PAX', max_length=13, verbose_name='PAX')
-    tc_type=models.CharField(db_column='TC_TYPE', max_length=2, verbose_name='T/C')
     agent=models.ForeignKey(Agent, db_column='AGENT', on_delete=models.SET_NULL, blank=True, null=True, verbose_name='여행사', related_name='agents')
     manager=models.ForeignKey(Manager, db_column='MANAGER', on_delete=models.SET_NULL, blank=True, null=True, verbose_name='매니저', related_name='managers')
     amt_type=models.CharField(db_column='AMT_TYPE', max_length=20, verbose_name='미과수')
