@@ -58,12 +58,12 @@
                 {% for list in content_list %}
                     <tr id="{{list.id}}" data-index="{{ forloop.counter0 }}">
                         <td>{{ list.rooming_id.booking_id.ref|truncatechars:13 }}</td>
-                        <td>{{ list.id.kor_air_date|truncatechars:10 }}</td>
-                        <td>{{ list.id.product_name|truncatechars:30 }}</td>
-                        <td>{{ list.tc.tc_name|truncatechars:5 }}</td>
+                        <td>{{ list.rooming_id.booking_id.kor_air_date|truncatechars:10 }}</td>
+                        <td>{{ list.rooming_id.booking_id.product_name|truncatechars:30 }}</td>
+                        <td>{{ list.rooming_id.tc.tc_name|truncatechars:5 }}</td>
                         <td style="text-align: center;">{{ list.rooming_id.total_pax|default_if_none:"0"|truncatechars:2 }}</td>
-                        <td>{{ list.entry_date|truncatechars:20 }}</td>
-                        <td>{{ list.id.attn_manager.manager_name|truncatechars:10 }}</td>
+                        <td>{{ list.entry_date|truncatechars:11 }}</td>
+                        <td>{{ list.rooming_id.booking_id.attn_manager.manager_name|truncatechars:10 }}</td>
                         <td >{{ list.entry_id|truncatechars:10 }}</td>
                     </tr>
                 {% endfor %}
