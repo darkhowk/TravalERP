@@ -45,15 +45,15 @@
                 <thead>
                     <tr>
                         <th scope="col" style="width: 5%; text-align: center;">상태</th>
-                        <th scope="col" style="width: 15%;">REF</th>
+                        <th scope="col" style="width: 10%;">REF</th>
                         <th scope="col" style="width: 10%;">출발일</th>
-                        <th scope="col" style="width: 30%;">상품명</th>
+                        <th scope="col" style="width: 20%;">상품명</th>
                         <th scope="col" style="width: 10%;">인솔자</th>
                         <th scope="col" style="width: 5%; text-align: center;">총인원</th>
-                        <th scope="col" style="width: 5%; text-align: center;">트윈</th>
-                        <th scope="col" style="width: 5%; text-align: center;">트리플</th>
-                        <th scope="col" style="width: 5%; text-align: center;">싱글</th>
-                        <th scope="col" style="width: 10%;">작성자</th>
+                        <th scope="col" style="width: 10%;">등록일</th>
+                        <th scope="col" style="width: 10%;">수정일</th>
+                        <th scope="col" style="width: 10%;">여행사담당자</th>
+                        <th scope="col" style="width: 10%;">작성자</th> 
                     </tr>
                 </thead>
                 <tbody>
@@ -65,9 +65,9 @@
 						                <td>{{ list.booking_id.product_name|truncatechars:30 }}</td>
                             <td>{{ list.tc.tc_name|truncatechars:5 }}</td>
                             <td style="text-align: center;">{{ list.total_pax|default_if_none:"0"|truncatechars:2 }}</td>
-                            <td style="text-align: center;">{{ list.twin|default_if_none:"0"|truncatechars:2 }}</td>
-                            <td style="text-align: center;">{{ list.triple|default_if_none:"0"|truncatechars:2 }}</td>
-                            <td style="text-align: center;">{{ list.single|default_if_none:"0"|truncatechars:2 }}</td>
+                            <td>{{ list.booking_id.entry_date|truncatechars:11 }}</td>
+                            <td>{{ list.booking_id.updat_date|truncatechars:11 }}</td>
+                            <td>{{ list.booking_id.attn_manager.manager_name|truncatechars:10 }}</td>
                             <td >{{ list.entry_id|truncatechars:10 }}</td>
                         </tr>
                     {% endfor %}
