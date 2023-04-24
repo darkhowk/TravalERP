@@ -461,20 +461,46 @@ def file_upload(request, item):
    
 import sys
 import pandas as pd
-
 sys.path.append(pd.__path__[0])
 
+from openpyxl import load_workbook
+
 def excelUpload(request, item):
-   if request.method == 'POST':
-      file = request.FILES['file']
-      df = pd.read_excel(file)
+    if request.method == 'POST':
+        file = request.FILES['file']
+        wb = load_workbook(filename=file, read_only=False)
+        ws = wb.active
 
-      # Do something with the data frame
-      # ...
+        # Do something with the worksheet
+        # ...
 
-      # Convert the data frame to HTML table
-      table = df.to_html()
+        # Convert the worksheet to HTML table
+        table = "<table>"
+        merged_cells = ws.merged_cells.ranges
+        for row in ws.rows:
+            table += "<tr>"
+            for cell in row:
+                value = cell.value
+                rowspan, colspan = 1, 1
+                for merged_range in merged_cells:
+                    if cell.coordinate in merged_range:
+                        top_left_cell = merged_range.start_cell
+                        rowspan = merged_range.size['rows']
+                        colspan = merged_range.size['columns']
+                        if cell.coordinate != top_left_cell.coordinate:
+                            value = None
+                        break
+                if value is None:
+                    continue
+                attrs = ""
+                if rowspan > 1:
+                    attrs += f" rowspan='{rowspan}'"
+                if colspan > 1:
+                    attrs += f" colspan='{colspan}'"
+                table += f"<td{attrs}>{value}</td>"
+            table += "</tr>"
+        table += "</table>"
 
-      return HttpResponse(table)
+        return HttpResponse(table)
 
-   return render(request, 'upload_form.html')
+    return render(request, 'upload_form.html')
