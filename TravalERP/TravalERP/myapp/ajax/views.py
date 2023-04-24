@@ -458,3 +458,20 @@ def file_upload(request, item):
       return HttpResponse('File uploaded successfully')
    else:
       return render(request, 'upload_form.html')
+   
+import pandas as pd
+
+def excelUpload(request):
+   if request.method == 'POST':
+      file = request.FILES['file']
+      df = pd.read_excel(file)
+
+      # Do something with the data frame
+      # ...
+
+      # Convert the data frame to HTML table
+      table = df.to_html()
+
+      return HttpResponse(table)
+
+   return render(request, 'upload_form.html')

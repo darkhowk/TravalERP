@@ -141,20 +141,31 @@
       <button type="button" class="btn btn-secondary">취소</button>
     </div>    
   </form>
-  <form action="{% url 'file_upload' %}" method="POST" enctype="multipart/form-data">
+  <form method="POST" enctype="multipart/form-data" id="upload-form">
     {% csrf_token %}
     <input type="file" name="file">
-    <input type="submit" value="파일 업로드">
+    <button type="submit">Upload</button>
   </form>
-</div>
-
-
-
-<script>
-function uploadExcel(){
   
-}
-
+  <div id="result"></div>
+  </div>
+ <script>
+    $(document).ready(function() {
+      $('#upload-form').on('submit', function(event) {
+        event.preventDefault();
+        var formData = new FormData(this);
+        $.ajax({
+          url: '/ajax/excelUpload/rooming',
+          type: 'POST',
+          data: formData,
+          processData: false,
+          contentType: false,
+          success: function(data) {
+            $('#result').html(data);
+          }
+        });
+      });
+    });
 
 function saveData(){
 
