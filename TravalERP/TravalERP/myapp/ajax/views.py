@@ -459,9 +459,12 @@ def file_upload(request, item):
    else:
       return render(request, 'upload_form.html')
    
+import sys
 import pandas as pd
 
-def excelUpload(request):
+sys.path.append(pd.__path__[0])
+
+def excelUpload(request, item):
    if request.method == 'POST':
       file = request.FILES['file']
       df = pd.read_excel(file)
