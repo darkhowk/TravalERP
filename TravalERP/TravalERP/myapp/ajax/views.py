@@ -12,6 +12,10 @@ from django.db.models import F, Value, CharField
 
 from django.db.models.functions import Now
 
+import ftplib
+from ftplib import FTP_TLS
+import ssl
+from django.http import HttpResponseBadRequest
 
 def getData(request, item):
    Models = pathtoMode(item)
@@ -429,3 +433,28 @@ def pathtoMode(path):
    if path == 'tourconductor':
       Models = Tourconductor
    return Models
+
+
+def file_upload(request, item):
+   if request.method == 'POST':
+      # Get the file from the request
+      file = request.FILES.get('file')
+      if not file:
+         return HttpResponseBadRequest('No file uploaded')
+
+      # Connect to the FTPS server
+      ftps = FTP_TLS(host='tontour.myds.me', user='landcrs', passwd='xldhdpsxndj1234')
+      ftps.prot_p()
+      ftps.cwd('/LANDCRS_UPLOAD')
+
+      # Upload the file
+      try:
+         ftps.storbinary('STOR %s' % file.name, file)
+      except ftplib.all_errors as e:
+         return HttpResponseBadRequest('Failed to upload file: %s' % str(e))
+      finally:
+         ftps.quit()
+
+      return HttpResponse('File uploaded successfully')
+   else:
+      return render(request, 'upload_form.html')
