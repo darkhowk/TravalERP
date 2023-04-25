@@ -27,23 +27,7 @@
         </div>
       </div>
     </div>
-    <div class="devider"></div>
-    <div class="row mt-2">
-      <div class="text-start">
-        <label for="matching" class="col-sm-2 col-form-label" style="font-weight: bold;">단체매칭</label>
-        <label class="d-none d-sm-inline-block navbar-search col-form-label">
-          <div class="input-group">
-            <input type="text" class="form-control bg-light border" aria-label="Search" aria-describedby="basic-addon2"/>
-            <div class="input-group-append">
-              <button class="btn btn-primary" type="button">
-                <i class="fas fa-search fa-sm"></i>
-              </button>
-            </div>
-          </div>
-        </label>
-      </div>
-    </div>
-    <div class="devider"></div>
+    {% include 'base/addREF.html'%} <!-- REF검색 -->
     <div class="row">
       <h5>단체상세</h5>
       <div class="mt-4"></div>
@@ -439,4 +423,8 @@
 
 </style>
 
-      {% endblock %} {% block js %} {{block.super}} {% endblock js %}
+{% include 'base/commonValue.html'%} <!-- 공통변수 -->
+{% endblock %} 
+{% block js %} 
+{{block.super}} 
+{% endblock js %}

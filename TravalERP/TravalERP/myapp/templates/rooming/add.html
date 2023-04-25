@@ -6,6 +6,7 @@
 
 <div class="container mt-5">
 	<form id="roomingFrm">
+		{% csrf_token %}
     <div class="d-inline mb-3">
       <label class="form-label" for="fileupload"><h4>파일업로드</h4></label>
       <input type="file" class="form-control" id="fileupload" />
@@ -101,30 +102,37 @@
 		</div>
 		<table class="table mx-3 text-center" id="roomingList" style="border-collapse: collapse;" >
 			<thead class="table-light" style="font-size: small;">
-			<tr>
-				<th scope="col" style="width: 5%;">삭제</th>
-				<th scope="col" style="width: 3%;">NO.</th>
-				<th scope="col" style="width: 7%;">ROOM</th>
-				<th scope="col" style="width: 8%;">NAME(K)</th>
-				<th scope="col" style="width: 15%;">NAME(E)</th>
-				<th scope="col" style="width: 5%;">SEX</th>
-				<th scope="col" style="width: 5%;">구분</th>
-				<th scope="col" style="width: 10%;">DATE OF BIRTH</th>
-				<th scope="col" style="width: 8%;">PASSPORT</th>
-				<th scope="col" style="width: 10%;">DATE OF EXPIRY</th>
-				<th scope="col" style="width: 10%;">MOBILE</th>
-				<th scope="col" style="width: 14%;">REMARK</th>
-			</tr>
+				<tr>
+					<th scope="col" style="width: 5%;">삭제</th>
+					<th scope="col" style="width: 3%;">NO.</th>
+					<th scope="col" style="width: 7%;">ROOM</th>
+					<th scope="col" style="width: 8%;">NAME(K)</th>
+					<th scope="col" style="width: 15%;">NAME(E)</th>
+					<th scope="col" style="width: 5%;">SEX</th>
+					<th scope="col" style="width: 5%;">구분</th>
+					<th scope="col" style="width: 10%;">DATE OF BIRTH</th>
+					<th scope="col" style="width: 8%;">PASSPORT</th>
+					<th scope="col" style="width: 10%;">DATE OF EXPIRY</th>
+					<th scope="col" style="width: 10%;">MOBILE</th>
+					<th scope="col" style="width: 14%;">REMARK</th>
+				</tr>
 			</thead>
 			<tbody id="tbody">
 			</tbody>
 		</table>
-		</div>
-		<div class="text-end mt-5">
-		<button type="submit" class="btn btn-primary" >저장</button>
-		<button type="reset" class="btn btn-secondary">초기화</button>
-		<button type="button" class="btn btn-secondary">취소</button>
-		</div>    
+	</div>
+</from>
+</div>
+	<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+
+			{% if pageType == 'I' %}
+				<input type="button" value="저장" onclick="saveData()">
+			{% elif pageType == 'U' %}
+				<input type="button" value="수정" onclick="updateData()">
+				<input type="button" value="삭제" onclick="deleteData()">
+			{% endif %}
+				<input type="button" value="목록" onclick="goMenuList()">
+			</div>
 	</form>
 	<form method="POST" enctype="multipart/form-data" id="upload-form">
 		{% csrf_token %}
@@ -221,7 +229,7 @@
 			cell9.innerHTML = "<td class='col'><input style='width:100%; border: 0;' id='passport'></td>";
 			cell10.innerHTML = "<td class='col'><input style='width:100%; border: 0;' id='expiry'></td>";
 			cell11.innerHTML = "<td class='col'><input style='width:100%; border: 0;' id='mobile'></td>";
-			cell12.innerHTML = "<td class='col'><input style='width:100%; border: 0;' id='remark'></td>";
+			cell12.innerHTML = "<td class='col'><input style='width:100%; border: 0;' id='remark'></td>"; 
 
 		}
 	}

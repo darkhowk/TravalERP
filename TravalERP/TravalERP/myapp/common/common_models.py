@@ -301,6 +301,14 @@ class Tourconductor(commonModel):
     tc_name = models.CharField(db_column='TC_NAME', max_length=100, verbose_name='이름')
     tc_name_en = models.CharField(db_column='TC_NAME_EN', max_length=100, verbose_name='영문명')
     tc_tel = models.CharField(db_column='TC_TEL', max_length=100, verbose_name='연락처')
+    passport_no = models.CharField(db_column='PASSPORT_NO', max_length=100, verbose_name='여권번호')
+    rrno = models.CharField(db_column='RRNO', max_length=20, verbose_name='주민등록번호')
+    tc_sex = models.CharField(db_column='TC_SEX', max_length=3, verbose_name='성별')
+    tc_birth = models.CharField(db_column='TC_BIRTH', max_length=10, verbose_name='생년월일')
+    tc_expiry = models.CharField(db_column='TC_EXPIRY', max_length=10, verbose_name='만료일')
+    tc_modeid = models.CharField(db_column='TC_MODEID', max_length=30, verbose_name='모두ID')
+    radio = models.CharField(db_column='RADIO', max_length=100, verbose_name='수신기')
+    tc_mail = models.CharField(db_column='TC_MAIL', max_length=100, verbose_name='E-MAIL')
     tc_remark = models.TextField(db_column='TC_REMARK', max_length=100, verbose_name='리마크')
     
     def __iter__(self):
@@ -308,6 +316,11 @@ class Tourconductor(commonModel):
         yield self.tc_name
         yield self.tc_name_en
         yield self.tc_tel
+        yield self.passport_no
+        yield self.tc_sex
+        yield self.tc_birth
+        yield self.tc_modeid
+        yield self.radio
         yield self.tc_remark
 
     class Meta:

@@ -17,7 +17,7 @@ class roomingIndex(CommonMainView):
       self.descript = "루밍리스트 페이지입니다"
       self.template_name = "rooming/index.html"
       self.target = "rooming"
-      response = super().get(request, *args, **kwargs)
+      response = super().get(request, *args, **kwargs) 
       
       if response is None:
          response = HttpResponse()
@@ -39,7 +39,12 @@ class roomingAdd(generic.ListView):
       detail = RoomingDetail.objects.filter(rooming_id=request.GET.get('id'))
       selectData = {'master': master,'detail':detail}
       optionData = {'tourconductor': tourconductor}
-      target = 'rooming'
+      pageType = request.GET.get('pageType')
+      id = request.GET.get('id')
+      perPage = request.GET.get('perPage')
+      paging = request.GET.get('paging')
+      type = request.GET.get('type')
+      target = request.GET.get('target')
       self.content = {
                         "descript" : self.descript,
                         "title_nm" : self.title_nm,
@@ -47,6 +52,11 @@ class roomingAdd(generic.ListView):
                         "topMenu"  : self.topMenu,
                         "optionData" : optionData,
                         "selectData" : selectData,
+                        "pageType" : pageType,
+                        "id" : id,
+                        "perPage" : perPage,
+                        "paging" : paging,
+                        "type" : type,
                         "target" : target,
                      }
 

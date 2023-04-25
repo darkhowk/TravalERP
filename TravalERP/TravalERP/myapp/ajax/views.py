@@ -433,6 +433,10 @@ def pathtoMode(path):
       Models = Citycode
    if path == 'tourconductor':
       Models = Tourconductor
+   if path == 'roomingMaster':
+      Models = RoomingMaster
+   if path == 'roomingDetail':
+      Models = RoomingDetail
    return Models
 
 
