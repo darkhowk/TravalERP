@@ -12,11 +12,11 @@
         {% csrf_token %}
         <input type="hidden" id="id" name="id" value="{{selectData.tourconductor.0.id}}">
         <div class="row">
-            <label for="tc_company" class="col-sm-1 col-form-label">소속회사</label>
+            <label for="tc_company" class="col-sm-1 col-form-label text-end">소속회사</label>
             <div class="col-sm-3">
                 <input type="text" id="tc_company" name="tc_company" class="form-control" value="{{selectData.tourconductor.0.tc_company}}" >
             </div>
-            <label for="use_yn" class="col-sm-1 col-form-label">사용여부</label>
+            <label for="use_yn" class="col-sm-1 col-form-label text-end">사용여부</label>
             <div class="btn-group col-2 me-3" role="group" aria-label="Basic radio toggle button group">
                 <input type="radio" class="btn-check" autocomplete="off" name="use_yn" id="Y" value="Y" {% if selectData.tourconductor.0.use_yn == 'Y' %} selected {% endif %}>
                 <label class="btn btn-outline-secondary" for="Y">Y</label>
@@ -27,32 +27,68 @@
         </div>
         <div class="devider"></div>
         <div class="row mt-3">
-            <label for="tc_name" class="col-sm-1 col-form-label">이름</label>
-            <div class="col-sm-3">
+            <label for="tc_name" class="col-sm-1 col-form-label text-end">이름</label>
+            <div class="col-sm-2">
                 <input type="text" id="tc_name" name="tc_name" class="form-control" value="{{selectData.tourconductor.0.tc_name}}" >
             </div>
-            <label for="tc_tel" class="col-sm-1 col-form-label">연락처</label>
-            <div class="col-sm-4">
+            <label for="tc_tel" class="col-sm-1 col-form-label text-end">연락처</label>
+            <div class="col-sm-2">
                 <input type="text" id="tc_tel" name="tc_tel" class="form-control" value="{{selectData.tourconductor.0.tc_tel}}" >
             </div>
+            <label for="tc_rrno" class="col-sm-1 col-form-label text-end">주민번호</label>
+            <div class="col-sm-2">
+                <input type="text" id="tc_rrno" name="tc_rrno" class="form-control" value="{{selectData.tourconductor.0.tc_rrno}}" >
+            </div>
+            <label for="tc_sex" class="col-sm-1 col-form-label text-end">성별</label>
+            <div class="col-sm-1">
+                <select class="form-select" id="tc_sex" name="tc_sex">
+                    <option value="F" {% if selectData.tourconductor.0.tc_sex == 'F' %}{% endif %}>여</option>
+                    <option value="M" {% if selectData.tourconductor.0.tc_sex == 'M' %}{% endif %}>남</option>
+                </select>
+            </div>
         </div>
         <div class="devider"></div>
         <div class="row mt-3">
-            <label for="tc_name_en" class="col-sm-1 col-form-label">영문명</label>
-            <div class="col-sm-3">
+            <label for="tc_name_en" class="col-sm-1 col-form-label text-end">영문명</label>
+            <div class="col-sm-2">
                 <input type="text" id="tc_name_en" name="tc_name_en" class="form-control" value="{{selectData.tourconductor.0.tc_name_en}}" >
             </div>
-            <label for="passport_no" class="col-sm-1 col-form-label">여권번호</label>
-            <div class="col-sm-4">
+            <label for="passport_no" class="col-sm-1 col-form-label text-end">여권번호</label>
+            <div class="col-sm-2">
                 <input type="text" id="passport_no" name="passport_no" class="form-control" value="{{selectData.tourconductor.0.passport_no}}" >
             </div>
+            <label for="tc_birth" class="col-sm-1 col-form-label text-end">생년월일</label>
+            <div class="col-sm-2">
+                <input type="text" class="form-control datepicker me-3" id="tc_birth" name="tc_birth" value="{{selectData.tourconductor.0.tc_birth}}" />
+            </div>
+            <label for="tc_expiry" class="col-sm-1 col-form-label text-end">여권만료일</label>
+            <div class="col-sm-2">
+                <input type="text" class="form-control datepicker me-3" id="tc_expiry" name="tc_expiry" value="{{selectData.tourconductor.0.tc_expiry}}" />
+            </div>
         </div>
+        <div class="devider"></div>
+        <div class="row mt-3">
+            <label for="tc_modeid" class="col-sm-1 col-form-label text-end">모두ID</label>
+            <div class="col-sm-2">
+                <input type="text" id="tc_modeid" name="tc_modeid" class="form-control" value="{{selectData.tourconductor.0.tc_modeid}}" >
+            </div> 
+            <label for="radio" class="col-sm-1 col-form-label text-end">수신기</label>
+            <div class="col-sm-1">
+                <select class="form-select" id="radio" name="radio">
+                    <option value="Y" {% if selectData.tourconductor.0.radio == 'Y' %}{% endif %}>보유</option>
+                    <option value="N" {% if selectData.tourconductor.0.radio == 'N' %}{% endif %}>미보유</option>
+                </select>
+            </div>           
+            <label for="tc_mail" class="col-sm-1 col-form-label text-end">E-mail</label>
+            <div class="col-sm-3">
+                <input type="text" id="tc_mail" name="tc_mail" class="form-control" value="{{selectData.tourconductor.0.tc_mail}}" >
+            </div>
 
 
 
         <div class="devider"></div>
         <div class="row mt-3">
-            <label for="tc_remark" class="col-sm-1 col-form-label">REMARK</label>
+            <label for="tc_remark" class="col-sm-1 col-form-label text-end">REMARK</label>
             <div class="col-sm-11">
                 <textarea id="tc_remark" name="tc_remark" class="form-control" style="height: 100px">{{selectData.tourconductor.0.tc_remark}}</textarea>
             </div>
@@ -70,8 +106,19 @@
 </div>
 
 
+
 {% include 'base/commonValue.html'%} <!-- 공통변수 -->
 {% endblock %}
 {% block js %}
 {{block.super}}      
 {% endblock js %}
+
+
+<script>
+$.datepicker.setDefaults({
+	dateFormat: 'yy-mm-dd',
+	showOtherMonths: true,
+	changeYear: true,
+	changeMonth: true,
+});
+</script>
