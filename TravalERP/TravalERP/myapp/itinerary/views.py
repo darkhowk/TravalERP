@@ -59,6 +59,22 @@ class itineraryAdd(generic.ListView):
       return render(request, self.template_name, self.content) 
    
 
+def commonGetAjaxData(request, path, item):
+   Models = pathtoMode(item)
+
+   data = request.body.decode('utf-8')
+
+   try:
+      # JSON 형식으로 변환
+      params = json.loads(data)
+      data = list(Models.objects.filter(**params).values())
+      return JsonResponse(data, safe=False)
+      # JSON 형식이 맞는 경우 처리할 코드
+   except json.decoder.JSONDecodeError:
+        # JSON 형식이 아닌 경우 처리할 코드
+      return JsonResponse(data, safe=False) 
+
+
 
 def pathtoMode(path):
    if path == 'tourconductor':

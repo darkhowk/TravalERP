@@ -89,7 +89,7 @@ class CommonView(generic.ListView):
                 for common in commonModel._meta.fields:
                     if field.verbose_name == common.verbose_name:
                         tmp = False
-                    elif field.verbose_name in ['ID', 'TYPE']:
+                    elif field.verbose_name in ['ID', 'TYPE', 'E-MAIL', '주민등록번호', '만료일' ]:
                         tmp = False
                 if tmp:
                     self.tr_list.append(field.verbose_name)
@@ -101,7 +101,7 @@ class CommonView(generic.ListView):
                 for common in commonModel._meta.fields:
                     if field.verbose_name == common.verbose_name:
                         tmp = False
-                    elif field.verbose_name in ['ID', 'TYPE']:
+                    elif field.verbose_name in ['ID', 'TYPE', 'E-MAIL', '주민등록번호', '만료일' ]:
                         tmp = False
                 if tmp:
                     self.tr_list.append(field.verbose_name)

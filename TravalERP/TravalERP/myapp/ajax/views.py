@@ -440,6 +440,18 @@ def pathtoMode(path):
       Models = BookingMaster
    if path == 'tc':
       Models = Tourconductor
+   if path == 'roomingMaster':
+      Models = RoomingMaster
+   if path == 'roomingDetail':
+      Models = RoomingDetail
+   if path == 'booking_id':
+      Models = BookingMaster
+   if path == 'tc':
+      Models = Tourconductor
+   if path == 'roomingMaster':
+      Models = RoomingMaster
+   if path == 'roomingDetail':
+      Models = RoomingDetail
    return Models
 
 

@@ -156,12 +156,12 @@ function searchREFSucc(data){
     masterData = masterList;
 
     // 상품명 / 몇박 몇일 / 담당자
-    var result = $("#ref_result");
+    var result = $("#ref_result"); 
     result.empty();
     for (var i = 0; i < refList.length; i ++){
-        result.append("<div class='col-4' style='text-align: center; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;' data-row="+i+">"+refList[i].ref+"</div>")
-        result.append("<div class='col-6' style='text-align: center; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;' data-row="+i+">"+refList[i].product_name+"</div>")
-        result.append("<div class='col-2' style='text-align: center; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;' data-row="+i+">"+refList[i].kor_air_date+"</div>")     
+        result.append("<div class='col-4' style='overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: bold;' data-row="+i+">"+refList[i].ref+"</div>")
+        result.append("<div class='col-6 mt-1' style='overflow: hidden; text-overflow: ellipsis; white-space: nowrap;' data-row="+i+">"+refList[i].product_name+"</div>")
+        result.append("<div class='col-2 mt-1' style='overflow: hidden; text-overflow: ellipsis; white-space: nowrap;' data-row="+i+">"+refList[i].kor_air_date+"</div>")     
     }
 }
 
@@ -174,4 +174,9 @@ $(document).on('dblclick', '#ref_result > div', function() {
 	$('#master_id').val(id);
 
     $('#refModal').modal('hide');
+});
+
+$('#refModal').on('shown.bs.modal', function () {
+    $('#ref_result').empty();
+
 });

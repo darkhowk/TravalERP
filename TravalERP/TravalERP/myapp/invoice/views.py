@@ -37,16 +37,41 @@ class invoiceAdd(generic.ListView):
       master = InvoiceMaster.objects.filter(id=request.GET.get('id'))
       detail = InvoiceDetail.objects.filter(invoice_id=request.GET.get('id'))
       selectData = {'master': master,'detail':detail}
+      target = 'invoice'
       self.content = {
                         "descript" : self.descript,
                         "title_nm" : self.title_nm,
                         "ogImgUrl" : self.ogImgUrl,
                         "topMenu"  : self.topMenu,
                         "selectData" : selectData,
+                        "target" : target, 
                      }
 
       return render(request, self.template_name, self.content) 
    
+
+def commonGetAjaxData(request, path, item):
+
+
+   data = request.body.decode('utf-8')
+
+   try:
+      # JSON 형식으로 변환
+      params = json.loads(data)
+      data = list(Models.objects.filter(**params).values())
+      return JsonResponse(data, safe=False)
+      # JSON 형식이 맞는 경우 처리할 코드
+   except json.decoder.JSONDecodeError:
+        # JSON 형식이 아닌 경우 처리할 코드
+      return JsonResponse(data, safe=False) 
+
+def pathtoMode(path):
+   if path == 'bank':
+      Models = Bank
+      
+   return Models 
+
+
 
 def invoiceSearch(request):
    return render(request, 'invoice/search.html')
