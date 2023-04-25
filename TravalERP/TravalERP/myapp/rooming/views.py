@@ -39,6 +39,7 @@ class roomingAdd(generic.ListView):
       detail = RoomingDetail.objects.filter(rooming_id=request.GET.get('id'))
       selectData = {'master': master,'detail':detail}
       optionData = {'tourconductor': tourconductor}
+      target = 'rooming'
       self.content = {
                         "descript" : self.descript,
                         "title_nm" : self.title_nm,
@@ -46,6 +47,7 @@ class roomingAdd(generic.ListView):
                         "topMenu"  : self.topMenu,
                         "optionData" : optionData,
                         "selectData" : selectData,
+                        "target" : target,
                      }
 
       return render(request, self.template_name, self.content)

@@ -45,6 +45,7 @@ class itineraryAdd(generic.ListView):
       detail = ItineraryDetail.objects.filter(itinerary_id=request.GET.get('id'))
       selectData = {'master': master,'detail':detail}
       optionData = {'localAgent' : localAgent, 'localTel' : localTel, 'manager' : manager, 'localManager' : localManager, 'tourconductor': tourconductor} # 추후 추가할 데이터를 위해
+      target = 'itinerary'
       self.content = {
                         "descript" : self.descript,
                         "title_nm" : self.title_nm,
@@ -52,6 +53,7 @@ class itineraryAdd(generic.ListView):
                         "topMenu"  : self.topMenu,
                         "optionData" : optionData,
                         "selectData" : selectData,
+                        "target" : target,
                      }
 
       return render(request, self.template_name, self.content) 

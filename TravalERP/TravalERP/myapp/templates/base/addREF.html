@@ -1,0 +1,39 @@
+<div class="devider"></div>
+<div class="row mt-2">
+    <div class="text-start">
+        <label for="matching" class="col-sm-1 col-form-label" style="font-weight: bolder;">단체매칭</label>
+        <label class="d-none d-sm-inline-block navbar-search col-form-label">
+        <div class="input-group">
+            <input id="paramRef" name="paramRef" type="text" class="form-control" />
+            <input type="hidden" id="master_id" name="master_id">
+            <div class="input-group-append">
+            <button type="button" class="form-control btn btn-primary col-4" data-toggle="modal" data-target="#refModal"  onclick="searchREF();">
+                <i class="fas fa-search fa-sm"></i>
+          </button>
+        </div>
+        </label>
+    </div>
+</div>
+<div class="devider"></div>
+<!-- Modal -->
+<div class="modal fade" id="refModal" tabindex="-1" role="dialog" aria-labelledby="refModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="input-group row mt-2 col-12" >
+                    <label for="labelRef" class="col-12 col-form-label">REF 검색결과</label>
+                    <div id="labelRef"></div>
+                </div>
+                <div class="devider"></div>
+                <div class="row col-12" id="">
+                    <div class="col-4" style="text-align: center;">REF</div>
+                    <div class="col-6" style="text-align: center;">상품명</div>
+                    <div class="col-2" style="text-align: center;">출발일</div>
+                </div>
+                <div class="row col-12" id="ref_result">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

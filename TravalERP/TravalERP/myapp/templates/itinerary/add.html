@@ -7,27 +7,7 @@
 <div class="container mt-5">
   <form>
     {% csrf_token %}
-    <div class="row">
-      <div class="text-start">
-        <label for="matching" class="col-sm-2 col-form-label">단체매칭</label>
-        <label class="d-none d-sm-inline-block navbar-search col-form-label">
-          <div class="input-group">
-            <input
-              type="text"
-              class="form-control bg-light border"
-              aria-label="Search"
-              aria-describedby="basic-addon2"
-            />
-            <div class="input-group-append">
-              <button class="btn btn-primary" type="button">
-                <i class="fas fa-search fa-sm"></i>
-              </button>
-            </div>
-          </div>
-        </label>
-      </div>
-    </div>
-    <div class="devider"></div>
+    {% include 'base/addREF.html'%} <!-- REF검색 -->
     <div class="row">
       <label for="totalpax" class="col-sm-2 col-form-label">TOTAL PAX</label>
       <div class="col-sm-2">
@@ -491,5 +471,5 @@ function agentChange() {
     width: 11%;
   }
 </style>
-
+{% include 'base/commonValue.html'%} <!-- 공통변수 -->
 {% endblock %} {% block js %} {{block.super}} {% endblock js %}

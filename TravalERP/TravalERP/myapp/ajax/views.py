@@ -4,6 +4,10 @@ from django.http import JsonResponse, HttpResponse
 # from ..common.common_models import Menu # 기존 Menu만 불러오던걸 주석
 from ..common.common_models import * # 모든 모델 가져올수있게 변경
 from ..booking.models import * # 모든 모델 가져올수있게 변경
+from ..rooming.models import * # 모든 모델 가져올수있게 변경
+from ..itinerary.models import * # 모든 모델 가져올수있게 변경
+from ..invoice.models import * # 모든 모델 가져올수있게 변경
+from ..statement.models import * # 모든 모델 가져올수있게 변경
 import datetime, json
 # Create your views here.
 
@@ -322,9 +326,6 @@ def delete(request, model, pk_name='id', **kwargs):
     return JsonResponse({'result': 'success', 'id': obj.id})
 
 def insertDetail(jsonData, model, fields):
-    print(jsonData)
-    print(fields)
-    print("---------------")
     now = datetime.datetime.now()
     data = {}
     for field in fields:
@@ -466,41 +467,81 @@ sys.path.append(pd.__path__[0])
 from openpyxl import load_workbook
 
 def excelUpload(request, item):
-    if request.method == 'POST':
-        file = request.FILES['file']
-        wb = load_workbook(filename=file, read_only=False)
-        ws = wb.active
+   if request.method == 'POST':
+      file = request.FILES['file']
+      wb = load_workbook(filename=file, read_only=False)
+      ws = wb.active
 
-        # Do something with the worksheet
-        # ...
+      # Do something with the worksheet
+      # ...
 
-        # Convert the worksheet to HTML table
-        table = "<table>"
-        merged_cells = ws.merged_cells.ranges
-        for row in ws.rows:
-            table += "<tr>"
-            for cell in row:
-                value = cell.value
-                rowspan, colspan = 1, 1
-                for merged_range in merged_cells:
-                    if cell.coordinate in merged_range:
-                        top_left_cell = merged_range.start_cell
-                        rowspan = merged_range.size['rows']
-                        colspan = merged_range.size['columns']
-                        if cell.coordinate != top_left_cell.coordinate:
-                            value = None
-                        break
-                if value is None:
-                    continue
-                attrs = ""
-                if rowspan > 1:
-                    attrs += f" rowspan='{rowspan}'"
-                if colspan > 1:
-                    attrs += f" colspan='{colspan}'"
-                table += f"<td{attrs}>{value}</td>"
-            table += "</tr>"
-        table += "</table>"
+      # Convert the worksheet to HTML table
+      table = "<table>"
+      merged_cells = ws.merged_cells.ranges
+      for row in ws.rows:
+         table += "<tr>"
+         for cell in row:
+               value = cell.value
+               rowspan, colspan = 1, 1
+               for merged_range in merged_cells:
+                  if cell.coordinate in merged_range:
+                     top_left_cell = merged_range.start_cell
+                     rowspan = merged_range.size['rows']
+                     colspan = merged_range.size['columns']
+                     if cell.coordinate != top_left_cell.coordinate:
+                           value = None
+                     break
+               if value is None:
+                  continue
+               attrs = ""
+               if rowspan > 1:
+                  attrs += f" rowspan='{rowspan}'"
+               if colspan > 1:
+                  attrs += f" colspan='{colspan}'"
+               table += f"<td{attrs}>{value}</td>"
+         table += "</tr>"
+      table += "</table>"
 
-        return HttpResponse(table)
+      return HttpResponse(table)
 
-    return render(request, 'upload_form.html')
+   return render(request, 'upload_form.html')
+
+
+def getREF(request, target):
+   # target 에 따라서 리턴할 id값이 달라짐
+   data = request.body.decode('utf-8')
+
+      # JSON 형식으로 변환
+   params = json.loads(data)
+   ref = params.get("ref")
+   use_yn = params.get("use_yn")
+   # ref 검색 booking ref
+   refObj = BookingMaster.objects.filter(ref__icontains=ref, use_yn=use_yn)
+   id_list = [obj.id for obj in refObj]
+   print(target)
+   if target in ['itinerary', 'invoice', 'statement'] : # 확정서
+      # 루밍에서 해당 ref로 루밍 id검색하여 master_id로 리턴
+      tmpObj = RoomingMaster.objects.filter(booking_id__in=id_list);
+      id_list = [obj.id for obj in tmpObj]
+   if target in ['invoice','statement']: # 인보이스
+      tmpObj = InvoiceMaster.objects.filter(itinerary_id__in=id_list);
+      id_list = [obj.id for obj in tmpObj]
+   if target == 'statement': # 정산
+      tmpObj = StatementMaster.objects.filter(invoice_id__in=id_list);
+      id_list = [obj.id for obj in tmpObj]
+
+   refObj = list(BookingMaster.objects.filter(ref__icontains=ref, use_yn=use_yn).values())
+
+   # 해당 id를 master_id로 변경하여 리턴
+   if len(id_list) > 0:
+      resultData = {
+         'refList' : refObj,
+         'master_id': id_list,
+         'result' : 1
+      }
+   else:
+      resultData = {
+         'result' : 0
+      }
+
+   return JsonResponse(resultData, safe=False)

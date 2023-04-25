@@ -88,17 +88,16 @@
 
 
 <script>
-function select_city(element) {
-  var data_code = $(element).find(':selected').data('code');
-  var data_name = $(element).find(':selected').data('name');
-console.log(data_code)
-console.log(data_name)
-  if ($(element).attr('id') === 'departure_city_code') {
-    $('#departure_city_name').val(data_name);
-  } else if ($(element).attr('id') === 'arrival_city_code') {
-    $('#arrival_city_name').val(data_name);
-  }
-}
+	function select_city(element) {
+		var data_code = $(element).find(':selected').data('code');
+		var data_name = $(element).find(':selected').data('name');
+
+		if ($(element).attr('id') === 'departure_city_code') {
+			$('#departure_city_name').val(data_name);
+		} else if ($(element).attr('id') === 'arrival_city_code') {
+			$('#arrival_city_name').val(data_name);
+		}
+	}
 
 </script>
 

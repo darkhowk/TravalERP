@@ -26,22 +26,7 @@
         </div>
       </div>
     </div>
-    <div class="devider"></div>
-    <div class="row mt-2">
-      <div class="text-start">
-        <label for="matching" class="col-sm-1 col-form-label" style="font-weight: bolder;">단체매칭</label>
-        <label class="d-none d-sm-inline-block navbar-search col-form-label">
-          <div class="input-group">
-            <input type="text" class="form-control bg-light border" aria-label="Search" aria-describedby="basic-addon2" />
-            <div class="input-group-append">
-              <button class="btn btn-primary" type="button">
-                <i class="fas fa-search fa-sm"></i>
-              </button>
-          </div>
-        </label>
-      </div>
-    </div>
-    <div class="devider"></div>
+    {% include 'base/addREF.html'%} <!-- REF검색 -->
     <div class="row">
       <p></p>
       <label for="total_pax" class="col-sm-2 col-form-label" style="font-weight: bolder;">TOTAL PAX</label>
@@ -62,279 +47,268 @@
           <div class="input-group-text">T/C</div>
         </div>
       </div>
-      <label for="roomtype" class="col-sm-2 col-form-label text-end" style="font-weight: bolder;">ROOM TYPE</label>
-      <div class="col-sm-30">
+	<label for="roomtype" class="col-sm-2 col-form-label text-end" style="font-weight: bolder;">ROOM TYPE</label>
+	<div class="col-sm-30">
         <div class="input-group">
-          <input id="twinroom" type="text" class="form-control"/>
-          <div class="input-group-text">TWIN</div>
+          	<input id="twinroom" type="text" class="form-control"/>
+          	<div class="input-group-text">TWIN</div>
         </div>
-      </div>
-      <div class="col-sm-30">
+	</div>
+	<div class="col-sm-30">
         <div class="input-group">
-          <input id="tripleroom" type="text" class="form-control"/>
-          <div class="input-group-text">TRIPLE</div>
+          	<input id="tripleroom" type="text" class="form-control"/>
+          	<div class="input-group-text">TRIPLE</div>
         </div>
-      </div>
-      <div class="col-sm-30">
+	</div>
+	<div class="col-sm-30">
         <div class="input-group">
-          <input id="singleroom" type="text" class="form-control"/>
-          <div class="input-group-text">SINGLE</div>
+         	<input id="singleroom" type="text" class="form-control"/>
+          	<div class="input-group-text">SINGLE</div>
         </div>
-      </div>
-      <div class="row mt-5">
+	</div>
+	<div class="row mt-5">
         <div class="col-sm-2">
-          <label for="tourconductor" class="col-form-label" style="font-weight: bolder;">TOUR LEADER</label>
+         	 <label for="tourconductor" class="col-form-label" style="font-weight: bolder;">TOUR LEADER</label>
         </div>
         <div class="col-sm-2">
-          <select class="form-select-diy selectpicker col-2" id="tc_name" name="tc_name" data-live-search="true" data-size="3" onchange="select_tc(this)">
-            <option selected>이름</option>
-            {% for tourconductor in optionData.tourconductor %}
-            <option value="{{tourconductor.id}}" data-name="{{tourconductor.tc_name}}" data-tel="{{tourconductor.tc_tel}}" data-en="{{tourconductor.tc_name_en}}">{{tourconductor.tc_name}}</option>
-            {% endfor %}
-          </select>
+          	<select class="form-select-diy selectpicker col-2" id="tc_name" name="tc_name" data-live-search="true" data-size="3" onchange="select_tc(this)">
+				<option selected>이름</option>
+				{% for tourconductor in optionData.tourconductor %}
+				<option value="{{tourconductor.id}}" data-name="{{tourconductor.tc_name}}" data-tel="{{tourconductor.tc_tel}}" data-en="{{tourconductor.tc_name_en}}">{{tourconductor.tc_name}}</option>
+				{% endfor %}
+          	</select>
         </div>
         <div class="col-sm-3">
-          <input type="text" class="form-control" id="tc_name_en" name="tc_name_en"  placeholder="영문명" readonly />
+         	<input type="text" class="form-control" id="tc_name_en" name="tc_name_en"  placeholder="영문명" readonly />
         </div>
         <div class="col-sm-3">
-          <input type="text" class="form-control" id="tc_tel" name="tc_tel"  placeholder="연락처" readonly />
+          	<input type="text" class="form-control" id="tc_tel" name="tc_tel"  placeholder="연락처" readonly />
         </div>
-      </div>
-    <div class="row mt-5">
-      <label for="remark" class="col-sm-2 col-form-label">REMARK</label>
-      <div class="col-sm-10">
-        <textarea id="remark" class="form-control" style="height: 100px"></textarea>
-      </div>
-    </div>
-    <div class="devider"></div> 
-    <div class="row">
-      <div class="text-end">
-        <input type="button" class="btn btn-primary"  onclick="uploadExcel()" value="엑셀 업로드">
-        <input type="text" id="inputNum" placeholder="추가할 갯수를 입력">
-        <input type="button" class="btn btn-primary"  onclick="addRow()" value="추가">
-        <input type="button" class="btn btn-secondary" onclick="delRow()" value="삭제">
-      </div>
-      <table class="table mx-3 text-center" id="roomingList" style="border-collapse: collapse;" >
-        <thead class="table-light" style="font-size: small;">
-          <tr>
-            <th scope="col" style="width: 5%;">삭제</th>
-            <th scope="col" style="width: 3%;">NO.</th>
-            <th scope="col" style="width: 7%;">ROOM</th>
-            <th scope="col" style="width: 8%;">NAME(K)</th>
-            <th scope="col" style="width: 15%;">NAME(E)</th>
-            <th scope="col" style="width: 5%;">SEX</th>
-            <th scope="col" style="width: 5%;">구분</th>
-            <th scope="col" style="width: 10%;">DATE OF BIRTH</th>
-            <th scope="col" style="width: 8%;">PASSPORT</th>
-            <th scope="col" style="width: 10%;">DATE OF EXPIRY</th>
-            <th scope="col" style="width: 10%;">MOBILE</th>
-            <th scope="col" style="width: 14%;">REMARK</th>
-          </tr>
-        </thead>
-        <tbody id="tbody">
-        </tbody>
-      </table>
-    </div>
-    <div class="text-end mt-5">
-      <button type="submit" class="btn btn-primary" >저장</button>
-      <button type="reset" class="btn btn-secondary">초기화</button>
-      <button type="button" class="btn btn-secondary">취소</button>
-    </div>    
-  </form>
-  <form method="POST" enctype="multipart/form-data" id="upload-form">
-    {% csrf_token %}
-    <input type="file" name="file">
-    <button type="submit">Upload</button>
-  </form>
+	</div>
+	<div class="row mt-5">
+		<label for="remark" class="col-sm-2 col-form-label">REMARK</label>
+		<div class="col-sm-10">
+			<textarea id="remark" class="form-control" style="height: 100px"></textarea>
+		</div>
+	</div>
+	<div class="devider"></div> 
+	<div class="row">
+		<div class="text-end">
+			<input type="button" class="btn btn-primary"  onclick="uploadExcel()" value="엑셀 업로드">
+			<input type="text" id="inputNum" placeholder="추가할 갯수를 입력">
+			<input type="button" class="btn btn-primary"  onclick="addRow()" value="추가">
+			<input type="button" class="btn btn-secondary" onclick="delRow()" value="삭제">
+		</div>
+		<table class="table mx-3 text-center" id="roomingList" style="border-collapse: collapse;" >
+			<thead class="table-light" style="font-size: small;">
+			<tr>
+				<th scope="col" style="width: 5%;">삭제</th>
+				<th scope="col" style="width: 3%;">NO.</th>
+				<th scope="col" style="width: 7%;">ROOM</th>
+				<th scope="col" style="width: 8%;">NAME(K)</th>
+				<th scope="col" style="width: 15%;">NAME(E)</th>
+				<th scope="col" style="width: 5%;">SEX</th>
+				<th scope="col" style="width: 5%;">구분</th>
+				<th scope="col" style="width: 10%;">DATE OF BIRTH</th>
+				<th scope="col" style="width: 8%;">PASSPORT</th>
+				<th scope="col" style="width: 10%;">DATE OF EXPIRY</th>
+				<th scope="col" style="width: 10%;">MOBILE</th>
+				<th scope="col" style="width: 14%;">REMARK</th>
+			</tr>
+			</thead>
+			<tbody id="tbody">
+			</tbody>
+		</table>
+		</div>
+		<div class="text-end mt-5">
+		<button type="submit" class="btn btn-primary" >저장</button>
+		<button type="reset" class="btn btn-secondary">초기화</button>
+		<button type="button" class="btn btn-secondary">취소</button>
+		</div>    
+	</form>
+	<form method="POST" enctype="multipart/form-data" id="upload-form">
+		{% csrf_token %}
+		<input type="file" name="file">
+		<button type="submit">Upload</button>
+	</form>
   
-  <div id="result"></div>
-  </div>
+	<div id="result"></div>
+</div>
  <script>
-    $(document).ready(function() {
-      $('#upload-form').on('submit', function(event) {
-        event.preventDefault();
-        var formData = new FormData(this);
-        $.ajax({
-          url: '/ajax/excelUpload/rooming',
-          type: 'POST',
-          data: formData,
-          processData: false,
-          contentType: false,
-          success: function(data) {
-            $('#result').html(data);
-          }
-        });
-      });
-    });
+	$(document).ready(function() {
+		$('#upload-form').on('submit', function(event) {
+			event.preventDefault();
+			var formData = new FormData(this);
+			$.ajax({
+				url: '/ajax/excelUpload/rooming',
+				type: 'POST',
+				data: formData,
+				processData: false,
+				contentType: false,
+				success: function(data) {
+					$('#result').html(data);
+				}
+			});
+		});
+	});
 
-function saveData(){
+	function saveData(){
 
-var jsonData = $("#roomingFrm").serializeArray()
-$.ajax({
-  url: '/ajax/insertData/master/rooming',
-  method: 'POST',
-  data: jsonData,
-  dataType: 'json',
-  success: function(data) {
-    id = data.id
-    saveDetail(id);
-  },
-  error: function(xhr, status, error) {
-    alert('등록 실패')
-  }
-});
-}
-
-function saveDetail(id){
-$('input[name="master_id"]').val(id);
-var room = tableToJson(document.getElementById('roomingList'));
-
-var tableJson = mergeJson(room);
-
-$.ajax({
-  url: '/ajax/insertData/detail/rooming',
-  method: 'POST',
-  data: JSON.stringify(tableJson),
-  headers: { "X-CSRFToken": $('[name="csrfmiddlewaretoken"]').val() }, // CSRF 토큰을 HTTP 헤더에 추가
-  dataType: 'json',
-  success: function(data) {
-    alert('입력 완료 목록 화면으로 이동합니다.')
-  },
-  error: function(xhr, status, error) {
-    alert('등록 실패')
-  }
-});
-}
-
-
-
-
-
-
-  function addRow() {
-	var tbody = document.getElementById("tbody");
-  var inputNum = document.getElementById("inputNum");
-  var num = parseInt(inputNum.value);
-
-  for (var i = 0; i < num; i++) {
-    var row = tbody.insertRow(-1)
-	  var cell1 = row.insertCell(0);
-	  var cell2 = row.insertCell(1);
-	  var cell3 = row.insertCell(2);
-	  var cell4 = row.insertCell(3);
-	  var cell5 = row.insertCell(4);
-	  var cell6 = row.insertCell(5);
-	  var cell7 = row.insertCell(6);
-	  var cell8 = row.insertCell(7);
-    var cell9 = row.insertCell(8);
-    var cell10 = row.insertCell(9);
-    var cell11 = row.insertCell(10);
-    var cell12 = row.insertCell(11);
-
-    cell1.innerHTML = "<td class='col'><input style='width:100%;' type='checkbox' id='checkbox'></td>";
-    cell2.innerHTML = "<td class='col'>"+tbody.rows.length+"</td>";
-    cell3.innerHTML = "<td class='col'><input style='width:100%; border: 0;' id='roomType'></td>";
-    cell4.innerHTML = "<td class='col'><input style='width:100%; border: 0;' id='nameKo'></td>";
-    cell5.innerHTML = "<td class='col'><input style='width:100%; border: 0;' id='nameEn'></td>";
-    cell6.innerHTML = "<td class='col'><input style='width:100%; border: 0;' id='sex'></td>";
-    cell7.innerHTML = "<td class='col'><input style='width:100%; border: 0;' id='divide'></td>";
-    cell8.innerHTML = "<td class='col'><input style='width:100%; border: 0;' id='birth'></td>";
-    cell9.innerHTML = "<td class='col'><input style='width:100%; border: 0;' id='passport'></td>";
-    cell10.innerHTML = "<td class='col'><input style='width:100%; border: 0;' id='expiry'></td>";
-    cell11.innerHTML = "<td class='col'><input style='width:100%; border: 0;' id='mobile'></td>";
-    cell12.innerHTML = "<td class='col'><input style='width:100%; border: 0;' id='remark'></td>";
-
-  }
-}
-
-
-
-function delRow() {
-  var tbody = document.getElementById("tbody");
-  var deletedCount = 0; // 삭제된 row의 수
-  for (var i = 0; i < tbody.rows.length; i++) {
-    var checkbox = tbody.rows[i].cells[0].childNodes[0].checked;
-    if (checkbox) {
-      tbody.deleteRow(i);
-      i--;
-      deletedCount++;
-    } else {
-      tbody.rows[i].cells[1].innerHTML = i + 1;
-    }
-  }
-}
-
-function select_tc(element){
-  var data_name = $(element).find(':selected').data('name');
-  var data_tel = $(element).find(':selected').data('tel');
-  var data_en = $(element).find(':selected').data('en');
-
-  // 선택한 select box에 따라서 데이터를 적용할 input 태그 선택
-  var name = $("#tc_name");
-  var tel = $("#tc_tel");
-  var en = $("#tc_name_en");
-
-  // input 태그에 데이터 적용
-  name.val(data_name);
-  tel.val(data_tel);
-  en.val(data_en);
-}
-
-
-function getselect() {
-	// select에서 선택한 value 가져오기
-	var selectedValue = $("#total_pax").val();
-	// select에서 선택한 글자 가져오기
-	var selected = $("#tc_type option:selected").val();
-
-	// 아직 입력전이라면
-	if (selectedValue == undefined ){
-		selectedValue = 0;
-	}
-	
-	// 아직 선택 전이라면
-	if (selected == undefined || selected == 'T/C여부'){
-		selected = 0;
+		var jsonData = $("#roomingFrm").serializeArray()
+		$.ajax({
+			url: '/ajax/insertData/master/rooming',
+			method: 'POST',
+			data: jsonData,
+			dataType: 'json',
+			success: function(data) {
+				id = data.id
+				saveDetail(id);
+			},
+			error: function(xhr, status, error) {
+				alert('등록 실패')
+			}
+		});
 	}
 
-	// 각각의 값을 숫자형식으로 바꿔 더한다.
-	$("#inputNum").val(Number(selectedValue)+Number(selected));
+	function saveDetail(id){
+		$('input[name="master_id"]').val(id);
+		var room = tableToJson(document.getElementById('roomingList'));
+		var tableJson = mergeJson(room);
 
-}
+		$.ajax({
+			url: '/ajax/insertData/detail/rooming',
+			method: 'POST',
+			data: JSON.stringify(tableJson),
+			headers: { "X-CSRFToken": $('[name="csrfmiddlewaretoken"]').val() }, // CSRF 토큰을 HTTP 헤더에 추가
+			dataType: 'json',
+			success: function(data) {
+				alert('입력 완료 목록 화면으로 이동합니다.')
+			},
+			error: function(xhr, status, error) {
+				alert('등록 실패')
+			}
+		});
+	}
 
+ 	function addRow() {
+		var tbody = document.getElementById("tbody");
+		var inputNum = document.getElementById("inputNum");
+		var num = parseInt(inputNum.value);
 
+		for (var i = 0; i < num; i++) {
+			var row = tbody.insertRow(-1)
+			var cell1 = row.insertCell(0);
+			var cell2 = row.insertCell(1);
+			var cell3 = row.insertCell(2);
+			var cell4 = row.insertCell(3);
+			var cell5 = row.insertCell(4);
+			var cell6 = row.insertCell(5);
+			var cell7 = row.insertCell(6);
+			var cell8 = row.insertCell(7);
+			var cell9 = row.insertCell(8);
+			var cell10 = row.insertCell(9);
+			var cell11 = row.insertCell(10);
+			var cell12 = row.insertCell(11);
 
+			cell1.innerHTML = "<td class='col'><input style='width:100%;' type='checkbox' id='checkbox'></td>";
+			cell2.innerHTML = "<td class='col'>"+tbody.rows.length+"</td>";
+			cell3.innerHTML = "<td class='col'><input style='width:100%; border: 0;' id='roomType'></td>";
+			cell4.innerHTML = "<td class='col'><input style='width:100%; border: 0;' id='nameKo'></td>";
+			cell5.innerHTML = "<td class='col'><input style='width:100%; border: 0;' id='nameEn'></td>";
+			cell6.innerHTML = "<td class='col'><input style='width:100%; border: 0;' id='sex'></td>";
+			cell7.innerHTML = "<td class='col'><input style='width:100%; border: 0;' id='divide'></td>";
+			cell8.innerHTML = "<td class='col'><input style='width:100%; border: 0;' id='birth'></td>";
+			cell9.innerHTML = "<td class='col'><input style='width:100%; border: 0;' id='passport'></td>";
+			cell10.innerHTML = "<td class='col'><input style='width:100%; border: 0;' id='expiry'></td>";
+			cell11.innerHTML = "<td class='col'><input style='width:100%; border: 0;' id='mobile'></td>";
+			cell12.innerHTML = "<td class='col'><input style='width:100%; border: 0;' id='remark'></td>";
+
+		}
+	}
+
+	function delRow() {
+		var tbody = document.getElementById("tbody");
+		var deletedCount = 0; // 삭제된 row의 수
+		for (var i = 0; i < tbody.rows.length; i++) {
+			var checkbox = tbody.rows[i].cells[0].childNodes[0].checked;
+			if (checkbox) {
+			tbody.deleteRow(i);
+			i--;
+			deletedCount++;
+			} else {
+			tbody.rows[i].cells[1].innerHTML = i + 1;
+			}
+		}
+	}
+
+	function select_tc(element){
+		var data_name = $(element).find(':selected').data('name');
+		var data_tel = $(element).find(':selected').data('tel');
+		var data_en = $(element).find(':selected').data('en');
+
+		// 선택한 select box에 따라서 데이터를 적용할 input 태그 선택
+		var name = $("#tc_name");
+		var tel = $("#tc_tel");
+		var en = $("#tc_name_en");
+
+		// input 태그에 데이터 적용
+		name.val(data_name);
+		tel.val(data_tel);
+		en.val(data_en);
+	}
+
+	function getselect() {
+		// select에서 선택한 value 가져오기
+		var selectedValue = $("#total_pax").val();
+		// select에서 선택한 글자 가져오기
+		var selected = $("#tc_type option:selected").val();
+
+		// 아직 입력전이라면
+		if (selectedValue == undefined ){
+			selectedValue = 0;
+		}
+		
+		// 아직 선택 전이라면
+		if (selected == undefined || selected == 'T/C여부'){
+			selected = 0;
+		}
+
+		// 각각의 값을 숫자형식으로 바꿔 더한다.
+		$("#inputNum").val(Number(selectedValue)+Number(selected));
+
+	}
 
 </script>
 
-
 <style>
-  .devider {
-    width: 100%;
-    height: 5px;
-    border-top: rgba(155, 151, 151, 0.979) 2px solid;
-    margin: 20px 10px 20px 0px;
-  }
+	.devider {
+		width: 100%;
+		height: 5px;
+		border-top: rgba(155, 151, 151, 0.979) 2px solid;
+		margin: 20px 10px 20px 0px;
+	}
 
 
-  .form-select-diy, .dataTable-selector {
-  display: block;
-  width: 100%;
-  font-size: 1rem;
-  font-weight: 400;
-  color: #6c757d;
-  line-height: 1.5;
-  border: 1px solid #ced4da;
-  border-radius: 0.25rem;
+	.form-select-diy, .dataTable-selector {
+		display: block;
+		width: 100%;
+		font-size: 1rem;
+		font-weight: 400;
+		color: #6c757d;
+		line-height: 1.5;
+		border: 1px solid #ced4da;
+		border-radius: 0.25rem;
 
-}
+	}
 
-.col-sm-30 {
-    flex: 0 0 auto;
-    width: 12%;
-  }
-
+	.col-sm-30 {
+		flex: 0 0 auto;
+		width: 12%;
+	}
 
 </style>
-
-{% endblock %} {% block js %} {{block.super}} {% endblock js %}
+{% include 'base/commonValue.html'%} <!-- 공통변수 -->
+{% endblock %} 
+{% block js %} 
+{{block.super}} 
+{% endblock js %}
