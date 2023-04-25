@@ -282,9 +282,8 @@ def insert(request, model, fields):
       field_instance = model._meta.get_field(field)
       if isinstance(field_instance, models.ForeignKey):
          # ForeignKey field 처리
-         print("??")
-         print(request.POST.get(field))
          print(field)
+         print(request.POST.get(field))
          data[field] = pathtoMode(field).objects.get(id=request.POST.get(field))
       else:
          # 일반 field 처리
@@ -433,6 +432,14 @@ def pathtoMode(path):
       Models = Citycode
    if path == 'tourconductor':
       Models = Tourconductor
+   if path == 'roomingMaster':
+      Models = RoomingMaster
+   if path == 'roomingDetail':
+      Models = RoomingDetail
+   if path == 'booking_id':
+      Models = BookingMaster
+   if path == 'tc':
+      Models = Tourconductor
    return Models
 
 
@@ -511,7 +518,7 @@ def getREF(request, target):
    # target 에 따라서 리턴할 id값이 달라짐
    data = request.body.decode('utf-8')
 
-      # JSON 형식으로 변환
+   # JSON 형식으로 변환
    params = json.loads(data)
    ref = params.get("ref")
    use_yn = params.get("use_yn")

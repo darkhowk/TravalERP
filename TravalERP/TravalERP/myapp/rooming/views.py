@@ -40,6 +40,7 @@ class roomingAdd(generic.ListView):
       selectData = {'master': master,'detail':detail}
       optionData = {'tourconductor': tourconductor}
       target = 'rooming'
+      pageType = 'I'
       self.content = {
                         "descript" : self.descript,
                         "title_nm" : self.title_nm,
@@ -48,6 +49,7 @@ class roomingAdd(generic.ListView):
                         "optionData" : optionData,
                         "selectData" : selectData,
                         "target" : target,
+                        "pageType" : pageType ,
                      }
 
       return render(request, self.template_name, self.content)

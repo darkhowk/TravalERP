@@ -6,6 +6,7 @@
 
 <div class="container mt-5">
 	<form id="roomingFrm">
+	{% csrf_token %}
     <div class="d-inline mb-3">
       <label class="form-label" for="fileupload"><h4>파일업로드</h4></label>
       <input type="file" class="form-control" id="fileupload" />
@@ -77,12 +78,13 @@
 				<option value="{{tourconductor.id}}" data-name="{{tourconductor.tc_name}}" data-tel="{{tourconductor.tc_tel}}" data-en="{{tourconductor.tc_name_en}}">{{tourconductor.tc_name}}</option>
 				{% endfor %}
           	</select>
+			<input type="hidden" id="tc" name="tc">
         </div>
         <div class="col-sm-3">
-         	<input type="text" class="form-control" id="tc_name_en" name="tc_name_en"  placeholder="영문명" readonly />
+         	<input type="text" class="form-control" id="tc_name_en" name="tc_name_en"  placeholder="영문명" disabled />
         </div>
         <div class="col-sm-3">
-          	<input type="text" class="form-control" id="tc_tel" name="tc_tel"  placeholder="연락처" readonly />
+          	<input type="text" class="form-control" id="tc_tel" name="tc_tel"  placeholder="연락처" disabled />
         </div>
 	</div>
 	<div class="row mt-5">
@@ -120,11 +122,19 @@
 			</tbody>
 		</table>
 		</div>
-		<div class="text-end mt-5">
-		<button type="submit" class="btn btn-primary" >저장</button>
-		<button type="reset" class="btn btn-secondary">초기화</button>
-		<button type="button" class="btn btn-secondary">취소</button>
-		</div>    
+		<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+
+			{% if pageType == 'I' %}
+				<input type="button" value="저장" onclick="saveData()">
+			{% elif pageType == 'U' %}
+				<input type="button" value="수정" onclick="updateData()">
+				<input type="button" value="삭제" onclick="deleteData()">
+			{% endif %}
+				<input type="button" value="목록" onclick="goMenuList()">
+			</div>
+		
+		<input type="hidden" id="booking_id" name="booking_id" >
+		<input type="hidden" id="use_yn" name="use_yn" value="Y" >
 	</form>
 	<form method="POST" enctype="multipart/form-data" id="upload-form">
 		{% csrf_token %}
@@ -153,7 +163,12 @@
 	});
 
 	function saveData(){
+		// master_id --> booking_id 로 변경하여 저장
+		$("#booking_id").val($("#master_id").val());
+		$("#master_id").attr("disabled", true)
 
+		$("#tc_name").attr("disabled", true)
+		
 		var jsonData = $("#roomingFrm").serializeArray()
 		$.ajax({
 			url: '/ajax/insertData/master/rooming',
@@ -245,16 +260,18 @@
 		var data_name = $(element).find(':selected').data('name');
 		var data_tel = $(element).find(':selected').data('tel');
 		var data_en = $(element).find(':selected').data('en');
-
+		var id = $(element).find(':selected').val()
 		// 선택한 select box에 따라서 데이터를 적용할 input 태그 선택
 		var name = $("#tc_name");
 		var tel = $("#tc_tel");
 		var en = $("#tc_name_en");
+		var tc = $("#tc");
 
 		// input 태그에 데이터 적용
 		name.val(data_name);
 		tel.val(data_tel);
 		en.val(data_en);
+		tc.val(id);
 	}
 
 	function getselect() {
