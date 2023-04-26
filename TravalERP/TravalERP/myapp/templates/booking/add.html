@@ -784,12 +784,6 @@ $(function() {
 	$('#loc_air_date').datepicker({});
 });
 
-function openSearch() {
-	var searchUrl = "/booking/search/";
-	var childWindow = window.open(searchUrl, "Search", "width=600,height=400");
-	childWindow.focus();
-}
-
 function tableToJson(table) {
     var data = []; // JSON으로 변환될 데이터를 저장할 배열
     $(table).find('tr').each(function(index) {
