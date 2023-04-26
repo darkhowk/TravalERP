@@ -187,3 +187,45 @@ class addView(generic.CreateView):
             'optionData': optionData,
         }
         return render(request, self.template_name, self.content)
+    
+class CommonMainAddView(generic.CreateView):
+    title_nm = ""
+    descript = ""
+    #공통변수
+    paging = ""
+    perPage = ""
+    target = ""
+    type = ""
+    pageType = ""
+
+    def __init__(self):
+        self.topMenu = Menu.objects.filter(menu_type="TOP", use_yn='Y')
+
+    def get(self, request, *args, **kwargs):
+        #선택 데이터
+        selectData = self.seletData()
+        
+        #옵션에 그려질 데이터
+        optionData = self.selectOption(request) or {}
+
+        #공통변수
+        self.paging = request.GET.get('paging')
+        self.perPage = request.GET.get('perPage')
+        self.target = request.GET.get('target')
+        self.type = request.GET.get('type')
+        self.pageType = request.GET.get('pageType')
+
+        # 데이터들을 담는다
+        self.content = {
+            "descript": self.descript,
+            "title_nm": self.title_nm,
+            "topMenu": self.topMenu,
+            'paging': int(self.paging),
+            'perPage': int(self.perPage),
+            'target': self.target,
+            'type': self.type,
+            'pageType' : self.pageType,
+            'selectData': selectData,
+            'optionData': optionData,
+        }
+        return render(request, self.template_name, self.content)
