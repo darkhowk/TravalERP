@@ -16,7 +16,7 @@
                 <div class="datatable-top">
                     <div class="datatable-dropdown">
                         <label>
-                            <select class="datatable-select" id="per_page">
+                            <select class="datatable-select" id="perPage">
                                 <option value="5" {% if perPage == 5%} selected {% endif %}>5</option>
                                 <option value="10" {% if perPage == 10%} selected {% endif %}>10</option>
                                 <option value="15" {% if perPage == 15%} selected {% endif %}>15</option>
@@ -83,8 +83,7 @@
                                 </li>
                                 {% else %}
                                 <li class="page-item">
-                                    <a data-page="{{ page }}" class="page-link" onclick="goPage('{{page}}')">{{ page
-                                        }}</a>
+                                    <a data-page="{{ page }}" class="page-link" onclick="goPage('{{page}}')">{{ page }}</a>
                                 </li>
                                 {% endif %}
                                 {% endfor %}
@@ -96,6 +95,7 @@
         </div>
     </div>
 </div>
+
 {% include 'base/commonValue.html'%} <!-- 공통변수 -->
 {% endblock %}
 {% block js %}

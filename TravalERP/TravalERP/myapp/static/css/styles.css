@@ -11715,7 +11715,7 @@ body {
 .card-head {
   padding: 0.5rem 1rem;
   margin-bottom: 0;
-  background-color: rgba(0, 0, 0, 1);
+  background-color: rgb(33, 37, 41);
   border-bottom: 1px solid rgba(51, 7, 248, 0.125);
   color: azure;
 }

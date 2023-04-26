@@ -1,103 +1,110 @@
 {% extends "base/base.html" %} {% block content %}
 <div class="container-fluid">
-  <h1 class="mx-5 mt-5 title">정산</h1>
+    <h1 class="mx-6 mt-5 title">정산</h1>
 </div>
 
 
-<div class="card mt-3 mx-5">
-    <div class="card-header">
-        <h5>&nbsp; {{title_nm}}</h5>
-    </div>
-    <div class="card-body">
-      {% csrf_token %}
-      <div class="datatable-wrapper datatable-loading no-footer sortable searchable fixed-columns">
-        <div class="datatable-top">
-          <div class="datatable-dropdown">
-            <label>
-                <select class="datatable-selector" id="per_page">
-                    <option value="5" {% if per_page == 5%} selected {% endif %}>5</option>
-                    <option value="10" {% if per_page == 10%} selected {% endif %}>10</option>
-                    <option value="15" {% if per_page == 15%} selected {% endif %}>15</option>
-                    <option value="20" {% if per_page == 20%} selected {% endif %}>20</option>
-                    <option value="25" {% if per_page == 25%} selected {% endif %}>25</option>
-                </select>
-                페이지당 목록표시
-            </label>
-          </div>
-          <div class="text-end">
-            <form class="d-none d-sm-inline-block navbar-search" >
-                <div class="input-group">
-                    <input type="text" class="form-control bg-light border" aria-label="Search" aria-describedby="basic-addon2"/>
-                    <div class="input-group-append">
-                        <button class="btn btn-primary" type="button">
-                            <i class="fas fa-search fa-sm"></i>
-                        </button>
-                        <a href="#" class="btn btn-primary" onclick="addMenu()">등록</a>
+<div class="d-flex align-items-center justify-content-center">
+    <div class="card mt-3 mx-auto" style="width: 85%;">
+        <div class="card-head">
+            <h5>&nbsp; {{title_nm}}</h5>
+        </div>
+        <div class="card-body">
+            {% csrf_token %}
+            <div class="datatable-wrapper datatable-loading no-footer sortable searchable fixed-columns">
+                <div class="datatable-top">
+                    <div class="datatable-dropdown">
+                        <label>
+                            <select class="datatable-select" id="perPage">
+                                <option value="5" {% if perPage == 5%} selected {% endif %}>5</option>
+                                <option value="10" {% if perPage == 10%} selected {% endif %}>10</option>
+                                <option value="15" {% if perPage == 15%} selected {% endif %}>15</option>
+                                <option value="20" {% if perPage == 20%} selected {% endif %}>20</option>
+                                <option value="25" {% if perPage == 25%} selected {% endif %}>25</option>
+                            </select>
+                            페이지당 목록표시
+                        </label>
+                    </div>
+                    <div class="text-end">
+                        <form class="d-none d-sm-inline-block navbar-search">
+                            <div class="input-group">
+                                <input type="text" class="form-control bg-light border" aria-label="Search" aria-describedby="basic-addon2" />
+                                <div class="input-group-append">
+                                    <button class="btn btn-dark" type="button">
+                                        <i class="fas fa-search fa-sm"></i>
+                                    </button>
+                                    <a href="#" class="btn btn-dark" onclick="addMenu()">등록</a>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
-            </form>
-          </div>
+                <div class="datatable-container">
+                    <table id="datatablesSimple"
+                        class="datatable-table table table-responsive table-border table-striped table-hover mt-3">
+                        <thead>
+                            <tr class="table-title">
+                                <th scope="col" style="width: 15%;">REF</th>
+                                <th scope="col" style="width: 10%;">출발일</th>
+                                <th scope="col" style="width: 30%;">상품명</th>
+                                <th scope="col" style="width: 10%;">인솔자</th>
+                                <th scope="col" style="width: 5%; text-align: center;">총인원</th>
+                                <th scope="col" style="width: 5%; text-align: center;">트윈</th>
+                                <th scope="col" style="width: 5%; text-align: center;">트리플</th>
+                                <th scope="col" style="width: 5%; text-align: center;">싱글</th>
+                                <th scope="col" style="width: 10%;">작성자</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for list in content_list %}
+                            <tr id="{{list.id}}" data-index="{{ forloop.counter0 }}">
+                                <td>{{ list.invoice_id.itinerary_id.rooming_id.booking_id.ref|truncatechars:13 }}</td>
+                                <td>{{ list.invoice_id.itinerary_id.rooming_id.booking_id.kor_air_date|truncatechars:10}}</td>
+                                <td>{{ list.invoice_id.itinerary_id.rooming_id.booking_id.product_name|truncatechars:30}}</td>
+                                <td>{{ list.tc.tc_name|truncatechars:5 }}</td>
+                                <td style="text-align: center;">{{ list.total_pax|default_if_none:"0"|truncatechars:2 }}
+                                </td>
+                                <td style="text-align: center;">{{ list.twin|default_if_none:"0"|truncatechars:2 }}</td>
+                                <td style="text-align: center;">{{ list.triple|default_if_none:"0"|truncatechars:2 }}
+                                </td>
+                                <td style="text-align: center;">{{ list.single|default_if_none:"0"|truncatechars:2 }}
+                                </td>
+                                <td>{{ list.entry_id|truncatechars:10 }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div>
+                    <div class="datatable-bottom">
+                        <div class="datatable-info">{{total_count}}개 항목 중 {{start_index}}~{{end_index}}개 항목 표시</div>
+                        <nav aria-label="Page navigation">
+                            <ul class="pagination pagination-sm">
+                                {% for page in pages %}
+                                {% if page == paging %}
+                                <li class="page-item active" aria-current="page">
+                                    <a data-page="{{ page }}" class="page-link">{{ page }}</a>
+                                </li>
+                                {% else %}
+                                <li class="page-item">
+                                    <a data-page="{{ page }}" class="page-link" onclick="goPage('{{page}}')">{{ page }}</a>
+                                </li>
+                                {% endif %}
+                                {% endfor %}
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="datatable-container">
-            <table id="datatablesSimple" class="datatable-table table table-light table-responsive table-border table-striped table-hover">
-                <thead>
-                    <tr>
-                        <th scope="col" style="width: 15%;">REF</th>
-                        <th scope="col" style="width: 10%;">출발일</th>
-                        <th scope="col" style="width: 30%;">상품명</th>
-                        <th scope="col" style="width: 10%;">인솔자</th>
-                        <th scope="col" style="width: 5%; text-align: center;">총인원</th>
-                        <th scope="col" style="width: 5%; text-align: center;">트윈</th>
-                        <th scope="col" style="width: 5%; text-align: center;">트리플</th>
-                        <th scope="col" style="width: 5%; text-align: center;">싱글</th>
-                        <th scope="col" style="width: 10%;">작성자</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for list in content_list %}
-                        <tr id="{{list.id}}" data-index="{{ forloop.counter0 }}">
-                            <td>{{ list.invoice_id.itinerary_id.rooming_id.booking_id.ref|truncatechars:13 }}</td>
-                            <td>{{ list.invoice_id.itinerary_id.rooming_id.booking_id.kor_air_date|truncatechars:10 }}</td>
-						    <td>{{ list.invoice_id.itinerary_id.rooming_id.booking_id.product_name|truncatechars:30 }}</td>
-                            <td>{{ list.tc.tc_name|truncatechars:5 }}</td>
-                            <td style="text-align: center;">{{ list.total_pax|default_if_none:"0"|truncatechars:2 }}</td>
-                            <td style="text-align: center;">{{ list.twin|default_if_none:"0"|truncatechars:2 }}</td>
-                            <td style="text-align: center;">{{ list.triple|default_if_none:"0"|truncatechars:2 }}</td>
-                            <td style="text-align: center;">{{ list.single|default_if_none:"0"|truncatechars:2 }}</td>
-                            <td >{{ list.entry_id|truncatechars:10 }}</td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-        <div>
-          <div class="datatable-bottom">
-            <div class="datatable-info">{{total_count}}개 항목 중 {{start_index}}~{{end_index}}개 항목 표시</div>
-            <nav aria-label="Page navigation" >
-                <ul class="pagination pagination-sm">
-                    {% for page in pages %}
-                        {% if page == paging %}
-                            <li class="page-item active" aria-current="page">
-                                <a data-page="{{ page }}" class="page-link">{{ page }}</a>
-                            </li>
-                        {% else %}
-                            <li class="page-item">
-                                <a data-page="{{ page }}" class="page-link" onclick="goPage('{{page}}')">{{ page }}</a>
-                            </li>
-                        {% endif %}
-                    {% endfor %}
-                </ul>
-            </nav>
-          </div>
-        </div>
-      </div>
     </div>
 </div>
+
 
 
 
 {% include 'base/commonValue.html'%} <!-- 공통변수 -->
 {% endblock %}
 {% block js %}
-    {{block.super}}      
+{{block.super}}
 {% endblock js %}
