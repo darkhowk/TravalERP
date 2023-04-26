@@ -1,6 +1,13 @@
-{% extends "base/setting_base.html" %} {% block content %}
-<div class="bd">
-  <h1 class="mt-4">{{title_nm}}</h1>
+{% extends "base/setting_base.html" %}
+{% block content %}
+
+<div class="container">
+    <h1 class="mt-5 title">
+        {{title_nm}}
+    </h1>
+</div>
+
+<div class="container mt-5">
   <form id="managerFrm">
     {% csrf_token %}
     <input type="hidden" class="form-control" id="id" name="id" value="{{selectData.manager.0.id}}"/>
@@ -28,7 +35,8 @@
         <input type="tel" class="form-control" id="manager_tel" name="manager_tel" value="{{selectData.manager.0.manager_tel}}" />
       </div>
     </div>
-    <div class="row">
+    <div class="devider"></div>
+    <div class="row mt-2">
       <label for="agent_name" class="col-sm-1 col-form-label">핸드폰</label>
       <div class="col-sm-3">
         <input type="text" class="form-control" id="manager_hp" name="manager_hp" value="{{selectData.manager.0.manager_hp}}" />
@@ -42,7 +50,8 @@
         <input type="text" class="form-control" id="use_yn" name="use_yn" value="{{selectData.manager.0.use_yn}}" />
       </div>
     </div>
-    <div class="row">
+    <div class="devider"></div>
+    <div class="row mt-2">
       <label for="use_yn" class="col-sm-1 col-form-label">이메일</label>
       <div class="col-sm-3">
         <input type="text" class="form-control" id="manager_email" name="manager_email" value="{{selectData.manager.0.manager_email}}" />
@@ -52,14 +61,15 @@
         <textarea class="form-control" id="manager_remark" name="manager_remark" > {{selectData.manager.0.manager_remark}}</textarea >
       </div>
     </div>
-    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+
+    <div class="d-grid gap-2 d-md-flex mt-5 justify-content-md-end">
       {% if pageType == 'I' %}
-          <input type="button" value="저장" onclick="saveData('managerFrm')">
+          <input class="btn btn-primary" type="button" value="저장" onclick="saveData('managerFrm')">
       {% elif pageType == 'U' %}
-          <input type="button" value="수정" onclick="updateData('managerFrm')">
-          <input type="button" value="삭제" onclick="deleteData('managerFrm')">
+          <input class="btn btn-secondary" type="button" value="수정" onclick="updateData('managerFrm')">
+          <input class="btn btn-danger" type="button" value="삭제" onclick="deleteData('managerFrm')">
       {% endif %}
-          <input type="button" value="목록" onclick="goMenuList()">
+          <input class="btn btn-outline-primary" type="button" value="목록" onclick="goMenuList()">
     </div>
   </form>
 </div>

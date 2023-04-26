@@ -1,9 +1,13 @@
 {% extends "base/setting_base.html" %}
 {% block content %}
-<div class="bd">
-  <h1 class="mt-4"> 
-    {{title_nm}}
-  </h1>
+
+<div class="container">
+    <h1 class="mt-5 title">
+        {{title_nm}}
+    </h1>
+</div>
+
+<div class="container mt-5">
   <form id="agentFrm">
     {% csrf_token %}
     <input type="hidden" id="type" name="type" value="{{type}}">
@@ -25,17 +29,22 @@
         </select>
       </div>
     </div>
-    {% if pageType == 'I' %}
-      <input type="button" value="저장" onclick="saveData('agentFrm')">
-    {% elif pageType == 'U' %}
-      <input type="button" value="수정" onclick="updateData('agentFrm')">
-      <input type="button" value="삭제" onclick="deleteData('agentFrm')">
-    {% endif %}
-      <input type="button" value="목록" onclick="goMenuList()">
+    <div class="d-grid gap-2 d-md-flex mt-5 justify-content-md-end">
+        {% if pageType == 'I' %}
+            <input class="btn btn-primary" type="button" value="저장" onclick="saveData('agentFrm')">
+        {% elif pageType == 'U' %}
+            <input class="btn btn-secondary" type="button" value="수정" onclick="updateData('agentFrm')">
+            <input class="btn btn-danger" type="button" value="삭제" onclick="deleteData('agentFrm')">
+        {% endif %}
+            <input class="btn btn-outline-primary" type="button" value="목록" onclick="goMenuList()">
+       
+    </div>
   </form>
 </div>
+
+
 {% include 'base/commonValue.html'%} <!-- 공통변수 -->
 {% endblock %}
 {% block js %}
 {{block.super}}      
-{% endblock js %}
+{% endblock js %} 

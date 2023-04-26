@@ -170,10 +170,8 @@ class Hotel(commonModel):
         yield self.rank
         yield self.country
         yield self.city
-        yield self.address
         yield self.hotel_tel
         yield self.hotel_remark
-        yield self.url
 
     class Meta:
         managed = False
@@ -213,8 +211,9 @@ class ScheduleMaster(commonModel):
     manager = models.ForeignKey(Manager, db_column='MANAGER', on_delete=models.SET_NULL, blank=True, null=True, verbose_name='담당자')
     location = models.CharField(db_column='LOCATION', max_length=100, verbose_name='지역')
     start = models.CharField(db_column='START', max_length=100, verbose_name='출발지')
-    night = models.CharField(db_column='NIGHT', max_length=100, verbose_name='박')
-    day = models.CharField(db_column='DAY', max_length=100, verbose_name='일')
+    arrival = models.CharField(db_column='ARRIVAL', max_length=100, verbose_name='도착지')
+    night = models.CharField(db_column='NIGHT', max_length=100, verbose_name='NIGHT')
+    day = models.CharField(db_column='DAY', max_length=100, verbose_name='DAY')
     bus = models.CharField(db_column='BUS', max_length=100, verbose_name='버스')
     entrance = models.CharField(db_column='ENTRANCE', max_length=1000, verbose_name='입장지')
     breakfast = models.CharField(db_column='BREAKFAST', max_length=100, verbose_name='조식')
@@ -234,16 +233,9 @@ class ScheduleMaster(commonModel):
         yield self.manager.manager_name
         yield self.location
         yield self.start
+        yield self.arrival
         yield self.night
         yield self.day
-        yield self.bus
-        yield self.entrance
-        yield self.breakfast
-        yield self.lunch
-        yield self.dinner
-        yield self.special
-        yield self.option
-        yield self.shopping
         yield self.schedule_remark
 
     class Meta:
