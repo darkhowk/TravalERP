@@ -186,14 +186,13 @@
 	}
 
 	function saveDetail(id){
-		$('input[name="master_id"]').val(id);
+		$('input[name="rooming_id"]').val(id);
 		var room = tableToJson(document.getElementById('roomingList'));
-		var tableJson = mergeJson(room);
 
 		$.ajax({
 			url: '/ajax/insertData/detail/rooming',
 			method: 'POST',
-			data: JSON.stringify(tableJson),
+			data: JSON.stringify(room),
 			headers: { "X-CSRFToken": $('[name="csrfmiddlewaretoken"]').val() }, // CSRF 토큰을 HTTP 헤더에 추가
 			dataType: 'json',
 			success: function(data) {
@@ -236,7 +235,7 @@
 			cell9.innerHTML = "<td class='col'><input style='width:100%; border: 0;' id='passport'></td>";
 			cell10.innerHTML = "<td class='col'><input style='width:100%; border: 0;' id='expiry'></td>";
 			cell11.innerHTML = "<td class='col'><input style='width:100%; border: 0;' id='mobile'></td>";
-			cell12.innerHTML = "<td class='col'><input style='width:100%; border: 0;' id='remark'></td>"; 
+			cell12.innerHTML = "<td class='col'><input style='width:100%; border: 0;' id='remark'><input type='hidden' id='rooming_id' name='rooming_id'><input type='hidden' id='use_yn' name='use_yn' value='Y'></td>"; 
 
 		}
 	}
@@ -295,6 +294,22 @@
 
 	}
 
+	function tableToJson(table) {
+    var data = []; // JSON으로 변환될 데이터를 저장할 배열
+    $(table).find('tr').each(function(index) {
+		if (index !== 0) {
+			var row = {}; // 행 데이터를 저장할 객체
+			$(this).find('input').each(function() {
+
+				var id = $(this).attr('id'); // input 요소의 id 값을 추출
+				var value = $(this).val(); // input 요소의 값(value)을 추출
+				row[id] = value; // id를 속성 이름으로, 값(value)을 속성 값으로 저장
+			});
+			data.push(row); // 행 데이터 객체를 배열에 추가
+		}
+    });
+    return data; // JSON으로 변환된 데이터 배열 반환
+  }
 </script>
 
 <style>

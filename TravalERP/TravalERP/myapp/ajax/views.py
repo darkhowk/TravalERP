@@ -338,10 +338,16 @@ def insertDetail(jsonData, model, fields):
                else:
                   data[field] = pathtoMode(field).objects.get(id=jsonData[field])
             elif model == BookingDetail:
-               if field == 'master_id':
+               if field == 'booking_id':
                   data[field] = BookingMaster.objects.get(id=jsonData[field])
                else:
                   data[field] = pathtoMode(field).objects.get(id=jsonData[field])
+            elif model == RoomingDetail:
+               if field == 'rooming_id':
+                  data[field] = RoomingMaster.objects.get(id=jsonData[field])
+               else:
+                  data[field] = pathtoMode(field).objects.get(id=jsonData[field])
+       
          else:
             # 일반 field 처리
             data[field] = jsonData[field]

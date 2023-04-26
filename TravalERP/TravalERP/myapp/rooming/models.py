@@ -31,7 +31,7 @@ class RoomingDetail(commonModel):
     kubun=models.CharField(db_column='KUBUN', max_length=5, verbose_name='구분')
     birth=models.CharField(db_column='BIRTH', max_length=8, verbose_name='생년월일')
     passport=models.CharField(db_column='PASSPORT', max_length=9, verbose_name='여권')
-    expiry=models.CharField(db_column='EXPIRY', max_length=8, verbose_name='말소일')
+    expiry=models.CharField(db_column='EXPIREY', max_length=8, verbose_name='말소일')
     mobile=models.CharField(db_column='MOBILE', max_length=13, verbose_name='연락처')
     remark=models.CharField(db_column='REMARK', max_length=2000, verbose_name='기타')
  
