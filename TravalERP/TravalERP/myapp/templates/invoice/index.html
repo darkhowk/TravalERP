@@ -7,8 +7,8 @@
 
 
 <div class="card mt-3 mx-5">
-  <div class="card-header">
-    <h5>&nbsp; {{title_nm}}</h5>
+  <div class="card-head">
+    <h5>&nbsp; {{title_nm}}</h5> 
   </div>
   <div class="card-body">
     {% csrf_token %}
@@ -98,3 +98,14 @@
 {% block js %}
     {{block.super}}      
 {% endblock js %}
+
+
+<style>
+  .card-head {
+  padding: 0.5rem 1rem;
+  margin-bottom: 0;
+  background-color: rgba(0, 0, 0, 0.03);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+</style>
