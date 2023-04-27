@@ -10,9 +10,9 @@
     {% include 'base/addREF.html'%} <!-- REF검색 -->
     <div class="row">
       <label for="totalpax" class="col-sm-2 col-form-label">TOTAL PAX</label>
-      <div class="col-sm-2">
+      <div class="col-sm-2"> 
         <div class="input-group">
-          <input id="totalpax" type="text" class="form-control" />
+          <input id="total_pax" type="text" class="form-control" readonly value="{{rooming.id.0.total_pax}}"/>
           <div class="input-group-text">pax</div>
         </div>
       </div>
@@ -20,19 +20,19 @@
       <label for="roomtype" class="col-sm-20 col-form-label">ROOM TYPE</label>
       <div class="col-sm-20">
         <div class="input-group">
-          <input id="twinroom" type="text" class="form-control" readonly />
+          <input id="twin" type="text" class="form-control" readonly />
           <div class="input-group-text">TWIN</div>
         </div>
       </div>
       <div class="col-sm-20">
         <div class="input-group">
-          <input id="tripleroom" type="text" class="form-control" readonly />
+          <input id="triple" type="text" class="form-control" readonly />
           <div class="input-group-text">TRIPLE</div>
         </div>
       </div>
       <div class="col-sm-20">
         <div class="input-group">
-          <input id="singleroom" type="text" class="form-control" readonly />
+          <input id="single" type="text" class="form-control" readonly />
           <div class="input-group-text">SINGLE</div>
         </div>
       </div>
