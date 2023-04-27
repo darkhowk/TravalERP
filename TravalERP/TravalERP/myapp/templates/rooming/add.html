@@ -42,8 +42,8 @@
           <select class="form-select" id="tc_count" aria-label="currency" onchange="getselect()">
           <option selected>T/C여부</option>
           <option value="0" >NO</option>
-          <option value="1" >NO</option>>+ 1</option>
-          <option value="2" >NO</option>>+ 2</option>
+          <option value="1" >+ 1</option>
+          <option value="2" >+ 2</option>
           </select>
           <div class="input-group-text">T/C</div>
         </div>
@@ -139,6 +139,7 @@
 		
 		<input type="hidden" id="booking_id" name="booking_id" value="{{selectData.master.0.booking_id.id}}" >
 		<input type="hidden" id="use_yn" name="use_yn" value="Y" >
+		<input type="hidden" id="id" name="id" value="{{selectData.master.0.id}}" >
 	</form>
 	<form method="POST" enctype="multipart/form-data" id="upload-form">
 		{% csrf_token %}
@@ -153,8 +154,7 @@
 		var pageType = $("#pageType").val();
 		// 수정인경우 디테일 그리기
 		if (pageType != 'I'){
-			getDetailData();
-
+			getDetailData("rooming", $("#id").val(), "roomingList");
 			getREF('booking', $("#booking_id").val());
 		}
 
@@ -173,11 +173,6 @@
 			});
 		});
 	});
-
-
-	function getDetailData(){
-		// 공통으로 디테일 가져와서 뿌리는것 만들어야함.
-	}
 
 	function saveData(){
 		// master_id --> booking_id 로 변경하여 저장

@@ -98,3 +98,29 @@ function getLikeAjax(fName, item, suF, suP){
         }
     });
 }
+
+
+function getDetailData(type, id, table){
+    // 공통으로 디테일 가져와서 뿌리는것 만들어야함.
+// 1. 해당 타입, 아이디로 검색
+var jsonData = JSON.stringify({'type':type, 'id':id});
+    $.ajax({
+        url: '/ajax/searchDetail',
+        method: 'POST',
+        data: jsonData,
+        headers: { "X-CSRFToken": $('[name="csrfmiddlewaretoken"]').val() }, // CSRF 토큰을 HTTP 헤더에 추가
+        ContentType: 'application/json',
+        dataType: 'json',
+        success: function(data) {
+            setDeatilData(data, table);
+        },
+        error: function(xhr, status, error) {
+            alert(' 실패')
+        }
+    }); 
+}
+
+function setDeatilData(data, table){
+    console.log(data)
+    console.log(table)
+}
