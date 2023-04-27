@@ -9,6 +9,7 @@ urlpatterns = [
     path("ajax/fileupload/<str:item>", views.file_upload, name="ajax 파일 업로드"), 
     path("ajax/excelUpload/<str:item>", views.excelUpload, name="ajax 엑셀 업로드"), 
     path("ajax/getREF/<str:target>", views.getREF, name="ajax REF검색"), 
+    path("ajax/searchREF", views.searchREF, name="ajax REF검색(수정,삭제용)"), 
 
     ### copy Data
     path("ajax/copyData", views.dataCopy, name="데이터 카피 ajax"),

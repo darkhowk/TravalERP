@@ -570,3 +570,18 @@ def getREF(request, target):
       }
 
    return JsonResponse(resultData, safe=False)
+
+def searchREF(request):
+   data = request.body.decode('utf-8')
+   params = json.loads(data)
+
+   type = params.get("type")
+   id = params.get("id")
+   print(params)
+   print(type)
+   print(id)
+
+   if type == 'booking':
+      resultData = list(BookingMaster.objects.filter(id=id).values());
+
+   return JsonResponse(resultData, safe=False)

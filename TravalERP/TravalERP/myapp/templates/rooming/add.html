@@ -16,13 +16,13 @@
       <label for="roomingstate" class="col-sm-1 col-form-label" style="font-weight: bolder;">루밍상태</label>
       <div class="col-sm-5 mt-2">
         <div class="form-check form-check-inline">
-          <input id="semirooming" type="radio" class="form-check-input" value="semi"/>
+          <input id="semirooming" type="radio" class="form-check-input" name="type" value="semi"/>
           <label class="form-check-label" for="semiroom">세미루밍</label>
         </div>
       </div>
       <div class="col-sm-6 mt-2">
         <div class="form-check form-check-inline">
-          <input id="finalrooming" type="radio" class="form-check-input" value="final" />
+          <input id="finalrooming" type="radio" class="form-check-input"  name="type" value="final" />
           <label class="form-check-label" for="finalroom">파이널루밍</label>
         </div>
       </div>
@@ -33,17 +33,17 @@
       <label for="total_pax" class="col-sm-2 col-form-label" style="font-weight: bolder;">TOTAL PAX</label>
       <div class="col-sm-30">
         <div class="input-group">
-          <input id="total_pax" name="total_pax" type="text" class="form-control" onchange="getselect();" />
+          <input id="total_pax" name="total_pax" type="text" class="form-control" onchange="getselect();"  value="{{selectData.master.0.total_pax}}"/>
           <div class="input-group-text">pax</div>
         </div>
       </div>
       <div class="col-sm-30">
         <div class="input-group">
-          <select class="form-select" id="tc_type" aria-label="currency" onchange="getselect()">
+          <select class="form-select" id="tc_count" aria-label="currency" onchange="getselect()">
           <option selected>T/C여부</option>
-          <option value="0">NO</option>
-          <option value="1">+ 1</option>
-          <option value="2">+ 2</option>
+          <option value="0" >NO</option>
+          <option value="1" >NO</option>>+ 1</option>
+          <option value="2" >NO</option>>+ 2</option>
           </select>
           <div class="input-group-text">T/C</div>
         </div>
@@ -51,19 +51,19 @@
 	<label for="roomtype" class="col-sm-2 col-form-label text-end" style="font-weight: bolder;">ROOM TYPE</label>
 	<div class="col-sm-30">
         <div class="input-group">
-          	<input id="twinroom" type="text" class="form-control"/>
+          	<input id="twin" name="twin" type="text" class="form-control" value="{{selectData.master.0.twin}}"/>
           	<div class="input-group-text">TWIN</div>
         </div>
 	</div>
 	<div class="col-sm-30">
         <div class="input-group">
-          	<input id="tripleroom" type="text" class="form-control"/>
+          	<input id="triple" name="triple" type="text" class="form-control" value="{{selectData.master.0.triple}}"/>
           	<div class="input-group-text">TRIPLE</div>
         </div>
 	</div>
 	<div class="col-sm-30">
         <div class="input-group">
-         	<input id="singleroom" type="text" class="form-control"/>
+         	<input id="single" name="single" type="text" class="form-control" value="{{selectData.master.0.single}}"/>
           	<div class="input-group-text">SINGLE</div>
         </div>
 	</div>
@@ -75,22 +75,26 @@
           	<select class="form-select-diy selectpicker col-2" id="tc_name" name="tc_name" data-live-search="true" data-size="3" onchange="select_tc(this)">
 				<option selected>이름</option>
 				{% for tourconductor in optionData.tourconductor %}
-				<option value="{{tourconductor.id}}" data-name="{{tourconductor.tc_name}}" data-tel="{{tourconductor.tc_tel}}" data-en="{{tourconductor.tc_name_en}}">{{tourconductor.tc_name}}</option>
+					{% if selectData.master.0.tc.id == tourconductor.id %}
+					<option value="{{tourconductor.id}}" data-name="{{tourconductor.tc_name}}" data-tel="{{tourconductor.tc_tel}}" data-en="{{tourconductor.tc_name_en}}" selected>{{tourconductor.tc_name}}</option>
+					{% else%}
+						<option value="{{tourconductor.id}}" data-name="{{tourconductor.tc_name}}" data-tel="{{tourconductor.tc_tel}}" data-en="{{tourconductor.tc_name_en}}">{{tourconductor.tc_name}}</option>
+					{% endif%}
 				{% endfor %}
           	</select>
-			<input type="hidden" id="tc" name="tc">
+			<input type="hidden" id="tc" name="tc" value="{{selectData.master.0.tc.id}}">
         </div>
         <div class="col-sm-3">
-         	<input type="text" class="form-control" id="tc_name_en" name="tc_name_en"  placeholder="영문명" disabled />
+         	<input type="text" class="form-control" id="tc_name_en" name="tc_name_en"  placeholder="영문명" disabled value="{{selectData.master.0.tc.tc_name_en}}" />
         </div>
         <div class="col-sm-3">
-          	<input type="text" class="form-control" id="tc_tel" name="tc_tel"  placeholder="연락처" disabled />
+          	<input type="text" class="form-control" id="tc_tel" name="tc_tel"  placeholder="연락처" disabled value="{{selectData.master.0.tc.tc_tel}}" />
         </div>
 	</div>
 	<div class="row mt-5">
 		<label for="remark" class="col-sm-2 col-form-label">REMARK</label>
 		<div class="col-sm-10">
-			<textarea id="remark" class="form-control" style="height: 100px"></textarea>
+			<textarea id="remark" name="remark" class="form-control" style="height: 100px">{{selectData.master.0.remark}}</textarea>
 		</div>
 	</div>
 	<div class="devider"></div> 
@@ -133,7 +137,7 @@
 				<input type="button" value="목록" onclick="goMenuList()">
 			</div>
 		
-		<input type="hidden" id="booking_id" name="booking_id" >
+		<input type="hidden" id="booking_id" name="booking_id" value="{{selectData.master.0.booking_id.id}}" >
 		<input type="hidden" id="use_yn" name="use_yn" value="Y" >
 	</form>
 	<form method="POST" enctype="multipart/form-data" id="upload-form">
@@ -146,6 +150,14 @@
 </div>
  <script>
 	$(document).ready(function() {
+		var pageType = $("#pageType").val();
+		// 수정인경우 디테일 그리기
+		if (pageType != 'I'){
+			getDetailData();
+
+			getREF('booking', $("#booking_id").val());
+		}
+
 		$('#upload-form').on('submit', function(event) {
 			event.preventDefault();
 			var formData = new FormData(this);
@@ -161,6 +173,11 @@
 			});
 		});
 	});
+
+
+	function getDetailData(){
+		// 공통으로 디테일 가져와서 뿌리는것 만들어야함.
+	}
 
 	function saveData(){
 		// master_id --> booking_id 로 변경하여 저장
@@ -236,7 +253,6 @@
 			cell10.innerHTML = "<td class='col'><input style='width:100%; border: 0;' id='expiry'></td>";
 			cell11.innerHTML = "<td class='col'><input style='width:100%; border: 0;' id='mobile'></td>";
 			cell12.innerHTML = "<td class='col'><input style='width:100%; border: 0;' id='remark'><input type='hidden' id='rooming_id' name='rooming_id'><input type='hidden' id='use_yn' name='use_yn' value='Y'></td>"; 
-
 		}
 	}
 
