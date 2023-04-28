@@ -585,3 +585,21 @@ def searchREF(request):
       resultData = list(BookingMaster.objects.filter(id=id).values());
 
    return JsonResponse(resultData, safe=False)
+
+
+def searchDetail(request):   
+   data = request.body.decode('utf-8')
+   params = json.loads(data)
+
+   type = params.get("type")
+   id = params.get("id")
+   print(params)
+   print(type)
+   print(id)
+
+   if type == 'booking':
+      resultData = list(BookingDetail.objects.filter(booking_id=id, use_yn='Y').values());
+   if type == 'rooming':
+      resultData = list(RoomingDetail.objects.filter(rooming_id=id, use_yn='Y').values());
+
+   return JsonResponse(resultData, safe=False)
