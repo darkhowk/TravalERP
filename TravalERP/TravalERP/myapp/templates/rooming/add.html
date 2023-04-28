@@ -16,13 +16,13 @@
       <label for="roomingstate" class="col-sm-1 col-form-label" style="font-weight: bolder;">루밍상태</label>
       <div class="col-sm-5 mt-2">
         <div class="form-check form-check-inline">
-          <input id="semirooming" type="radio" class="form-check-input" name="type" value="semi"/>
+          <input id="semirooming" type="radio" class="form-check-input" name="type" value="semi" {% if selectData.master.0.type == 'semi' %}checked{% endif %}/>
           <label class="form-check-label" for="semiroom">세미루밍</label>
         </div>
       </div>
       <div class="col-sm-6 mt-2">
         <div class="form-check form-check-inline">
-          <input id="finalrooming" type="radio" class="form-check-input"  name="type" value="final" />
+          <input id="finalrooming" type="radio" class="form-check-input"  name="type" value="final" {% if selectData.master.0.type == 'final' %}checked{% endif %}/>
           <label class="form-check-label" for="finalroom">파이널루밍</label>
         </div>
       </div>
