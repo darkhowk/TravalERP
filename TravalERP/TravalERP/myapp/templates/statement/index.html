@@ -44,32 +44,29 @@
                         class="datatable-table table table-responsive table-border table-striped table-hover mt-3">
                         <thead>
                             <tr class="table-title">
-                                <th scope="col" style="width: 15%;">REF</th>
-                                <th scope="col" style="width: 10%;">출발일</th>
+                                <th scope="col" style="width: 15%; text-align: center;">REF</th>
+                                <th scope="col" style="width: 10%; text-align: center;">출발일</th>
                                 <th scope="col" style="width: 30%;">상품명</th>
-                                <th scope="col" style="width: 10%;">인솔자</th>
+                                <th scope="col" style="width: 10%; text-align: center;">인솔자</th>
                                 <th scope="col" style="width: 5%; text-align: center;">총인원</th>
                                 <th scope="col" style="width: 5%; text-align: center;">트윈</th>
                                 <th scope="col" style="width: 5%; text-align: center;">트리플</th>
                                 <th scope="col" style="width: 5%; text-align: center;">싱글</th>
-                                <th scope="col" style="width: 10%;">작성자</th>
+                                <th scope="col" style="width: 10%; text-align: center;">작성자</th>
                             </tr>
                         </thead>
                         <tbody>
                             {% for list in content_list %}
                             <tr id="{{list.id}}" data-index="{{ forloop.counter0 }}">
-                                <td>{{ list.invoice_id.itinerary_id.rooming_id.booking_id.ref|truncatechars:13 }}</td>
-                                <td>{{ list.invoice_id.itinerary_id.rooming_id.booking_id.kor_air_date|truncatechars:10}}</td>
+                                <td style="text-align: center;">{{ list.invoice_id.itinerary_id.rooming_id.booking_id.ref|truncatechars:13 }}</td>
+                                <td style="text-align: center;">{{ list.invoice_id.itinerary_id.rooming_id.booking_id.kor_air_date|truncatechars:10}}</td>
                                 <td>{{ list.invoice_id.itinerary_id.rooming_id.booking_id.product_name|truncatechars:30}}</td>
-                                <td>{{ list.tc.tc_name|truncatechars:5 }}</td>
-                                <td style="text-align: center;">{{ list.total_pax|default_if_none:"0"|truncatechars:2 }}
-                                </td>
+                                <td style="text-align: center;">{{ list.tc.tc_name|truncatechars:5 }}</td>
+                                <td style="text-align: center;">{{ list.total_pax|default_if_none:"0"|truncatechars:2 }}</td>
                                 <td style="text-align: center;">{{ list.twin|default_if_none:"0"|truncatechars:2 }}</td>
-                                <td style="text-align: center;">{{ list.triple|default_if_none:"0"|truncatechars:2 }}
-                                </td>
-                                <td style="text-align: center;">{{ list.single|default_if_none:"0"|truncatechars:2 }}
-                                </td>
-                                <td>{{ list.entry_id|truncatechars:10 }}</td>
+                                <td style="text-align: center;">{{ list.triple|default_if_none:"0"|truncatechars:2 }}</td>
+                                <td style="text-align: center;">{{ list.single|default_if_none:"0"|truncatechars:2 }}</td>
+                                <td style="text-align: center;">{{ list.entry_id|truncatechars:10 }}</td>
                             </tr>
                             {% endfor %}
                         </tbody>

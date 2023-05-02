@@ -13,6 +13,7 @@ class RoomingMaster(commonModel):
     triple=models.CharField(db_column='TRIPLE', max_length=10, verbose_name='TRIPLE')
     single=models.CharField(db_column='SINGLE', max_length=10, verbose_name='SINGLE')
     tc=models.ForeignKey(Tourconductor, db_column='tc', on_delete=models.SET_NULL, blank=True, null=True, verbose_name='인솔자')
+    tc_count=models.CharField(db_column='TC_COUNT', max_length=100, verbose_name='TC인원')
     remark=models.CharField(db_column='REMARK', max_length=2000, verbose_name='REMARK')
 
     class Meta:
