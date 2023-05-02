@@ -90,7 +90,8 @@ function saveDetail(id){
 		dataType: 'json',
 		success: function(data) {
             $("#type").attr("disabled", false);
-			alert('입력 완료 목록 화면으로 이동합니다.')
+			alert('입력 완료 목록 화면으로 이동합니다.');
+            goMenuList();
 		},
 		error: function(xhr, status, error) {
             $("#type").attr("disabled", false);
