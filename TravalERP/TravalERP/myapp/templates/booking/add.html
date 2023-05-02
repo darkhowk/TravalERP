@@ -8,7 +8,7 @@
 
 <div class="container mt-5">
 	<form id="bookingFrm">
-	{% csrf_token %}
+		{% csrf_token %}
 		<div class="input-group mb-3">
 			<span class="input-group-text col-2 text-end" >ref</span>
 			<input type="text" class="form-control col-4 me-3" id="ref" name="ref" value="{{selectData.master.0.ref}}">
@@ -213,10 +213,10 @@
 	<div class="d-grid gap-2 d-md-flex justify-content-md-end">
 
 	{% if pageType == 'I' %}
-		<input type="button" value="저장" onclick="saveData()">
+		<input type="button" value="저장" onclick="saveData('bookingFrm')">
 	{% elif pageType == 'U' %}
-		<input type="button" value="수정" onclick="updateData()">
-		<input type="button" value="삭제" onclick="deleteData()">
+		<input type="button" value="수정" onclick="updateData('bookingFrm')">
+		<input type="button" value="삭제" onclick="deleteData('bookingFrm')">
 	{% endif %}
 		<input type="button" value="목록" onclick="goMenuList()">
 	</div>
@@ -275,131 +275,6 @@
 
 <script>
 	
-function saveData(){
-
-	var jsonData = $("#bookingFrm").serializeArray()
-	$.ajax({
-		url: '/ajax/insertData/master/booking', // 앞에 자동으로 setting/agent 붙음
-		method: 'POST',
-		data: jsonData,
-		dataType: 'json',
-		success: function(data) {
-			id = data.id
-			saveDetail(id);
-		},
-		error: function(xhr, status, error) {
-			alert('등록 실패')
-		}
-	});
-}
-
-function saveDetail(id){
-	$('input[name="booking_id"]').val(id);
-	var sch = tableToJson(document.getElementById('schdule_table'));
-	var hot = tableToJson(document.getElementById('hotel_table'));
-
-	var tableJson = mergeJson(sch, hot);
-
-	$.ajax({
-		url: '/ajax/insertData/detail/booking', // 앞에 자동으로 setting/agent 붙음
-		method: 'POST',
-		data: JSON.stringify(tableJson),
-		headers: { "X-CSRFToken": $('[name="csrfmiddlewaretoken"]').val() }, // CSRF 토큰을 HTTP 헤더에 추가
-		dataType: 'json',
-		success: function(data) {
-			alert('입력 완료 목록 화면으로 이동합니다.')
-		},
-		error: function(xhr, status, error) {
-			alert('등록 실패')
-		}
-	});
-}
-
-
-function updateData(){
-    var jsonData = $("#bookingFrm").serializeArray()
-    $.ajax({
-        url: '/ajax/updateData/master/booking', // 앞에 자동으로 setting/agent 붙음
-        method: 'POST',
-        data: jsonData,
-        dataType: 'json',
-        success: function(data) {
-            id = data.id
-            updateDetail(id);
-        },
-        error: function(xhr, status, error) {
-            alert('등록 실패')
-        }
-    });
-}
-
-function updateDetail(id){
-    $('input[name="booking_id"]').val(id);
-
-	var sch = tableToJson(document.getElementById('schdule_table'));
-	var hot = tableToJson(document.getElementById('hotel_table'));
-
-	var tableJson = mergeJson(sch, hot);
-
-    $.ajax({
-        url: '/ajax/updateData/detail/booking', // 앞에 자동으로 setting/agent 붙음
-        method: 'POST',
-        data: JSON.stringify(tableJson),
-        headers: { "X-CSRFToken": $('[name="csrfmiddlewaretoken"]').val() }, // CSRF 토큰을 HTTP 헤더에 추가
-        dataType: 'json',
-        success: function(data) {
-            alert('입력 완료 목록 화면으로 이동합니다.')
-            goMenuList();
-        },
-        error: function(xhr, status, error) {
-            alert('등록 실패')
-        }
-    });
-}
-
-function deleteData(){
-    var jsonData = $("#bookingFrm").serializeArray()
-    $.ajax({
-        url: '/ajax/deleteData/master/booking', // 앞에 자동으로 setting/agent 붙음
-        method: 'POST',
-        data: jsonData,
-        dataType: 'json',
-        success: function(data) {
-            id = data.id
-            deleteDetail( id);
-        },
-        error: function(xhr, status, error) {
-            alert('삭제 실패')
-        }
-    });
-}
-
-function deleteDetail(id){
-	$('input[name="booking_id"]').val(id);
-
-	var sch = tableToJson(document.getElementById('schdule_table'));
-	var hot = tableToJson(document.getElementById('hotel_table'));
-
-	var tableJson = mergeJson(sch, hot);
-
-    $.ajax({
-        url: '/ajax/deleteData/detail/booking', // 앞에 자동으로 setting/agent 붙음
-        method: 'POST',
-        data: JSON.stringify(tableJson),
-        headers: { "X-CSRFToken": $('[name="csrfmiddlewaretoken"]').val() }, // CSRF 토큰을 HTTP 헤더에 추가
-        dataType: 'json',
-        success: function(data) {
-            alert('삭제 완료 목록 화면으로 이동합니다.')
-            goMenuList();
-        },
-        error: function(xhr, status, error) {
-            alert('삭제 실패')
-        }
-    });
-}
-
-
-
 
 
 function searchSchedule(){

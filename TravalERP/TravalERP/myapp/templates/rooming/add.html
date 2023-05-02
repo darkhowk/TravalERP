@@ -129,10 +129,10 @@
 		<div class="d-grid gap-2 d-md-flex justify-content-md-end">
 
 			{% if pageType == 'I' %}
-				<input type="button" value="저장" onclick="saveData()">
+				<input type="button" value="저장" onclick="saveData('roomingFrm')">
 			{% elif pageType == 'U' %}
-				<input type="button" value="수정" onclick="updateData()">
-				<input type="button" value="삭제" onclick="deleteData()">
+				<input type="button" value="수정" onclick="updateData('roomingFrm')">
+				<input type="button" value="삭제" onclick="deleteData('roomingFrm')">
 			{% endif %}
 				<input type="button" value="목록" onclick="goMenuList()">
 			</div>
@@ -173,48 +173,6 @@
 			});
 		});
 	});
-
-	function saveData(){
-		// master_id --> booking_id 로 변경하여 저장
-		$("#booking_id").val($("#master_id").val());
-		$("#master_id").attr("disabled", true)
-
-		$("#tc_name").attr("disabled", true)
-		
-		var jsonData = $("#roomingFrm").serializeArray()
-		$.ajax({
-			url: '/ajax/insertData/master/rooming',
-			method: 'POST',
-			data: jsonData,
-			dataType: 'json',
-			success: function(data) {
-				id = data.id
-				saveDetail(id);
-			},
-			error: function(xhr, status, error) {
-				alert('등록 실패')
-			}
-		});
-	}
-
-	function saveDetail(id){
-		$('input[name="rooming_id"]').val(id);
-		var room = tableToJson(document.getElementById('roomingList'));
-
-		$.ajax({
-			url: '/ajax/insertData/detail/rooming',
-			method: 'POST',
-			data: JSON.stringify(room),
-			headers: { "X-CSRFToken": $('[name="csrfmiddlewaretoken"]').val() }, // CSRF 토큰을 HTTP 헤더에 추가
-			dataType: 'json',
-			success: function(data) {
-				alert('입력 완료 목록 화면으로 이동합니다.')
-			},
-			error: function(xhr, status, error) {
-				alert('등록 실패')
-			}
-		});
-	}
 
  	function addRow() {
 		var tbody = document.getElementById("tbody");

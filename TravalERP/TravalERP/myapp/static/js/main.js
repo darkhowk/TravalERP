@@ -41,12 +41,108 @@ function goMenuList(){
 }
 
 function saveData(fName){
-    var target =$('#target').val();
-    var jsonData = $("#"+fName).serializeArray()
+
+    var target = $("#target").val();
+    if (target == 'rooming'){
+        // master_id --> booking_id 로 변경하여 저장
+		$("#booking_id").val($("#master_id").val());
+		$("#master_id").attr("disabled", true)
+		$("#tc_name").attr("disabled", true)
+    }
+    
+    var jsonData = $("#"+fName).serializeArray();
+
+	$.ajax({
+		url: '/ajax/insertData/master/'+target, // 앞에 자동으로 setting/agent 붙음
+		method: 'POST',
+		data: jsonData,
+		dataType: 'json',
+		success: function(data) {
+			id = data.id
+			saveDetail(id);
+		},
+		error: function(xhr, status, error) {
+			alert('등록 실패')
+		}
+	});
+}
+
+function saveDetail(id){
+    var target = $("#target").val();
+    var tableJson;
+    if (target == 'booking'){
+        $('input[name="booking_id"]').val(id);
+        var sch = tableToJson(document.getElementById('schdule_table'));
+        var hot = tableToJson(document.getElementById('hotel_table'));
+        tableJson = mergeJson(sch, hot);
+    }
+    else if(target == 'rooming'){
+        $('input[name="rooming_id"]').val(id);
+		var room = tableToJson(document.getElementById('roomingList'));
+        tableJson = room;
+    }
+
+	$.ajax({
+		url: '/ajax/insertData/detail/'+target, // 앞에 자동으로 setting/agent 붙음
+		method: 'POST',
+		data: JSON.stringify(tableJson),
+		headers: { "X-CSRFToken": $('[name="csrfmiddlewaretoken"]').val() }, // CSRF 토큰을 HTTP 헤더에 추가
+		dataType: 'json',
+		success: function(data) {
+			alert('입력 완료 목록 화면으로 이동합니다.')
+		},
+		error: function(xhr, status, error) {
+			alert('등록 실패')
+		}
+	});
+}
+
+function updateData(fName){
+    var target = $("#target").val();
+    if (target == 'rooming'){
+        // master_id --> booking_id 로 변경하여 저장
+		$("#booking_id").val($("#master_id").val());
+		$("#master_id").attr("disabled", true)
+		$("#tc_name").attr("disabled", true)
+    }
+    
+    var jsonData = $("#"+fName).serializeArray();
+   
     $.ajax({
-        url: '/ajax/insertData/'+target, // 앞에 자동으로 setting/agent 붙음
+        url: '/ajax/updateData/master/'+target, // 앞에 자동으로 setting/agent 붙음
         method: 'POST',
         data: jsonData,
+        dataType: 'json',
+        success: function(data) {
+            id = data.id
+            updateDetail(id);
+        },
+        error: function(xhr, status, error) {
+            alert('등록 실패')
+        }
+    });
+}
+
+function updateDetail(id){
+    var tableJson;
+    var target = $("#target").val();
+    if (target == 'booking'){
+        $('input[name="booking_id"]').val(id);
+        var sch = tableToJson(document.getElementById('schdule_table'));
+        var hot = tableToJson(document.getElementById('hotel_table'));
+        tableJson = mergeJson(sch, hot);
+    }
+    else if(target == 'rooming'){
+        $('input[name="rooming_id"]').val(id);
+		var room = tableToJson(document.getElementById('roomingList'));
+        tableJson = room;
+    }
+
+    $.ajax({
+        url: '/ajax/updateData/detail/'+target, // 앞에 자동으로 setting/agent 붙음
+        method: 'POST',
+        data: JSON.stringify(tableJson),
+        headers: { "X-CSRFToken": $('[name="csrfmiddlewaretoken"]').val() }, // CSRF 토큰을 HTTP 헤더에 추가
         dataType: 'json',
         success: function(data) {
             alert('입력 완료 목록 화면으로 이동합니다.')
@@ -58,38 +154,62 @@ function saveData(fName){
     });
 }
 
-function updateData(fName){
-    var target =$('#target').val();
-    var jsonData = $("#"+fName).serializeArray()
+
+function deleteData(fName){
+    var target = $("#target").val();
+    if (target == 'rooming'){
+        // master_id --> booking_id 로 변경하여 저장
+		$("#booking_id").val($("#master_id").val());
+		$("#master_id").attr("disabled", true)
+		$("#tc_name").attr("disabled", true)
+    }
+    
+    var jsonData = $("#"+fName).serializeArray();
+   
     $.ajax({
-        url: '/ajax/updateData/'+target, // 앞에 자동으로 setting/agent 붙음
+        url: '/ajax/deleteData/master/'+target, // 앞에 자동으로 setting/agent 붙음
         method: 'POST',
         data: jsonData,
         dataType: 'json',
         success: function(data) {
-            alert('수정성공 메뉴등록 화면으로 이동합니다.')
-            goMenuList();
+            id = data.id
+            deleteDetail( id);
         },
         error: function(xhr, status, error) {
-            alert('여행사 수정 실패')
+            alert('삭제 실패')
         }
     });
 }
 
-function deleteData(fName){
-    var target =$('#target').val();
-    var jsonData = $("#"+fName).serializeArray()
+function deleteDetail(id){
+    var tableJson ;
+    var target = $("#target").val();
+    if (target == 'booking'){
+	$('input[name="booking_id"]').val(id);
+        var sch = tableToJson(document.getElementById('schdule_table'));
+        var hot = tableToJson(document.getElementById('hotel_table'));
+    	tableJson = mergeJson(sch, hot);
+    }
+    else if(target == 'rooming'){
+        $('input[name="rooming_id"]').val(id);
+		var room = tableToJson(document.getElementById('roomingList'));
+        tableJson = room;
+    }
+
     $.ajax({
-        url: '/ajax/deletaData/'+target, // 앞에 자동으로 setting/agent 붙음
+        url: '/ajax/deleteData/detail/'+target, // 앞에 자동으로 setting/agent 붙음
         method: 'POST',
-        data: jsonData,
+        data: JSON.stringify(tableJson),
+        headers: { "X-CSRFToken": $('[name="csrfmiddlewaretoken"]').val() }, // CSRF 토큰을 HTTP 헤더에 추가
         dataType: 'json',
         success: function(data) {
-            alert('삭제성공 메뉴등록 화면으로 이동합니다.')
+            alert('삭제 완료 목록 화면으로 이동합니다.')
             goMenuList();
         },
         error: function(xhr, status, error) {
-            alert('메뉴 삭제 실패')
+            alert('삭제 실패')
         }
     });
 }
+
+
