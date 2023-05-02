@@ -132,8 +132,9 @@ function setDetailData(data, table) {
     });
   
     // 데이터 개수만큼 row 생성
+var tbody = document.getElementById("tbody");
     for (var i = 0; i < data.length; i++) {
-      var row = $("<tr></tr>");
+        var row = tbody.insertRow(i)
   
       // headers 배열의 순서대로 데이터를 td에 추가
       for (var j = 0; j < headers.length; j++) {
@@ -144,11 +145,20 @@ function setDetailData(data, table) {
         if (value == null || value == undefined) {
             value = '';
         }
+        var cell = row.insertCell(j);
 
-        var td = $("<td>" + value + "</td>");
-        row.append(td);
-      }
-  
-      tbody.append(row);
+        if (j == 0){
+            cell.innerHTML = "<td class='col'><input style='width:100%;' type='checkbox' id='delete'></td>";
+        }
+        else if (j == 1){
+            cell.innerHTML = "<td class='col'>"+i+"</td>";
+        }
+        else{
+            cell.innerHTML = "<td class='col'><input style='width:100%;' type='text' id='"+header+"' name='"+header+"' value='"+value+"'></td>";
+        }
     }
-  }
+  
+    tbody.append(row);
+
+    }
+}
