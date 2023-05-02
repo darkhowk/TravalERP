@@ -6,7 +6,7 @@ from ..booking.models import BookingMaster
 # Create your models here.
 class RoomingMaster(commonModel):
     booking_id=models.ForeignKey(BookingMaster, db_column='BOOKING_ID', on_delete=models.SET_NULL, blank=True, null=True, verbose_name='수배 id')
-    type=models.CharField(db_column='TYPE', max_length=2, verbose_name='TYPE')
+    rooming_type=models.CharField(db_column='ROOMING_TYPE', max_length=2, verbose_name='루밍상태')
     file_id=models.CharField(db_column='FILE_ID', max_length=20, verbose_name='매칭')
     total_pax=models.CharField(db_column='TOTAL_PAX', max_length=100, verbose_name='PAX')
     twin=models.CharField(db_column='TWIN', max_length=10, verbose_name='TWIN')

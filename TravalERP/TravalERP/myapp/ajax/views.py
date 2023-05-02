@@ -295,23 +295,26 @@ def insert(request, model, fields):
     return JsonResponse({'result': 'success', 'id': obj.id})
 
 def modify(request, model, pk_name='id', **kwargs):
-    now = datetime.datetime.now()
-    pk_value = request.POST.get(pk_name)
-    obj = model.objects.get(**{pk_name: pk_value}, **kwargs)
-    for field in obj._meta.fields:
-        if field.name in request.POST:
-            # Check if field is a foreign key
-            if isinstance(field, models.ForeignKey):
-               fk_id = request.POST.get(field.name)
-               # Get the related model instance using the foreign key id
-               related_model = field.related_model.objects.get(id=fk_id)
-               setattr(obj, field.name, related_model)
-            else:
-               setattr(obj, field.name, request.POST.get(field.name))
-    obj.updat_date = now.strftime('%Y-%m-%d %H:%M:%S')
-    obj.save()
+   now = datetime.datetime.now()
+   pk_value = request.POST.get(pk_name)
+   print(pk_name)
+   print(kwargs)
 
-    return JsonResponse({'result': 'success', 'id': obj.id})
+   obj = model.objects.get(**{pk_name: pk_value}, **kwargs)
+   for field in obj._meta.fields:
+      if field.name in request.POST:
+         # Check if field is a foreign key
+         if isinstance(field, models.ForeignKey):
+            fk_id = request.POST.get(field.name)
+            # Get the related model instance using the foreign key id
+            related_model = field.related_model.objects.get(id=fk_id)
+            setattr(obj, field.name, related_model)
+         else:
+            setattr(obj, field.name, request.POST.get(field.name))
+   obj.updat_date = now.strftime('%Y-%m-%d %H:%M:%S')
+   obj.save()
+
+   return JsonResponse({'result': 'success', 'id': obj.id})
 
 def delete(request, model, pk_name='id', **kwargs):
     now = datetime.datetime.now()

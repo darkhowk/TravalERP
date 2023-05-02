@@ -148,7 +148,7 @@ var tbody = document.getElementById("tbody");
         var cell = row.insertCell(j);
 
         if (j == 0){
-            cell.innerHTML = "<td class='col'><input style='width:100%;' type='checkbox' id='delete'></td>";
+            cell.innerHTML = "<td class='col'><input style='width:100%;' type='checkbox' id='delete'><input type='hidden' id='id' name='id' value='"+data[i]['id']+"' ></td>";
         }
         else if (j == 1){
             cell.innerHTML = "<td class='col'>"+i+"</td>";
