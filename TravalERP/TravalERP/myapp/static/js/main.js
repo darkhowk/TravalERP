@@ -41,7 +41,7 @@ function goMenuList(){
 }
 
 function saveData(fName){
-
+    $("#type").attr("disabled", true);
     var target = $("#target").val();
     if (target == 'rooming'){
         // master_id --> booking_id 로 변경하여 저장
@@ -89,15 +89,18 @@ function saveDetail(id){
 		headers: { "X-CSRFToken": $('[name="csrfmiddlewaretoken"]').val() }, // CSRF 토큰을 HTTP 헤더에 추가
 		dataType: 'json',
 		success: function(data) {
+            $("#type").attr("disabled", false);
 			alert('입력 완료 목록 화면으로 이동합니다.')
 		},
 		error: function(xhr, status, error) {
+            $("#type").attr("disabled", false);
 			alert('등록 실패')
 		}
 	});
 }
 
 function updateData(fName){
+    $("#type").attr("disabled", true);
     var target = $("#target").val();
     if (target == 'rooming'){
         // master_id --> booking_id 로 변경하여 저장
@@ -145,10 +148,12 @@ function updateDetail(id){
         headers: { "X-CSRFToken": $('[name="csrfmiddlewaretoken"]').val() }, // CSRF 토큰을 HTTP 헤더에 추가
         dataType: 'json',
         success: function(data) {
+            $("#type").attr("disabled", false);
             alert('입력 완료 목록 화면으로 이동합니다.')
             goMenuList();
         },
         error: function(xhr, status, error) {
+            $("#type").attr("disabled", false);
             alert('등록 실패')
         }
     });
@@ -156,6 +161,7 @@ function updateDetail(id){
 
 
 function deleteData(fName){
+    $("#type").attr("disabled", true);
     var target = $("#target").val();
     if (target == 'rooming'){
         // master_id --> booking_id 로 변경하여 저장
@@ -203,10 +209,12 @@ function deleteDetail(id){
         headers: { "X-CSRFToken": $('[name="csrfmiddlewaretoken"]').val() }, // CSRF 토큰을 HTTP 헤더에 추가
         dataType: 'json',
         success: function(data) {
+            $("#type").attr("disabled", false);
             alert('삭제 완료 목록 화면으로 이동합니다.')
             goMenuList();
         },
         error: function(xhr, status, error) {
+            $("#type").attr("disabled", false);
             alert('삭제 실패')
         }
     });

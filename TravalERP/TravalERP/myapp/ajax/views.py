@@ -297,8 +297,6 @@ def insert(request, model, fields):
 def modify(request, model, pk_name='id', **kwargs):
    now = datetime.datetime.now()
    pk_value = request.POST.get(pk_name)
-   print(pk_name)
-   print(kwargs)
 
    obj = model.objects.get(**{pk_name: pk_value}, **kwargs)
    for field in obj._meta.fields:

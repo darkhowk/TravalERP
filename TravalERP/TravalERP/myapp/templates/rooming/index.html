@@ -61,7 +61,7 @@
                 <tbody>
                     {% for list in content_list %}
                         <tr class="table-white" id="{{list.id}}" data-index="{{ forloop.counter0 }}">
-                            <td style="text-align: center;">{{ list.type|truncatechars:6 }}</td>
+                            <td style="text-align: center;">{{ list.rooming_type|truncatechars:6 }}</td>
                             <td style="text-align: center;">{{ list.booking_id.ref|truncatechars:13 }}</td>
                             <td style="text-align: center;">{{ list.booking_id.kor_air_date|truncatechars:10 }}</td>
 						    <td>{{ list.booking_id.product_name|truncatechars:30 }}</td>

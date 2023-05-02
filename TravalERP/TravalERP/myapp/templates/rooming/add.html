@@ -6,149 +6,146 @@
 
 <div class="container mt-5">
 	<form id="roomingFrm">
-	{% csrf_token %}
-    <div class="d-inline mb-3">
-      <label class="form-label" for="fileupload"><h4>파일업로드</h4></label>
-      <input type="file" class="form-control" id="fileupload" />
+		{% csrf_token %}
+		<div class="d-inline mb-3">
+			<label class="form-label" for="fileupload"><h4>파일업로드</h4></label>
+			<input type="file" class="form-control" id="fileupload" />
+		</div>
+		<div class="devider"></div>
+		<div class="row mt-2">
+			<label for="roomingstate" class="col-sm-1 col-form-label" style="font-weight: bolder;">루밍상태</label>
+			<div class="col-sm-5 mt-2">
+				<div class="form-check form-check-inline">
+					<input id="semirooming" type="radio" class="form-check-input" name="rooming_type" value="semi" {% if selectData.master.0.rooming_type == 'semi' %}checked{% endif %}/>
+					<label class="form-check-label" for="semiroom">세미루밍</label>
+			</div>
+		</div>
+		<div class="col-sm-6 mt-2">
+			<div class="form-check form-check-inline">
+				<input id="finalrooming" type="radio" class="form-check-input"  name="rooming_type" value="final" {% if selectData.master.0.rooming_type == 'final' %}checked{% endif %}/>
+				<label class="form-check-label" for="finalroom">파이널루밍</label>
+			</div>
+		</div>
     </div>
-    <div class="devider"></div>
-    <div class="row mt-2">
-      <label for="roomingstate" class="col-sm-1 col-form-label" style="font-weight: bolder;">루밍상태</label>
-      <div class="col-sm-5 mt-2">
-        <div class="form-check form-check-inline">
-          <input id="semirooming" type="radio" class="form-check-input" name="type" value="semi" {% if selectData.master.0.type == 'semi' %}checked{% endif %}/>
-          <label class="form-check-label" for="semiroom">세미루밍</label>
-        </div>
-      </div>
-      <div class="col-sm-6 mt-2">
-        <div class="form-check form-check-inline">
-          <input id="finalrooming" type="radio" class="form-check-input"  name="type" value="final" {% if selectData.master.0.type == 'final' %}checked{% endif %}/>
-          <label class="form-check-label" for="finalroom">파이널루밍</label>
-        </div>
-      </div>
-    </div>
+
     {% include 'base/addREF.html'%} <!-- REF검색 -->
+
     <div class="row">
-      <p></p>
-      <label for="total_pax" class="col-sm-2 col-form-label" style="font-weight: bolder;">TOTAL PAX</label>
-      <div class="col-sm-30">
-        <div class="input-group">
-          <input id="total_pax" name="total_pax" type="text" class="form-control" onchange="getselect();"  value="{{selectData.master.0.total_pax}}"/>
-          <div class="input-group-text">pax</div>
-        </div>
-      </div>
-      <div class="col-sm-30">
-        <div class="input-group">
-          <select class="form-select" id="tc_count" aria-label="currency" onchange="getselect()">
-          <option selected>T/C여부</option>
-          <option value="0" >NO</option>
-          <option value="1" >+ 1</option>
-          <option value="2" >+ 2</option>
-          </select>
-          <div class="input-group-text">T/C</div>
-        </div>
-      </div>
-	<label for="roomtype" class="col-sm-2 col-form-label text-end" style="font-weight: bolder;">ROOM TYPE</label>
-	<div class="col-sm-30">
-        <div class="input-group">
-          	<input id="twin" name="twin" type="text" class="form-control" value="{{selectData.master.0.twin}}"/>
-          	<div class="input-group-text">TWIN</div>
-        </div>
-	</div>
-	<div class="col-sm-30">
-        <div class="input-group">
-          	<input id="triple" name="triple" type="text" class="form-control" value="{{selectData.master.0.triple}}"/>
-          	<div class="input-group-text">TRIPLE</div>
-        </div>
-	</div>
-	<div class="col-sm-30">
-        <div class="input-group">
-         	<input id="single" name="single" type="text" class="form-control" value="{{selectData.master.0.single}}"/>
-          	<div class="input-group-text">SINGLE</div>
-        </div>
-	</div>
-	<div class="row mt-5">
-        <div class="col-sm-2">
-         	 <label for="tourconductor" class="col-form-label" style="font-weight: bolder;">TOUR LEADER</label>
-        </div>
-        <div class="col-sm-2">
-          	<select class="form-select-diy selectpicker col-2" id="tc_name" name="tc_name" data-live-search="true" data-size="3" onchange="select_tc(this)">
-				<option selected>이름</option>
-				{% for tourconductor in optionData.tourconductor %}
-					{% if selectData.master.0.tc.id == tourconductor.id %}
-					<option value="{{tourconductor.id}}" data-name="{{tourconductor.tc_name}}" data-tel="{{tourconductor.tc_tel}}" data-en="{{tourconductor.tc_name_en}}" selected>{{tourconductor.tc_name}}</option>
-					{% else%}
-						<option value="{{tourconductor.id}}" data-name="{{tourconductor.tc_name}}" data-tel="{{tourconductor.tc_tel}}" data-en="{{tourconductor.tc_name_en}}">{{tourconductor.tc_name}}</option>
-					{% endif%}
-				{% endfor %}
-          	</select>
-			<input type="hidden" id="tc" name="tc" value="{{selectData.master.0.tc.id}}">
-        </div>
-        <div class="col-sm-3">
-         	<input type="text" class="form-control" id="tc_name_en" name="tc_name_en"  placeholder="영문명" disabled value="{{selectData.master.0.tc.tc_name_en}}" />
-        </div>
-        <div class="col-sm-3">
-          	<input type="text" class="form-control" id="tc_tel" name="tc_tel"  placeholder="연락처" disabled value="{{selectData.master.0.tc.tc_tel}}" />
-        </div>
-	</div>
-	<div class="row mt-5">
-		<label for="remark" class="col-sm-2 col-form-label">REMARK</label>
-		<div class="col-sm-10">
-			<textarea id="remark" name="remark" class="form-control" style="height: 100px">{{selectData.master.0.remark}}</textarea>
+      	<p></p>
+      	<label for="total_pax" class="col-sm-2 col-form-label" style="font-weight: bolder;">TOTAL PAX</label>
+      	<div class="col-sm-30">
+			<div class="input-group">
+				<input id="total_pax" name="total_pax" type="text" class="form-control" onchange="getselect();"  value="{{selectData.master.0.total_pax}}"/>
+				<div class="input-group-text">pax</div>
+			</div>
+      	</div>
+      	<div class="col-sm-30">
+			<div class="input-group">
+				<select class="form-select" id="tc_count" aria-label="currency" onchange="getselect()">
+					<option selected>T/C여부</option>
+					<option value="0" >NO</option>
+					<option value="1" >+ 1</option>
+					<option value="2" >+ 2</option>
+				</select>
+				<div class="input-group-text">T/C</div>
+			</div>
+      	</div>
+		<label for="roomtype" class="col-sm-2 col-form-label text-end" style="font-weight: bolder;">ROOM TYPE</label>
+		<div class="col-sm-30">
+        	<div class="input-group">
+          		<input id="twin" name="twin" type="text" class="form-control" value="{{selectData.master.0.twin}}"/>
+          		<div class="input-group-text">TWIN</div>
+        	</div>
 		</div>
-	</div>
-	<div class="devider"></div> 
-	<div class="row">
-		<div class="text-end">
-			<input type="button" class="btn btn-primary"  onclick="uploadExcel()" value="엑셀 업로드">
-			<input type="text" id="inputNum" placeholder="추가할 갯수를 입력">
-			<input type="button" class="btn btn-primary"  onclick="addRow()" value="추가">
-			<input type="button" class="btn btn-secondary" onclick="delRow()" value="삭제">
+		<div class="col-sm-30">
+			<div class="input-group">
+				<input id="triple" name="triple" type="text" class="form-control" value="{{selectData.master.0.triple}}"/>
+				<div class="input-group-text">TRIPLE</div>
+			</div>
 		</div>
-		<table class="table mx-3 text-center" id="roomingList" style="border-collapse: collapse;" >
-			<thead class="table-light" style="font-size: small;">
-				<tr>
-					<th scope="col" style="width: 5%;">삭제</th>
-					<th scope="col" style="width: 3%;">NO.</th>
-					<th scope="col" style="width: 7%;" id="room">ROOM</th>
-					<th scope="col" style="width: 8%;" id="name_k">NAME(K)</th>
-					<th scope="col" style="width: 15%;" id="name_e">NAME(E)</th>
-					<th scope="col" style="width: 5%;" id="sex">SEX</th>
-					<th scope="col" style="width: 5%;" id="kubun">구분</th>
-					<th scope="col" style="width: 10%;" id="birth">DATE OF BIRTH</th>
-					<th scope="col" style="width: 8%;" id="passport">PASSPORT</th>
-					<th scope="col" style="width: 10%;" id="expirey">DATE OF EXPIRY</th>
-					<th scope="col" style="width: 10%;" id="mobile">MOBILE</th>
-					<th scope="col" style="width: 14%;" id="remark">REMARK</th>
-				</tr>
-			</thead>
-			<tbody id="tbody">
-			</tbody>
-		</table>
+		<div class="col-sm-30">
+			<div class="input-group">
+				<input id="single" name="single" type="text" class="form-control" value="{{selectData.master.0.single}}"/>
+				<div class="input-group-text">SINGLE</div>
+			</div>
+		</div>
+		<div class="row mt-5">
+			<div class="col-sm-2">
+				<label for="tourconductor" class="col-form-label" style="font-weight: bolder;">TOUR LEADER</label>
+			</div>
+			<div class="col-sm-2">
+				<select class="form-select-diy selectpicker col-2" id="tc_name" name="tc_name" data-live-search="true" data-size="3" onchange="select_tc(this)">
+					<option selected>이름</option>
+					{% for tourconductor in optionData.tourconductor %}
+						{% if selectData.master.0.tc.id == tourconductor.id %}
+						<option value="{{tourconductor.id}}" data-name="{{tourconductor.tc_name}}" data-tel="{{tourconductor.tc_tel}}" data-en="{{tourconductor.tc_name_en}}" selected>{{tourconductor.tc_name}}</option>
+						{% else%}
+							<option value="{{tourconductor.id}}" data-name="{{tourconductor.tc_name}}" data-tel="{{tourconductor.tc_tel}}" data-en="{{tourconductor.tc_name_en}}">{{tourconductor.tc_name}}</option>
+						{% endif%}
+					{% endfor %}
+				</select>
+				<input type="hidden" id="tc" name="tc" value="{{selectData.master.0.tc.id}}">
+			</div>
+			<div class="col-sm-3">
+				<input type="text" class="form-control" id="tc_name_en" name="tc_name_en"  placeholder="영문명" disabled value="{{selectData.master.0.tc.tc_name_en}}" />
+			</div>
+			<div class="col-sm-3">
+				<input type="text" class="form-control" id="tc_tel" name="tc_tel"  placeholder="연락처" disabled value="{{selectData.master.0.tc.tc_tel}}" />
+			</div>
+		</div>
+		<div class="row mt-5">
+			<label for="remark" class="col-sm-2 col-form-label">REMARK</label>
+			<div class="col-sm-10">
+				<textarea id="remark" name="remark" class="form-control" style="height: 100px">{{selectData.master.0.remark}}</textarea>
+			</div>
+		</div>
+		<div class="devider"></div> 
+		<div class="row">
+			<div class="text-end">
+				<input type="button" class="btn btn-primary"  onclick="uploadExcel()" value="엑셀 업로드">
+				<input type="text" id="inputNum" placeholder="추가할 갯수를 입력">
+				<input type="button" class="btn btn-primary"  onclick="addRow()" value="추가">
+				<input type="button" class="btn btn-secondary" onclick="delRow()" value="삭제">
+			</div>
+			<table class="table mx-3 text-center" id="roomingList" style="border-collapse: collapse;" >
+				<thead class="table-light" style="font-size: small;">
+					<tr>
+						<th scope="col" style="width: 5%;">삭제</th>
+						<th scope="col" style="width: 3%;">NO.</th>
+						<th scope="col" style="width: 7%;" id="room">ROOM</th>
+						<th scope="col" style="width: 8%;" id="name_k">NAME(K)</th>
+						<th scope="col" style="width: 15%;" id="name_e">NAME(E)</th>
+						<th scope="col" style="width: 5%;" id="sex">SEX</th>
+						<th scope="col" style="width: 5%;" id="kubun">구분</th>
+						<th scope="col" style="width: 10%;" id="birth">DATE OF BIRTH</th>
+						<th scope="col" style="width: 8%;" id="passport">PASSPORT</th>
+						<th scope="col" style="width: 10%;" id="expirey">DATE OF EXPIRY</th>
+						<th scope="col" style="width: 10%;" id="mobile">MOBILE</th>
+						<th scope="col" style="width: 14%;" id="remark">REMARK</th>
+					</tr>
+				</thead>
+				<tbody id="tbody">
+				</tbody>
+			</table>
 		</div>
 		<div class="d-grid gap-2 d-md-flex justify-content-md-end">
-
 			{% if pageType == 'I' %}
 				<input type="button" value="저장" onclick="saveData('roomingFrm')">
 			{% elif pageType == 'U' %}
 				<input type="button" value="수정" onclick="updateData('roomingFrm')">
 				<input type="button" value="삭제" onclick="deleteData('roomingFrm')">
 			{% endif %}
-				<input type="button" value="목록" onclick="goMenuList()">
-			</div>
+			<input type="button" value="목록" onclick="goMenuList()">
+		</div>
 		
 		<input type="hidden" id="booking_id" name="booking_id" value="{{selectData.master.0.booking_id.id}}" >
 		<input type="hidden" id="use_yn" name="use_yn" value="Y" >
 		<input type="hidden" id="id" name="id" value="{{selectData.master.0.id}}" >
 	</form>
-	<form method="POST" enctype="multipart/form-data" id="upload-form">
-		{% csrf_token %}
-		<input type="file" name="file">
-		<button type="submit">Upload</button>
-	</form>
   
 	<div id="result"></div>
 </div>
+
  <script>
 	$(document).ready(function() {
 		var pageType = $("#pageType").val();
