@@ -1,475 +1,363 @@
-{% extends "base/base.html" %} {% block content %}
+{% extends "base/base.html" %} 
+{% block content %}
 
 <div class="container">
-  <h1 class="mt-5 title">확정서 등록</h1>
+  	<h1 class="mt-5 title">{{title_nm}}</h1>
 </div>
 
 <div class="container mt-5">
-  <form>
-    {% csrf_token %}
-    {% include 'base/addREF.html'%} <!-- REF검색 -->
-    <div class="row">
-      <label for="totalpax" class="col-sm-2 col-form-label">TOTAL PAX</label>
-      <div class="col-sm-2"> 
-        <div class="input-group">
-          <input id="total_pax" type="text" class="form-control" readonly value="{{rooming.id.0.total_pax}}"/>
-          <div class="input-group-text">pax</div>
-        </div>
-      </div>
-      <div class="col-sm-1"></div>
-      <label for="roomtype" class="col-sm-20 col-form-label">ROOM TYPE</label>
-      <div class="col-sm-20">
-        <div class="input-group">
-          <input id="twin" type="text" class="form-control" readonly />
-          <div class="input-group-text">TWIN</div>
-        </div>
-      </div>
-      <div class="col-sm-20">
-        <div class="input-group">
-          <input id="triple" type="text" class="form-control" readonly />
-          <div class="input-group-text">TRIPLE</div>
-        </div>
-      </div>
-      <div class="col-sm-20">
-        <div class="input-group">
-          <input id="single" type="text" class="form-control" readonly />
-          <div class="input-group-text">SINGLE</div>
-        </div>
-      </div>
-    </div>
-    <div class="devider"></div>
-    <div class="row">
-      <label for="tour_con" class="col-sm-2 col-form-label">T/C</label>
-      <div class="col-sm-2">
-        <input
-          id="tour_con"
-          type="text"
-          class="form-control"
-          placeholder="이름"
-        />
-      </div>
-      <div class="col-sm-3">
-        <input
-          id="tour_con_num"
-          type="text"
-          class="form-control"
-          placeholder="연락처"
-        />
-      </div>
-    </div>
-    <div class="devider"></div>
-    <div class="row">
-      <label for="guide" class="col-sm-2 col-form-label">가이드</label>
-      <div class="col-sm-2">
-        <input
-          id="guide_area"
-          type="text"
-          class="form-control"
-          placeholder="지역명"
-        />
-      </div>
-      <div class="col-sm-2">
-        <input
-          id="guide_name"
-          type="text"
-          class="form-control"
-          placeholder="이름"
-        />
-      </div>
-      <div class="col-sm-3">
-        <input
-          id="guide_number"
-          type="text"
-          class="form-control"
-          placeholder="연락처"
-        />
-      </div>
-    </div>
-    <div class="devider"></div>
-    <div class="row">
-      <label for="bus" class="col-sm-2 col-form-label">버스</label>
-      <div class="col-sm-10">
-        <input id="bus" type="text" class="form-control" />
-      </div>
-    </div>
-    <div class="devider"></div>
-    <div class="row">
-      <label for="pro_com" class="col-sm-1 col-form-label">상품구성</label>
-      <label for="ent" class="col-sm-1 col-form-label">입장지</label>
-      <div class="col-sm-10">
-        <textarea
-          id="ent"
-          class="form-control"
-          style="height: 50px"
-          readonly
-        ></textarea>
-      </div>
-    </div>
-    <div class="row mt-2">
-      <div class="col-sm-1"></div>
-      <label for="special_meal" class="col-sm-1 col-form-label">특식</label>
-      <div class="col-sm-10">
-        <textarea
-          id="special_meal"
-          class="form-control"
-          style="height: 50px"
-          readonly
-        ></textarea>
-      </div>
-    </div>
-    <div class="row mt-2">
-      <div class="col-sm-1"></div>
-      <label for="remark" class="col-sm-1 col-form-label">비고</label>
-      <label for="inclusion" class="col-sm-1 col-form-label">포함</label>
-      <div class="col-sm-9">
-        <textarea
-          id="inclusion"
-          class="form-control"
-          style="height: 80px"
-          readonly
-        ></textarea>
-      </div>
-    </div>
-    <div class="row mt-2">
-      <div class="col-sm-2"></div>
-      <label for="n_inclusion" class="col-sm-1 col-form-label">불포함</label>
-      <div class="col-sm-9">
-        <textarea
-          id="n_inclusion"
-          class="form-control"
-          style="height: 80px"
-          readonly
-        ></textarea>
-      </div>
-    </div>
-    <div class="row mt-2">
-      <div class="col-sm-2"></div>
-      <label for="opt_tour" class="col-sm-1 col-form-label">옵션투어</label>
-      <div class="col-sm-9">
-        <textarea
-          id="opt_tour"
-          class="form-control"
-          style="height: 80px"
-          readonly
-        ></textarea>
-      </div>
-    </div>
-    <div class="devider"></div>
-    <div class="row">
-      <label for="network" class="col-sm-1 col-form-label">NETWORK</label>
-      <div class="col-sm-1">
-        <input id="local_area" type="text" class="form-control" placeholder="지역"/>
-      </div>
-      <div class="col-sm-2"> 
-        <select class="form-control selectpicker" aria-label="localagent_name" onchange="changeAgent(this)" data-live-search="true" style="display: none;" id="agent" data-none-selected-text="조건을 찾을 수 없습니다">
-          <option value="">현지</option>
-          {% for agent in optionData.localAgent %}
-          <option value="{{agent.id}}">{{agent.agent_name}}</option>
-          {% endfor %}
-        </select>
-      </div>
-      <div class="col-sm-3">
-        <select class="form-control  selectpicker" aria-label="agentTel" data-live-search="true" style="display: none;" id="agentTel" data-none-selected-text="조건을 찾을 수 없습니다">
-          <option value="">연락처</option>
-        </select>
-      </div>
-      <div class="col-sm-2">
-        <select class="form-control  selectpicker" aria-label="localManager" data-live-search="true" style="display: none;" id="localManager" data-none-selected-text="조건을 찾을 수 없습니다">
-          <option value="">담당자명</option>
-        </select>
-      </div>
-      <div class="col-sm-3">
-        <input id="local_perseon_tel"
-          type="text"
-          class="form-control"
-          readonly
-        />
-      </div>
-    </div>
-    <div class="row mt-2">
-      <div class="col-sm-1 text-center">
-        <button type="search" class="btn btn-secondary">추가</button>
-      </div>
-      <div class="col-sm-1">
-        <input
-          id="local_area"
-          type="text"
-          class="form-control"
-          placeholder="지역"
-          readonly
-        />
-      </div>
-      <div class="col-sm-2">
-        <input id="local_name" type="text" class="form-control" readonly />
-      </div>
-      <div class="col-sm-3">
-        <input id="local_tel" type="text" class="form-control" readonly />
-      </div>
-      <div class="col-sm-2">
-        <input id="local_person" type="text" class="form-control" readonly />
-      </div>
-      <div class="col-sm-3">
-        <input
-          id="local_perseon_tel"
-          type="text"
-          class="form-control"
-          readonly
-        />
-      </div>
-    </div>
-    <div class="row mt-2">
-      <div class="col-sm-1 text-center">
-        <button type="search" class="btn btn-secondary">추가</button>
-      </div>
-      <div class="col-sm-1">
-        <input
-          id="local_area"
-          type="text"
-          class="form-control"
-          placeholder="지역"
-          readonly
-        />
-      </div>
-      <div class="col-sm-2">
-        <input id="local_name" type="text" class="form-control" readonly />
-      </div>
-      <div class="col-sm-3">
-        <input id="local_tel" type="text" class="form-control" readonly />
-      </div>
-      <div class="col-sm-2">
-        <input id="local_person" type="text" class="form-control" readonly />
-      </div>
-      <div class="col-sm-3">
-        <input
-          id="local_perseon_tel"
-          type="text"
-          class="form-control"
-          readonly
-        />
-      </div>
-    </div>
-    <div class="devider"></div>
-    <div class="row">
-      <label for="remark" class="col-sm-1 col-form-label">REMARK</label>
-      <div class="col-sm-11">
-        <textarea
-          id="remark"
-          class="form-control"
-          style="height: 100px"
-        ></textarea>
-      </div>
-    </div>
-    <div class="devider"></div>
-    <div class="row">
-      <label for="hotel" class="col-form-label">HOTEL</label>
-      <div class="p-3">
-        <table class="table table-centered table-nowrap mb-2 text-center">
-          <thead class="table-light">
-            <tr>
-              <th style="width: 20px">
-                <div class="form-check">
-                  <input
-                    type="checkbox"
-                    class="form-check-input"
-                    id="customCheck1"
-                  />
-                  <label class="form-check-label" for="customCheck1"
-                    >&nbsp;</label
-                  >
-                </div>
-              </th>
-              <th class="col-sm-1">지역</th>
-              <th class="col-sm-2">숙박일</th>
-              <th class="col-sm-1">숙박일수</th>
-              <th class="col-sm-1">성급</th>
-              <th class="col-sm-4">호텔명</th>
-              <th class="col-sm-2">비고</th>
-              <th class="col-sm-1">상태</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>
-                <div class="form-check">
-                  <input
-                    type="checkbox"
-                    class="form-check-input"
-                    id="customCheck2"
-                  />
-                  <label class="form-check-label" for="customCheck2"
-                    >&nbsp;</label
-                  >
-                </div>
-              </td>
-              <td>BCN</td>
-              <td>3/13~3/14</td>
-              <td>1NT</td>
-              <td>4성</td>
-              <td>HOTEL CATALONIA GRAN HOTEL VERDI</td>
-              <td></td>
-              <td>CNFM</td>
-            </tr>
-            <tr>
-              <td>
-                <div class="form-check">
-                  <input
-                    type="checkbox"
-                    class="form-check-input"
-                    id="customCheck2"
-                  />
-                  <label class="form-check-label" for="customCheck2"
-                    >&nbsp;</label
-                  >
-                </div>
-              </td>
-              <td>VLC</td>
-              <td>3/14~3/15</td>
-              <td>1NT</td>
-              <td>4성</td>
-              <td>HOTEL MAS CAMARENA</td>
-              <td></td>
-              <td>CNFM</td>
-            </tr>
-            <tr>
-              <td>
-                <div class="form-check">
-                  <input
-                    type="checkbox"
-                    class="form-check-input"
-                    id="customCheck2"
-                  />
-                  <label class="form-check-label" for="customCheck2"
-                    >&nbsp;</label
-                  >
-                </div>
-              </td>
-              <td>GRX</td>
-              <td>3/14~3/15</td>
-              <td>1NT</td>
-              <td>4성</td>
-              <td>HOTEL BS CAPITULACIONES</td>
-              <td></td>
-              <td>CNFM</td>
-            </tr>
-            <tr>
-              <td>
-                <div class="form-check">
-                  <input
-                    type="checkbox"
-                    class="form-check-input"
-                    id="customCheck2"
-                  />
-                  <label class="form-check-label" for="customCheck2"
-                    >&nbsp;</label
-                  >
-                </div>
-              </td>
-              <td>SVQ</td>
-              <td>3/14~3/15</td>
-              <td>1NT</td>
-              <td>5성</td>
-              <td>HOTEL EUROSTARS TORRE SEVILLA</td>
-              <td>특전제공</td>
-              <td>CNFM</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-    <div class="devider"></div>
-    <div class="row"></div>
-    <div class="text-end mt-5">
-      <button type="submit" class="btn btn-primary">저장</button>
-      <button type="reset" class="btn btn-secondary">초기화</button>
-      <button type="button" class="btn btn-secondary">취소</button>
-    </div>
-    <div class="mt-5"></div>
-  </form>
+  	<form>
+    	{% csrf_token %}
+    	{% include 'base/addREF.html'%} <!-- REF검색 -->
+    	<div class="row">
+      		<label for="totalpax" class="col-sm-2 col-form-label">TOTAL PAX</label>
+      		<div class="col-sm-2"> 
+        		<div class="input-group">
+          			<input id="total_pax" type="text" class="form-control" readonly value="{{rooming.id.0.total_pax}}"/>
+          			<div class="input-group-text">pax</div>
+        		</div>
+      		</div>
+
+			<div class="col-sm-1"></div>
+
+			<label for="roomtype" class="col-sm-20 col-form-label">ROOM TYPE</label>
+			<div class="col-sm-20">
+				<div class="input-group">
+					<input id="twin" type="text" class="form-control" readonly />
+					<div class="input-group-text">TWIN</div>
+				</div>
+			</div>
+			<div class="col-sm-20">
+				<div class="input-group">
+					<input id="triple" type="text" class="form-control" readonly />
+					<div class="input-group-text">TRIPLE</div>
+				</div>
+			</div>
+			<div class="col-sm-20">
+				<div class="input-group">
+					<input id="single" type="text" class="form-control" readonly />
+					<div class="input-group-text">SINGLE</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="devider"></div>
+
+		<div class="row">
+			<label for="tour_con" class="col-sm-2 col-form-label">T/C</label>
+			<div class="col-sm-2">
+				<input id="tour_con" type="text" class="form-control" placeholder="이름" />
+			</div>
+			<div class="col-sm-3">
+				<input id="tour_con_num" type="text" class="form-control" placeholder="연락처" />
+			</div>
+		</div>
+
+		<div class="devider"></div>
+
+		<div class="row">
+			<label for="guide" class="col-sm-2 col-form-label">가이드</label>
+			<div class="col-sm-2">
+				<input id="guide_area" type="text" class="form-control" placeholder="지역명" />
+			</div>
+			<div class="col-sm-2">
+				<input id="guide_name" type="text" class="form-control" placeholder="이름" />
+			</div>
+			<div class="col-sm-3">
+				<input id="guide_number" type="text" class="form-control" placeholder="연락처" />
+			</div>
+		</div>
+
+		<div class="devider"></div>
+
+		<div class="row">
+			<label for="bus" class="col-sm-2 col-form-label">버스</label>
+			<div class="col-sm-10">
+				<input id="bus" type="text" class="form-control" />
+			</div>
+		</div>
+
+		<div class="devider"></div>
+
+		<div class="row">
+			<label for="pro_com" class="col-sm-1 col-form-label">상품구성</label>
+			<label for="ent" class="col-sm-1 col-form-label">입장지</label>
+			<div class="col-sm-10">
+				<textarea id="ent" class="form-control" style="height: 50px" readonly ></textarea>
+			</div>
+		</div>
+		<div class="row mt-2">
+			<div class="col-sm-1"></div>
+			<label for="special_meal" class="col-sm-1 col-form-label">특식</label>
+			<div class="col-sm-10">
+				<textarea id="special_meal" class="form-control"  style="height: 50px" readonly  ></textarea>
+			</div>
+		</div>
+		<div class="row mt-2">
+			<div class="col-sm-1"></div>
+			<label for="remark" class="col-sm-1 col-form-label">비고</label>
+			<label for="inclusion" class="col-sm-1 col-form-label">포함</label>
+			<div class="col-sm-9">
+				<textarea id="inclusion" class="form-control" style="height: 80px" readonly ></textarea>
+			</div>
+		</div>
+		<div class="row mt-2">
+			<div class="col-sm-2"></div>
+			<label for="n_inclusion" class="col-sm-1 col-form-label">불포함</label>
+			<div class="col-sm-9">
+				<textarea id="n_inclusion" class="form-control" style="height: 80px" readonly ></textarea>
+			</div>
+		</div>
+		<div class="row mt-2">
+			<div class="col-sm-2"></div>
+			<label for="opt_tour" class="col-sm-1 col-form-label">옵션투어</label>
+			<div class="col-sm-9">
+				<textarea id="opt_tour" class="form-control" style="height: 80px" readonly ></textarea>
+			</div>
+		</div>
+
+		<div class="devider"></div>
+		
+		<div class="row">
+			<label for="network" class="col-sm-1 col-form-label">NETWORK</label>
+			<div class="col-sm-1">
+				<input id="local_area" type="text" class="form-control" placeholder="지역"/>
+			</div>
+			<div class="col-sm-2"> 
+				<select class="form-control selectpicker" aria-label="localagent_name" onchange="changeAgent(this)" data-live-search="true" style="display: none;" id="agent" data-none-selected-text="조건을 찾을 수 없습니다">
+					<option value="">현지</option>
+					{% for agent in optionData.localAgent %}
+					<option value="{{agent.id}}">{{agent.agent_name}}</option>
+					{% endfor %}
+				</select>
+			</div>
+			<div class="col-sm-3">
+				<select class="form-control  selectpicker" aria-label="agentTel" data-live-search="true" style="display: none;" id="agentTel" data-none-selected-text="조건을 찾을 수 없습니다">
+					<option value="">연락처</option>
+				</select>
+			</div>
+			<div class="col-sm-2">
+				<select class="form-control  selectpicker" aria-label="localManager" data-live-search="true" style="display: none;" id="localManager" data-none-selected-text="조건을 찾을 수 없습니다">
+					<option value="">담당자명</option>
+				</select>
+			</div>
+			<div class="col-sm-3">
+				<input id="local_perseon_tel" type="text" class="form-control" readonly />
+			</div>
+		</div>
+		<div class="row mt-2">
+			<div class="col-sm-1 text-center">
+				<button type="search" class="btn btn-secondary">추가</button>
+			</div>
+			<div class="col-sm-1">
+				<input id="local_area" type="text" class="form-control" placeholder="지역" readonly />
+			</div>
+			<div class="col-sm-2">
+				<input id="local_name" type="text" class="form-control" readonly />
+			</div>
+			<div class="col-sm-3">
+				<input id="local_tel" type="text" class="form-control" readonly />
+			</div>
+			<div class="col-sm-2">
+				<input id="local_person" type="text" class="form-control" readonly />
+			</div>
+			<div class="col-sm-3">
+				<input id="local_perseon_tel" type="text" class="form-control" readonly />
+			</div>
+		</div>
+		<div class="row mt-2">
+			<div class="col-sm-1 text-center">
+					<button type="search" class="btn btn-secondary">추가</button>
+			</div>
+			<div class="col-sm-1">
+					<input id="local_area" type="text" class="form-control" placeholder="지역" readonly />
+			</div>
+			<div class="col-sm-2">
+				<input id="local_name" type="text" class="form-control" readonly />
+			</div>
+			<div class="col-sm-3">
+				<input id="local_tel" type="text" class="form-control" readonly />
+			</div>
+			<div class="col-sm-2">
+				<input id="local_person" type="text" class="form-control" readonly />
+			</div>
+			<div class="col-sm-3">
+				<input id="local_perseon_tel" type="text" class="form-control" readonly />
+			</div>
+		</div>
+
+		<div class="devider"></div>
+
+		<div class="row">
+			<label for="remark" class="col-sm-1 col-form-label">REMARK</label>
+			<div class="col-sm-11">
+				<textarea id="remark" class="form-control" style="height: 100px" ></textarea>
+			</div>
+		</div>
+
+		<div class="devider"></div>
+
+		<div class="row">
+			<label for="hotel" class="col-form-label">HOTEL</label>
+			<div class="p-3">
+				<table class="table table-centered table-nowrap mb-2 text-center">
+					<thead class="table-light">
+						<tr>
+							<th style="width: 20px">
+								<div class="form-check">
+									<input type="checkbox" class="form-check-input" id="customCheck1" />
+									<label class="form-check-label" for="customCheck1" >&nbsp;</label>
+								</div>
+							</th>
+							<th class="col-sm-1">지역</th>
+							<th class="col-sm-2">숙박일</th>
+							<th class="col-sm-1">숙박일수</th>
+							<th class="col-sm-1">성급</th>
+							<th class="col-sm-4">호텔명</th>
+							<th class="col-sm-2">비고</th>
+							<th class="col-sm-1">상태</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>
+								<div class="form-check">
+									<input type="checkbox" class="form-check-input" id="customCheck2" />
+									<label class="form-check-label" for="customCheck2" >&nbsp;</label>
+								</div>
+							</td>
+							<td>BCN</td>
+							<td>3/13~3/14</td>
+							<td>1NT</td>
+							<td>4성</td>
+							<td>HOTEL CATALONIA GRAN HOTEL VERDI</td>
+							<td></td>
+							<td>CNFM</td>
+						</tr>
+						<tr>
+							<td>
+								<div class="form-check">
+									<input type="checkbox" class="form-check-input" id="customCheck2" />
+									<label class="form-check-label" for="customCheck2" >&nbsp;</label>
+								</div>
+							</td>
+							<td>VLC</td>
+							<td>3/14~3/15</td>
+							<td>1NT</td>
+							<td>4성</td>
+							<td>HOTEL MAS CAMARENA</td>
+							<td></td>
+							<td>CNFM</td>
+						</tr>
+						<tr>
+							<td>
+								<div class="form-check">
+									<input type="checkbox" class="form-check-input" id="customCheck2" />
+									<label class="form-check-label" for="customCheck2" >&nbsp;</label>
+								</div>
+							</td>
+							<td>GRX</td>
+							<td>3/14~3/15</td>
+							<td>1NT</td>
+							<td>4성</td>
+							<td>HOTEL BS CAPITULACIONES</td>
+							<td></td>
+							<td>CNFM</td>
+						</tr>
+						<tr>
+								<td>
+									<div class="form-check">
+										<input type="checkbox" class="form-check-input" id="customCheck2" />
+										<label class="form-check-label" for="customCheck2" >&nbsp;</label>
+									</div>
+								</td>
+							<td>SVQ</td>
+							<td>3/14~3/15</td>
+							<td>1NT</td>
+							<td>5성</td>
+							<td>HOTEL EUROSTARS TORRE SEVILLA</td>
+							<td>특전제공</td>
+							<td>CNFM</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+		<div class="devider"></div>
+
+		<div class="text-end">
+			<button type="submit" class="btn btn-primary">저장</button>
+			<button type="reset" class="btn btn-secondary">초기화</button>
+			<button type="button" class="btn btn-secondary">취소</button>
+		</div>
+
+	</form>
 </div>
 
-
-
 <script>
+	$( document ).ready(function() {
+		changeAgent();
+	});
 
-function agentChange() {
-    alert("aaaa");
-  }
-  
-  $( document ).ready(function() {
-    changeAgent();
-  });
+	function changeAgent(element){
+		$("#tmpChangeAgentFrm").remove();
+		var frm = makeForm('', 'tmpChangeAgentFrm');
+		var param;
 
-  function changeAgent(element){
-    $("#tmpChangeAgentFrm").remove();
-    var frm = makeForm('', 'tmpChangeAgentFrm');
-    var param;
-    if (element.id == "agent") {
-      param = $("#agent")
-    }
-    else{
-      param = $("#localAgent")
-    }
+		if (element.id == "agent") {
+			param = $("#agent")
+		}
+		else{
+			param = $("#localAgent")
+		}
 
-    frm.appendChild(addData('agent', param.val()));
-    document.body.appendChild(frm);
-    if (element.id == "agent") {
-      getAjax('tmpChangeAgentFrm', 'manager', 'changeAgentSucc');
-    }
-    else{
-      getAjax('tmpChangeAgentFrm', 'manager', 'changeLocalAgentSucc');
-    }
+		frm.appendChild(addData('agent', param.val()));
+		document.body.appendChild(frm);
 
-  }
+		if (element.id == "agent") {
+			getAjax('tmpChangeAgentFrm', 'manager', 'changeAgentSucc');
+		}
+		else{
+			getAjax('tmpChangeAgentFrm', 'manager', 'changeLocalAgentSucc');
+		}
+	}
 
-   function changeAgent(element){
-    $("#tmpChangeAgentFrm").remove();
-    var frm = makeForm('', 'tmpChangeAgentFrm');
+	function changeAgent(element){
+		$("#tmpChangeAgentFrm").remove();
+		var frm = makeForm('', 'tmpChangeAgentFrm');
+		frm.appendChild(addData('agent', ($(element).val())));
+		document.body.appendChild(frm);
+		getAjax('tmpChangeAgentFrm', 'manager', 'changeAgentSucc', element);
+	}
 
-    frm.appendChild(addData('agent', ($(element).val())));
-    document.body.appendChild(frm);
-
-    getAjax('tmpChangeAgentFrm', 'manager', 'changeAgentSucc', element);
-
-  }
-
-  function changeAgentSucc(data, element){
-	var select = $($(element).closest('.row').find('select')[1]);
-  
-
-    select.selectpicker('destroy');
-    select.empty();
-    for (var i = 0; i < data.length; i++) {
-        var option = $('<option>', {
-            value: data[i].id,
-            text: data[i].manager_name
-        });
-        select.append(option);
-    }
-
-    select.selectpicker(); 
-
-    
-
-}
-
-
+	function changeAgentSucc(data, element){
+		var select = $($(element).closest('.row').find('select')[1]);
+		select.selectpicker('destroy');
+		select.empty();
+		for (var i = 0; i < data.length; i++) {
+			var option = $('<option>', {
+				value: data[i].id,
+				text: data[i].manager_name
+			});
+			select.append(option);
+		}
+		select.selectpicker(); 
+	}
 </script>
 
-
-
-
 <style>
-  .devider {
-    width: 100%;
-    height: 5px;
-    border-top: rgba(155, 151, 151, 0.979) 2px solid;
-    margin: 20px 10px 20px 0px;
-  }
+	.devider {
+		width: 100%;
+		height: 5px;
+		border-top: rgba(155, 151, 151, 0.979) 2px solid;
+		margin: 20px 10px 20px 0px;
+	}
 
-  .col-sm-20 {
-    flex: 0 0 auto;
-    width: 11%;
-  }
+	.col-sm-20 {
+		flex: 0 0 auto;
+		width: 11%;
+	}
 </style>
 {% include 'base/commonValue.html'%} <!-- 공통변수 -->
 {% endblock %} 
