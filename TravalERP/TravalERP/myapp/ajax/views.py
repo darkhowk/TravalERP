@@ -459,6 +459,10 @@ def pathtoMode(path):
       Models = RoomingMaster
    if path == 'roomingDetail':
       Models = RoomingDetail
+   if path == 'itineraryMaster':
+      Models = ItineraryMaster
+   if path == 'itineraryDetail':
+      Models = ItineraryDetail
    return Models
 
 

@@ -296,10 +296,47 @@
 </div>
 
 <script>
-	function succSetRef(){
-		alert("??")
-	}
+	// REF 검색후, 해당 값으로 각각의 테이블 검색하여 값 가져와 셋업하기
+	function succSetRef(){	
+		// BUS, ENTERANCE, SPECIAL, INCLUDE, NOT_INCLUDE, OPTION -- BOOKING_MASTER
+		$("#tmpSearch").remove();
+		var frm = makeForm('', 'tmpSearch');
+		frm.appendChild(addData('ref', $("#paramRef").val()));
+		document.body.appendChild(frm);
+		getAjax('tmpSearch', 'bookingMaster', 'tmpSearch1Succ');
 	
+	}
+
+	function tmpSearch1Succ(data){
+		console.log(data);
+		// 해당 데이터 넣기
+
+
+		// TOTAL PAX, TWIN, TRIPLE, SINGLE -- ROOMING_MASTER
+		$("#tmpSearch").remove();
+		var frm = makeForm('', 'tmpSearch');
+		frm.appendChild(addData('booking_id', data[0].id));
+		document.body.appendChild(frm);
+		getAjax('tmpSearch', 'roomingMaster', 'tmpSearch2Succ');
+		
+
+	}
+
+	function tmpSearch2Succ(data){
+		console.log(data);
+		// 해당 데이터 넣기
+
+				// GUIDE --> ITINERAY_MASTER
+		$("#tmpSearch").remove();
+		var frm = makeForm('', 'tmpSearch');
+		frm.appendChild(addData('rooming_id', data[0].id));
+		document.body.appendChild(frm);
+		getAjax('tmpSearch', 'itineraryMaster', 'tmpSearch3Succ');
+	}
+
+	function tmpSearch3Succ(data){
+		console.log(data)
+	}
 	
 	$( document ).ready(function() {
 		
