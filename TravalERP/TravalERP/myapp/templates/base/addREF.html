@@ -112,13 +112,13 @@
         $('#master_id').val(id);
 
         $('#refModal').modal('hide');
-    });
-/*
-    $('#refModal').on('shown.bs.modal', function () {
-        $('#ref_result').empty();
+
+        if (existFunction('succSetRef')){
+            succSetRef()
+        }
 
     });
-*/
+
     // 로드시에 해당하는 master_id등을 받아 REF값을 검색후, 해당값을 셋팅
 	function getREF(type, id){
         // type == 해당하는 master_id 컬럼 명
