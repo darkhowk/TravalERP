@@ -47,10 +47,10 @@ class bookingAdd(CommonMainAddView):
       self.type = request.GET.get('type', None)
 
       if self.pageType == 'I':
-         self.title_nm = "수배 추가"
+         self.title_nm = "수배추가"
          self.descript = "수배추가 페이지입니다"
       elif self.pageType == 'U':
-         self.title_nm = "수배 수정"
+         self.title_nm = "수배수정"
          self.descript = "수배수정 페이지입니다"
 
    

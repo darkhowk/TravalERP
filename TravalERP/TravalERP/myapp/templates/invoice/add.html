@@ -1,7 +1,7 @@
 {% extends "base/base.html" %} {% block content %}
 
 <div class="container">
-  <h1 class="mt-5 title">인보이스 등록</h1>
+  <h1 class="mt-5 title">{{title_nm}}</h1>
 </div>
 
 <div class="container mt-5">
@@ -13,187 +13,187 @@
         </div>
     </form>
     <form id="invoiceFrm">
-      <div class="devider"></div>
-      <div class="row mt-2">
-        <label for="bank_account" class="col-sm-2 col-form-label">인보이스 형태</label>
-        <div class="col-sm-5 mt-2">
-          <div class="form-check">
-            <input class="form-check-input" type="radio" name="flexRadioDefault" id="local_inv">
-            <label class="form-check-label " for="local_inv">현지</label>
-          </div>
-        </div>
-        <div class="col-sm-5 mt-2">
-          <div class="form-check">
-            <input class="form-check-input" type="radio" name="flexRadioDefault" id="agent_inv" checked>
-            <label class="form-check-label" for="agent_inv">여행사</label>
-          </div>
-        </div>
+        <div class="devider"></div>
+        <div class="row mt-2">
+            <label for="bank_account" class="col-sm-2 col-form-label">인보이스 형태</label>
+            <div class="col-sm-5 mt-2">
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="local_inv">
+                    <label class="form-check-label " for="local_inv">현지</label>
+                </div>
+            </div>
+            <div class="col-sm-5 mt-2">
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="agent_inv" checked>
+                    <label class="form-check-label" for="agent_inv">여행사</label>
+                </div>
+            </div>
         <div class="devider"></div>
         <div class="row">
-          <div class="text-start">
-            <label for="matching" class="col-sm-1 col-form-label" style="font-weight: bold;">단체매칭</label>
-            <label class="d-none d-sm-inline-block navbar-search col-form-label">
-              <div class="input-group">
-                <input type="text" class="form-control bg-light border" aria-label="Search" aria-describedby="basic-addon2"/>
-                  <div class="input-group-append">
-                    <button class="btn btn-primary" type="button">
-                      <i class="fas fa-search fa-sm"></i>
-                    </button>
-                  </div>
-              </div>
-            </label>
-          </div>
+            <div class="text-start">
+                <label for="matching" class="col-sm-1 col-form-label" style="font-weight: bold;">단체매칭</label>
+                <label class="d-none d-sm-inline-block navbar-search col-form-label">
+                    <div class="input-group">
+                        <input type="text" class="form-control bg-light border" aria-label="Search" aria-describedby="basic-addon2"/>
+                        <div class="input-group-append">
+                            <button class="btn btn-primary" type="button">
+                                <i class="fas fa-search fa-sm"></i>
+                            </button>
+                        </div>
+                    </div>
+                </label>
+            </div>
         </div>
         <div class="devider"></div>
         <div class="row">
             <p style="font-weight: bold;">단체상세</p>
             <label for="totalpax" class="col-sm-2 col-form-label">TOTAL PAX</label>
             <div class="col-sm-2">
-              <div class="input-group">
-                <input id="totalpax" type="text" class="form-control" />
-                <div class="input-group-text">pax</div>
-              </div>
+                <div class="input-group">
+                    <input id="totalpax" type="text" class="form-control" />
+                    <div class="input-group-text">pax</div>
+                </div>
             </div> 
         </div>
         <div class="row mt-3">
             <label for="roomtype" class="col-sm-2 col-form-label">ROOM TYPE</label>
             <div class="col-sm-3">
-              <div class="input-group">
-                <input id="twinroom" type="text" class="form-control"/>
-                <div class="input-group-text">TWIN</div>
-              </div>
+                <div class="input-group">
+                    <input id="twinroom" type="text" class="form-control"/>
+                    <div class="input-group-text">TWIN</div>
+                </div>
             </div>
             <div class="col-sm-3">
-              <div class="input-group">
-                <input id="tripleroom" type="text" class="form-control"/>
-                <div class="input-group-text">TRIPLE</div>
-              </div>
+                <div class="input-group">
+                    <input id="tripleroom" type="text" class="form-control"/>
+                    <div class="input-group-text">TRIPLE</div>
+                </div>
             </div>
             <div class="col-sm-3">
-              <div class="input-group">
-                <input id="singleroom" type="text" class="form-control"/>
-                <div class="input-group-text">SINGLE</div>
-              </div>
+                <div class="input-group">
+                    <input id="singleroom" type="text" class="form-control"/>
+                    <div class="input-group-text">SINGLE</div>
+                </div>
             </div>
         </div>
         <div class="devider"></div>
         <div class="row">
             <label for="rate" class="col-sm-2 col-form-label">환율</label>
             <div class="col-sm-2">
-              <input id="rate" type="text" class="form-control text-center" value="1" readonly />
+                <input id="rate" type="text" class="form-control text-center" value="1" readonly />
             </div>
-          <div class="col-sm-1">
-            <select class="form-select col-sm-3" id="rate_unit" name="rate_unit"aria-label="currency" onchange="getselect();"> 
-              <option selected>단위</option>
-              <option value="유로">€</option>
-              <option value="달러">＄</option>
-              <option value="파운드">￡</option>
-            </select>
-          </div>
-          <div class="col-sm-1"></div>
+            <div class="col-sm-1">
+                <select class="form-select col-sm-3" id="rate_unit" name="rate_unit"aria-label="currency" onchange="getselect();"> 
+                    <option selected>단위</option>
+                    <option value="유로">€</option>
+                    <option value="달러">＄</option>
+                    <option value="파운드">￡</option>
+                </select>
+            </div>
+            <div class="col-sm-1"></div>
             <label for="rate_won" class="col-sm-1 col-form-label">원화</label>
             <div class="col-sm-3">
-              <input id="rate_won" type="text" class="form-control" />
+                <input id="rate_won" type="text" class="form-control" />
             </div>
-           </div>
+        </div>
         <div class="devider"></div>
         <div class="row">
-          <label for="remark" class="col-sm-2 col-form-label">REMARK</label>
-          <div class="col-sm-10">
-            <textarea id="remark" class="form-control" style="height: 100px"></textarea>
-          </div>
+            <label for="remark" class="col-sm-2 col-form-label">REMARK</label>
+            <div class="col-sm-10">
+                <textarea id="remark" class="form-control" style="height: 100px"></textarea>
+            </div>
         </div>
         <div class="devider"></div> 
         <div class="row">
-          <p><h4>상세내역</h4></p>
-          <div class="text-end">
-            <input type="button" class="btn btn-primary"  onclick="addRow()" value="추가">
-            <input type="button" class="btn btn-secondary" onclick="delRow()" value="삭제">
-          </div>
-          <table class="table text-center" id="invList">
-            <thead class="table-light">
-              <tr>
-                <th scope="col" style="width: 5%;">삭제</th>
-                <th scope="col" style="width: 5%;">NO.</th>
-                <th scope="col" style="width: 25%;">항목명</th>
-                <th scope="col" style="width: 10%;">금액</th>
-                <th scope="col" style="width: 8%;">인원</th>
-                <th scope="col" style="width: 8%;">박수</th>
-                <th scope="col" style="width: 14%;">합계</th>
-                <th scope="col" style="width: 20%;">비고</th>
-              </tr>
-            </thead>
-            <tbody id="tbody">
-            </tbody>
-          </table>
+            <p><h4>상세내역</h4></p>
+            <div class="text-end">
+                <input type="button" class="btn btn-primary"  onclick="addRow()" value="추가">
+                <input type="button" class="btn btn-secondary" onclick="delRow()" value="삭제">
+            </div>
+            <table class="table text-center" id="invList">
+                <thead class="table-light">
+                    <tr>
+                        <th scope="col" style="width: 5%;">삭제</th>
+                        <th scope="col" style="width: 5%;">NO.</th>
+                        <th scope="col" style="width: 25%;">항목명</th>
+                        <th scope="col" style="width: 10%;">금액</th>
+                        <th scope="col" style="width: 8%;">인원</th>
+                        <th scope="col" style="width: 8%;">박수</th>
+                        <th scope="col" style="width: 14%;">합계</th>
+                        <th scope="col" style="width: 20%;">비고</th>
+                    </tr>
+                </thead>
+                <tbody id="tbody">
+                </tbody>
+            </table>
         </div>
         <div class="devider"></div>
         <div class="p-2 bg-warning text-dark">
-          <div class="row">
-            <label for="total_rate" class="col-sm-2 col-form-label" style="font-weight: bold;">합계</label>
-            <div class="col-sm-3">
-              <input id="totalSum" type="text" class="form-control" readonly />
+            <div class="row">
+                <label for="total_rate" class="col-sm-2 col-form-label" style="font-weight: bold;">합계</label>
+                <div class="col-sm-3">
+                    <input id="totalSum" type="text" class="form-control" readonly />
+                </div>
+                <div class="col-sm-1">
+                    <input id="total_rate_" type="text" class="form-control text-center" value="" readonly />
+                </div>
+                <div class="col-sm-1"></div>
+                    <label for="tota_rate" class="col-sm-1 col-form-label"></label>
+                <div class="col-sm-3">
+                    <input id="totalSum_won" type="text" class="form-control" readonly />
+                </div>
+                <div class="col-sm-1">
+                    <input id="tota_rate_won" type="text" class="form-control text-center" value="원" readonly />
+                </div>
             </div>
-            <div class="col-sm-1">
-              <input id="total_rate_" type="text" class="form-control text-center" value="" readonly />
-            </div>
-            <div class="col-sm-1"></div>
-            <label for="tota_rate" class="col-sm-1 col-form-label"></label>
-            <div class="col-sm-3">
-              <input id="totalSum_won" type="text" class="form-control" readonly />
-            </div>
-            <div class="col-sm-1">
-              <input id="tota_rate_won" type="text" class="form-control text-center" value="원" readonly />
-            </div>
-          </div>
         </div>
         <div class="devider"></div>
         <label class="col-sm-4 col-form-label" style="font-weight: bold;">BANK ACCOUNT</label>
-          <div class="col-sm-3 mt-2">
-            <div class="form-check">
-              <input class="form-check-input" type="radio" name="flexRadioDefault" id="overseas_bank" value="overseas" onchange="setDisplay()">
-              <label class="form-check-label" for="overseas_bank">해외</label>
+            <div class="col-sm-3 mt-2">
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="overseas_bank" value="overseas" onchange="setDisplay()">
+                    <label class="form-check-label" for="overseas_bank">해외</label>
+                </div>
             </div>
-          </div>
-          <div class="col-sm-3 mt-2">
-            <div class="form-check">
-              <input class="form-check-input" type="radio" name="flexRadioDefault" id="domestic_bank" value="domestic" onchange="setDisplay()">
-              <label class="form-check-label" for="domestic_bank">국내</label>
+            <div class="col-sm-3 mt-2">
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="domestic_bank" value="domestic" onchange="setDisplay()">
+                    <label class="form-check-label" for="domestic_bank">국내</label>
+                </div>
             </div>
-          </div>
-          <div class="col-sm-2 text-end">
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">검색하기</button>
-          </div>
-          <div class="input-group mb-3 mt-4 " id="overseas1" style="display:none;">
-            <span class="input-group-text" style="font-weight: bold;">BANK_NAME</span>
-            <input type="text" class="form-control col-2 me-1" id="bank_name" name="bank_name" >
-            <span class="input-group-text" style="font-weight: bold;">NAME</span>
-            <input type="text" class="form-control col-2 me-1" id="account_name" name="account_name" >
-            <span class="input-group-text" style="font-weight: bold;">ACCOUTN_NO</span>
-            <input type="text" class="form-control col-2 me-1" id="account_no" name="account_no" >
-          </div>
-          <div id="overseas2" style="display:none;">
-            <p class="mt-5" style="font-weight: bold;">해외계좌</p>
-            <div class="input-group mb-3">
-              <span class="input-group-text" style="font-weight: bold;">IBAN CODE</span>
-              <input type="text" class="form-control col-2 me-1" id="iban_code" name="iban_code" >
-              <span class="input-group-text" style="font-weight: bold;">SWIFT</span>
-              <input type="text" class="form-control col-2 me-1" id="swift" name="swift" >
-              <span class="input-group-text" style="font-weight: bold;">BRANCH</span>
-              <input type="text" class="form-control col-2 me-1" id="branch" name="branch" >
+            <div class="col-sm-2 text-end">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">검색하기</button>
             </div>
-          </div>
+            <div class="input-group mb-3 mt-4 " id="overseas1" style="display:none;">
+                <span class="input-group-text" style="font-weight: bold;">BANK_NAME</span>
+                <input type="text" class="form-control col-2 me-1" id="bank_name" name="bank_name" >
+                <span class="input-group-text" style="font-weight: bold;">NAME</span>
+                <input type="text" class="form-control col-2 me-1" id="account_name" name="account_name" >
+                <span class="input-group-text" style="font-weight: bold;">ACCOUTN_NO</span>
+                <input type="text" class="form-control col-2 me-1" id="account_no" name="account_no" >
+            </div>
+            <div id="overseas2" style="display:none;">
+                <p class="mt-5" style="font-weight: bold;">해외계좌</p>
+                <div class="input-group mb-3">
+                    <span class="input-group-text" style="font-weight: bold;">IBAN CODE</span>
+                    <input type="text" class="form-control col-2 me-1" id="iban_code" name="iban_code" >
+                    <span class="input-group-text" style="font-weight: bold;">SWIFT</span>
+                    <input type="text" class="form-control col-2 me-1" id="swift" name="swift" >
+                    <span class="input-group-text" style="font-weight: bold;">BRANCH</span>
+                    <input type="text" class="form-control col-2 me-1" id="branch" name="branch" >
+                </div>
+            </div>
 
-          <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-3">
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-3">
 
             {% if pageType == 'I' %}
-              <input type="button" class="btn btn-primary" value="저장" onclick="saveData('invoiceFrm')">
+                <input type="button" class="btn btn-primary" value="저장" onclick="saveData('invoiceFrm')">
             {% elif pageType == 'U' %}
-              <input type="button" class="btn btn-danger" value="수정" onclick="updateData('invoiceFrm')">
-              <input type="button" class="btn btn-outline-danger" value="삭제" onclick="deleteData('invoiceFrm')">
+                <input type="button" class="btn btn-danger" value="수정" onclick="updateData('invoiceFrm')">
+                <input type="button" class="btn btn-outline-danger" value="삭제" onclick="deleteData('invoiceFrm')">
             {% endif %}
-              <input type="button" class="btn btn-outline-primary" value="목록" onclick="goMenuList()">
-          </div>
+                <input type="button" class="btn btn-outline-primary" value="목록" onclick="goMenuList()">
+            </div>
         </div>
     </form>
 </div>

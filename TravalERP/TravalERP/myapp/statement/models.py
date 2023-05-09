@@ -22,7 +22,7 @@ class StatementMaster(commonModel):
 
 
 class StatementDetail(commonModel):
-    master_id=models.ForeignKey(StatementMaster, db_column='MASTER_ID', on_delete=models.SET_NULL, blank=True, null=True, verbose_name='마스터 id')
+    statement_id=models.ForeignKey(StatementMaster, db_column='STATEMENT_ID', on_delete=models.SET_NULL, blank=True, null=True, verbose_name='정산 id') 
     name=models.CharField(db_column='NAME', max_length=100, verbose_name='이름')
     amt=models.CharField(db_column='AMT', max_length=20, verbose_name='금액')
     people=models.CharField(db_column='PEOPLE', max_length=20, verbose_name='인원')
