@@ -23,19 +23,19 @@
 			<label for="roomtype" class="col-sm-20 col-form-label">ROOM TYPE</label>
 			<div class="col-sm-20">
 				<div class="input-group">
-					<input id="twin" type="text" class="form-control" readonly />
+					<input id="twin" type="text" class="form-control" readonly value="{{rooming.id.0.twin}}"/>
 					<div class="input-group-text">TWIN</div>
 				</div>
 			</div>
 			<div class="col-sm-20">
 				<div class="input-group">
-					<input id="triple" type="text" class="form-control" readonly />
+					<input id="triple" type="text" class="form-control" readonly value="{{rooming.id.0.triple}}" />
 					<div class="input-group-text">TRIPLE</div>
 				</div>
 			</div>
 			<div class="col-sm-20">
 				<div class="input-group">
-					<input id="single" type="text" class="form-control" readonly />
+					<input id="single" type="text" class="form-control" readonly value="{{rooming.id.0.single}}" />
 					<div class="input-group-text">SINGLE</div>
 				</div>
 			</div>
@@ -46,10 +46,10 @@
 		<div class="row">
 			<label for="tour_con" class="col-sm-2 col-form-label">T/C</label>
 			<div class="col-sm-2">
-				<input id="tour_con" type="text" class="form-control" placeholder="이름" />
+				<input id="tc_name" type="text" class="form-control" placeholder="이름" />
 			</div>
 			<div class="col-sm-3">
-				<input id="tour_con_num" type="text" class="form-control" placeholder="연락처" />
+				<input id="tc_tel" type="text" class="form-control" placeholder="연락처" />
 			</div>
 		</div>
 
@@ -71,9 +71,9 @@
 		<div class="devider"></div>
 
 		<div class="row">
-			<label for="bus" class="col-sm-2 col-form-label">버스</label>
+			<label for="bus" class="col-sm-2 col-form-label" >버스</label>
 			<div class="col-sm-10">
-				<input id="bus" type="text" class="form-control" />
+				<input id="bus" type="text" class="form-control" value="{{booking.id.0.bus}}">
 			</div>
 		</div>
 
@@ -83,14 +83,14 @@
 			<label for="pro_com" class="col-sm-1 col-form-label">상품구성</label>
 			<label for="ent" class="col-sm-1 col-form-label">입장지</label>
 			<div class="col-sm-10">
-				<textarea id="ent" class="form-control" style="height: 50px" readonly ></textarea>
+				<textarea id="ent" class="form-control" style="height: 50px" readonly value="{{booking.id.0.entrance}}"></textarea>
 			</div>
 		</div>
 		<div class="row mt-2">
 			<div class="col-sm-1"></div>
 			<label for="special_meal" class="col-sm-1 col-form-label">특식</label>
 			<div class="col-sm-10">
-				<textarea id="special_meal" class="form-control"  style="height: 50px" readonly  ></textarea>
+				<textarea id="special_meal" class="form-control"  style="height: 50px" readonly value="{{booking.id.0.special}}"></textarea>
 			</div>
 		</div>
 		<div class="row mt-2">
@@ -98,21 +98,21 @@
 			<label for="remark" class="col-sm-1 col-form-label">비고</label>
 			<label for="inclusion" class="col-sm-1 col-form-label">포함</label>
 			<div class="col-sm-9">
-				<textarea id="inclusion" class="form-control" style="height: 80px" readonly ></textarea>
+				<textarea id="inclusion" class="form-control" style="height: 80px" readonly value="{{booking.id.0.include}}"></textarea>
 			</div>
 		</div>
 		<div class="row mt-2">
 			<div class="col-sm-2"></div>
 			<label for="n_inclusion" class="col-sm-1 col-form-label">불포함</label>
 			<div class="col-sm-9">
-				<textarea id="n_inclusion" class="form-control" style="height: 80px" readonly ></textarea>
+				<textarea id="n_inclusion" class="form-control" style="height: 80px" readonly value="{{booking.id.0.not_include}}" ></textarea>
 			</div>
 		</div>
 		<div class="row mt-2">
 			<div class="col-sm-2"></div>
 			<label for="opt_tour" class="col-sm-1 col-form-label">옵션투어</label>
 			<div class="col-sm-9">
-				<textarea id="opt_tour" class="form-control" style="height: 80px" readonly ></textarea>
+				<textarea id="opt_tour" class="form-control" style="height: 80px" readonly value="{{booking.id.0.option}}"></textarea>
 			</div>
 		</div>
 
@@ -310,6 +310,10 @@
 		// BUS, ENTERANCE, SPECIAL, INCLUDE, NOT_INCLUDE, OPTION -- BOOKING_MASTER
 		console.log(data);
 		$("#bus").val(data[0].bus);
+		$("#entrance").val(data[0].entrance);
+		$("#special").val(data[0].special);
+		$("#include").val(data[0].include);
+		$("#optinon").val(data[0].optinon);
 		// 해당 데이터 넣기
 
 		
@@ -326,21 +330,13 @@
 	function tmpSearch2Succ(data){
 		// TOTAL PAX, TWIN, TRIPLE, SINGLE -- ROOMING_MASTER
 		console.log(data);
+		$("#total_pax").val(data[0].total_pax);
+		$("#twin").val(data[0].twin);
+		$("#triple").val(data[0].triple);
+		$("#single").val(data[0].single);
+		$("#tc_name").val(data[0].tc);
 		// 해당 데이터 넣기
 
-		
-		$("#tmpSearch").remove();
-		var frm = makeForm('', 'tmpSearch');
-		frm.appendChild(addData('rooming_id', data[0].id));
-		frm.appendChild(addData('use_yn', 'Y'));
-		document.body.appendChild(frm);
-		getAjax('tmpSearch', 'itineraryMaster', 'tmpSearch3Succ');
-	}
-
-	function tmpSearch3Succ(data){
-		// GUIDE --> ITINERAY_MASTER
-		console.log(data)
-		// 해당 데이터 넣기
 	}
 	
 	$( document ).ready(function() {
