@@ -81,38 +81,38 @@
 
 		<div class="row">
 			<label for="pro_com" class="col-sm-1 col-form-label">상품구성</label>
-			<label for="ent" class="col-sm-1 col-form-label">입장지</label>
+			<label for="entrance" class="col-sm-1 col-form-label">입장지</label>
 			<div class="col-sm-10">
-				<textarea id="ent" class="form-control" style="height: 50px" readonly value="{{booking.id.0.entrance}}"></textarea>
+				<textarea id="entrance" class="form-control" style="height: 80px" readonly value="{{booking.id.0.entrance}}"></textarea>
 			</div>
 		</div>
 		<div class="row mt-2">
 			<div class="col-sm-1"></div>
-			<label for="special_meal" class="col-sm-1 col-form-label">특식</label>
+			<label for="special" class="col-sm-1 col-form-label">특식</label>
 			<div class="col-sm-10">
-				<textarea id="special_meal" class="form-control"  style="height: 50px" readonly value="{{booking.id.0.special}}"></textarea>
+				<textarea id="special" class="form-control"  style="height: 80px" readonly value="{{booking.id.0.special}}"></textarea>
 			</div>
 		</div>
 		<div class="row mt-2">
 			<div class="col-sm-1"></div>
 			<label for="remark" class="col-sm-1 col-form-label">비고</label>
-			<label for="inclusion" class="col-sm-1 col-form-label">포함</label>
+			<label for="include" class="col-sm-1 col-form-label">포함</label>
 			<div class="col-sm-9">
-				<textarea id="inclusion" class="form-control" style="height: 80px" readonly value="{{booking.id.0.include}}"></textarea>
+				<textarea id="include" class="form-control" style="height: 60px" readonly value="{{booking.id.0.include}}"></textarea>
 			</div>
 		</div>
 		<div class="row mt-2">
 			<div class="col-sm-2"></div>
-			<label for="n_inclusion" class="col-sm-1 col-form-label">불포함</label>
+			<label for="not_include" class="col-sm-1 col-form-label">불포함</label>
 			<div class="col-sm-9">
-				<textarea id="n_inclusion" class="form-control" style="height: 80px" readonly value="{{booking.id.0.not_include}}" ></textarea>
+				<textarea id="not_include" class="form-control" style="height: 60px" readonly value="{{booking.id.0.not_include}}" ></textarea>
 			</div>
 		</div>
 		<div class="row mt-2">
 			<div class="col-sm-2"></div>
-			<label for="opt_tour" class="col-sm-1 col-form-label">옵션투어</label>
+			<label for="option" class="col-sm-1 col-form-label">옵션투어</label>
 			<div class="col-sm-9">
-				<textarea id="opt_tour" class="form-control" style="height: 80px" readonly value="{{booking.id.0.option}}"></textarea>
+				<textarea id="option" class="form-control" style="height: 80px" readonly value="{{booking.id.0.option}}"></textarea>
 			</div>
 		</div>
 
@@ -310,10 +310,11 @@
 		// BUS, ENTERANCE, SPECIAL, INCLUDE, NOT_INCLUDE, OPTION -- BOOKING_MASTER
 		console.log(data);
 		$("#bus").val(data[0].bus);
-		$("#entrance").val(data[0].entrance);
-		$("#special").val(data[0].special);
-		$("#include").val(data[0].include);
-		$("#optinon").val(data[0].optinon);
+		$("#entrance").text(data[0].entrance);
+		$("#special").text(data[0].special);
+		$("#include").text(data[0].include);
+		$("#not_include").text(data[0].not_include);
+		$("#option").text(data[0].option);
 		// 해당 데이터 넣기
 
 		

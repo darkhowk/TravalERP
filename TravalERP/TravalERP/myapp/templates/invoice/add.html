@@ -184,12 +184,16 @@
             </div>
           </div>
 
-          <div class="text-end mt-5">
-            <button type="submit" class="btn btn-primary">저장</button>
-            <button type="reset" id="btn_reset" class="btn btn-secondary">초기화</button>
-            <button type="button" class="btn btn-secondary">취소</button>
+          <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-3">
+
+            {% if pageType == 'I' %}
+              <input type="button" class="btn btn-primary" value="저장" onclick="saveData('invoiceFrm')">
+            {% elif pageType == 'U' %}
+              <input type="button" class="btn btn-danger" value="수정" onclick="updateData('invoiceFrm')">
+              <input type="button" class="btn btn-outline-danger" value="삭제" onclick="deleteData('invoiceFrm')">
+            {% endif %}
+              <input type="button" class="btn btn-outline-primary" value="목록" onclick="goMenuList()">
           </div>
-          <div class="mt-5"></div>
         </div>
     </form>
 </div>

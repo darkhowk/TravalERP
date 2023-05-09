@@ -210,15 +210,15 @@
 		</table>
 	</div>
 
-	<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+	<div class="d-grid gap-2 d-md-flex justify-content-md-end mt-3">
 
 	{% if pageType == 'I' %}
-		<input type="button" value="저장" onclick="saveData('bookingFrm')">
+		<input type="button" class="btn btn-primary" value="저장" onclick="saveData('bookingFrm')">
 	{% elif pageType == 'U' %}
-		<input type="button" value="수정" onclick="updateData('bookingFrm')">
-		<input type="button" value="삭제" onclick="deleteData('bookingFrm')">
+		<input type="button" class="btn btn-danger" value="수정" onclick="updateData('bookingFrm')">
+		<input type="button" class="btn btn-outline-danger" value="삭제" onclick="deleteData('bookingFrm')">
 	{% endif %}
-		<input type="button" value="목록" onclick="goMenuList()">
+		<input type="button" class="btn btn-outline-primary" value="목록" onclick="goMenuList()">
 	</div>
 
 
