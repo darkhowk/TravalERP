@@ -81,7 +81,7 @@ def dataInsert(request, item):
 
 def dataUpdate(request, item):
    Models = pathtoMode(item)
- 
+
    type = request.POST.get('type', None)
 
    if type is None:
@@ -100,6 +100,7 @@ def dataDelete(request, item):
 
 def masterInsert(request, item):
    # model별로 insert할 fields 작성
+  
    fields = []
    Models = pathtoMode(item+'Master')
    fields = [f.name for f in Models._meta.fields if f.name not in ['entry_date', 'entry_id', 'updat_date', 'updat_id', 'id']]
@@ -119,25 +120,33 @@ def detailInsert(request, item):
    return JsonResponse({'result': 'success'})
 
 def masterUpdate(request, item):
+   # booking이 아닌경우, 원래 데이터 use_yn = n 업데이트 , 이후 새로 insert
    Models = pathtoMode(item+'Master')
    type = request.POST.get('type', None)
-   if type is None:
-      return modify(request, Models)
-   else: 
-      return modify(request, Models, pk_name='id', type=type)
-
+   if item == 'booking':
+      if type is None:
+         return modify(request, Models)
+      else: 
+         return modify(request, Models, pk_name='id', type=type)
+   else:
+         return modifyInsert(request, item, pk_name='id')
+     
 def detailupdate(request, item):
    data = request.body
    data_list = json.loads(data.decode('utf-8'))
    Models = pathtoMode(item+'Detail')
    type = request.POST.get('type', None)
-   if type is None:
-      for item in data_list:
-         modifyDetail(item, Models)
-   else: 
-      for item in data_list:
-         modifyDetail(item, Models, pk_name='id', type=type)
-         
+   # booking이 아닌경우, 원래 데이터 use_yn = n 업데이트 , 이후 새로 insert
+   if item == 'booking':
+      if type is None:
+         for item in data_list:
+            modifyDetail(item, Models)
+      else: 
+         for item in data_list:
+            modifyDetail(item, Models, pk_name='id', type=type)
+   else:     
+      detailInsert(request, item)
+      
    return JsonResponse({'result': 'success'})
 
 def masterDelete(request, item):
@@ -282,8 +291,6 @@ def insert(request, model, fields):
       field_instance = model._meta.get_field(field)
       if isinstance(field_instance, models.ForeignKey):
          # ForeignKey field 처리
-         print(field)
-         print(request.POST.get(field))
          data[field] = pathtoMode(field).objects.get(id=request.POST.get(field))
       else:
          # 일반 field 처리
@@ -314,6 +321,50 @@ def modify(request, model, pk_name='id', **kwargs):
 
    return JsonResponse({'result': 'success', 'id': obj.id})
 
+def modifyInsert(request, item, pk_name='id'):
+   Models = pathtoMode(item+'Master')
+   now = datetime.datetime.now()
+   pk_value = request.POST.get(pk_name)
+
+    # 마스터 use_yn N 처리
+   obj = Models.objects.get(**{pk_name: pk_value})
+   obj.use_yn = 'N'
+   obj.updat_date = now.strftime('%Y-%m-%d %H:%M:%S')
+   obj.save()
+
+   fields = []
+   fields = [f.name for f in Models._meta.fields if f.name not in ['entry_date', 'entry_id', 'updat_date', 'updat_id', 'id']]
+
+   now = datetime.datetime.now()
+   data = {}
+   for field in fields:
+      field_instance = Models._meta.get_field(field)
+      if isinstance(field_instance, models.ForeignKey):
+         # ForeignKey field 처리
+         data[field] = pathtoMode(field).objects.get(id=request.POST.get(field))
+      else:
+         # 일반 field 처리
+         data[field] = request.POST.get(field)
+
+   tmpobj = Models(**data, entry_date=obj.entry_date, updat_date=now.strftime('%Y-%m-%d %H:%M:%S'))
+   tmpobj.save()
+      
+   tmp_id =tmpobj.id
+
+  
+
+   # 디테일 use_yn N 처리
+   Models = pathtoMode(item+'Detail')
+   try:
+      tmpobj2 = Models.objects.filter(**{item+'_id': pk_value})
+      tmpobj2.use_yn = 'N'
+      tmpobj2.updat_date = now.strftime('%Y-%m-%d %H:%M:%S')
+      tmpobj2.update()
+   except Models.DoesNotExist:
+       pass
+   
+   return JsonResponse({'result': 'success', 'id': tmp_id})
+
 def delete(request, model, pk_name='id', **kwargs):
     now = datetime.datetime.now()
     pk_value = request.POST.get(pk_name)
@@ -326,9 +377,10 @@ def delete(request, model, pk_name='id', **kwargs):
     return JsonResponse({'result': 'success', 'id': obj.id})
 
 def insertDetail(jsonData, model, fields):
-    now = datetime.datetime.now()
-    data = {}
-    for field in fields:
+   now = datetime.datetime.now()
+   data = {}
+
+   for field in fields:
       if field in jsonData:
          field_instance = model._meta.get_field(field)
          if isinstance(field_instance, models.ForeignKey):
@@ -348,17 +400,16 @@ def insertDetail(jsonData, model, fields):
                   data[field] = RoomingMaster.objects.get(id=jsonData[field])
                else:
                   data[field] = pathtoMode(field).objects.get(id=jsonData[field])
-       
          else:
             # 일반 field 처리
-            data[field] = jsonData[field]
+               data[field] = jsonData[field]
       else:
          data[field] = None  
 
-    obj = model(**data, entry_date=now.strftime('%Y-%m-%d %H:%M:%S'))
-    obj.save()
+   obj = model(**data, entry_date=now.strftime('%Y-%m-%d %H:%M:%S'))
+   obj.save()
 
-    return JsonResponse({'result': 'success', 'id': obj.id})
+   return JsonResponse({'result': 'success', 'id': obj.id})
 
 def modifyDetail(jsonData, model, pk_name='id', **kwargs):
     now = datetime.datetime.now()
@@ -548,7 +599,7 @@ def getREF(request, target):
    # ref 검색 booking ref
    refObj = BookingMaster.objects.filter(ref__icontains=ref, use_yn=use_yn)
    id_list = [obj.id for obj in refObj]
-   print(target)
+
    if target in ['itinerary', 'invoice', 'statement'] : # 확정서
       # 루밍에서 해당 ref로 루밍 id검색하여 master_id로 리턴
       tmpObj = RoomingMaster.objects.filter(booking_id__in=id_list);
@@ -581,10 +632,7 @@ def searchREF(request):
    params = json.loads(data)
 
    type = params.get("type")
-   id = params.get("id")
-   print(params)
-   print(type)
-   print(id)
+   id = params.get("id")  
 
    if type == 'booking':
       resultData = list(BookingMaster.objects.filter(id=id).values());
@@ -598,9 +646,6 @@ def searchDetail(request):
 
    type = params.get("type")
    id = params.get("id")
-   print(params)
-   print(type)
-   print(id)
 
    if type == 'booking':
       resultData = list(BookingDetail.objects.filter(booking_id=id, use_yn='Y').values());

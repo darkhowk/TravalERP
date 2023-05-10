@@ -35,8 +35,7 @@ class RoomingDetail(commonModel):
     expirey=models.CharField(db_column='EXPIREY', max_length=8, verbose_name='말소일')
     mobile=models.CharField(db_column='MOBILE', max_length=13, verbose_name='연락처')
     remark=models.CharField(db_column='REMARK', max_length=2000, verbose_name='기타')
- 
-  
+
     class Meta:
         managed = False
         db_table = 'rooming_detail'

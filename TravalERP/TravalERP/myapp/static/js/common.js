@@ -112,7 +112,7 @@ function getDetailData(type, id, table){
             ContentType: 'application/json',
             dataType: 'json',
             success: function(data) {
-                setDetailData(data, table);
+                setDetailData(data, table, id);
             },
             error: function(xhr, status, error) {
                 alert(' 실패')
@@ -120,19 +120,20 @@ function getDetailData(type, id, table){
         }); 
 }
 
-function setDetailData(data, table) {
+function setDetailData(data, table, id) {
     var table = $("#" + table);
     var tbody = table.find("tbody");
     var thead = table.find("thead");
     var headers = [];
-  
+    var target = $("#target").val();
+
     // thead에 있는 th들의 id 값을 headers 배열에 저장
     thead.find("th").each(function() {
       headers.push($(this).attr("id"));
     });
   
     // 데이터 개수만큼 row 생성
-var tbody = document.getElementById("tbody");
+    var tbody = document.getElementById("tbody");
     for (var i = 0; i < data.length; i++) {
         var row = tbody.insertRow(i)
   
@@ -146,9 +147,9 @@ var tbody = document.getElementById("tbody");
             value = '';
         }
         var cell = row.insertCell(j);
-
+         var target = $("#target").val();
         if (j == 0){
-            cell.innerHTML = "<td class='col'><input style='width:100%;' type='checkbox' id='delete'><input type='hidden' id='id' name='id' value='"+data[i]['id']+"' ></td>";
+            cell.innerHTML = "<td class='col'><input style='width:100%;' type='checkbox' id='delete'><input type='hidden' id='id' name='id' value='"+data[i]['id']+"' ><input type='hidden' id='use_yn' name='use_yn' value='Y'><input type='hidden' id='"+target+"_id' name='"+target+"_id' value='"+id+"'></td>";
         }
         else if (j == 1){
             cell.innerHTML = "<td class='col'>"+i+"</td>";

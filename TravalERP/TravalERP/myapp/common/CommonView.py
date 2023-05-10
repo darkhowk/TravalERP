@@ -23,7 +23,7 @@ class CommonMainView(generic.ListView):
         model, type, value  = self.custom_queryset()
 
         if type is None:
-            queryset = model.objects.all()
+            queryset = model.objects.filter(use_yn='Y')
         else:
             queryset = model.objects.filter(type=value)
 

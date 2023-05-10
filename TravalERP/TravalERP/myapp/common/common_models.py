@@ -245,16 +245,16 @@ class ScheduleMaster(commonModel):
         verbose_name_plural = '스케줄 마스터 목록'       
 
 class ScheduleDetail(commonModel):
-    master_id = models.ForeignKey(ScheduleMaster, db_column='MASTER_ID', on_delete=models.SET_NULL, blank=True, null=True, verbose_name='마스터 ID')
+    schedule_id = models.ForeignKey(ScheduleMaster, db_column='SCHEDULE_ID', on_delete=models.SET_NULL, blank=True, null=True, verbose_name='마스터 ID')
     day = models.CharField(db_column='DAY', max_length=100, verbose_name='일차')
     schedule = models.CharField(db_column='SCHEDULE', max_length=100, verbose_name='일정')
     hotel = models.CharField(db_column='HOTEL', max_length=100, verbose_name='호텔')
 
     def __str__(self):
-        return f"{self.master_id} - {self.master_id.product_name}"
+        return f"{self.schedule_id} - {self.schedule_id.product_name}"
 
     def __iter__(self):
-        yield self.master_id
+        yield self.schedule_id
         yield self.day
         yield self.schedule
         yield self.hotel

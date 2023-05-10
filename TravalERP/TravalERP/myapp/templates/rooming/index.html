@@ -67,8 +67,8 @@
 						    <td>{{ list.booking_id.product_name|truncatechars:30 }}</td>
                             <td style="text-align: center;">{{ list.tc.tc_name|truncatechars:5 }}</td>
                             <td style="text-align: center;">{{ list.total_pax|default_if_none:"0"|truncatechars:2 }}</td>
-                            <td style="text-align: center;">{{ list.booking_id.entry_date|date:"Y-m-d" }}</td>
-                            <td style="text-align: center;">{{ list.booking_id.updat_date|date:"Y-m-d" }}</td>
+                            <td style="text-align: center;">{{ list.entry_date|date:"Y-m-d" }}</td>
+                            <td style="text-align: center;">{{ list.updat_date|date:"Y-m-d" }}</td>
                             <td style="text-align: center;">{{ list.booking_id.attn_manager.manager_name|truncatechars:10 }}</td>
                             <td style="text-align: center;">{{ list.entry_id|truncatechars:10 }}</td>
                         </tr>
