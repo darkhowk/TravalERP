@@ -43,10 +43,10 @@ class itineraryAdd(CommonMainAddView):
       self.type = request.GET.get('type', None)
 
       if self.pageType == 'I':
-         self.title_nm = "확정서 추가"
+         self.title_nm = "확정서추가"
          self.descript = "확정서추가 페이지입니다"
       elif self.pageType == 'U':
-         self.title_nm = "확정서 수정"
+         self.title_nm = "확정서수정"
          self.descript = "확정서수정 페이지입니다"
 
       response = super().get(request, *args, **kwargs)

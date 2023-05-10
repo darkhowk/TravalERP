@@ -43,10 +43,10 @@ class roomingAdd(CommonMainAddView):
       self.type = request.GET.get('type', None)
 
       if self.pageType == 'I':
-         self.title_nm = "루밍 추가"
+         self.title_nm = "루밍추가"
          self.descript = "루밍추가 페이지입니다"
       elif self.pageType == 'U':
-         self.title_nm = "루밍 수정"
+         self.title_nm = "루밍수정"
          self.descript = "루밍수정 페이지입니다"
 
       response = super().get(request, *args, **kwargs)

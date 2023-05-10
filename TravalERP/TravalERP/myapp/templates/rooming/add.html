@@ -1,8 +1,8 @@
 {% extends "base/base.html" %} {% block content %}
 
 <div class="container">
-  <h1 class="mt-5 title">루밍등록</h1>
-</div>
+  <h1 class="mt-5 title">{{title_nm}}</h1>
+</div> 
 
 <div class="container mt-5">
 	<form id="roomingFrm">
@@ -39,7 +39,7 @@
 				<div class="input-group-text">pax</div>
 			</div>
       	</div>
-      	<div class="col-sm-30">
+      	<div class="col-sm-2">
 			<div class="input-group">
 				<select class="form-select" id="tc_count" aria-label="currency" onchange="getselect()">
 					<option selected>T/C여부</option>

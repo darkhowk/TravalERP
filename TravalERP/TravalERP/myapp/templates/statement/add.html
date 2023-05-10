@@ -1,11 +1,11 @@
 {% extends "base/base.html" %} {% block content %}
 
 <div class="container">
-  <h1 class="mt-5 title">정산등록</h1>
+  <h1 class="mt-5 title">{{title_nm}}</h1>
 </div>
 
 <div class="container mt-5">
-  <form>
+	<form id="statementFrm">
     {% csrf_token %}
     <div class="d-inline mb-3">
       <label class="form-label" for="roomingfile"><h4>파일업로드</h4></label>
@@ -213,11 +213,15 @@
             <textarea id="remark" class="form-control" style="height: 100px"></textarea>
         </div>
     </div>
-    <div class="text-end mt-5">
-      <button type="submit" class="btn btn-primary">저장</button>
-      <button type="reset" class="btn btn-secondary">초기화</button>
-      <button type="button" class="btn btn-secondary">취소</button>
-    </div>
+		<div class="d-grid gap-2 d-md-flex justify-content-md-end mt-3">
+			{% if pageType == 'I' %}
+			<input type="button" class="btn btn-primary" value="저장" onclick="saveData('statementFrm')">
+			{% elif pageType == 'U' %}
+			<input type="button" class="btn btn-danger" value="수정" onclick="updateData('statementFrm')">
+			<input type="button" class="btn btn-outline-danger" value="삭제" onclick="deleteData('statementFrm')">
+			{% endif %}
+			<input type="button" class="btn btn-outline-primary" value="목록" onclick="goMenuList()">
+		</div>
   </form>
 </div>
 
