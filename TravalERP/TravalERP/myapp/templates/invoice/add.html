@@ -224,17 +224,17 @@
 			</div>
     </div>
 		<div class="devider-2"></div>
-      <div class="row col-12" id="result_title" style="display: none;">
-        <div class="col-4" style="text-align: center; font-weight: bold;">은행명</div>
-        <div class="col-4" style="text-align: center; font-weight: bold;">예금주</div>
-        <div class="col-4" style="text-align: center; font-weight: bold;">계좌번호</div>
+      <div class="row col-12" id="result_title" style="font-size: large; text-align: center; font-weight: bold;">
+        <div class="col-4">은행명</div>
+        <div class="col-4">예금주</div>
+        <div class="col-4">계좌번호</div>
       </div>
       <div class="devider-2"></div>
       <div class="row col-12" id="result_div">
       </div>
   </div>
 </div>
-
+ 
 
 
 
@@ -288,9 +288,9 @@
     resultTitle.show();
     resultDiv.show();
     for (var i = 0; i < data.length; i ++){
-      resultDiv.append("<div class='col-4 mt-2' style='text-align: center;' data-row="+i+">"+data[i].bank_name+"</div>")
-      resultDiv.append("<div class='col-4 mt-2' style='text-align: center;' data-row="+i+">"+data[i].account_name+"</div>")
-      resultDiv.append("<div class='col-4 mt-2' style='text-align: center;' data-row="+i+">"+data[i].account_no+"</div>")
+      resultDiv.append("<div class='col-4 mt-2' style='text-align: center; color: dimgray;' data-row="+i+">"+data[i].bank_name+"</div>")
+      resultDiv.append("<div class='col-4 mt-2' style='text-align: center; color: dimgray;' data-row="+i+">"+data[i].account_name+"</div>")
+      resultDiv.append("<div class='col-4 mt-2' style='text-align: center; color: dimgray;' data-row="+i+">"+data[i].account_no+"</div>")
       resultDiv.append("<div class='devider-3'</div>")
     }
   }
