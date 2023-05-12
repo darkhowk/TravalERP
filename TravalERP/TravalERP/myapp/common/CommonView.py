@@ -11,7 +11,6 @@ class CommonMainView(generic.ListView):
     template_name = ""
     menu_type = ""
     target = ""
-    type = ""
 
     def __init__(self):
         self.topMenu = Menu.objects.filter(menu_type="TOP", use_yn='Y')
@@ -20,12 +19,7 @@ class CommonMainView(generic.ListView):
         
         self.perPage = int(request.GET.get('perPage', '5'))
         self.paging = int(request.GET.get('paging', '1'))
-        model, type, value  = self.custom_queryset()
-
-        if type is None:
-            queryset = model.objects.filter(use_yn='Y')
-        else:
-            queryset = model.objects.filter(type=value)
+        queryset  = self.custom_queryset()
 
         self.content_list = queryset[self.perPage * (self.paging - 1):self.perPage * self.paging]
 
@@ -53,7 +47,6 @@ class CommonMainView(generic.ListView):
             'start_index': start_index,
             'end_index': end_index,
             'target': self.target,
-            'type': self.type,
         }
         return render(request, self.template_name, self.content)
 

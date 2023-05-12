@@ -10,7 +10,7 @@ from ..common.CommonView import CommonMainView, CommonMainAddView
 class invoiceIndex(CommonMainView):
 
    def custom_queryset(self):
-      return  InvoiceMaster, None, None
+      return  InvoiceMaster.objects.filter(use_yn='Y')
 
 
    def get(self, request, *args, **kwargs):

@@ -10,7 +10,7 @@ from ..common.CommonView import CommonMainView, CommonMainAddView
 class statementIndex(CommonMainView):
 
    def custom_queryset(self):
-      return  StatementMaster, None, None
+      return  StatementMaster.objects.filter(use_yn='Y')
 
 
    def get(self, request, *args, **kwargs):

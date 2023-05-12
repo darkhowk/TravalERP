@@ -10,7 +10,7 @@ from ..common.CommonView import CommonMainView, CommonMainAddView
 class roomingIndex(CommonMainView):
 
    def custom_queryset(self):
-      return  RoomingMaster, None, None
+      return  RoomingMaster.objects.filter(use_yn='Y')
 
    def get(self, request, *args, **kwargs):
       self.title_nm = "ROOMING LIST"

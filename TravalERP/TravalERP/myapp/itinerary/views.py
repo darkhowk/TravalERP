@@ -10,7 +10,7 @@ from ..common.CommonView import CommonMainView, CommonMainAddView
 class itineraryIndex(CommonMainView): 
 
    def custom_queryset(self):
-      return  ItineraryMaster, None, None
+      return  ItineraryMaster.objects.filter(use_yn='Y')
    
 
    def get(self, request, *args, **kwargs):

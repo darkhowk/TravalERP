@@ -10,7 +10,7 @@ from ..common.CommonView import CommonMainView, CommonMainAddView
 class bookingIndex(CommonMainView):
 
    def custom_queryset(self):
-      return  BookingMaster, None, None
+      return  BookingMaster.objects.filter(use_yn='Y')
         
    def get(self, request, *args, **kwargs):
       self.title_nm = "BOOKING LIST"
