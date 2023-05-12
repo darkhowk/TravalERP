@@ -31,14 +31,14 @@
                         <form class="d-none d-sm-inline-block navbar-search">
                             <div class="input-group">
                                 <select class="datatable-select" id="search_type">
-                                    <option value="ref">ref</option>
-                                    <option value="product_name">상품명</option>
-                                    <option value="agent_manager">여행사담당자</option>
-                                    <option value="product_manager">상품담당자</option>
+                                    <option value="ref" {% if searchType == ref %} selected {% endif %} >ref</option>
+                                    <option value="product_name" {% if searchType == 'product_name' %} selected {% endif %} >상품명</option>
+                                    <option value="agent_manager" {% if searchType == agent_manager %} selected {% endif %} >여행사담당자</option>
+                                    <option value="product_manager" {% if searchType == product_manager %} selected {% endif %}>상품담당자</option>
                                 </select>
-                                <input type="text" class="form-control bg-light border" aria-label="Search" aria-describedby="basic-addon2" id="searchKeyword"/>
+                                <input type="text" class="form-control bg-light border" aria-label="Search" aria-describedby="basic-addon2" id="searchKeyword" value="{{ searchKeyword }}"/>
                                 <div class="input-group-append">
-                                    <button class="btn btn-dark" type="button" id="search_btn">
+                                    <button class="btn btn-dark" type="button" id="search_btn" onclick="list_search()">
                                         <i class="fas fa-search fa-sm"></i>
                                     </button>
                                     <a href="#" class="btn btn-dark" onclick="addMenu()">등록</a>

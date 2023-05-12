@@ -10,13 +10,21 @@ from ..common.CommonView import CommonMainView, CommonMainAddView
 class bookingIndex(CommonMainView):
 
    def custom_queryset(self):
-      return  BookingMaster.objects.filter(use_yn='Y')
+      queryset =  BookingMaster.objects.filter(use_yn='Y')
+      
+      if self.searchType != None and self.searchKeyword != None:
+         return  queryset.filter( **{self.searchType+'__icontains': self.searchKeyword} )
+      else:
+         return queryset
+
         
    def get(self, request, *args, **kwargs):
       self.title_nm = "BOOKING LIST"
       self.descript = "수배내역 페이지입니다"
       self.template_name = "booking/index.html"
       self.target = "booking"
+      self.searchType = request.GET.get('searchType', None)
+      self.searchKeyword = request.GET.get('searchKeyword', None)
       response = super().get(request, *args, **kwargs)
       
       if response is None:

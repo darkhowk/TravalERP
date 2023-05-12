@@ -11,7 +11,9 @@ class CommonMainView(generic.ListView):
     template_name = ""
     menu_type = ""
     target = ""
-
+    searchType = ""
+    searchKeyword = ""
+    
     def __init__(self):
         self.topMenu = Menu.objects.filter(menu_type="TOP", use_yn='Y')
 
@@ -47,6 +49,8 @@ class CommonMainView(generic.ListView):
             'start_index': start_index,
             'end_index': end_index,
             'target': self.target,
+            'searchType' : self.searchType,
+            'searchKeyword' : self.searchKeyword,
         }
         return render(request, self.template_name, self.content)
 
