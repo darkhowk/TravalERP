@@ -11347,6 +11347,7 @@ body {
 .sb-sidenav-toggled #layoutSidenav #layoutSidenav_nav {
   transform: translateX(0);
 }
+
 .sb-sidenav-toggled #layoutSidenav #layoutSidenav_content:before {
   content: "";
   display: block;
@@ -11361,25 +11362,24 @@ body {
   transition: opacity 0.3s ease-in-out;
 }
 
-@media (min-width: 992px) {
-  #layoutSidenav #layoutSidenav_nav {
-    transform: translateX(0);
-  }
-  #layoutSidenav #layoutSidenav_content {
-    margin-left: 0;
-    transition: margin 0.15s ease-in-out;
-  }
-
-  .sb-sidenav-toggled #layoutSidenav #layoutSidenav_nav {
-    transform: translateX(-225px);
-  }
-  .sb-sidenav-toggled #layoutSidenav #layoutSidenav_content {
-    margin-left: -225px;
-  }
-  .sb-sidenav-toggled #layoutSidenav #layoutSidenav_content:before {
-    display: none;
-  }
+#layoutSidenav #layoutSidenav_nav {
+  transform: translateX(0);
 }
+#layoutSidenav #layoutSidenav_content {
+  margin-left: 0;
+  transition: margin 0.15s ease-in-out;
+}
+
+.sb-sidenav-toggled #layoutSidenav #layoutSidenav_nav {
+  transform: translateX(-225px);
+}
+.sb-sidenav-toggled #layoutSidenav #layoutSidenav_content {
+  margin-left: -225px;
+}
+.sb-sidenav-toggled #layoutSidenav #layoutSidenav_content:before {
+  display: none;
+}
+
 .sb-nav-fixed .sb-topnav {
   z-index: 1039;
 }
