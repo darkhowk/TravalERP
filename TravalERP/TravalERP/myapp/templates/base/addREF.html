@@ -25,10 +25,10 @@
             </div>
             <div class="modal-body">
                 <div class="devider-2"></div>
-                <div class="row col-12" id="" style="background-color: lightsteelblue; margin-left: 0px;">
-                    <div class="col-4" style="text-align: center; font-weight: bold; font-size: large;">REF</div>
-                    <div class="col-6" style="text-align: center; font-weight: bold; font-size: large;">상품명</div>
-                    <div class="col-2" style="text-align: center; font-weight: bold; font-size: large;">출발일</div>
+                <div class="row col-12" id="" style="text-align: center; font-weight: bold; font-size: large;">
+                    <div class="col-4" >REF</div>
+                    <div class="col-6" >상품명</div>
+                    <div class="col-2" >출발일</div>
                 </div>
                 <div class="devider-2"></div>
                 <div class="row col-12 mt-4" id="ref_result">
@@ -98,10 +98,10 @@
         var result = $("#ref_result"); 
         result.empty();
         for (var i = 0; i < refList.length; i ++){
-            result.append("<div class='col-4 mt-2' style='overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: bold; text-align: center;' data-row="+i+">"+refList[i].ref+"</div>")
-            result.append("<div class='col-6 mt-2' style='overflow: hidden; text-overflow: ellipsis; white-space: nowrap;' data-row="+i+">"+refList[i].product_name+"</div>")
-            result.append("<div class='col-2 mt-2' style='overflow: hidden; text-overflow: ellipsis; white-space: nowrap; text-align: center;' data-row="+i+">"+refList[i].kor_air_date+"</div>")
-            result.append("<div class='devider-3' style='overflow: hidden; text-overflow: ellipsis; white-space: nowrap;'</div>")     
+            result.append("<div class='col-4 mt-2' style='overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: bold; text-align: center; color: dimgray;' data-row="+i+">"+refList[i].ref+"</div>")
+            result.append("<div class='col-6 mt-2' style='overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: dimgray;' data-row="+i+">"+refList[i].product_name+"</div>")
+            result.append("<div class='col-2 mt-2' style='overflow: hidden; text-overflow: ellipsis; white-space: nowrap; text-align: center; color: dimgray;' data-row="+i+">"+refList[i].kor_air_date+"</div>")
+            result.append("<div class='devider-3' style='overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: dimgray;'</div>")     
         }
     }
 
