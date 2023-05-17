@@ -10,14 +10,21 @@ from ..common.CommonView import CommonMainView, CommonMainAddView
 class roomingIndex(CommonMainView):
 
    def custom_queryset(self):
-      return  RoomingMaster.objects.filter(use_yn='Y')
+      queryset =  RoomingMaster.objects.filter(use_yn='Y')
+      
+      if self.searchType != None and self.searchKeyword != None:
+         return  queryset.filter( **{self.searchType+'__icontains': self.searchKeyword} )
+      else:
+         return queryset
 
    def get(self, request, *args, **kwargs):
       self.title_nm = "ROOMING LIST"
       self.descript = "루밍리스트 페이지입니다"
       self.template_name = "rooming/index.html"
       self.target = "rooming"
-      response = super().get(request, *args, **kwargs) 
+      self.searchType = request.GET.get('searchType', None)
+      self.searchKeyword = request.GET.get('searchKeyword', None)
+      response = super().get(request, *args, **kwargs)
       
       if response is None:
          response = HttpResponse()

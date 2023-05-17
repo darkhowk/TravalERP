@@ -49,8 +49,8 @@ class CommonMainView(generic.ListView):
             'start_index': start_index,
             'end_index': end_index,
             'target': self.target,
-            'searchType' : self.searchType,
-            'searchKeyword' : self.searchKeyword,
+            'searchType' : self.searchType if self.searchType is not None else '',
+            'searchKeyword' : self.searchKeyword if self.searchKeyword is not None else '',
         }
         return render(request, self.template_name, self.content)
 
