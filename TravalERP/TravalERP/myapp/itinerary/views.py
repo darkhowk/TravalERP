@@ -10,7 +10,12 @@ from ..common.CommonView import CommonMainView, CommonMainAddView
 class itineraryIndex(CommonMainView): 
 
    def custom_queryset(self):
-      return  ItineraryMaster.objects.filter(use_yn='Y')
+      queryset =  ItineraryMaster.objects.filter(use_yn='Y')
+      
+      if self.searchType != None and self.searchKeyword != None:
+         return  queryset.filter( **{self.searchType+'__icontains': self.searchKeyword} )
+      else:
+         return queryset
    
 
    def get(self, request, *args, **kwargs):
@@ -18,6 +23,8 @@ class itineraryIndex(CommonMainView):
       self.descript = "확정서 페이지입니다"
       self.template_name = "itinerary/index.html"
       self.target = "itinerary"
+      self.searchType = request.GET.get('searchType', None)
+      self.searchKeyword = request.GET.get('searchKeyword', None)
       response = super().get(request, *args, **kwargs)
       
       if response is None:
