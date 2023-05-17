@@ -10,7 +10,12 @@ from ..common.CommonView import CommonMainView, CommonMainAddView
 class invoiceIndex(CommonMainView):
 
    def custom_queryset(self):
-      return  InvoiceMaster.objects.filter(use_yn='Y')
+      queryset =  InvoiceMaster.objects.filter(use_yn='Y')
+      
+      if self.searchType != None and self.searchKeyword != None:
+         return  queryset.filter( **{self.searchType+'__icontains': self.searchKeyword} )
+      else:
+         return queryset
 
 
    def get(self, request, *args, **kwargs):
@@ -18,7 +23,9 @@ class invoiceIndex(CommonMainView):
       self.descript = "인보이스 페이지입니다"
       self.template_name = "invoice/index.html"
       self.target = "invoice"
-      response = super().get(request, *args, **kwargs)
+      self.searchType = request.GET.get('searchType', None)
+      self.searchKeyword = request.GET.get('searchKeyword', None)
+      response = super().get(request, *args, **kwargs) 
       
       if response is None:
          response = HttpResponse()

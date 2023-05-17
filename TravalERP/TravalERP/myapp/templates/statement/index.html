@@ -28,9 +28,15 @@
                     <div class="text-end">
                         <form class="d-none d-sm-inline-block navbar-search">
                             <div class="input-group">
-                                <input type="text" class="form-control bg-light border" aria-label="Search" aria-describedby="basic-addon2" />
+                                <select class="datatable-select" id="search_type">
+                                    <option value="invoice_id__itinerary_id__rooming_id__booking_id__ref" {% if searchType == 'invoice_id__itinerary_id__rooming_id__booking_id__ref' %} selected {% endif %} >ref</option>
+                                    <option value="product_name" {% if searchType == 'product_name' %} selected {% endif %} >상품명</option>
+                                    <option value="attn_manager__manager_name" {% if searchType == 'attn_manager__manager_name' %} selected {% endif %} >여행사담당자</option>
+                                    <option value="product_manager" {% if searchType == 'product_manager' %} selected {% endif %}>상품담당자</option>
+                                </select>
+                                <input type="text" class="form-control bg-light border" aria-label="Search" aria-describedby="basic-addon2" id="searchKeyword" value="{{ searchKeyword }}"/>
                                 <div class="input-group-append">
-                                    <button class="btn btn-dark" type="button">
+                                    <button class="btn btn-dark" type="button" id="search_btn" onclick="list_search()">
                                         <i class="fas fa-search fa-sm"></i>
                                     </button>
                                     <a href="#" class="btn btn-dark" onclick="addMenu()">등록</a>
