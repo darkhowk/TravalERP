@@ -1,23 +1,19 @@
 {% extends "base/base.html" %}
 {% block content %}
-<div class="container-fluid">
-    <h1 class="mt-4">대시보드</h1>
-
-    <div class="container-fluid px-4">
         <div class="card mb-4">
             <div class="card-body">
                 <p class="mb-0">
-                    대시보드입니다</br>
                     <div class="date-wrap">
-                        <div class="date-month">
+                        <div class="date-month" style="text-align: center; font-size: 25px; font-weight: bold;">
                             <div class="button_wrap">
-                                <button type="button" id="month-prev" class="month-move" data-ym="2023-02-01"> < </button>
+                                <button type="button" id="month-prev" class="btn btn-outline-success month-move" data-ym="2023-02-01"> < </button>
                                 <span id="month-this"></span>
-                                <button type="button" id="month-next" class="month-move" data-ym="2023-04-01"> > </button>
+                                <button type="button" id="month-next" class="btn btn-outline-success month-move" data-ym="2023-04-01"> > </button>
                             </div>
                         </div>
+                        <div class="p-3"></div>
                         <table class="date-month">
-                            <thead>
+                            <thead style="text-align: center;">
                                 <tr>
                                     <th>일</th>
                                     <th>월</th>
@@ -36,8 +32,6 @@
                 </p>
             </div>
         </div>
-    </div>
-</div>
 
 <script>
 
@@ -141,7 +135,27 @@ $(function () {
         e.preventDefault();
         drawMonth($(this).data('ym'));
     });
+
 });
+
+function highlightToday(date) {
+    var today = new Date().getDate();
+    var month = new Date(date).getMonth();
+
+    // 오늘 날짜가 있는 셀을 찾아 해당 셀의 클래스를 변경하여 강조 표시
+    $('.date-wrap table tbody td').each(function () {
+        var day = parseInt($(this).text());
+        var isToday = (day === today && new Date(date).getMonth() === month);
+        if (isToday) {
+            $(this).addClass('today');
+        }
+    });
+}
+
+
+
+
+
 </script>
 <style>
 .card-body{
@@ -152,7 +166,6 @@ $(function () {
 .date-wrap {
     width: 100%;
     height: 100%;
-    text-align: center;
     align-items: baseline;
 }
 .date-month {
@@ -177,6 +190,12 @@ $(function () {
 .date-month th:last-child{
     background-color: black;
     color: skyblue;
+}
+
+
+.today {
+    background-color: yellow;
+    font-weight: bold;
 }
 
 </style>

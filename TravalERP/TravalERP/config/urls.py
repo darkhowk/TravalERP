@@ -27,6 +27,7 @@ urlpatterns = [
     path("", include("myapp.invoice.urls")),
     path("", include("myapp.statement.urls")),
     path("", include("myapp.ajax.urls")),
+    path("", include("myapp.ton.urls")),
 
 ]
 

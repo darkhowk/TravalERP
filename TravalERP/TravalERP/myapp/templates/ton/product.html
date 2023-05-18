@@ -1,3 +1,7 @@
+{% extends "base/base.html" %} 
+{% block content %}
+
+
 <div class="container">
     <h1 class="mt-5 title">국내숙박 상품기술서</h1>
 </div> 
@@ -16,9 +20,9 @@
             </div>
             <div class="input-group mb-3">
                 <span class="input-group-text col-3" >판매기간</span>
-                <input class="form-control col-4" id="sell_period_start" name="sell_period_start" readonly>
+                <input class="form-control date col-4" id="sell_period_start" name="sell_period_start" readonly>
                 <span class="input-group-text col-1" >~</span>
-                <input class="form-control col-4" id="sell_period_end" name="sell_period_end" readonly>
+                <input class="form-control date col-4" id="sell_period_end" name="sell_period_end" readonly>
             </div>
         </div>
 
@@ -32,25 +36,499 @@
             </div>
             <div class="input-group mb-3">
                 <span class="input-group-text col-3" >이용기간</span>
-                <input type="text" class="form-control col-4 datepicker me-3" id="use_period_start" name="use_period_start" placeholder="시작일" value="" />
+                <input type="text" class="form-control col-4 date" id="use_period_start" name="use_period_start" placeholder="시작일" value="" />
+                    
                 <span class="input-group-text col-1" >~</span>
-                <input type="text" class="form-control col-4 datepicker me-3" id="use_period_end" name="use_period_end" placeholder="종료일" value="" />
+                <input type="text" class="form-control col-4 date" id="use_period_end" name="use_period_end" placeholder="종료일" value="" />
             </div>
-            <div class="input-group mb-3">
+            <h6 class="pt-2" style="font-weight: bold;">2-1. 1번옵션</h6>
+            <div class="input-group">
                 <span class="input-group-text col-2" >세부옵션명</span>
-                <input class="form-control col-4" id="option_name_1" name="option_name_1" >
-                <span class="input-group-text col-2" >세부옵션명</span>
-                <input class="form-control col-4" id="option_name_2" name="option_name_2" >
+                <input class="form-control col-10" id="option_name_1" name="option_name_1" >
             </div>
-            <div class="input-group mb-3">
+            <div class="input-group">
                 <span class="input-group-text col-2" >판매가</span>
                 <input class="form-control col-3" id="option_1_" name="option_1_" >
                 <span class="input-group-text col-1" >원</span>
+                <span class="input-group-text col-2" >정상가</span>
+                <input class="form-control col-3" id="option_1_" name="option_1_" style="color: red; font-weight: bold;">
+                <span class="input-group-text col-1" >원</span>
+            </div>
+            <div class="input-group">
+                <span class="input-group-text col-2">상품구성</span>
+                <div class="col-10">
+                    <input class="form-control" id="option_name_1" name="option_name_1" value="1. ">
+                    <input class="form-control" id="option_name_2" name="option_name_2" value="2. ">
+                    <input class="form-control" id="option_name_3" name="option_name_3" value="3. ">
+                    <input class="form-control" id="option_name_4" name="option_name_4" value="4. ">
+                    <input class="form-control" id="option_name_5" name="option_name_5" value="5. ">
+                </div>
+            </div>
+            <div class="input-group">
+                <span class="input-group-text col-2" >비고</span>
+                <textarea class="form-control col-10" id="remark_1" name="remark_2"  style="height: 80px"></textarea>
+            </div>
+            <h6 class="pt-3" style="font-weight: bold;">2-2. 2번옵션</h6>
+            <div class="input-group">
+                <span class="input-group-text col-2" >세부옵션명</span>
+                <input class="form-control col-10" id="option_name_1" name="option_name_1" >
+            </div>
+            <div class="input-group">
                 <span class="input-group-text col-2" >판매가</span>
                 <input class="form-control col-3" id="option_2_" name="option_2_" >
                 <span class="input-group-text col-1" >원</span>
+                <span class="input-group-text col-2" >정상가</span>
+                <input class="form-control col-3" id="option_2_" name="option_2_" style="color: red; font-weight: bold;">
+                <span class="input-group-text col-1" >원</span>
+            </div>
+            <div class="input-group">
+                <span class="input-group-text col-2">상품구성</span>
+                <div class="col-10">
+                    <input class="form-control" id="option_name_1" name="option_name_1" value="1. ">
+                    <input class="form-control" id="option_name_2" name="option_name_2" value="2. ">
+                    <input class="form-control" id="option_name_3" name="option_name_3" value="3. ">
+                    <input class="form-control" id="option_name_4" name="option_name_4" value="4. ">
+                    <input class="form-control" id="option_name_5" name="option_name_5" value="5. ">
+                </div>
+            </div>
+            <div class="input-group">
+                <span class="input-group-text col-2" >비고</span>
+                <textarea class="form-control col-10" id="remark_1" name="remark_2"  style="height: 80px"></textarea>
+            </div>
+        </div>
+
+        <div class="devider"></div>
+
+        <div>
+            <h4>3.시설정보</h4>
+            <div class="input-group mb-2">
+                <span class="input-group-text col-2" >시설명(호텔명)</span>
+                <input class="form-control col-10" id="name" name="name" >
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text col-2" >연락처</span>
+                <input class="form-control col-3" id="tel" name="tel" >
+                <span class="input-group-text col-3" >이메일</span>
+                <input class="form-control col-3" id="email" name="email" placeholder="__@__">
+            </div>
+            <div class="input-group mb-2">
+                <span class="input-group-text col-2" >주소</span>
+                <input class="form-control col-10" id="address" name="address" >
+            </div>
+            <div class="input-group">
+                <span class="input-group-text col-2" >시설설명(소개)</span>
+                <textarea class="form-control col-10" id="explanation" name="explanation"  style="height: 80px"></textarea>
+            </div>
+            <div class="input-group">
+                <span class="input-group-text col-2">판매포인트</span>
+                <div class="col-10">
+                    <input class="form-control" id="sell_point_1" name="sell_point_1" value="1. ">
+                    <input class="form-control" id="sell_point_2" name="sell_point_2" value="2. ">
+                    <input class="form-control" id="sell_point_3" name="sell_point_3" value="3. ">
+                    <input class="form-control" id="sell_point_4" name="sell_point_4" value="4. ">
+                    <input class="form-control" id="sell_point_5" name="sell_point_5" value="5. ">
+                </div>
+            </div>
+        </div>
+        
+        <div class="devider"></div>
+
+        <div>
+            <h4>4.포함사항 및 이용안내</h4>
+            <div class="table">
+                <table class="table table-bordered">
+                    <thead class="table-dark">
+                        <tr>
+                            <th style="width: 11%;">항목</th>
+                            <th style="width: 30%;">특전1</th>
+                            <th style="width: 30%;">특전2</th>
+                            <th style="width: 29%;">특전3</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th>특전명</th>
+                            <td><input class="form-control" placeholder="포함되어있는 특전명(조식 등)"></td>
+                            <td><input class="form-control"></td>
+                            <td><input class="form-control"></td>
+                        </tr>
+                        <tr>
+                            <th>제공방법</th>
+                            <td><input class="form-control" placeholder="고객에게 특전 전달방법(쿠폰/체크인시/객실키)"></td>
+                            <td><input class="form-control"></td>
+                            <td><input class="form-control"></td>
+                        </tr>
+                        <tr>
+                            <th>사전예약</th>
+                            <td><input class="form-control" placeholder="사전예약여부(필요시 방법기재)"></td>
+                            <td><input class="form-control"></td>
+                            <td><input class="form-control"></td>
+                        </tr>
+                        <tr>
+                            <th>체크인 전/후 사용</th>
+                            <td><input class="form-control" placeholder="체크인 전/후로 이용/사용 가능여부"></td>
+                            <td><input class="form-control"></td>
+                            <td><input class="form-control"></td>
+                        </tr>
+                        <tr>
+                            <th>사용가능인원</th>
+                            <td><input class="form-control" placeholder="제공되는 특전으로 몇명까지 사용가능여부"></td>
+                            <td><input class="form-control"></td>
+                            <td><input class="form-control"></td>
+                        </tr>
+                    </tbody>                 
+                </table>
+            </div>
+        </div>
+
+        <div class="devider"></div>
+
+        <div>
+            <h4>5.부대시설</h4>
+            <div class="input-group">
+                <span class="input-group-text col-2" >부대시설</span>
+                <span class="input-group-text col-10" >상품구성에 포함된 사항은 필수, 기타 추가요금/무료포함 시설 부가적으로 기재(시설 내 위치, 이용시간, 이용/추가요금, 시설 세부사항)</span>
+            </div>
+            <div class="input-group">
+                <span class="input-group-text col-2" >시설명</span>
+                <input class="form-control col-10" id="name" name="name" >
+            </div>
+            <div class="input-group">
+                <span class="input-group-text col-2" >위치</span>
+                <input class="form-control col-4" id="name" name="name" >
+                <span class="input-group-text col-2" >운영시간</span>
+                <input class="form-control col-4" id="name" name="name" >
+            </div>
+            <div class="input-group">
+                <span class="input-group-text col-2" >이용/추가 요금</span>
+                <textarea class="form-control col-10" id="explanation" name="explanation"  style="height: 80px"></textarea>
+            </div>
+            <div class="input-group">
+                <span class="input-group-text col-2" >이용안내</span>
+                <textarea class="form-control col-10" id="explanation" name="explanation"  style="height: 80px"></textarea>
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text col-2" >시설명</span>
+                <input class="form-control col-10" id="name" name="name" >
+            </div>
+            <div class="input-group">
+                <span class="input-group-text col-2" >위치</span>
+                <input class="form-control col-4" id="name" name="name" >
+                <span class="input-group-text col-2" >운영시간</span>
+                <input class="form-control col-4" id="name" name="name" >
+            </div>
+            <div class="input-group">
+                <span class="input-group-text col-2" >이용/추가 요금</span>
+                <textarea class="form-control col-10" id="explanation" name="explanation"  style="height: 80px"></textarea>
+            </div>
+            <div class="input-group">
+                <span class="input-group-text col-2" >이용안내</span>
+                <textarea class="form-control col-10" id="explanation" name="explanation"  style="height: 80px"></textarea>
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text col-2" >시설명</span>
+                <input class="form-control col-10" id="name" name="name" >
+            </div>
+            <div class="input-group">
+                <span class="input-group-text col-2" >위치</span>
+                <input class="form-control col-4" id="name" name="name" >
+                <span class="input-group-text col-2" >운영시간</span>
+                <input class="form-control col-4" id="name" name="name" >
+            </div>
+            <div class="input-group">
+                <span class="input-group-text col-2" >이용/추가 요금</span>
+                <textarea class="form-control col-10" id="explanation" name="explanation"  style="height: 80px"></textarea>
+            </div>
+            <div class="input-group">
+                <span class="input-group-text col-2" >이용안내</span>
+                <textarea class="form-control col-10" id="explanation" name="explanation"  style="height: 80px"></textarea>
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text col-2" >시설명</span>
+                <input class="form-control col-10" id="name" name="name" >
+            </div>
+            <div class="input-group">
+                <span class="input-group-text col-2" >위치</span>
+                <input class="form-control col-4" id="name" name="name" >
+                <span class="input-group-text col-2" >운영시간</span>
+                <input class="form-control col-4" id="name" name="name" >
+            </div>
+            <div class="input-group">
+                <span class="input-group-text col-2" >이용/추가 요금</span>
+                <textarea class="form-control col-10" id="explanation" name="explanation"  style="height: 80px"></textarea>
+            </div>
+            <div class="input-group">
+                <span class="input-group-text col-2" >이용안내</span>
+                <textarea class="form-control col-10" id="explanation" name="explanation"  style="height: 80px"></textarea>
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text col-2" >시설명</span>
+                <input class="form-control col-10" id="name" name="name" >
+            </div>
+            <div class="input-group">
+                <span class="input-group-text col-2" >위치</span>
+                <input class="form-control col-4" id="name" name="name" >
+                <span class="input-group-text col-2" >운영시간</span>
+                <input class="form-control col-4" id="name" name="name" >
+            </div>
+            <div class="input-group">
+                <span class="input-group-text col-2" >이용/추가 요금</span>
+                <textarea class="form-control col-10" id="explanation" name="explanation"  style="height: 80px"></textarea>
+            </div>
+            <div class="input-group">
+                <span class="input-group-text col-2" >이용안내</span>
+                <textarea class="form-control col-10" id="explanation" name="explanation"  style="height: 80px"></textarea>
+            </div>
+        </div>
+
+        <div class="devider"></div>
+
+        <div>
+            <h4>6.추가정보</h4>
+            <div class="table">
+                <table class="table table-bordered">
+                    <thead class="table-dark">
+                        <tr>
+                            <th style="width: 15%;">추가서비스 종류</th>
+                            <th style="width: 15%;">가능여부/사전요청여부</th>
+                            <th style="width: 70%; word-break: break-all">안내사항기재 (어떤서비스 가능한지, 비용발생하는지, 어떻게 이용하는지 등)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th>취사가능여부</th>
+                            <td>
+                                <select class="form-select">
+                                    <option selected>가능여부</option>
+                                    <option value="true">가능</option>
+                                    <option vlaue="false">불가능</option>
+                                </select>
+                                <select class="form-select">
+                                    <option selected>요청여부</option>
+                                    <option value="request">사전요청</option>
+                                    <option vlaue="visit">현장방문요청</option>
+                                </select>
+                            </td>
+                            <td><textarea class="form-control" id="explanation" name="explanation"  style="height: 80px"></textarea></td>
+                        </tr>
+                        <tr>
+                            <th>반려동물 동반여부</th>
+                            <td>
+                                <select class="form-select">
+                                    <option selected>가능여부</option>
+                                    <option value="true">가능</option>
+                                    <option vlaue="false">불가능</option>
+                                </select>
+                                <select class="form-select">
+                                    <option selected>요청여부</option>
+                                    <option value="request">사전요청</option>
+                                    <option vlaue="visit">현장방문요청</option>
+                                </select>
+                            </td>
+                            <td><textarea class="form-control" id="explanation" name="explanation"  style="height: 80px"></textarea></td>
+                        </tr>
+                        <tr>
+                            <th>엑스트라베드<br>/침구 추가</th>
+                            <td>
+                                <select class="form-select">
+                                    <option selected>가능여부</option>
+                                    <option value="true">가능</option>
+                                    <option vlaue="false">불가능</option>
+                                </select>
+                                <select class="form-select">
+                                    <option selected>요청여부</option>
+                                    <option value="request">사전요청</option>
+                                    <option vlaue="visit">현장방문요청</option>
+                                </select>
+                            </td>
+                            <td><textarea class="form-control" id="explanation" name="explanation"  style="height: 80px"></textarea></td>
+                        </tr>
+                        <tr>
+                            <th>유아관련용품<br>제공여부</th>
+                            <td>
+                                <select class="form-select">
+                                    <option selected>가능여부</option>
+                                    <option value="true">가능</option>
+                                    <option vlaue="false">불가능</option>
+                                </select>
+                                <select class="form-select">
+                                    <option selected>요청여부</option>
+                                    <option value="request">사전요청</option>
+                                    <option vlaue="visit">현장방문요청</option>
+                                </select>
+                            </td>
+                            <td><textarea class="form-control" id="explanation" name="explanation"  style="height: 80px"></textarea></td>
+                        </tr>
+                        <tr>
+                            <th>무료주차여부</th>
+                            <td>
+                                <select class="form-select">
+                                    <option selected>가능여부</option>
+                                    <option value="true">가능</option>
+                                    <option vlaue="false">불가능</option>
+                                </select>
+                                <select class="form-select">
+                                    <option selected>요청여부</option>
+                                    <option value="request">사전요청</option>
+                                    <option vlaue="visit">현장방문요청</option>
+                                </select>
+                            </td>
+                            <td><textarea class="form-control" id="explanation" name="explanation"  style="height: 80px"></textarea></td>
+                        </tr>
+                        <tr>
+                            <th>객실전망 선택</th>
+                            <td>
+                                <select class="form-select">
+                                    <option selected>가능여부</option>
+                                    <option value="true">가능</option>
+                                    <option vlaue="false">불가능</option>
+                                </select>
+                                <select class="form-select">
+                                    <option selected>요청여부</option>
+                                    <option value="request">사전요청</option>
+                                    <option vlaue="visit">현장방문요청</option>
+                                </select>
+                            </td>
+                            <td><textarea class="form-control" id="explanation" name="explanation"  style="height: 80px"></textarea></td>
+                        </tr>
+                        <tr>
+                            <th>욕조객실 선택</th>
+                            <td>
+                                <select class="form-select">
+                                    <option selected>가능여부</option>
+                                    <option value="true">가능</option>
+                                    <option vlaue="false">불가능</option>
+                                </select>
+                                <select class="form-select">
+                                    <option selected>요청여부</option>
+                                    <option value="request">사전요청</option>
+                                    <option vlaue="visit">현장방문요청</option>
+                                </select>
+                            </td>
+                            <td><textarea class="form-control" id="explanation" name="explanation"  style="height: 80px"></textarea></td>
+                        </tr>
+                        <tr>
+                            <th>얼리체크인<br>/레이트체크아웃</th>
+                            <td>
+                                <select class="form-select">
+                                    <option selected>가능여부</option>
+                                    <option value="true">가능</option>
+                                    <option vlaue="false">불가능</option>
+                                </select>
+                                <select class="form-select">
+                                    <option selected>요청여부</option>
+                                    <option value="request">사전요청</option>
+                                    <option vlaue="visit">현장방문요청</option>
+                                </select>
+                            </td>
+                            <td><textarea class="form-control" id="explanation" name="explanation"  style="height: 80px"></textarea></td>
+                        </tr>
+                    </tbody>                 
+                </table>
+            </div>
+        </div>
+
+        <div class="devider"></div>
+
+        <div>
+            <h4>7.추가요금</h4>
+            <div class="table">
+                <table class="table table-bordered">
+                    <thead class="table-dark">
+                        <tr>
+                            <th style="width: 15%;">추가요금 명</th>
+                            <th style="width: 15%;">현장결제여부</th>
+                            <th style="width: 70%;">상세내용</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th>일차 추가요금(1박)</th>
+                            <td style="vertical-align: middle;">
+                                <select class="form-select">
+                                    <option selected>현장결제여부</option>
+                                    <option value="true">체크인시 현장결제</option>
+                                    <option vlaue="false">예약시 사전결제</option>
+                                </select>
+                            </td>
+                            <td><textarea class="form-control" id="explanation" name="explanation"  style="height: 80px"></textarea></td>
+                        </tr>
+                        <tr>
+                            <th>인원 추가요금(1박)</th>
+                            <td style="vertical-align: middle;">
+                                <select class="form-select">
+                                    <option selected>현장결제여부</option>
+                                    <option value="true">체크인시 현장결제</option>
+                                    <option vlaue="false">예약시 사전결제</option>
+                                </select>
+                            </td>
+                            <td><textarea class="form-control" id="explanation" name="explanation"  style="height: 80px"></textarea></td>
+                        </tr>
+                        <tr>
+                            <th>객실 업그레이드<br>추가요금(1박)</th>
+                            <td style="vertical-align: middle;">
+                                <select class="form-select">
+                                    <option selected>현장결제여부</option>
+                                    <option value="true">체크인시 현장결제</option>
+                                    <option vlaue="false">예약시 사전결제</option>
+                                </select>
+                            </td>
+                            <td><textarea class="form-control" id="explanation" name="explanation"  style="height: 80px"></textarea></td>
+                        </tr>
+                        <tr>
+                            <th>기타 추가요금(1박/1회)</th>
+                            <td style="vertical-align: middle;">
+                                <select class="form-select">
+                                    <option selected>현장결제여부</option>
+                                    <option value="true">체크인시 현장결제</option>
+                                    <option vlaue="false">예약시 사전결제</option>
+                                </select>
+                            </td>
+                            <td><textarea class="form-control" id="explanation" name="explanation"  style="height: 80px"></textarea></td>
+                        </tr>
+                    </tbody>                 
+                </table>
             </div>
         </div>
     </form>
 </div>
 
+
+<script>
+    $(function(){
+        $('.form-control.date').datepicker({
+            calendarWeeks: false,
+            todayHighlight: true,
+            autoclose: true,
+        });
+        $.datepicker.setDefaults({
+	        dateFormat: 'yy-mm-dd',
+        });
+    });
+
+
+
+
+    
+</script>
+
+<style>
+    .input-group .col-10 input::before {
+        content: attr(data-number) ". ";
+        display: inline-block;
+        width: 1.5em;
+        text-align: right;
+    }
+
+    .input-group-text {
+        font-weight: bold;
+    }
+
+    th {
+        vertical-align: middle;
+        text-align: center;
+    }
+
+</style>
+
+{% endblock %} 
