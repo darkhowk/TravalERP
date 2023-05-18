@@ -1,0 +1,56 @@
+<div class="container">
+    <h1 class="mt-5 title">국내숙박 상품기술서</h1>
+</div> 
+  
+<div class="container mt-5">
+    <form>
+        <div>
+            <h4>1.판매</h4>
+            <div class="input-group mb-3">
+                <span class="input-group-text col-3" >판매채널</span>
+                <input class="form-control col-9" id="channel" name="channel" >
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text col-3" >판매시작일시</span>
+                <input class="form-control col-9" id="start_date" name="start_date" readonly>
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text col-3" >판매기간</span>
+                <input class="form-control col-4" id="sell_period_start" name="sell_period_start" readonly>
+                <span class="input-group-text col-1" >~</span>
+                <input class="form-control col-4" id="sell_period_end" name="sell_period_end" readonly>
+            </div>
+        </div>
+
+        <div class="devider"></div>
+
+        <div>
+            <h4>2.상품상세</h4>
+            <div class="input-group mb-3">
+                <span class="input-group-text col-3" >상품명</span>
+                <input class="form-control col-9" id="product_name" name="product_name" >
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text col-3" >이용기간</span>
+                <input type="text" class="form-control col-4 datepicker me-3" id="use_period_start" name="use_period_start" placeholder="시작일" value="" />
+                <span class="input-group-text col-1" >~</span>
+                <input type="text" class="form-control col-4 datepicker me-3" id="use_period_end" name="use_period_end" placeholder="종료일" value="" />
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text col-2" >세부옵션명</span>
+                <input class="form-control col-4" id="option_name_1" name="option_name_1" >
+                <span class="input-group-text col-2" >세부옵션명</span>
+                <input class="form-control col-4" id="option_name_2" name="option_name_2" >
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text col-2" >판매가</span>
+                <input class="form-control col-3" id="option_1_" name="option_1_" >
+                <span class="input-group-text col-1" >원</span>
+                <span class="input-group-text col-2" >판매가</span>
+                <input class="form-control col-3" id="option_2_" name="option_2_" >
+                <span class="input-group-text col-1" >원</span>
+            </div>
+        </div>
+    </form>
+</div>
+

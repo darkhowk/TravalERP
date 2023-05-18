@@ -123,66 +123,102 @@
 			<div class="col-sm-1">
 				<input id="local_area" type="text" class="form-control" placeholder="지역"/>
 			</div>
-			<div class="col-sm-2"> 
-				<select class="form-control selectpicker" aria-label="localagent_name" onchange="changeAgent(this)" data-live-search="true" style="display: none;" id="agent" data-none-selected-text="조건을 찾을 수 없습니다">
-					<option value="">현지</option>
+			<div class="col-sm-3"> 
+				<select class="form-control selectpicker" aria-label="localagent_name" onchange="changeAgent(this)" data-live-search="true" style="display: none;" id="agent" >
+					<option>현지사무실</option>
 					{% for agent in optionData.localAgent %}
 					<option value="{{agent.id}}">{{agent.agent_name}}</option>
 					{% endfor %}
 				</select>
 			</div>
-			<div class="col-sm-3">
-				<select class="form-control  selectpicker" aria-label="agentTel" data-live-search="true" style="display: none;" id="agentTel" data-none-selected-text="조건을 찾을 수 없습니다">
-					<option value="">연락처</option>
-				</select>
-			</div>
-			<div class="col-sm-2">
-				<select class="form-control  selectpicker" aria-label="localManager" data-live-search="true" style="display: none;" id="localManager" data-none-selected-text="조건을 찾을 수 없습니다">
-					<option value="">담당자명</option>
-				</select>
-			</div>
-			<div class="col-sm-3">
-				<input id="local_perseon_tel" type="text" class="form-control" readonly />
+			<div class="col-sm-4">
+				<input id="agent_tel" type="text" class="form-control" readonly />
 			</div>
 		</div>
 		<div class="row mt-2">
-			<div class="col-sm-1 text-center">
-				<button type="search" class="btn btn-secondary">추가</button>
+			<div class="col-sm-2">
+			</div>
+			<div class="col-sm-3">
+				<input id="manager_name" type="text" class="form-control" readonly />
+			</div>
+			<div class="col-sm-4">
+				<input id="manager_tel" type="text" class="form-control" readonly />
+			</div>
+		</div>
+		<div class="row mt-5">
+			<div class="col-sm-1">
 			</div>
 			<div class="col-sm-1">
-				<input id="local_area" type="text" class="form-control" placeholder="지역" readonly />
-			</div>
-			<div class="col-sm-2">
-				<input id="local_name" type="text" class="form-control" readonly />
+				<input id="local_area" type="text" class="form-control" placeholder="SEL" readonly />
 			</div>
 			<div class="col-sm-3">
-				<input id="local_tel" type="text" class="form-control" readonly />
+				<input id="tontour" type="text" class="form-control" placeholder="티오엔" readonly />
 			</div>
-			<div class="col-sm-2">
-				<input id="local_person" type="text" class="form-control" readonly />
-			</div>
-			<div class="col-sm-3">
-				<input id="local_perseon_tel" type="text" class="form-control" readonly />
+			<div class="col-sm-4">
+				<input id="tontour_tel" type="text" class="form-control" placeholder="+82 2 725 7255" readonly />
 			</div>
 		</div>
 		<div class="row mt-2">
-			<div class="col-sm-1 text-center">
-					<button type="search" class="btn btn-secondary">추가</button>
+			<div class="col-sm-2">
+			</div>
+			<div class="col-sm-3">
+				<select class="form-control selectpicker" id="ton_manager_name" name="ton_manager_name" aria-label="ton_manager_name" data-live-search="true" style="display: none;" id="manager">
+					<option>관리자명</option>
+					{% for manager in optionData.manager %}
+						{% if manager.id == selectData.master.0.attn_manager.id %}
+							<option value="{{manager.id}}" selected>{{manager.manager_name}}</option>
+						{% endif %}
+					{% endfor %}
+				</select>
+			</div>
+			<div class="col-sm-3">
+				<input id="ton_direct_tel" type="text" class="form-control" readonly />
+			</div>
+			<div class="col-sm-3">
+				<input id="ton_manager_tel" type="text" class="form-control" readonly />
+			</div>
+		</div>
+		<div class="row mt-2">
+			<div class="col-sm-2">
+			</div>
+			<div class="col-sm-3">
+				<select class="form-control selectpicker" id="ton_assistant_name" name="ton_assistant_name" aria-label="ton_assistant_name" data-live-search="true" style="display: none;" id="manager">
+					<option>부관리자명</option>
+					{% for manager in optionData.manager %}
+						{% if manager.id == selectData.master.0.attn_manager.id %}
+							<option value="{{manager.id}}" selected>{{manager.manager_name}}</option>
+						{% endif %}
+					{% endfor %}
+				</select>
+			</div>
+			<div class="col-sm-3">
+				<input id="ton_assistant_direct" type="text" class="form-control" readonly />
+			</div>
+			<div class="col-sm-3">
+				<input id="ton_assistant_tel" type="text" class="form-control" readonly />
+			</div>
+		</div>
+		<div class="row mt-2">
+			<div class="col-sm-1">
 			</div>
 			<div class="col-sm-1">
-					<input id="local_area" type="text" class="form-control" placeholder="지역" readonly />
-			</div>
-			<div class="col-sm-2">
-				<input id="local_name" type="text" class="form-control" readonly />
+				<input id="charge" type="text" class="form-control" placeholder="담당자" read-only/>
 			</div>
 			<div class="col-sm-3">
-				<input id="local_tel" type="text" class="form-control" readonly />
-			</div>
-			<div class="col-sm-2">
-				<input id="local_person" type="text" class="form-control" readonly />
+				<select class="form-control selectpicker" id="ton_manager_name" name="ton_manager_name" aria-label="ton_manager_name" data-live-search="true" style="display: none;" id="manager">
+					<option>담당자명</option>
+					{% for manager in optionData.manager %}
+						{% if manager.id == selectData.master.0.attn_manager.id %}
+							<option value="{{manager.id}}" selected>{{manager.manager_name}}</option>
+						{% endif %}
+					{% endfor %}
+				</select>
 			</div>
 			<div class="col-sm-3">
-				<input id="local_perseon_tel" type="text" class="form-control" readonly />
+				<input id="ton_direct_tel" type="text" class="form-control" readonly />
+			</div>
+			<div class="col-sm-3">
+				<input id="ton_manager_tel" type="text" class="form-control" readonly />
 			</div>
 		</div>
 
@@ -407,6 +443,13 @@
 		flex: 0 0 auto;
 		width: 11%;
 	}
+
+	.form-control:disabled, .dataTable-input:disabled, .form-control[read-only], [read-only].dataTable-input {
+  		background-color:antiquewhite;
+  		opacity: 0.5;
+	}
+	
+
 </style>
 {% include 'base/commonValue.html'%} <!-- 공통변수 -->
 {% endblock %} 
