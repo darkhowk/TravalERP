@@ -1,6 +1,11 @@
 {% extends "base/base.html" %} 
 {% block content %}
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding&display=swap" rel="stylesheet">
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
 
 <div class="container">
     <h1 class="mt-5 title">국내숙박 상품기술서</h1>
@@ -9,29 +14,27 @@
 <div class="container mt-5">
     <form>
         <div>
-            <h4>1.판매</h4>
+            <h3>1.판매</h3>
             <div class="input-group mb-3">
                 <span class="input-group-text col-3" >판매채널</span>
                 <input class="form-control col-9" id="channel" name="channel" >
             </div>
             <div class="input-group mb-3">
-                <span class="input-group-text col-3" >판매시작일시</span>
-                <input class="form-control col-9" id="start_date" name="start_date" readonly>
-            </div>
-            <div class="input-group mb-3">
-                <span class="input-group-text col-3" >판매기간</span>
-                <input class="form-control date col-4" id="sell_period_start" name="sell_period_start" readonly>
+                <span class="input-group-text col-2" >판매시작일시</span>
+                <input class="form-control date col-3 me-3" id="start_date" name="start_date" disabled>
+                <span class="input-group-text col-2" >판매기간</span>
+                <input class="form-control date col-2" id="sell_period_start" name="sell_period_start" disabled>
                 <span class="input-group-text col-1" >~</span>
-                <input class="form-control date col-4" id="sell_period_end" name="sell_period_end" readonly>
+                <input class="form-control date col-2" id="sell_period_end" name="sell_period_end" disabled>
             </div>
         </div>
 
         <div class="devider"></div>
 
-        <div>
-            <h4>2.상품상세</h4>
+        <div class="pt-2">
+            <h3>2.상품상세</h3>
             <div class="input-group mb-3">
-                <span class="input-group-text col-3" >상품명</span>
+                <span class="input-group-text col-3"  >상품명</span>
                 <input class="form-control col-9" id="product_name" name="product_name" >
             </div>
             <div class="input-group mb-3">
@@ -99,9 +102,9 @@
 
         <div class="devider"></div>
 
-        <div>
-            <h4>3.시설정보</h4>
-            <div class="input-group mb-2">
+        <div class="pt-2">
+            <h3>3.시설정보</h3>
+            <div class="input-group mb-3">
                 <span class="input-group-text col-2" >시설명(호텔명)</span>
                 <input class="form-control col-10" id="name" name="name" >
             </div>
@@ -109,17 +112,19 @@
                 <span class="input-group-text col-2" >연락처</span>
                 <input class="form-control col-3" id="tel" name="tel" >
                 <span class="input-group-text col-3" >이메일</span>
-                <input class="form-control col-3" id="email" name="email" placeholder="__@__">
+                <input type="email" class="form-control col-3" id="email" name="email" placeholder="__@__">
             </div>
-            <div class="input-group mb-2">
+            <div class="input-group mb-3">
                 <span class="input-group-text col-2" >주소</span>
-                <input class="form-control col-10" id="address" name="address" >
+                <button type="button" class="btn btn-primary" onclick="findAddr()">검색</button>
+                <input class="form-control col-5" id="address" name="address" readonly>
+                <input class="form-control col-5" id="detail_addr" name="detail_addr" placeholder="상세주소">
             </div>
-            <div class="input-group">
+            <div class="input-group mb-3">
                 <span class="input-group-text col-2" >시설설명(소개)</span>
                 <textarea class="form-control col-10" id="explanation" name="explanation"  style="height: 80px"></textarea>
             </div>
-            <div class="input-group">
+            <div class="input-group mb-3">
                 <span class="input-group-text col-2">판매포인트</span>
                 <div class="col-10">
                     <input class="form-control" id="sell_point_1" name="sell_point_1" value="1. ">
@@ -133,15 +138,15 @@
         
         <div class="devider"></div>
 
-        <div>
-            <h4>4.포함사항 및 이용안내</h4>
+        <div class="pt-2">
+            <h3>4.포함사항 및 이용안내</h3>
             <div class="table">
                 <table class="table table-bordered">
-                    <thead class="table-dark">
+                    <thead class="table-sky">
                         <tr>
-                            <th style="width: 11%;">항목</th>
+                            <th style="width: 12%;">항목</th>
                             <th style="width: 30%;">특전1</th>
-                            <th style="width: 30%;">특전2</th>
+                            <th style="width: 29%;">특전2</th>
                             <th style="width: 29%;">특전3</th>
                         </tr>
                     </thead>
@@ -183,8 +188,8 @@
 
         <div class="devider"></div>
 
-        <div>
-            <h4>5.부대시설</h4>
+        <div class="pt-2">
+            <h3>5.부대시설</h3>
             <div class="input-group">
                 <span class="input-group-text col-2" >부대시설</span>
                 <span class="input-group-text col-10" >상품구성에 포함된 사항은 필수, 기타 추가요금/무료포함 시설 부가적으로 기재(시설 내 위치, 이용시간, 이용/추가요금, 시설 세부사항)</span>
@@ -197,7 +202,7 @@
                 <span class="input-group-text col-2" >위치</span>
                 <input class="form-control col-4" id="name" name="name" >
                 <span class="input-group-text col-2" >운영시간</span>
-                <input class="form-control col-4" id="name" name="name" >
+                <input type="time" class="form-control col-4" id="name" name="name" >
             </div>
             <div class="input-group">
                 <span class="input-group-text col-2" >이용/추가 요금</span>
@@ -215,7 +220,7 @@
                 <span class="input-group-text col-2" >위치</span>
                 <input class="form-control col-4" id="name" name="name" >
                 <span class="input-group-text col-2" >운영시간</span>
-                <input class="form-control col-4" id="name" name="name" >
+                <input type="time" class="form-control col-4" id="name" name="name" >
             </div>
             <div class="input-group">
                 <span class="input-group-text col-2" >이용/추가 요금</span>
@@ -233,7 +238,7 @@
                 <span class="input-group-text col-2" >위치</span>
                 <input class="form-control col-4" id="name" name="name" >
                 <span class="input-group-text col-2" >운영시간</span>
-                <input class="form-control col-4" id="name" name="name" >
+                <input type="time" class="form-control col-4" id="name" name="name" >
             </div>
             <div class="input-group">
                 <span class="input-group-text col-2" >이용/추가 요금</span>
@@ -251,7 +256,7 @@
                 <span class="input-group-text col-2" >위치</span>
                 <input class="form-control col-4" id="name" name="name" >
                 <span class="input-group-text col-2" >운영시간</span>
-                <input class="form-control col-4" id="name" name="name" >
+                <input type="time" class="form-control col-4" id="name" name="name" >
             </div>
             <div class="input-group">
                 <span class="input-group-text col-2" >이용/추가 요금</span>
@@ -269,7 +274,7 @@
                 <span class="input-group-text col-2" >위치</span>
                 <input class="form-control col-4" id="name" name="name" >
                 <span class="input-group-text col-2" >운영시간</span>
-                <input class="form-control col-4" id="name" name="name" >
+                <input type="time" class="form-control col-4" id="name" name="name" >
             </div>
             <div class="input-group">
                 <span class="input-group-text col-2" >이용/추가 요금</span>
@@ -283,11 +288,11 @@
 
         <div class="devider"></div>
 
-        <div>
-            <h4>6.추가정보</h4>
+        <div class="pt-2">
+            <h3>6.추가정보</h3>
             <div class="table">
                 <table class="table table-bordered">
-                    <thead class="table-dark">
+                    <thead class="table-sky">
                         <tr>
                             <th style="width: 15%;">추가서비스 종류</th>
                             <th style="width: 15%;">가능여부/사전요청여부</th>
@@ -295,15 +300,21 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
+                        <tr style="background-color: mistyrose;">
+                            <th colspan="2" style="color: red;">체크인 / 체크아웃</th>
+                                <td><input class="form-control col-4" id="name" name="name" style="background-color: mistyrose;" ></td>
+                            </th>
+                        </tr>
+                        <tr>   
                             <th>취사가능여부</th>
                             <td>
-                                <select class="form-select">
+                                <select class="form-select-true">
                                     <option selected>가능여부</option>
                                     <option value="true">가능</option>
                                     <option vlaue="false">불가능</option>
                                 </select>
-                                <select class="form-select">
+                                <div class="mb-1"></div>
+                                <select class="form-select-visit">
                                     <option selected>요청여부</option>
                                     <option value="request">사전요청</option>
                                     <option vlaue="visit">현장방문요청</option>
@@ -314,12 +325,13 @@
                         <tr>
                             <th>반려동물 동반여부</th>
                             <td>
-                                <select class="form-select">
+                                <select class="form-select-true">
                                     <option selected>가능여부</option>
                                     <option value="true">가능</option>
                                     <option vlaue="false">불가능</option>
                                 </select>
-                                <select class="form-select">
+                                <div class="mb-1"></div>
+                                <select class="form-select-visit ">
                                     <option selected>요청여부</option>
                                     <option value="request">사전요청</option>
                                     <option vlaue="visit">현장방문요청</option>
@@ -330,12 +342,13 @@
                         <tr>
                             <th>엑스트라베드<br>/침구 추가</th>
                             <td>
-                                <select class="form-select">
+                                <select class="form-select-true">
                                     <option selected>가능여부</option>
                                     <option value="true">가능</option>
                                     <option vlaue="false">불가능</option>
                                 </select>
-                                <select class="form-select">
+                                <div class="mb-1"></div>
+                                <select class="form-select-visit">
                                     <option selected>요청여부</option>
                                     <option value="request">사전요청</option>
                                     <option vlaue="visit">현장방문요청</option>
@@ -346,12 +359,13 @@
                         <tr>
                             <th>유아관련용품<br>제공여부</th>
                             <td>
-                                <select class="form-select">
+                                <select class="form-select-true">
                                     <option selected>가능여부</option>
                                     <option value="true">가능</option>
                                     <option vlaue="false">불가능</option>
                                 </select>
-                                <select class="form-select">
+                                <div class="mb-1"></div>
+                                <select class="form-select-visit">
                                     <option selected>요청여부</option>
                                     <option value="request">사전요청</option>
                                     <option vlaue="visit">현장방문요청</option>
@@ -362,12 +376,13 @@
                         <tr>
                             <th>무료주차여부</th>
                             <td>
-                                <select class="form-select">
+                                <select class="form-select-true">
                                     <option selected>가능여부</option>
                                     <option value="true">가능</option>
                                     <option vlaue="false">불가능</option>
                                 </select>
-                                <select class="form-select">
+                                <div class="mb-1"></div>
+                                <select class="form-select-visit">
                                     <option selected>요청여부</option>
                                     <option value="request">사전요청</option>
                                     <option vlaue="visit">현장방문요청</option>
@@ -378,12 +393,13 @@
                         <tr>
                             <th>객실전망 선택</th>
                             <td>
-                                <select class="form-select">
+                                <select class="form-select-true">
                                     <option selected>가능여부</option>
                                     <option value="true">가능</option>
                                     <option vlaue="false">불가능</option>
                                 </select>
-                                <select class="form-select">
+                                <div class="mb-1"></div>
+                                <select class="form-select-visit">
                                     <option selected>요청여부</option>
                                     <option value="request">사전요청</option>
                                     <option vlaue="visit">현장방문요청</option>
@@ -394,12 +410,13 @@
                         <tr>
                             <th>욕조객실 선택</th>
                             <td>
-                                <select class="form-select">
+                                <select class="form-select-true">
                                     <option selected>가능여부</option>
                                     <option value="true">가능</option>
                                     <option vlaue="false">불가능</option>
                                 </select>
-                                <select class="form-select">
+                                <div class="mb-1"></div>
+                                <select class="form-select-visit">
                                     <option selected>요청여부</option>
                                     <option value="request">사전요청</option>
                                     <option vlaue="visit">현장방문요청</option>
@@ -410,12 +427,13 @@
                         <tr>
                             <th>얼리체크인<br>/레이트체크아웃</th>
                             <td>
-                                <select class="form-select">
+                                <select class="form-select-true">
                                     <option selected>가능여부</option>
                                     <option value="true">가능</option>
                                     <option vlaue="false">불가능</option>
                                 </select>
-                                <select class="form-select">
+                                <div class="mb-1"></div>
+                                <select class="form-select-visit">
                                     <option selected>요청여부</option>
                                     <option value="request">사전요청</option>
                                     <option vlaue="visit">현장방문요청</option>
@@ -430,11 +448,11 @@
 
         <div class="devider"></div>
 
-        <div>
-            <h4>7.추가요금</h4>
+        <div class="pt-2">
+            <h3>7.추가요금</h3>
             <div class="table">
                 <table class="table table-bordered">
-                    <thead class="table-dark">
+                    <thead class="table-sky">
                         <tr>
                             <th style="width: 15%;">추가요금 명</th>
                             <th style="width: 15%;">현장결제여부</th>
@@ -490,6 +508,202 @@
                 </table>
             </div>
         </div>
+
+        <div class="devider"></div>
+
+        <div class="pt-2">
+            <h3>8.객실정보</h3>
+            <div class="input-group mb-3">
+                <span class="input-group-text col-2">세부나이기준</span>
+                <div class="col-2">
+                    <span class="input-group-text" >성인</span>
+                    <span class="input-group-text" >소인(미성인/아동 등)</span>
+                    <span class="input-group-text" >유아</span>
+                </div>
+                <div class="col-8">
+                    <input class="form-control" id="sell_point_1" name="sell_point_1">
+                    <input class="form-control" id="sell_point_2" name="sell_point_2">
+                    <input class="form-control" id="sell_point_3" name="sell_point_3">
+                </div>
+            </div>
+            <div class="input-group">
+                <span class="input-group-text col-2">객실명(기본객실)</span>
+                <input class="form-control col-10" id="roomtype" name="roomtype" >
+            </div>
+            <div class="input-group">
+                <span class="input-group-text col-1">인원기준</span>
+                <span class="input-group-text col-1">기준</span>
+                <input class="form-control col-3" id="roomtype" name="roomtype" >
+                <span class="input-group-text col-1">최대</span>
+                <input class="form-control col-3" id="roomtype" name="roomtype" >
+            </div>
+            <div class="input-group">
+                <span class="input-group-text col-1">객실크기</span>
+                <input class="form-control col-2" id="roomtype" name="roomtype" >
+                <span class="input-group-text col-1">객실구조</span>
+                <input class="form-control col-3" id="roomtype" name="roomtype" >
+                <span class="input-group-text col-1">베드타입</span>
+                <input class="form-control col-3" id="roomtype" name="roomtype" >
+                <span class="input-group-text col-1">전망</span>
+                <input class="form-control col-3" id="roomtype" name="roomtype" >
+            </div>
+            <div class="input-group">
+                <span class="input-group-text col-1">어메니티</span>
+                <textarea class="form-control col-10" id="remark_1" name="remark_2"  style="height: 60px"></textarea>
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text col-1">특이사항</span>
+                <textarea class="form-control col-10" id="remark_1" name="remark_2"  style="height: 80px"></textarea>
+            </div>
+            <div class="input-group">
+                <span class="input-group-text col-2">객실명(업그레이드)</span>
+                <input class="form-control col-5" id="roomtype" name="roomtype" >
+                <span class="input-group-text col-1">추가요금</span>
+                <input class="form-control col-4" id="roomtype" name="roomtype" >
+            </div>
+            <div class="input-group">
+                <span class="input-group-text col-1">인원기준</span>
+                <span class="input-group-text col-1">기준</span>
+                <input class="form-control col-3" id="roomtype" name="roomtype" >
+                <span class="input-group-text col-1">최대</span>
+                <input class="form-control col-3" id="roomtype" name="roomtype" >
+            </div>
+            <div class="input-group">
+                <span class="input-group-text col-1">객실크기</span>
+                <input class="form-control col-2" id="roomtype" name="roomtype" >
+                <span class="input-group-text col-1">객실구조</span>
+                <input class="form-control col-3" id="roomtype" name="roomtype" >
+                <span class="input-group-text col-1">베드타입</span>
+                <input class="form-control col-3" id="roomtype" name="roomtype" >
+                <span class="input-group-text col-1">전망</span>
+                <input class="form-control col-3" id="roomtype" name="roomtype" >
+            </div>
+            <div class="input-group">
+                <span class="input-group-text col-1">어메니티</span>
+                <textarea class="form-control col-10" id="remark_1" name="remark_2"  style="height: 60px"></textarea>
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text col-1">특이사항</span>
+                <textarea class="form-control col-10" id="remark_1" name="remark_2"  style="height: 80px"></textarea>
+            </div>
+            <div class="input-group">
+                <span class="input-group-text col-2">객실명(업그레이드)</span>
+                <input class="form-control col-5" id="roomtype" name="roomtype" >
+                <span class="input-group-text col-1">추가요금</span>
+                <input class="form-control col-4" id="roomtype" name="roomtype" >
+            </div>
+            <div class="input-group">
+                <span class="input-group-text col-1">인원기준</span>
+                <span class="input-group-text col-1">기준</span>
+                <input class="form-control col-3" id="roomtype" name="roomtype" >
+                <span class="input-group-text col-1">최대</span>
+                <input class="form-control col-3" id="roomtype" name="roomtype" >
+            </div>
+            <div class="input-group">
+                <span class="input-group-text col-1">객실크기</span>
+                <input class="form-control col-2" id="roomtype" name="roomtype" >
+                <span class="input-group-text col-1">객실구조</span>
+                <input class="form-control col-3" id="roomtype" name="roomtype" >
+                <span class="input-group-text col-1">베드타입</span>
+                <input class="form-control col-3" id="roomtype" name="roomtype" >
+                <span class="input-group-text col-1">전망</span>
+                <input class="form-control col-3" id="roomtype" name="roomtype" >
+            </div>
+            <div class="input-group">
+                <span class="input-group-text col-1">어메니티</span>
+                <textarea class="form-control col-10" id="remark_1" name="remark_2"  style="height: 60px"></textarea>
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text col-1">특이사항</span>
+                <textarea class="form-control col-10" id="remark_1" name="remark_2"  style="height: 80px"></textarea>
+            </div>
+            <div class="input-group">
+                <span class="input-group-text col-2">객실명(업그레이드)</span>
+                <input class="form-control col-5" id="roomtype" name="roomtype" >
+                <span class="input-group-text col-1">추가요금</span>
+                <input class="form-control col-4" id="roomtype" name="roomtype" >
+            </div>
+            <div class="input-group">
+                <span class="input-group-text col-1">인원기준</span>
+                <span class="input-group-text col-1">기준</span>
+                <input class="form-control col-3" id="roomtype" name="roomtype" >
+                <span class="input-group-text col-1">최대</span>
+                <input class="form-control col-3" id="roomtype" name="roomtype" >
+            </div>
+            <div class="input-group">
+                <span class="input-group-text col-1">객실크기</span>
+                <input class="form-control col-2" id="roomtype" name="roomtype" >
+                <span class="input-group-text col-1">객실구조</span>
+                <input class="form-control col-3" id="roomtype" name="roomtype" >
+                <span class="input-group-text col-1">베드타입</span>
+                <input class="form-control col-3" id="roomtype" name="roomtype" >
+                <span class="input-group-text col-1">전망</span>
+                <input class="form-control col-3" id="roomtype" name="roomtype" >
+            </div>
+            <div class="input-group">
+                <span class="input-group-text col-1">어메니티</span>
+                <textarea class="form-control col-10" id="remark_1" name="remark_2"  style="height: 60px"></textarea>
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text col-1">특이사항</span>
+                <textarea class="form-control col-10" id="remark_1" name="remark_2"  style="height: 80px"></textarea>
+            </div>
+        </div>
+
+        <div class="devider"></div>
+
+        <div class="pt-2">
+            <h3>9.취소/환불 규정</h3>
+            <div class="input-group mb-3">
+                <span class="input-group-text col-2">공통사항</span>
+                <span class="input-group-text-diy col-10"><p>티오엔 고객센터 : 02-775-7779<br>
+                    상담가능시간 : 평일 오전 10시 ~ 오후 6시  (주말 및 공휴일 휴무)<br>
+                    
+                    ※예약관련 및 변경업무는 근무시간 내 접수에 한하여 처리 가능합니다.<br>
+                    ※근무시간 이후 접수건에 대해서는 휴일이후 근무일로 적용되어 처리됩니다.<br> 
+                    ※상품 구성의 일부를 사용하였을 경우 환불이 불가하며, 미사용하였더라도 미사용 부분에 대해 환불되지 않습니다.<br>
+                    ※부분취소 및 부분환불이 불가합니다.</p></span>
+            </div>
+            <div class="table">
+                <table class="table table-bordered">
+                    <thead class="table-sky">
+                        <tr>
+                            <th style="width: 12%;"></th>
+                            <th style="width: 44%;">예제(기본사항)</th>
+                            <th style="width: 44%;">작성</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th>예약 확정 고객</th>
+                            <td style="vertical-align: middle;">
+                                <ul>
+                                    <li>체크인 6일전까지 접수시 취소/환불 가능</li>
+                                    <li>체크인 5일전까지 접수시 위약금 50%</li>
+                                    <li>체크인 4일전까지 접수시 위약금 60%</li>
+                                    <li>체크인 3일전까지 접수시 위약금 80%</li>
+                                    <li>체크인 2일전~투숙당일 취소/환불 불가</li>
+                                    <li class="li-text">예약 확정 후, 체크인 최대 6일전까지 날짜 변경 가능 (영업일 기준)</li>
+                                    <li class="li-text">*** 체크인 5일전 ~ 당일 예약 불가 ***</li>
+                                </ul>
+                            </td>
+                            <td><textarea class="form-control" id="explanation" name="explanation"  style="height: 200px"></textarea></td>
+                        </tr>
+                        <tr>
+                            <th>예약 미확정 고객</th>
+                            <td style="vertical-align: middle;">
+                                <ul>
+                                    <li>이용기간 (20xx.00.00)이내 환불접수시 환불가능</li>
+                                    <li class="li-text">이용기간 (20xx.00.00)이후 환불접수시 환불불가</li>
+                                    <li>예약미확정상태라도 이전 예약기록에 따라 위약금이 발생할 수 있습니다.</li>
+                                </ul>
+                            </td>
+                            <td><textarea class="form-control" id="explanation" name="explanation"  style="height: 100px"></textarea></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </form>
 </div>
 
@@ -507,12 +721,30 @@
     });
 
 
-
+    function findAddr() {
+    new daum.Postcode({
+        oncomplete: function(data) {
+            console.log(data);
+            var fullAddress = data.address;
+            if (data.buildingName !== '') {
+                fullAddress += ', ' + data.buildingName;
+            }
+            document.getElementById('address').value = fullAddress;
+        }
+    }).open();
+}
 
     
 </script>
 
 <style>
+    * {
+        font-family: 'Nanum Gothic Coding', monospace;
+        font-size: 0.95rem;
+    }
+    
+
+
     .input-group .col-10 input::before {
         content: attr(data-number) ". ";
         display: inline-block;
@@ -520,14 +752,122 @@
         text-align: right;
     }
 
+    .input-group-text-diy {
+        display: flex;
+        padding: 0.375rem 0.75rem;
+        font-size: 1rem;
+        font-weight: 400;
+        line-height: 1.5;
+        color: #212529;
+        border: 1px solid #ced4da;
+        border-radius: 0.25rem;
+    }
+
     .input-group-text {
+        display: flex;
+        padding: 0.375rem 0.75rem;
+        font-size: 1rem;
+        font-weight: 400;
+        line-height: 1.5;
+        color: #212529;
+        background-color: #65adff41;
+        border: 1px solid #ced4da;
+        border-radius: 0.25rem;
         font-weight: bold;
     }
+
 
     th {
         vertical-align: middle;
         text-align: center;
     }
+
+
+    .form-select, .dataTable-selector {
+        display: block;
+        width: 100%;
+        padding: 0.375rem 0.75rem 0.375rem 0.75rem;
+        -moz-padding-start: calc(0.75rem - 3px);
+        font-size: 0.9rem;
+        font-weight: 400;
+        line-height: 1.5;
+        color:#87888a;
+        background-color: #fff;
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+        background-repeat: no-repeat;
+        background-position: right 0.75rem center;
+        background-size: 10px 12px;
+        border: 1px solid #ced4da;
+        border-radius: 0.25rem;
+        transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        appearance: none;
+        -webkit-appearance: none;
+            -moz-appearance: none;
+                appearance: none;
+    }
+
+
+    .form-select-true, .dataTable-selector {
+        display: block;
+        width: 100%;
+        padding: 0.375rem 0.75rem 0.375rem 0.75rem;
+        -moz-padding-start: calc(0.75rem - 3px);
+        font-size: 0.9rem;
+        font-weight: 400;
+        line-height: 1.5;
+        color:red;
+        background-color: #fff;
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+        background-repeat: no-repeat;
+        background-position: right 0.75rem center;
+        background-size: 10px 12px;
+        border: 1px solid #ced4da;
+        border-radius: 0.25rem;
+        transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        appearance: none;
+        -webkit-appearance: none;
+            -moz-appearance: none;
+                appearance: none;
+    }
+
+    .form-select-visit, .dataTable-selector {
+        display: block;
+        width: 100%;
+        padding: 0.375rem 0.75rem 0.375rem 0.75rem;
+        -moz-padding-start: calc(0.75rem - 3px);
+        font-size: 0.9rem;
+        font-weight: 400;
+        line-height: 1.5;
+        color:blue;
+        background-color: #fff;
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+        background-repeat: no-repeat;
+        background-position: right 0.75rem center;
+        background-size: 10px 12px;
+        border: 1px solid #ced4da;
+        border-radius: 0.25rem;
+        transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        appearance: none;
+        -webkit-appearance: none;
+            -moz-appearance: none;
+                appearance: none;
+    }
+
+
+    .li-text {
+        color: red;
+        font-weight: bold;
+    }
+
+    .table-sky {
+        --bs-table-bg: #65adff41;;
+        --bs-table-striped-bg: #65adff41;;
+        --bs-table-striped-color: #fff;
+        color: #000000;
+        border-color: #dee2e6;
+}
+
+
 
 </style>
 
