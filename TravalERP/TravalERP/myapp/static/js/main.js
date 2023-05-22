@@ -227,6 +227,6 @@ function list_search(){
     var perPage = $("#perPage").val();
     var target =$('#target').val();
     var type =$('#type').val();
-        location.href = location.origin + location.pathname +'?perPage='+ perPage +'&type='+type+'&target='+target+'&searchType='+searchType+'&searchKeyword='+searchKeyword
-
+    
+    location.href = location.origin + location.pathname +'?perPage='+ perPage +'&type='+type+'&target='+target+'&searchType='+searchType+'&searchKeyword='+searchKeyword
 }

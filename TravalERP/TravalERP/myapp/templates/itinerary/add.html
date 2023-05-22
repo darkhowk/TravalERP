@@ -349,7 +349,6 @@
 	function tmpSearch1Succ(data){
 		// BUS, ENTERANCE, SPECIAL, INCLUDE, NOT_INCLUDE, OPTION -- BOOKING_MASTER
 		console.log(data);
-		$("#bus").val(data[0].bus);
 		$("#entrance").text(data[0].entrance);
 		$("#special").text(data[0].special);
 		$("#include").text(data[0].include);
@@ -375,9 +374,21 @@
 		$("#twin").val(data[0].twin);
 		$("#triple").val(data[0].triple);
 		$("#single").val(data[0].single);
-		$("#tc_name").val(data[0].tc);
+
+		// TC로 TC데이터 가져오기 
+		$("#tmpSearch").remove();
+		var frm = makeForm('', 'tmpSearch');
+		frm.appendChild(addData('id', data[0].tc_id));
+		document.body.appendChild(frm);
+		getAjax('tmpSearch', 'tourconductor', 'tmpSearch3Succ');
+		
 		// 해당 데이터 넣기
 
+	}
+	function tmpSearch3Succ(data){
+		console.log(data)
+		$("#tc_name").val(data[0].tc_name);
+		$("#tc_tel").val(data[0].tc_tel);
 	}
 	
 	$( document ).ready(function() {

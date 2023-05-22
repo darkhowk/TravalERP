@@ -597,26 +597,37 @@ def getREF(request, target):
    ref = params.get("ref")
    use_yn = params.get("use_yn")
    # ref 검색 booking ref
-   refObj = BookingMaster.objects.filter(ref__icontains=ref, use_yn=use_yn)
-   id_list = [obj.id for obj in refObj]
+   print(target)
 
-   if target in ['itinerary', 'invoice', 'statement'] : # 확정서
-      # 루밍에서 해당 ref로 루밍 id검색하여 master_id로 리턴
-      tmpObj = RoomingMaster.objects.filter(booking_id__in=id_list);
-      id_list = [obj.id for obj in tmpObj]
-   if target in ['invoice','statement']: # 인보이스
+   if target == 'rooming': # 루밍
+      ## 루밍 검색일때, 루밍에서 먼저 booking id 를 검색해온다.
+      roomingObj = RoomingMaster.objects.filter(use_yn=use_yn)
+      booking_id_list = [obj.booking_id.id for obj in roomingObj]
+      bookingObj = BookingMaster.objects.filter(ref__icontains=ref, use_yn=use_yn).exclude(id__in=booking_id_list)
+      id_list = [obj.id for obj in bookingObj]
+      resultObj = list(BookingMaster.objects.filter(ref__icontains=ref, use_yn=use_yn).exclude(id__in=booking_id_list).values())
+
+   if target == 'itinerary' : # 확정서
+      # 확정서일때, 확정서에서 루밍id, 루밍에서 bookingid 검색
+      itineraryObj = ItineraryMaster.objects.filter(use_yn=use_yn)
+      rooming_id_list = [obj.rooming_id.id for obj in itineraryObj]
+      roomingObj = RoomingMaster.objects.filter(id__in=rooming_id_list)
+      booking_id_list = [obj.booking_id.id for obj in roomingObj]
+      bookingObj = BookingMaster.objects.filter(ref__icontains=ref, use_yn=use_yn).exclude(id__in=booking_id_list)
+      id_list = [obj.id for obj in bookingObj]
+      resultObj = list(BookingMaster.objects.filter(ref__icontains=ref, use_yn=use_yn).exclude(id__in=booking_id_list).values())
+
+   if target =='invoice': # 인보이스
       tmpObj = InvoiceMaster.objects.filter(itinerary_id__in=id_list);
       id_list = [obj.id for obj in tmpObj]
    if target == 'statement': # 정산
       tmpObj = StatementMaster.objects.filter(invoice_id__in=id_list);
       id_list = [obj.id for obj in tmpObj]
 
-   refObj = list(BookingMaster.objects.filter(ref__icontains=ref, use_yn=use_yn).values())
-
    # 해당 id를 master_id로 변경하여 리턴
    if len(id_list) > 0:
       resultData = {
-         'refList' : refObj,
+         'refList' : resultObj,
          'master_id': id_list,
          'result' : 1
       }
