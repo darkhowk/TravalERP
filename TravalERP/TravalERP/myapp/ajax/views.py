@@ -618,11 +618,28 @@ def getREF(request, target):
       resultObj = list(BookingMaster.objects.filter(ref__icontains=ref, use_yn=use_yn).exclude(id__in=booking_id_list).values())
 
    if target =='invoice': # 인보이스
-      tmpObj = InvoiceMaster.objects.filter(itinerary_id__in=id_list);
-      id_list = [obj.id for obj in tmpObj]
+      invoiceObj =  InvoiceMaster.objects.filter(use_yn=use_yn)
+      itinerary_id_list = [obj.itinerary_id.id for obj in invoiceObj]
+      itineraryObj = ItineraryMaster.objects.filter(id__in=itinerary_id_list)
+      rooming_id_list = [obj.rooming_id.id for obj in itineraryObj]
+      roomingObj = RoomingMaster.objects.filter(id__in=rooming_id_list)
+      booking_id_list = [obj.booking_id.id for obj in roomingObj]
+      bookingObj = BookingMaster.objects.filter(ref__icontains=ref, use_yn=use_yn).exclude(id__in=booking_id_list)
+      id_list = [obj.id for obj in bookingObj]
+      resultObj = list(BookingMaster.objects.filter(ref__icontains=ref, use_yn=use_yn).exclude(id__in=booking_id_list).values())
+
    if target == 'statement': # 정산
-      tmpObj = StatementMaster.objects.filter(invoice_id__in=id_list);
-      id_list = [obj.id for obj in tmpObj]
+      statemnetObj = StatementMaster.objects.filter(use_yn=use_yn)
+      invoice_id_list =  [obj.invoice_id.id for obj in statemnetObj]
+      invoiceObj =  InvoiceMaster.objects.filter(id__in=invoice_id_list)
+      itinerary_id_list = [obj.itinerary_id.id for obj in invoiceObj]
+      itineraryObj = ItineraryMaster.objects.filter(id__in=itinerary_id_list)
+      rooming_id_list = [obj.rooming_id.id for obj in itineraryObj]
+      roomingObj = RoomingMaster.objects.filter(id__in=rooming_id_list)
+      booking_id_list = [obj.booking_id.id for obj in roomingObj]
+      bookingObj = BookingMaster.objects.filter(ref__icontains=ref, use_yn=use_yn).exclude(id__in=booking_id_list)
+      id_list = [obj.id for obj in bookingObj]
+      resultObj = list(BookingMaster.objects.filter(ref__icontains=ref, use_yn=use_yn).exclude(id__in=booking_id_list).values())
 
    # 해당 id를 master_id로 변경하여 리턴
    if len(id_list) > 0:
