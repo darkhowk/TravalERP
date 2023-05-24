@@ -23,8 +23,8 @@ class index(generic.ListView):
         self.ogImgUrl = ""
         self.descript = "TON TOUR 페이지입니다"
         self.template_name = "index.html"
-        self.topMenu = Menu.objects.filter(menu_type="TOP")
-        self.leftMenu = Menu.objects.filter(menu_type="LEFT")
+        self.topMenu = Menu.objects.filter(menu_type="TOP", use_yn = 'Y')
+        self.leftMenu = Menu.objects.filter(menu_type="LEFT", use_yn = 'Y')
       
    def get(self, request, *args, **kwargs):
       self.content = {
