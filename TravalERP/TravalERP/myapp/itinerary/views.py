@@ -41,7 +41,10 @@ class itineraryAdd(CommonMainAddView):
             }
    
    def selectOption(self, request):
-      return {  }
+      return { "tourconductor" : Tourconductor.objects.filter(use_yn ='Y'),
+               "localAgent" : Agent.objects.filter(use_yn ='Y', type = 'L'),
+               "manager" : Manager.objects.filter(use_yn ='Y', type = 'M'),
+            }
    
    def get(self, request, *args, **kwargs):
       self.template_name = "itinerary/add.html"

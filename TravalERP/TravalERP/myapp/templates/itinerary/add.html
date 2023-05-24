@@ -46,10 +46,14 @@
 		<div class="row">
 			<label for="tour_con" class="col-sm-2 col-form-label">T/C</label>
 			<div class="col-sm-2">
-				<input id="tc_name" type="text" class="form-control" placeholder="이름" />
+				<select class="form-control selectpicker" data-live-search="true" style="display: none;" id="tc_name" >
+					{% for tc in optionData.tourconductor %}
+					<option value="{{tc.id}}" data-name="{{tc.tc_name}}" data-tel="{{tc.tc_tel}}" >{{tc.tc_name}}</option>
+					{% endfor %}
+				</select>
 			</div>
 			<div class="col-sm-3">
-				<input id="tc_tel" type="text" class="form-control" placeholder="연락처" />
+				<input id="tc_tel" type="text" class="form-control" placeholder="연락처" readonly/>
 			</div>
 		</div>
 
@@ -165,9 +169,7 @@
 				<select class="form-control selectpicker" id="ton_manager_name" name="ton_manager_name" aria-label="ton_manager_name" data-live-search="true" style="display: none;" id="manager">
 					<option>관리자명</option>
 					{% for manager in optionData.manager %}
-						{% if manager.id == selectData.master.0.attn_manager.id %}
-							<option value="{{manager.id}}" selected>{{manager.manager_name}}</option>
-						{% endif %}
+						<option value="{{manager.id}}">{{manager.manager_name}}</option>
 					{% endfor %}
 				</select>
 			</div>
@@ -185,9 +187,7 @@
 				<select class="form-control selectpicker" id="ton_assistant_name" name="ton_assistant_name" aria-label="ton_assistant_name" data-live-search="true" style="display: none;" id="manager">
 					<option>부관리자명</option>
 					{% for manager in optionData.manager %}
-						{% if manager.id == selectData.master.0.attn_manager.id %}
-							<option value="{{manager.id}}" selected>{{manager.manager_name}}</option>
-						{% endif %}
+						<option value="{{manager.id}}">{{manager.manager_name}}</option>
 					{% endfor %}
 				</select>
 			</div>
@@ -208,9 +208,7 @@
 				<select class="form-control selectpicker" id="ton_manager_name" name="ton_manager_name" aria-label="ton_manager_name" data-live-search="true" style="display: none;" id="manager">
 					<option>담당자명</option>
 					{% for manager in optionData.manager %}
-						{% if manager.id == selectData.master.0.attn_manager.id %}
-							<option value="{{manager.id}}" selected>{{manager.manager_name}}</option>
-						{% endif %}
+							<option value="{{manager.id}}">{{manager.manager_name}}</option>
 					{% endfor %}
 				</select>
 			</div>
@@ -385,6 +383,8 @@
 		// 해당 데이터 넣기
 
 	}
+
+
 	function tmpSearch3Succ(data){
 		console.log(data)
 		$("#tc_name").val(data[0].tc_name);
