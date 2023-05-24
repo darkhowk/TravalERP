@@ -46,7 +46,8 @@
 		<div class="row">
 			<label for="tour_con" class="col-sm-2 col-form-label">T/C</label>
 			<div class="col-sm-2">
-				<select class="form-control selectpicker" data-live-search="true" style="display: none;" id="tc_name" >
+				<select class="form-control selectpicker" data-live-search="true" style="display: none;" id="tc_name" onchange="tcChange(this)" >
+					<option></option>
 					{% for tc in optionData.tourconductor %}
 					<option value="{{tc.id}}" data-name="{{tc.tc_name}}" data-tel="{{tc.tc_tel}}" >{{tc.tc_name}}</option>
 					{% endfor %}
@@ -346,32 +347,38 @@
 
 	function tmpSearch1Succ(data){
 		// BUS, ENTERANCE, SPECIAL, INCLUDE, NOT_INCLUDE, OPTION -- BOOKING_MASTER
-		console.log(data);
-		$("#entrance").text(data[0].entrance);
-		$("#special").text(data[0].special);
-		$("#include").text(data[0].include);
-		$("#not_include").text(data[0].not_include);
-		$("#option").text(data[0].option);
-		// 해당 데이터 넣기
+		var entrance = data[0].entrance;
+		var special = data[0].special;
+		var include = data[0].include;
+		var not_include = data[0].not_include;
+		var option = data[0].option
 
-		
+		$("#entrance").text(entrance);
+		$("#special").text(special);
+		$("#include").text(include);
+		$("#not_include").text(not_include);
+		$("#option").text(option);
+	
 		$("#tmpSearch").remove();
 		var frm = makeForm('', 'tmpSearch');
 		frm.appendChild(addData('booking_id', data[0].id));
 		frm.appendChild(addData('use_yn', 'Y'));
 		document.body.appendChild(frm);
 		getAjax('tmpSearch', 'roomingMaster', 'tmpSearch2Succ');
-		
 
 	}
 
 	function tmpSearch2Succ(data){
 		// TOTAL PAX, TWIN, TRIPLE, SINGLE -- ROOMING_MASTER
 		console.log(data);
-		$("#total_pax").val(data[0].total_pax);
-		$("#twin").val(data[0].twin);
-		$("#triple").val(data[0].triple);
-		$("#single").val(data[0].single);
+		var totla_pax = data[0].total_pax;
+		var twin = data[0].twin;
+		var triple = data[0].triple;
+		var sinlge = data[0].single;
+		$("#total_pax").val(totla_pax);
+		$("#twin").val(twin);
+		$("#triple").val(triple);
+		$("#single").val(sinlge);
 
 		// TC로 TC데이터 가져오기 
 		$("#tmpSearch").remove();
@@ -379,16 +386,12 @@
 		frm.appendChild(addData('id', data[0].tc_id));
 		document.body.appendChild(frm);
 		getAjax('tmpSearch', 'tourconductor', 'tmpSearch3Succ');
-		
-		// 해당 데이터 넣기
 
 	}
 
-
 	function tmpSearch3Succ(data){
 		console.log(data)
-		$("#tc_name").val(data[0].tc_name);
-		$("#tc_tel").val(data[0].tc_tel);
+		tcSet(data[0].id, data[0].tc_tel);
 	}
 	
 	$( document ).ready(function() {
@@ -440,6 +443,19 @@
 		}
 		select.selectpicker(); 
 	}
+
+	function tcChange(element){
+		var tel = $(element).find(':selected').data('tel');
+		var value =  $(element).find(':selected').val();
+		tcSet(value, tel);
+	}
+
+	function tcSet(id, tel){
+		$("#tc_name").val(id);
+		$('#tc_name').selectpicker('refresh');
+		$("#tc_tel").val(tel)
+	}
+
 </script>
 
 <style>
