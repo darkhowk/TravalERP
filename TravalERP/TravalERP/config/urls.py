@@ -28,7 +28,7 @@ urlpatterns = [
     path("", include("myapp.statement.urls")),
     path("", include("myapp.ajax.urls")),
     path("", include("myapp.ton.urls")),
-    path("", include("myapp.login.urls")),
+    path("", include("myapp.users.urls")),
 
 ]
 

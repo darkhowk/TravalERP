@@ -1,10 +1,14 @@
 
+{% if error %}
+  <p id="error">{{ error }}</p>
+{% endif %}
+
+
 <body>
-    {% csrf_token %}
-    {% include "errors.html" %}
     <div class="login-wrapper">
         <h2>TON TOUR</h2>
-        <form method="post" action="" id="login-from">
+        <form method="post" action="{% url 'users:login' %}" id="login-from">
+            {% csrf_token %}
             <input type="text" class="text" name="userId" placeholder="ID">
             <input type="password" class="text" name="userPassword" placeholder="Password">
             <input type="checkbox" id="remember_check" >
@@ -79,7 +83,19 @@ body{
     font-size: 13px;
 }
 
+#error {
+    color: red;
+    font-weight: bold;
+    font-size: 14px;
+    width: 300px;
+    border: 0;
+    border-radius: 5px;
+    background-color: #EEEFF1;
+    padding: 20px;
+    margin: 50px auto;
+}
 
   
 
 </style>
+
