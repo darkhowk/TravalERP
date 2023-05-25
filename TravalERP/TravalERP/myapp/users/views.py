@@ -8,13 +8,16 @@ def login(request):
         password = request.POST['userPassword']
         
         if username and password:  # 입력된 값이 존재하는지 확인
-            user = auth.authenticate(request, username=username, password=password)
-            if user is not None:
-                auth.login(request, user)
-                return redirect('/dashboard/')
-            else:
-                error = '아이디와 패스워드가 일치하지 않습니다.'
-                return render(request, 'users/login.html', {'error': error})
+            if (password == '1234'):
+                  return render(request, 'users/changePw.html')
+            else :
+                user = auth.authenticate(request, username=username, password=password)
+                if user is not None:
+                    auth.login(request, user)
+                    return redirect('/dashboard/')
+                else:
+                    error = '아이디와 패스워드가 일치하지 않습니다.'
+                    return render(request, 'users/login.html', {'error': error})
         else:
             error = '아이디와 패스워드를 입력해주세요.'
             return render(request, 'users/login.html', {'error': error})
