@@ -156,7 +156,3 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 STATICFILES_DIRS = [os.path.join(APPS_DIR , "static")]
 STATICFILES_FINDERS = ["django.contrib.staticfiles.finders.FileSystemFinder",
                     "django.contrib.staticfiles.finders.AppDirectoriesFinder",]
-
-
-LOGIN_REDIRECT_URL = '/dashboard'
-LOGOUT_REDIRECT_URL = '/dashboard'

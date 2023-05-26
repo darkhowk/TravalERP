@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
-from django.contrib import auth
+from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth import update_session_auth_hash
+from django.contrib import auth, messages
 
 def login(request):
     if request.method == "POST":
@@ -8,7 +10,7 @@ def login(request):
         password = request.POST['userPassword']
         
         if username and password:  # 입력된 값이 존재하는지 확인
-            if (password == '1234'):
+            if (password == 'ton12345'):
                   return render(request, 'users/changePw.html')
             else :
                 user = auth.authenticate(request, username=username, password=password)
@@ -27,3 +29,22 @@ def login(request):
 def logout(request):
     auth.logout(request)
     return redirect('/users/login.html')
+
+
+def change_password(request):
+    if request.method == "POST":
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)
+            messages.success(request, 'Password successfully changed')
+            return redirect('dashborad')
+        else:
+            messages.error(request, 'Password not changed')
+    else:
+        form = PasswordChangeForm(request.user)
+        return render(request, 'users/changePw.html',{'form':form})
+    
+
+
+    

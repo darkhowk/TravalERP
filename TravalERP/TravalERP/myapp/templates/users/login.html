@@ -1,23 +1,17 @@
-
-{% if error %}
-  <p id="error">{{ error }}</p>
-{% endif %}
-
-
 <body>
     <div class="login-wrapper">
         <h2>TON TOUR</h2>
         <form method="post" action="{% url 'users:login' %}" id="login-from">
             {% csrf_token %}
-            <input type="text" class="text" name="userId" placeholder="ID">
+            <input type="text" class="text" name="userId" placeholder="ID" value="">
             <input type="password" class="text" name="userPassword" placeholder="Password">
-            <input type="checkbox" id="remember_check" >
+            <input type="checkbox" id="remember_check" name="remember">
             <label for="remember_check" class="label"> 아이디 저장하기</label>
             <input type="submit" value="Login" class="submit-btn">
         </form>
-        <div class="link">
-            <a href="pwr">비밀번호를 잊어버리셨나요?</a>
-        </div>
+        {% if error %}
+        <p style="font-size: 14px; font-weight: bold; color: red; text-align: center;">{{ error }}</p>
+        {% endif %}
     </div>
 </body>
 
@@ -83,17 +77,6 @@ body{
     font-size: 13px;
 }
 
-#error {
-    color: red;
-    font-weight: bold;
-    font-size: 14px;
-    width: 300px;
-    border: 0;
-    border-radius: 5px;
-    background-color: #EEEFF1;
-    padding: 20px;
-    margin: 50px auto;
-}
 
   
 

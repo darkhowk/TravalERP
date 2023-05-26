@@ -1,102 +1,64 @@
 
-{% if error %}
-  <p id="error">{{ error }}</p>
-{% endif %}
 
-
-<body>
-    <div class="login-wrapper">
-        <h2>TON TOUR</h2>
-        <form method="post" action="{% url 'users:login' %}" id="login-from">
-            {% csrf_token %}
-            <input type="text" class="text" name="userId" placeholder="ID">
-            <input type="password" class="text" name="userPassword" placeholder="Password">
-            <input type="checkbox" id="remember_check" >
-            <label for="remember_check" class="label"> 아이디 저장하기</label>
-            <input type="submit" value="Login" class="submit-btn">
-            change pw
-        </form>
-        <div class="link">
-            <a href="pwr">비밀번호를 잊어버리셨나요?</a>
-        </div>
-    </div>
-</body>
-
-
+<form method="POST">
+    {% csrf_token %}
+    {{ form }}
+    <button type="submit">비밀번호 변경</button>
+</form>
 
 <style>
-*{
-    box-sizing: border-box;
-}
+    *{
+        box-sizing: border-box;
+    }
+    
+    body{
+        margin: 0;
+        background-color: black;
+    }
+    
+    .change-wrapper{
+        width: 300px;
+        border: 0;
+        border-radius: 5px;
+        background-color: #EEEFF1;
+        padding: 20px;
+        margin: 100px auto;
+    }
+    
+    .change-wrapper > h2{
+        font-size: 24px;
+        color:black;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+    
+    .submit-btn {
+        color:aliceblue;
+        font-size: 14px;
+        background-color: black;
+        margin: 30px 10px 10px 0px;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        width: 100%;
+    }
 
-body{
-    margin: 0;
-    background-color: black;
-}
+    .form-floating {
+        position: relative;
+    }
 
-.login-wrapper{
-    width: 300px;
-    border: 0;
-    border-radius: 5px;
-    background-color: #EEEFF1;
-    padding: 20px;
-    margin: 100px auto;
-}
+    .form-floating label {
+        padding-right: 30px; /* 레이블 오른쪽 여백 조정 */
+    }
 
-.login-wrapper > h2{
-    font-size: 24px;
-    color:black;
-    margin-bottom: 20px;
-    text-align: center;
-}
+    .fa-eye {
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        cursor: pointer;
+    }
 
-.submit-btn {
-    color:aliceblue;
-    font-size: 14px;
-    background-color: black;
-    margin: 30px 10px 10px 0px;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    width: 100%;
-}
-
-.text {
-    font-size: 14px;
-    margin-bottom: 10px;
-    border: none;
-    border-radius: 5px;
-    padding: 10px;
-    width: 100%;
-}
-
-.link {
-    text-align: center;
-}
-
-.link a {
-    font-size: 12px;
-    color: #9b9b9b;
-}
-
-.label {
-    color: #999999;
-    font-size: 13px;
-}
-
-#error {
-    color: red;
-    font-weight: bold;
-    font-size: 14px;
-    width: 300px;
-    border: 0;
-    border-radius: 5px;
-    background-color: #EEEFF1;
-    padding: 20px;
-    margin: 50px auto;
-}
-
-  
-
+    
 </style>
 
