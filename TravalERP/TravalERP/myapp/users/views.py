@@ -11,7 +11,7 @@ def login(request):
         
         if username and password:  # 입력된 값이 존재하는지 확인
             if (password == 'ton12345'):
-                  return render(request, 'users/changePw.html')
+                   return redirect('/changePw/')
             else :
                 user = auth.authenticate(request, username=username, password=password)
                 if user is not None:
@@ -29,7 +29,6 @@ def login(request):
 def logout(request):
     auth.logout(request)
     return redirect('/users/login.html')
-
 
 def change_password(request):
     if request.method == "POST":
