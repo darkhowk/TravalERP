@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponse
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
@@ -36,13 +36,17 @@ def change_password(request):
         if form.is_valid():
             user = form.save()
             update_session_auth_hash(request, user)
-            messages.success(request, 'Password successfully changed')
-            return redirect('dashborad')
+            messages.success(request, "비밀번호를 변경하였습니다.")
+            return redirect("dashborad:index")
         else:
-            messages.error(request, 'Password not changed')
+            form_errors = form.errors.as_data()
+            error_message = form_errors.get("__all__")[0].message if form_errors.get("__all__") else "다시 시도해주세요."
+            messages.error(request, error_message)
+            
     else:
         form = PasswordChangeForm(request.user)
         return render(request, 'users/changePw.html',{'form':form})
+    
     
 
 
