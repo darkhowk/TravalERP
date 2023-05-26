@@ -31,8 +31,11 @@ def logout(request):
     return redirect('/users/login.html')
 
 def change_password(request):
+
     if request.method == "POST":
         form = PasswordChangeForm(request.user, request.POST)
+
+        print(form.is_valid)
         if form.is_valid():
             user = form.save()
             update_session_auth_hash(request, user)
@@ -41,7 +44,7 @@ def change_password(request):
         else:
             form_errors = form.errors.as_data()
             error_message = form_errors.get("__all__")[0].message if form_errors.get("__all__") else "다시 시도해주세요."
-            messages.error(request, error_message)
+            return render(request, 'users/changePw.html',{'form':form, 'error': error_message})
             
     else:
         form = PasswordChangeForm(request.user)
