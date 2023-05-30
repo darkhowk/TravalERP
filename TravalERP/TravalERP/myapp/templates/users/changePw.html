@@ -6,35 +6,16 @@
 <body>
     <div class="change-wrapper">
         <h2>비밀번호변경</h2>
-        <form method="POST" action="{% url 'users:change_password' %}" id="change-from">
+        <form method="POST" id="change-from">
             {% csrf_token %}
-            {% if user.is_authenticated %} 
-            <a style="font-weight: bold;">내 아이디 : {{ user.username }}</a>
-            {% endif %}
-            <div class="form-floating mb-3 mt-3">
-                <input type="password" class="form-control"  name="old_password" id="id_old_password"  placeholder="현재 비밀번호">
-                <label for="id_old_password">현재 비밀번호</label>
-                <i class="fa fa-eye fa-lg"></i>
-            </div>
-            <div class="form-floating mb-3">
-                <input type="password" class="form-control" name="new_password1" id="id_new_password1" placeholder="신규 비밀번호">
-                <label for="id_new_password1">신규 비밀번호</label>
-                <i class="fa fa-eye fa-lg"></i>
-            </div>
-            <div class="form-floating mb-3">
-                <input type="password" class="form-control" name="new_password2" id="id_new_password2" placeholder="신규 비밀번호(확인)">
-                <label for="id_new_password2">신규 비밀번호(확인)</label>
-                <i class="fa fa-eye fa-lg"></i>
-            </div>
+            {{ form.as_p }} 
 
-            <input type="submit" value="변경" class="submit-btn">
+
+        <input type="submit" value="변경" class="submit-btn">
         </form>
-        {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
     </div>
-
-    {{ messages }}
 </body>
-
+ 
 
 <style>
     *{
@@ -47,7 +28,7 @@
     }
     
     .change-wrapper{
-        width: 300px;
+        width: 500px;
         border: 0;
         border-radius: 5px;
         background-color: #EEEFF1;
